@@ -1,4 +1,8 @@
-# EDI Editor — Web
+# ediviewer
+
+**Canlı: <https://ediviewer.net>**
+
+EDIFACT ve ANSI X12 dosyalarını tarayıcıda görüntüleyin, düzenleyin, PDF ve Excel'e aktarın.
 
 macOS/SwiftUI **Editor** projesinin web'e 1:1 taşınmış hali.
 Saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı ve paket bağımlılığı yok;
@@ -18,26 +22,60 @@ Ardından tarayıcıda: <http://localhost:5599>
 
 Farklı port için: `python3 serve.py 8080`
 
-## Yayınlama (GitHub Pages)
+## Yayınlama
 
-Proje tamamen statik: derleme adımı veya sunucu tarafı kod yok.
-Tüm yollar göreli olduğu için `kullaniciadi.github.io/repo-adi/` gibi bir alt dizinde
-de sorunsuz çalışır.
+Proje tamamen statik: derleme adımı veya sunucu tarafı kod yok. Tüm yollar göreli
+olduğu için hem kök dizinde hem `kullaniciadi.github.io/repo-adi/` gibi bir alt
+dizinde sorunsuz çalışır.
+
+### Mevcut kurulum
+
+| Katman | Ayar |
+|---|---|
+| Hosting | GitHub Pages — `main` branch, `/ (root)` |
+| Alan adı | `ediviewer.net`, kökteki `CNAME` dosyasıyla tanımlı |
+| DNS / TLS | Cloudflare (proxy açık), sertifikayı Cloudflare sağlar |
+| HTTPS | Cloudflare → **Always Use HTTPS** açık |
+
+`main` dalına yapılan her push bir dakika içinde otomatik yayına girer.
+
+Bütün giriş yolları tek adrese toplanır:
+
+```
+http://ediviewer.net       ─┐
+http://www.ediviewer.net   ─┼──►  https://ediviewer.net/
+https://www.ediviewer.net  ─┤
+github.io/edi-editor-web/  ─┘
+```
+
+`www`'nin apex'e yönlenmesi bilinçlidir: `localStorage` origin başına ayrı tutulduğu
+için iki ayrı hostname, kullanıcının tema/dil/logo ayarlarının bölünmesine yol açardı.
+
+### Sıfırdan kurmak isterseniz
 
 1. GitHub'da boş bir repo açıp push edin.
 2. **Settings → Pages → Source: Deploy from a branch**, branch `main`, klasör `/ (root)`.
-3. Bir dakika içinde `https://kullaniciadi.github.io/repo-adi/` adresinde yayında olur.
+3. Özel alan adı için **Settings → Pages → Custom domain**; GitHub repoya bir `CNAME`
+   dosyası commit'ler, sonrasında yerelde `git pull` yapmayı unutmayın.
+4. DNS: apex için GitHub'ın dört A kaydı, `www` için `kullaniciadi.github.io` CNAME'i.
 
 Kökteki boş `.nojekyll` dosyası, GitHub'ın içeriği Jekyll'den geçirmesini engeller —
 dağıtım hem hızlanır hem de dosyalar olduğu gibi servis edilir.
 
-Özel alan adı sonradan **Settings → Pages → Custom domain** üzerinden eklenebilir;
-mevcut adres çalışmaya devam eder.
+> **HTTPS zorunludur.** "Kaydet" özelliği File System Access API kullanır ve bu API
+> yalnızca güvenli bağlamda çalışır; düz HTTP'de kaydetme sessizce devre dışı kalır.
 
-> HTTPS gereklidir: "Kaydet" özelliği File System Access API kullanır ve bu API yalnızca
-> güvenli bağlamda çalışır. `*.github.io` adreslerinde HTTPS varsayılan olarak açıktır.
+> **Cloudflare notu:** proxy (turuncu bulut) açıkken şifreleme modu `Full` olmalıdır.
+> `Flexible` modda Cloudflare ile GitHub arasındaki trafik şifresiz akar. GitHub
+> tarafındaki "Enforce HTTPS" kutusuna ise gerek yoktur; TLS'i Cloudflare sonlandırır.
 
-### Açılış davranışı
+### Dağıtım önbelleği
+
+GitHub Pages statik dosyalara 10 dakikalık önbellek verir (`max-age=600`). Yeni
+ziyaretçiler güncel sürümü alır; siteyi daha önce açmış olanlar bir deploy sonrası
+kısa süre eski CSS/JS görebilir. Hemen görmek için sabit yenileme (`Cmd/Ctrl+Shift+R`).
+
+## Açılış davranışı
 
 Uygulama, boş bir hoşgeldin ekranı yerine **örnek bir EDIFACT siparişi yüklü sekmeyle** açılır
 (`js/sampleData.js` içinde gömülü; ek istek gerektirmez). İlk segment seçili gelir, böylece
@@ -47,7 +85,7 @@ detay paneli ilk karede doludur. Tüm sekmeler kapatılırsa hoşgeldin ekranı 
 `samples/` klasöründe ORDERS, INVOIC ve SLSRPT örnek dosyaları var
 (dosyayı editöre sürükleyip bırakabilir veya **Dosya Aç** ile seçebilirsiniz).
 
-### Editör özellikleri
+## Editör özellikleri
 
 Satır numarası cetveli, aktif satır vurgusu (hem cetvelde hem metinde), segment etiketi
 renklendirme, sürüklenebilir bölme çizgisi ve dar ekranlarda ikon moduna geçen toolbar.
