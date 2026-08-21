@@ -1,7 +1,9 @@
 # EDI Editor — Web
 
 macOS/SwiftUI **Editor** projesinin web'e 1:1 taşınmış hali.
-Sıfır bağımlılık: saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı yok.
+Saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı ve paket bağımlılığı yok;
+uygulama mantığının tamamı yereldir. Tek harici istek Google Analytics'tir
+(`index.html` içinde gtag.js) ve engellendiğinde uygulama normal çalışmaya devam eder.
 
 ## Çalıştırma
 
@@ -18,7 +20,7 @@ Farklı port için: `python3 serve.py 8080`
 
 ## Yayınlama (GitHub Pages)
 
-Proje tamamen statik: derleme adımı, sunucu tarafı kod veya harici bağımlılık yok.
+Proje tamamen statik: derleme adımı veya sunucu tarafı kod yok.
 Tüm yollar göreli olduğu için `kullaniciadi.github.io/repo-adi/` gibi bir alt dizinde
 de sorunsuz çalışır.
 
