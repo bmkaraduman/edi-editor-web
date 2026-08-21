@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNT — Message Trailer — ediviewer</title>
+<meta name="description" content="Closes the message, repeating the number of segments it contains (including UNH and UNT) and the reference number from UNH.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/segment/unt.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/unt.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../segment/unt.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>UNT — Message Trailer</h1>
+<div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Closes the message, repeating the number of segments it contains (including UNH and UNT) and the reference number from UNH.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>UNT+35+ME000001&#x27;</code></pre>
+<h2>Data Elements</h2>
+<table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Number of Segments in Message</td></tr>
+<tr><td><code>02</code></td><td>Message Reference Number</td></tr>
+</tbody></table>
+<h2>Watch out</h2>
+<p>If the segment count does not match, the receiving system usually rejects the message; the count acts as a checksum against truncation.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

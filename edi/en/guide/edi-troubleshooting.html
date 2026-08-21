@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Common mistakes in EDI files — ediviewer</title>
+<meta name="description" content="The most frequent technical reasons behind rejected messages, and how to spot them.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/guide/edi-troubleshooting.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/guide/edi-dosyasi-sorun-giderme.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../guide/edi-dosyasi-sorun-giderme.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Common mistakes in EDI files</h1>
+<div class="updated">The most frequent technical reasons behind rejected messages, and how to spot them.</div>
+<p>When an EDI message is rejected, the cause usually lies in syntax or qualifier choice rather than business logic. These are the ones seen most often in practice.</p>
+<h2>1. The release character is forgotten</h2>
+<p>A <code>+</code>, <code>:</code> or <code>&#x27;</code> appearing inside a free-text field (<code>FTX</code>, <code>IMD</code>) is taken for a separator and splits the line. The fix is to precede such characters with <code>?</code>.</p>
+<pre class="doc-code"><code>
+FTX+AAI+++DELIVERY AFTER 08?:00      ← correct
+FTX+AAI+++DELIVERY AFTER 08:00       ← breaks the line
+</code></pre>
+<h2>2. Empty elements are dropped</h2>
+<p>In EDIFACT, meaning comes from position. An unused element cannot be removed; it is left empty in place:</p>
+<pre class="doc-code"><code>
+NAD+SU+8712345678901::9++ACME FOODS BV    ← correct (the double + preserves it)
+NAD+SU+8712345678901::9+ACME FOODS BV     ← the name lands in the wrong element
+</code></pre>
+<h2>3. The UNT segment count does not match</h2>
+<p><code>UNT</code> carries the number of segments in the message, including <code>UNH</code> and <code>UNT</code> themselves. Adding a line by hand without updating the count makes the receiving system reject the message as a checksum failure.</p>
+<h2>4. Wrong date format code</h2>
+<p>The third element of <code>DTM</code> states the format. Confusing <code>102</code> with <code>203</code> makes the time part read as if it belonged to the date:</p>
+<pre class="doc-code"><code>
+DTM+137:20260117:102&#x27;      ← 17 Jan 2026
+DTM+137:202601171030:203&#x27;  ← 17 Jan 2026 10:30
+</code></pre>
+<h2>5. Missing currency</h2>
+<p><code>PRI</code> and <code>MOA</code> carry no currency; it comes from the <code>CUX</code> segment at message level. Without a <code>CUX</code> the amounts are ambiguous and the receiver applies its own default — on invoices, a mistake with a real cost.</p>
+<h2>6. MOA qualifiers get mixed up</h2>
+<p>The summary section holds several <code>MOA</code> segments, each a different total: <code>79</code> goods total, <code>124</code> tax, <code>77</code> grand total, <code>9</code> amount payable. Treating the first <code>MOA</code> as the total without reading the qualifier is a common error.</p>
+<h2>7. Character set mismatch</h2>
+<p><code>UNOA</code> in the <code>UNB</code> accepts only uppercase letters and digits. Sending text with accented characters as <code>UNOA</code> corrupts it at the other end; <code>UNOC</code> should be used for Latin-1.</p>
+<h2>How to check</h2>
+<p>Opening the file in ediviewer highlights the segment tags and lists every element of the selected line with a name against it. An element sitting opposite a label you did not expect usually points to one of the mistakes above.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

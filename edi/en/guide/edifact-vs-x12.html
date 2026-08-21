@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDIFACT versus ANSI X12 — ediviewer</title>
+<meta name="description" content="How the two major EDI standards differ in delimiters, segment names and regional use.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/guide/edifact-vs-x12.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/guide/edifact-x12-farki.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../guide/edifact-x12-farki.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDIFACT versus ANSI X12</h1>
+<div class="updated">How the two major EDI standards differ in delimiters, segment names and regional use.</div>
+<p>Two major EDI standards are in use worldwide: the European <strong>UN/EDIFACT</strong> and the North American <strong>ANSI ASC X12</strong>. They do the same job with different syntax and naming.</p>
+<h2>Delimiter characters</h2>
+<table class="doc-table"><thead><tr><th></th><th>EDIFACT</th><th>X12</th></tr></thead><tbody>
+<tr><td>Segment terminator</td><td><code>&#x27;</code></td><td><code>~</code></td></tr>
+<tr><td>Element separator</td><td><code>+</code></td><td><code>*</code></td></tr>
+<table class="doc-table"><thead><tr><th>Component separator</th><th><code>:</code></th><th><code>&gt;</code></th></tr></thead><tbody>
+</tbody></table>
+<p>The quickest way to tell which standard a file follows is to look at the first line: <code>UNB</code> means EDIFACT, <code>ISA</code> means X12.</p>
+<h2>Segment and document names</h2>
+<p>EDIFACT names document types in readable form (<code>ORDERS</code>, <code>INVOIC</code>, <code>DESADV</code>); X12 uses numeric transaction set codes.</p>
+<table class="doc-table"><thead><tr><th>Document</th><th>EDIFACT</th><th>X12</th></tr></thead><tbody>
+<tr><td>Purchase order</td><td>ORDERS</td><td>850</td></tr>
+<tr><td>Order response</td><td>ORDRSP</td><td>855</td></tr>
+<tr><td>Order change</td><td>ORDCHG</td><td>860</td></tr>
+<tr><td>Despatch advice</td><td>DESADV</td><td>856</td></tr>
+<tr><td>Invoice</td><td>INVOIC</td><td>810</td></tr>
+<tr><td>Inventory report</td><td>INVRPT</td><td>846</td></tr>
+<table class="doc-table"><thead><tr><th>Remittance advice</th><th>REMADV</th><th>820</th></tr></thead><tbody>
+</tbody></table>
+<p>Segment names diverge too: an address is <code>NAD</code> in EDIFACT and <code>N1</code> in X12; quantity is <code>QTY</code> in EDIFACT but usually sits inside the line segment (<code>PO1</code>, <code>IT1</code>) in X12.</p>
+<h2>Structural difference</h2>
+<p>X12 builds its envelope in three layers: <code>ISA</code> (interchange), <code>GS</code> (functional group) and <code>ST</code> (transaction set). In EDIFACT the functional group layer (<code>UNG</code>) is optional and in practice rarely used.</p>
+<h2>Which one will you work with?</h2>
+<p>That is usually your trading partner&#x27;s decision rather than yours. Working with a European chain means EDIFACT; working with an American retailer means X12. Being able to open and read both formats in one tool is a practical necessity for companies that trade with both.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

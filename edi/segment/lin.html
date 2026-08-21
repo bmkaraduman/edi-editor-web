@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LIN — Satır Kalemi (Ürün) — ediviewer</title>
+<meta name="description" content="Bir satır kalemini başlatır. Satır numarasını ve ürünün kimliğini (çoğunlukla EAN/GTIN barkodu) taşır. Kendisinden sonra gelen IMD, QTY, PRI, MOA segmentle">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/lin.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/lin.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/lin.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>LIN — Satır Kalemi (Ürün)</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir satır kalemini başlatır. Satır numarasını ve ürünün kimliğini (çoğunlukla EAN/GTIN barkodu) taşır. Kendisinden sonra gelen IMD, QTY, PRI, MOA segmentleri bu satıra aittir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>LIN+1++5410013101234:EN&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Kalem Sıra No</td></tr>
+<tr><td><code>02</code></td><td>Eylem Kodu</td></tr>
+<tr><td><code>03</code></td><td>Ürün Numarası (EAN)</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>EN</code></td><td>EAN / Barkod (GTIN)</td></tr>
+<tr><td><code>IN</code></td><td>Alıcı Kodu</td></tr>
+<tr><td><code>SA</code></td><td>Satıcı Kodu</td></tr>
+<tr><td><code>STATUS_1</code></td><td>Eklendi</td></tr>
+<tr><td><code>STATUS_2</code></td><td>Silindi / İptal Edildi (Deleted)</td></tr>
+<tr><td><code>STATUS_3</code></td><td>Değiştirildi</td></tr>
+<tr><td><code>STATUS_5</code></td><td>Kabul Edildi</td></tr>
+<tr><td><code>STATUS_7</code></td><td>Reddedildi</td></tr>
+<tr><td><code>UP</code></td><td>UPC Barkod</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>EN nitelikçisi barkodun EAN/GTIN olduğunu belirtir. Satır kalemi, bir sonraki LIN gelene kadar devam eder.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNB — Zarf Başlığı (Interchange Header) — ediviewer</title>
+<meta name="description" content="Zarf başlığı. Bir EDI aktarımının en dış katmanıdır; gönderen ve alıcıyı, kullanılan karakter setini, aktarım tarihini ve zarfa verilen takip numarasını ta">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/unb.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/unb.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/unb.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>UNB — Zarf Başlığı (Interchange Header)</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Zarf başlığı. Bir EDI aktarımının en dış katmanıdır; gönderen ve alıcıyı, kullanılan karakter setini, aktarım tarihini ve zarfa verilen takip numarasını taşır. Her dosyada tam olarak bir tane bulunur.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Karakter Seti (Dil)</td></tr>
+<tr><td><code>02</code></td><td>Gönderen Firma ID</td></tr>
+<tr><td><code>03</code></td><td>Alıcı Firma ID</td></tr>
+<tr><td><code>04</code></td><td>Oluşturulma Zamanı</td></tr>
+<tr><td><code>05</code></td><td>Zarf Takip Numarası</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>UNOA</code></td><td>Temel Alfabe (Sadece Büyük Harf)</td></tr>
+<tr><td><code>UNOB</code></td><td>ASCII Alfabe (Büyük/Küçük Harf)</td></tr>
+<tr><td><code>UNOC</code></td><td>Latin-1 Alfabe (Batı Avrupa/Türkçe)</td></tr>
+<tr><td><code>UNOE</code></td><td>Kiril Alfabe (Rusça)</td></tr>
+<tr><td><code>UNOY</code></td><td>UTF-8 Alfabe (Evrensel)</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Karakter seti (UNOC gibi) yanlış seçilirse Türkçe karakterler karşı tarafta bozuk görünür. UNOC Latin-1, UNOA ise yalnızca büyük harf ve rakam kabul eder.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

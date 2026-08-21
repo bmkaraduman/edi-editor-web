@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNH — Mesaj Başlığı — ediviewer</title>
+<meta name="description" content="Mesaj başlığı. Zarfın içindeki her bir mesajı başlatır ve o mesajın hangi tipte olduğunu (ORDERS, INVOIC vb.), hangi sürüm ve alt sürümü kullandığını bildi">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/unh.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/unh.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/unh.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>UNH — Mesaj Başlığı</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Mesaj başlığı. Zarfın içindeki her bir mesajı başlatır ve o mesajın hangi tipte olduğunu (ORDERS, INVOIC vb.), hangi sürüm ve alt sürümü kullandığını bildirir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Mesaj Referans No</td></tr>
+<tr><td><code>02</code></td><td>Mesaj Tipi</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>TYPE_APERAK</code></td><td>Uygulama Hatası / Onayı</td></tr>
+<tr><td><code>TYPE_CONTRL</code></td><td>Teknik Kontrol Mesajı</td></tr>
+<tr><td><code>TYPE_DELFOR</code></td><td>Teslimat Planı (Forecast)</td></tr>
+<tr><td><code>TYPE_DELJIT</code></td><td>JIT Teslimat Çağrısı</td></tr>
+<tr><td><code>TYPE_DESADV</code></td><td>İrsaliye</td></tr>
+<tr><td><code>TYPE_IFTMIN</code></td><td>Nakliye Talimatı</td></tr>
+<tr><td><code>TYPE_IFTSTA</code></td><td>Nakliye Durum Raporu</td></tr>
+<tr><td><code>TYPE_INVOIC</code></td><td>Fatura</td></tr>
+<tr><td><code>TYPE_INVRPT</code></td><td>Stok Raporu</td></tr>
+<tr><td><code>TYPE_ORDERS</code></td><td>Sipariş</td></tr>
+<tr><td><code>TYPE_ORDRSP</code></td><td>Sipariş Yanıtı (Order Response)</td></tr>
+<tr><td><code>TYPE_PRICAT</code></td><td>Fiyat Kataloğu</td></tr>
+<tr><td><code>TYPE_RECADV</code></td><td>Mal Kabul Raporu</td></tr>
+<tr><td><code>TYPE_REMADV</code></td><td>Ödeme Emri / Tavsiyesi</td></tr>
+<tr><td><code>TYPE_SLSRPT</code></td><td>Satış Raporu</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Bir zarf birden fazla mesaj taşıyabilir; her biri kendi UNH ile başlar ve UNT ile biter.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

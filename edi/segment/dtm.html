@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DTM — Tarih / Zaman / Süre — ediviewer</title>
+<meta name="description" content="Tarih, saat veya süre taşır. Hangi tarihten bahsedildiğini ilk elemandaki nitelikçi belirler: 137 belge tarihi, 2 teslim tarihi, 35 fiili teslim tarihi gib">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/dtm.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/dtm.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/dtm.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>DTM — Tarih / Zaman / Süre</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Tarih, saat veya süre taşır. Hangi tarihten bahsedildiğini ilk elemandaki nitelikçi belirler: 137 belge tarihi, 2 teslim tarihi, 35 fiili teslim tarihi gibi.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>DTM+137:20260117:102&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Tarih/Saat Formatı</td></tr>
+<tr><td><code>11</code></td><td>Sevk/Çıkış Tarihi</td></tr>
+<tr><td><code>13</code></td><td>Vade Tarihi (Son Ödeme)</td></tr>
+<tr><td><code>17</code></td><td>Tahmini Varış Tarihi</td></tr>
+<tr><td><code>50</code></td><td>Mal Kabul Tarihi</td></tr>
+<tr><td><code>69</code></td><td>Taahhüt Edilen Teslim Tarihi</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>11</code></td><td>Sevk Tarihi (Despatch Date)</td></tr>
+<tr><td><code>132</code></td><td>Tahmini Varış Tarihi</td></tr>
+<tr><td><code>133</code></td><td>Yükleme Tarihi</td></tr>
+<tr><td><code>137</code></td><td>Belge Tarihi</td></tr>
+<tr><td><code>157</code></td><td>Fiyat Geçerlilik Süresi</td></tr>
+<tr><td><code>17</code></td><td>Teslim Tarihi</td></tr>
+<tr><td><code>2</code></td><td>Teslimat Tarihi / Dönemi</td></tr>
+<tr><td><code>334</code></td><td>Olay Zamanı</td></tr>
+<tr><td><code>35</code></td><td>Gerçekleşen Teslim Tarihi</td></tr>
+<tr><td><code>356</code></td><td>Satış Dönemi / Periyodu</td></tr>
+<tr><td><code>36</code></td><td>Yürürlükten Kalkma Tarihi</td></tr>
+<tr><td><code>361</code></td><td>Son Kullanma Tarihi (Expiry)</td></tr>
+<tr><td><code>366</code></td><td>Stok Sayım Tarihi</td></tr>
+<tr><td><code>50</code></td><td>Fiili Mal Kabul Tarihi</td></tr>
+<tr><td><code>63</code></td><td>Teslim Etme Tarihi (Boşaltma)</td></tr>
+<tr><td><code>64</code></td><td>Teslim Alma Tarihi (Yükleme)</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Üçüncü eleman format kodudur. 102 = YYYYMMDD, 203 = YYYYMMDDHHMM, 718 = tarih aralığı. Formatı okumadan tarihi ayrıştırmak hataya açıktır.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

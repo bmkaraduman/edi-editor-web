@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORDRSP — ORDER RESPONSE (ORDRSP) — ediviewer</title>
+<meta name="description" content="Confirms that an order is accepted, partially accepted or rejected. The response can differ line by line.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/message/ordrsp.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/message/ordrsp.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../message/ordrsp.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>ORDRSP — ORDER RESPONSE (ORDRSP)</h1>
+<div class="updated">EDIFACT Message Type</div>
+<div class="doc-callout"><span class="ico">📄</span><p>Confirms that an order is accepted, partially accepted or rejected. The response can differ line by line.</p></div>
+<h2>Who sends it</h2><p>Sent by the supplier in response to an order.</p>
+<p>The value of ORDRSP lies in its per-line answers: the action code on the LIN segment is 5 for accepted, 7 for rejected and 3 for a proposed change. A supplier can therefore say &quot;I can ship three items, the fourth is out of stock&quot;.</p>
+<p>Reasons for a rejection or a change are normally carried in an FTX. The buyer&#x27;s system processes the response automatically and updates the order.</p>
+<h2>Typical Segment Flow</h2>
+<p class="flow"><a href="../segment/unb.html"><code>UNB</code></a> &rarr; <a href="../segment/unh.html"><code>UNH</code></a> &rarr; <a href="../segment/bgm.html"><code>BGM</code></a> &rarr; <a href="../segment/dtm.html"><code>DTM</code></a> &rarr; <a href="../segment/rff.html"><code>RFF</code></a> &rarr; <a href="../segment/nad.html"><code>NAD</code></a> &rarr; <a href="../segment/lin.html"><code>LIN</code></a> &rarr; <a href="../segment/qty.html"><code>QTY</code></a> &rarr; <a href="../segment/pri.html"><code>PRI</code></a> &rarr; <a href="../segment/unt.html"><code>UNT</code></a> &rarr; <a href="../segment/unz.html"><code>UNZ</code></a></p>
+<p style="margin-top:30px"><a href="../index.html">&larr; All message types</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

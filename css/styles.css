@@ -1050,3 +1050,19 @@ kbd {
 @media print {
   #app, .backdrop { display: none !important; }
 }
+
+/* Hoşgeldin ekranındaki referans bağlantısı */
+.welcome-links {
+  margin-top: 14px;
+  font-size: 12.5px;
+}
+
+.welcome-links a {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--separator);
+}
+
+.welcome-links a:hover { background: var(--accent-quiet); }

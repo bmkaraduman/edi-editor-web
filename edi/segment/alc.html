@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALC — Fiyat Farkı / İskonto / Masraf — ediviewer</title>
+<meta name="description" content="İndirim veya ek masraf bildirir. A indirim (allowance), C masraf (charge) anlamına gelir.">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/alc.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/alc.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/alc.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>ALC — Fiyat Farkı / İskonto / Masraf</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>İndirim veya ek masraf bildirir. A indirim (allowance), C masraf (charge) anlamına gelir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>ALC+A++++DI::ADET ISKONTOSU&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<p>Bu segment için eleman açıklaması tanımlı değil.</p>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>A</code></td><td>İndirim / İskonto (-)</td></tr>
+<tr><td><code>C</code></td><td>Masraf / Artırım (+)</td></tr>
+<tr><td><code>CALC_1</code></td><td>Birinci Seviye Hesaplama</td></tr>
+<tr><td><code>CALC_2</code></td><td>İkinci Seviye Hesaplama</td></tr>
+<tr><td><code>CALC_3</code></td><td>Üçüncü Seviye</td></tr>
+<tr><td><code>CALC_6</code></td><td>Bilgi Amaçlı (Hesaplamaya Etki Etmez)</td></tr>
+<tr><td><code>FC</code></td><td>Navlun / Taşıma Ücreti</td></tr>
+<tr><td><code>ID_1</code></td><td>Bonus / Genel İndirim</td></tr>
+<tr><td><code>ID_2</code></td><td>İskonto</td></tr>
+<tr><td><code>ID_6</code></td><td>İndirim/Masraf</td></tr>
+<tr><td><code>LEVEL_1</code></td><td>1. Seviye (Öncelikli)</td></tr>
+<tr><td><code>LEVEL_2</code></td><td>2. Seviye (Ara Toplam Sonrası)</td></tr>
+<tr><td><code>LEVEL_6</code></td><td>Bilgi Amaçlı (Toplama Dahil Değil)</td></tr>
+<tr><td><code>REASON_DI</code></td><td>İndirim</td></tr>
+<tr><td><code>REASON_FC</code></td><td>Navlun / Kargo Ücreti</td></tr>
+<tr><td><code>REASON_IN</code></td><td>Sigorta Masrafı</td></tr>
+<tr><td><code>REASON_PC</code></td><td>Paketleme Ücreti</td></tr>
+<tr><td><code>REASON_RA</code></td><td>Ciro Primi / İade</td></tr>
+<tr><td><code>REASON_TD</code></td><td>Ticari İskonto</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>ALC genellikle kendisinden sonra gelen PCD (yüzde) veya MOA (tutar) segmentiyle birlikte okunur; tek başına tutar taşımaz.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

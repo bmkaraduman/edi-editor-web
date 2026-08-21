@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOA — Parasal Tutar — ediviewer</title>
+<meta name="description" content="Parasal tutar bildirir. 203 satır tutarı, 79 mal toplamı, 124 vergi tutarı, 77 fatura genel toplamı anlamına gelir.">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/moa.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/moa.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/moa.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>MOA — Parasal Tutar</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Parasal tutar bildirir. 203 satır tutarı, 79 mal toplamı, 124 vergi tutarı, 77 fatura genel toplamı anlamına gelir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>MOA+203:888.00&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Tutar Tipi:Değer</td></tr>
+<tr><td><code>79</code></td><td>Toplam Mal Bedeli (Ara Toplam)</td></tr>
+<tr><td><code>86</code></td><td>Ödenecek Toplam Tutar</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>12</code></td><td>Net Ödenen Tutar</td></tr>
+<tr><td><code>124</code></td><td>Vergi Tutarı (KDV)</td></tr>
+<tr><td><code>125</code></td><td>Vergi Matrahı (KDV Hariç Toplam)</td></tr>
+<tr><td><code>128</code></td><td>Vergi Toplamı</td></tr>
+<tr><td><code>176</code></td><td>Belge Toplam Vergi (KDV) Tutarı</td></tr>
+<tr><td><code>19</code></td><td>Kesinti / Fark Tutarı</td></tr>
+<tr><td><code>203</code></td><td>Mal Bedeli / Kalem Tutarı</td></tr>
+<tr><td><code>204</code></td><td>İskonto Tutarı (Allowance Amount)</td></tr>
+<tr><td><code>23</code></td><td>Masraf / Navlun Tutarı</td></tr>
+<tr><td><code>39</code></td><td>Toplam Ödeme Tutarı</td></tr>
+<tr><td><code>52</code></td><td>İskonto / Kesinti Tutarı</td></tr>
+<tr><td><code>77</code></td><td>Fatura Tutarı</td></tr>
+<tr><td><code>79</code></td><td>Mal / Hizmet Toplamı</td></tr>
+<tr><td><code>8</code></td><td>İskonto veya Artırım</td></tr>
+<tr><td><code>86</code></td><td>Genel Toplam</td></tr>
+<tr><td><code>9</code></td><td>Ödenmesi Gereken (Borç)</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Aynı mesajda birden fazla MOA bulunur ve her biri farklı bir toplamı ifade eder; nitelikçiye bakmadan toplama yapmak yanlış sonuç verir.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

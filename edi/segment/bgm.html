@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BGM — Mesaj Başlangıcı / Doküman Tipi — ediviewer</title>
+<meta name="description" content="Belgenin kimliğini verir: belge türü (sipariş, fatura, irsaliye...), belge numarası ve mesajın amacı (orijinal, iptal, değişiklik).">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/bgm.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/bgm.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/bgm.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>BGM — Mesaj Başlangıcı / Doküman Tipi</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Belgenin kimliğini verir: belge türü (sipariş, fatura, irsaliye...), belge numarası ve mesajın amacı (orijinal, iptal, değişiklik).</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>BGM+220+PO-2026-0042+9&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Belge İsmi Kodu</td></tr>
+<tr><td><code>02</code></td><td>Belge Numarası</td></tr>
+<tr><td><code>03</code></td><td>Mesaj Fonksiyonu</td></tr>
+<tr><td><code>35</code></td><td>Stok Envanter Raporu (INVRPT)</td></tr>
+<tr><td><code>44</code></td><td>Taşıma Durum Raporu (IFTSTA)</td></tr>
+<tr><td><code>73</code></td><td>Satış Verisi Raporu (SLSRPT)</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>220</code></td><td>Sipariş (Order)</td></tr>
+<tr><td><code>230</code></td><td>Sipariş Değişiklik Talebi (Revizyon)</td></tr>
+<tr><td><code>231</code></td><td>Sipariş Yanıtı</td></tr>
+<tr><td><code>240</code></td><td>Teslimat Talimatı</td></tr>
+<tr><td><code>241</code></td><td>Teslimat Planı (Forecast)</td></tr>
+<tr><td><code>242</code></td><td>JIT Teslimat Çağrısı (Call-off)</td></tr>
+<tr><td><code>340</code></td><td>Nakliye / Taşıma Talimatı (IFTMIN)</td></tr>
+<tr><td><code>35</code></td><td>Stok / Envanter Raporu (INVRPT)</td></tr>
+<tr><td><code>351</code></td><td>Sevkiyat Bildirimi / İrsaliye</td></tr>
+<tr><td><code>380</code></td><td>Ticari Fatura</td></tr>
+<tr><td><code>381</code></td><td>Alacak Dekontu (İade Faturası)</td></tr>
+<tr><td><code>383</code></td><td>Borç Dekontu (Fiyat Farkı)</td></tr>
+<tr><td><code>389</code></td><td>Proforma Fatura</td></tr>
+<tr><td><code>44</code></td><td>Taşıma Durum Raporu (IFTSTA)</td></tr>
+<tr><td><code>481</code></td><td>Ödeme Tavsiyesi (REMADV)</td></tr>
+<tr><td><code>610</code></td><td>Nakliye Rezervasyonu (Booking)</td></tr>
+<tr><td><code>631</code></td><td>Mal Kabul Bildirimi (RECADV)</td></tr>
+<tr><td><code>632</code></td><td>İade İrsaliyesi (Ret)</td></tr>
+<tr><td><code>70</code></td><td>Stok / Envanter Raporu</td></tr>
+<tr><td><code>71</code></td><td>Satış Verisi Raporu</td></tr>
+<tr><td><code>73</code></td><td>Satış Raporu (SLSRPT)</td></tr>
+<tr><td><code>9</code></td><td>Fiyat / Satış Kataloğu (PRICAT)</td></tr>
+<tr><td><code>CONTRL</code></td><td>Teknik Kontrol Raporu</td></tr>
+<tr><td><code>FUNC_1</code></td><td>İptal (Öncekini Sil)</td></tr>
+<tr><td><code>FUNC_27</code></td><td>Reddedildi</td></tr>
+<tr><td><code>FUNC_29</code></td><td>Aynen Kabul (Onay)</td></tr>
+<tr><td><code>FUNC_31</code></td><td>Kopya</td></tr>
+<tr><td><code>FUNC_4</code></td><td>Değişiklik Yapılarak Onaylandı</td></tr>
+<tr><td><code>FUNC_5</code></td><td>Güncelleme (Değiştir)</td></tr>
+<tr><td><code>FUNC_9</code></td><td>Orijinal (Yeni Belge)</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Üçüncü eleman kritiktir: 9 &quot;orijinal&quot;, 1 &quot;iptal&quot;, 4 &quot;değişiklik&quot; demektir. Yanlış değer, karşı tarafta yinelenen sipariş oluşturabilir.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

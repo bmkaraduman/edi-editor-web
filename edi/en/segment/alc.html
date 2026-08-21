@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALC — Allowance or Charge / Discount — ediviewer</title>
+<meta name="description" content="Declares an allowance or a charge. A means allowance (discount), C means charge.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/segment/alc.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/alc.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../segment/alc.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>ALC — Allowance or Charge / Discount</h1>
+<div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Declares an allowance or a charge. A means allowance (discount), C means charge.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>ALC+A++++DI::ADET ISKONTOSU&#x27;</code></pre>
+<h2>Data Elements</h2>
+<p>No element descriptions are defined for this segment.</p>
+<h2>Code List</h2>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>A</code></td><td>Allowance / Discount (-)</td></tr>
+<tr><td><code>C</code></td><td>Charge / Increase (+)</td></tr>
+<tr><td><code>CALC_1</code></td><td>First Level Calculation</td></tr>
+<tr><td><code>CALC_2</code></td><td>Second Level Calculation</td></tr>
+<tr><td><code>CALC_3</code></td><td>Third Level</td></tr>
+<tr><td><code>CALC_6</code></td><td>Informational (No impact on total)</td></tr>
+<tr><td><code>FC</code></td><td>Freight / Transport Charge</td></tr>
+<tr><td><code>ID_1</code></td><td>Bonus / General Discount</td></tr>
+<tr><td><code>ID_2</code></td><td>Discount</td></tr>
+<tr><td><code>ID_6</code></td><td>Allowance/Charge</td></tr>
+<tr><td><code>LEVEL_1</code></td><td>Level 1 (Priority)</td></tr>
+<tr><td><code>LEVEL_2</code></td><td>Level 2 (Post Subtotal)</td></tr>
+<tr><td><code>LEVEL_6</code></td><td>Informational (Not included in total)</td></tr>
+<tr><td><code>REASON_DI</code></td><td>Allowance</td></tr>
+<tr><td><code>REASON_FC</code></td><td>Freight Charge</td></tr>
+<tr><td><code>REASON_IN</code></td><td>Insurance Cost</td></tr>
+<tr><td><code>REASON_PC</code></td><td>Packaging Fee</td></tr>
+<tr><td><code>REASON_RA</code></td><td>Rebate</td></tr>
+<tr><td><code>REASON_TD</code></td><td>Trade Discount</td></tr>
+</tbody></table>
+<h2>Watch out</h2>
+<p>ALC is normally read together with the PCD (percentage) or MOA (amount) segment that follows; on its own it carries no value.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

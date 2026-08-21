@@ -956,5 +956,6 @@
   "sample_file": "Örnek Dosya",
   "welcome_hint": "Bir .edi dosyasını buraya sürükleyip bırakabilirsiniz",
   "privacy_policy": "Gizlilik Politikası",
-  "consent_manage": "Çerez Ayarları"
+  "consent_manage": "Çerez Ayarları",
+  "edi_reference": "EDI Referansı"
 }

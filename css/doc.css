@@ -134,3 +134,116 @@ body {
 }
 
 .doc-footer a { color: var(--secondary-label); }
+
+/* --- Kod blokları --- */
+.doc-code {
+  background: var(--gutter-bg);
+  border: 1px solid var(--separator);
+  border-radius: 8px;
+  padding: 13px 15px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.doc-code code { background: none; padding: 0; font-size: inherit; }
+
+/* --- Rehber listesi --- */
+.link-list { list-style: none; padding: 0; margin: 0 0 10px; }
+.link-list li { margin-bottom: 8px; }
+
+.link-list a {
+  display: block;
+  padding: 13px 15px;
+  border: 1px solid var(--separator);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--label);
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.link-list a:hover { border-color: var(--accent); background: var(--accent-quiet); }
+.link-list strong { display: block; font-size: 14.5px; margin-bottom: 3px; color: var(--accent); }
+.link-list span { font-size: 13px; color: var(--secondary-label); }
+
+/* --- Segment / mesaj ızgarası --- */
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.chip {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid var(--separator);
+  border-radius: 9px;
+  text-decoration: none;
+  color: var(--label);
+  min-width: 0;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.chip:hover { border-color: var(--accent); background: var(--accent-quiet); }
+
+.chip code {
+  background: none;
+  padding: 0;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 13px;
+  flex: 0 0 auto;
+}
+
+.chip span {
+  font-size: 12.5px;
+  color: var(--secondary-label);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Segment akışı --- */
+.flow { line-height: 2.2; }
+.flow a { text-decoration: none; }
+.flow code { background: var(--control); }
+.flow a:hover code { background: var(--accent-quiet); color: var(--accent); }
+
+/* --- Uygulamaya yönlendirme --- */
+.app-cta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px;
+  margin: 0 0 22px;
+  border-radius: 12px;
+  background: var(--chrome-bg);
+  border: 1px solid var(--separator);
+}
+
+.app-cta-title { font-size: 14px; font-weight: 680; color: var(--label); margin-bottom: 3px; }
+.app-cta-text { font-size: 12.5px; color: var(--secondary-label); line-height: 1.5; }
+
+.app-cta-btn {
+  flex: 0 0 auto;
+  padding: 9px 18px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff !important;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.app-cta-btn:hover { background: var(--accent-hover); }
+
+@media (max-width: 620px) {
+  .app-cta { flex-direction: column; align-items: stretch; }
+  .app-cta-btn { text-align: center; }
+}

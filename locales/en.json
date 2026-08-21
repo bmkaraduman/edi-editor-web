@@ -956,5 +956,6 @@
   "sample_file": "Sample File",
   "welcome_hint": "You can also drag & drop an .edi file here",
   "privacy_policy": "Privacy Policy",
-  "consent_manage": "Cookie Settings"
+  "consent_manage": "Cookie Settings",
+  "edi_reference": "EDI Reference"
 }

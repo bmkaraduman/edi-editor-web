@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDI Reference — ediviewer</title>
+<meta name="description" content="A reference for EDIFACT segments, message types and code lists.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/index.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/index.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Reference</a>
+    <a href="../index.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDI Reference</h1>
+<div class="updated">A reference for EDIFACT segments, message types and code lists.</div>
+<h2>Guides</h2><ul class="link-list">
+<li><a href="guide/what-is-edifact.html"><strong>What is EDIFACT? Structure and how to read it</strong><span>The layered structure of EDIFACT files, the delimiter characters and how to read a single line.</span></a></li>
+<li><a href="guide/edifact-vs-x12.html"><strong>EDIFACT versus ANSI X12</strong><span>How the two major EDI standards differ in delimiters, segment names and regional use.</span></a></li>
+<li><a href="guide/edi-troubleshooting.html"><strong>Common mistakes in EDI files</strong><span>The most frequent technical reasons behind rejected messages, and how to spot them.</span></a></li>
+</ul>
+<h2>Message Types</h2><div class="chip-grid">
+<a class="chip" href="message/desadv.html"><code>DESADV</code><span>DESPATCH ADVICE (DESADV)</span></a>
+<a class="chip" href="message/invoic.html"><code>INVOIC</code><span>INVOICE (INVOIC)</span></a>
+<a class="chip" href="message/orders.html"><code>ORDERS</code><span>PURCHASE ORDER (ORDERS)</span></a>
+<a class="chip" href="message/ordrsp.html"><code>ORDRSP</code><span>ORDER RESPONSE (ORDRSP)</span></a>
+<a class="chip" href="message/pricat.html"><code>PRICAT</code><span>PRICE/SALES CATALOGUE (PRICAT)</span></a>
+<a class="chip" href="message/recadv.html"><code>RECADV</code><span>RECEIVING ADVICE (RECADV)</span></a>
+<a class="chip" href="message/slsrpt.html"><code>SLSRPT</code><span>SALES REPORT (SLSRPT)</span></a>
+</div>
+<h2>Segments</h2><div class="chip-grid">
+<a class="chip" href="segment/ajt.html"><code>AJT</code><span>Adjustment / Discount</span></a>
+<a class="chip" href="segment/alc.html"><code>ALC</code><span>Allowance or Charge / Discount</span></a>
+<a class="chip" href="segment/bgm.html"><code>BGM</code><span>Beginning of Message / Doc Type</span></a>
+<a class="chip" href="segment/cni.html"><code>CNI</code><span>Consignment Information</span></a>
+<a class="chip" href="segment/cnt.html"><code>CNT</code><span>Control Total</span></a>
+<a class="chip" href="segment/cps.html"><code>CPS</code><span>Packaging Hierarchy</span></a>
+<a class="chip" href="segment/cux.html"><code>CUX</code><span>Currencies</span></a>
+<a class="chip" href="segment/dgs.html"><code>DGS</code><span>Dangerous Goods Information</span></a>
+<a class="chip" href="segment/doc.html"><code>DOC</code><span>Document / Invoice Info</span></a>
+<a class="chip" href="segment/dtm.html"><code>DTM</code><span>Date / Time / Period</span></a>
+<a class="chip" href="segment/eqd.html"><code>EQD</code><span>Equipment Details</span></a>
+<a class="chip" href="segment/fii.html"><code>FII</code><span>Bank Account Details</span></a>
+<a class="chip" href="segment/ftx.html"><code>FTX</code><span>Free Text / Description</span></a>
+<a class="chip" href="segment/gid.html"><code>GID</code><span>Goods Detail (Seq No)</span></a>
+<a class="chip" href="segment/gin.html"><code>GIN</code><span>GOODS IDENTITY (Label/Pallet No)</span></a>
+<a class="chip" href="segment/gir.html"><code>GIR</code><span>Related Identities</span></a>
+<a class="chip" href="segment/gis.html"><code>GIS</code><span>Processing Indicator</span></a>
+<a class="chip" href="segment/han.html"><code>HAN</code><span>Handling Instructions</span></a>
+<a class="chip" href="segment/imd.html"><code>IMD</code><span>Product Description</span></a>
+<a class="chip" href="segment/inv.html"><code>INV</code><span>Inventory Management Info</span></a>
+<a class="chip" href="segment/lin.html"><code>LIN</code><span>Line Item (Product)</span></a>
+<a class="chip" href="segment/loc.html"><code>LOC</code><span>Location Information</span></a>
+<a class="chip" href="segment/mea.html"><code>MEA</code><span>Measurements (Weight/Volume)</span></a>
+<a class="chip" href="segment/moa.html"><code>MOA</code><span>Monetary Amount</span></a>
+<a class="chip" href="segment/nad.html"><code>NAD</code><span>Name and Address (Party)</span></a>
+<a class="chip" href="segment/pac.html"><code>PAC</code><span>Packaging Information</span></a>
+<a class="chip" href="segment/pai.html"><code>PAI</code><span>Payment Instruction</span></a>
+<a class="chip" href="segment/pcd.html"><code>PCD</code><span>Percentage Information</span></a>
+<a class="chip" href="segment/pci.html"><code>PCI</code><span>Package Identification</span></a>
+<a class="chip" href="segment/pia.html"><code>PIA</code><span>Additional Product ID</span></a>
+<a class="chip" href="segment/pri.html"><code>PRI</code><span>Price Information</span></a>
+<a class="chip" href="segment/qty.html"><code>QTY</code><span>Quantity Information</span></a>
+<a class="chip" href="segment/rff.html"><code>RFF</code><span>Reference Information</span></a>
+<a class="chip" href="segment/scc.html"><code>SCC</code><span>Scheduling / Stock Status</span></a>
+<a class="chip" href="segment/seq.html"><code>SEQ</code><span>Sequence Details</span></a>
+<a class="chip" href="segment/sts.html"><code>STS</code><span>Status Information</span></a>
+<a class="chip" href="segment/tax.html"><code>TAX</code><span>Duty / Tax Details</span></a>
+<a class="chip" href="segment/tdt.html"><code>TDT</code><span>Transport Details</span></a>
+<a class="chip" href="segment/tsr.html"><code>TSR</code><span>Transport Service Requirements</span></a>
+<a class="chip" href="segment/ucd.html"><code>UCD</code><span>Error Detail / Code</span></a>
+<a class="chip" href="segment/uci.html"><code>UCI</code><span>Interchange Response</span></a>
+<a class="chip" href="segment/ucm.html"><code>UCM</code><span>Message Response</span></a>
+<a class="chip" href="segment/ucs.html"><code>UCS</code><span>Faulty Segment Information</span></a>
+<a class="chip" href="segment/unb.html"><code>UNB</code><span>Interchange Header</span></a>
+<a class="chip" href="segment/unh.html"><code>UNH</code><span>Message Header</span></a>
+<a class="chip" href="segment/uns.html"><code>UNS</code><span>Section Control</span></a>
+<a class="chip" href="segment/unt.html"><code>UNT</code><span>Message Trailer</span></a>
+<a class="chip" href="segment/unz.html"><code>UNZ</code><span>Interchange Trailer</span></a>
+</div>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

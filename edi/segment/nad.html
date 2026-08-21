@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAD — İsim ve Adres (Taraf Bilgisi) — ediviewer</title>
+<meta name="description" content="Bir tarafı ve adresini tanımlar. İlk eleman tarafın rolünü söyler: SU tedarikçi, BY alıcı, DP teslimat adresi, IV fatura adresi.">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/nad.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/nad.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/nad.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>NAD — İsim ve Adres (Taraf Bilgisi)</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir tarafı ve adresini tanımlar. İlk eleman tarafın rolünü söyler: SU tedarikçi, BY alıcı, DP teslimat adresi, IV fatura adresi.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>NAD+SU+8712345678901::9++ACME FOODS BV+Havenweg 5+ROTTERDAM+3011AA+NL&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Taraf Kodu</td></tr>
+<tr><td><code>02</code></td><td>Taraf ID (GLN)</td></tr>
+<tr><td><code>04</code></td><td>İsim / Unvan</td></tr>
+<tr><td><code>05</code></td><td>Cadde / Sokak 1</td></tr>
+<tr><td><code>06</code></td><td>Şehir</td></tr>
+<tr><td><code>08</code></td><td>Posta Kodu</td></tr>
+<tr><td><code>09</code></td><td>Ülke Kodu</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>9</code></td><td>GS1 Standart</td></tr>
+<tr><td><code>AG</code></td><td>Acente (Agent)</td></tr>
+<tr><td><code>BY</code></td><td>Alıcı (Buyer)</td></tr>
+<tr><td><code>CA</code></td><td>Taşıyıcı Firma (Carrier)</td></tr>
+<tr><td><code>CB</code></td><td>Gümrük Müşaviri (Customs Broker)</td></tr>
+<tr><td><code>CN</code></td><td>Alıcı (Consignee)</td></tr>
+<tr><td><code>CZ</code></td><td>Yükleten / Gönderici (Consignor)</td></tr>
+<tr><td><code>DP</code></td><td>Teslim Yeri (Delivery Party)</td></tr>
+<tr><td><code>FW</code></td><td>Nakliye Organizatörü (Forwarder)</td></tr>
+<tr><td><code>IV</code></td><td>Fatura Adresi (Invoicee)</td></tr>
+<tr><td><code>MF</code></td><td>Üretici (Manufacturer)</td></tr>
+<tr><td><code>PE</code></td><td>Ödemeyi Alan (Payee / Alacaklı)</td></tr>
+<tr><td><code>PR</code></td><td>Ödemeyi Yapan (Payer)</td></tr>
+<tr><td><code>SE</code></td><td>Satıcı (Seller)</td></tr>
+<tr><td><code>SF</code></td><td>Yükleme Yeri (Ship From)</td></tr>
+<tr><td><code>ST</code></td><td>Boşaltma Yeri (Ship To)</td></tr>
+<tr><td><code>SU</code></td><td>Tedarikçi (Supplier)</td></tr>
+<tr><td><code>UD</code></td><td>Nihai Teslimat Noktası</td></tr>
+<tr><td><code>WH</code></td><td>Depo / Antrepo</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Pratikte taraf çoğunlukla GLN numarasıyla tanınır ve isim/adres alanları boş bırakılır. GLN eşleşmesi yapılamıyorsa mesaj genellikle reddedilir.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

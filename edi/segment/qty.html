@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QTY — Miktar Bilgisi — ediviewer</title>
+<meta name="description" content="Miktar bildirir. Hangi miktardan bahsedildiğini nitelikçi belirler: 21 sipariş miktarı, 12 sevk edilen, 194 teslim alınan, 152 satılan.">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/qty.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/qty.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/qty.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>QTY — Miktar Bilgisi</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Miktar bildirir. Hangi miktardan bahsedildiğini nitelikçi belirler: 21 sipariş miktarı, 12 sevk edilen, 194 teslim alınan, 152 satılan.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>QTY+21:480:PCE&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Miktar Detayı</td></tr>
+<tr><td><code>12</code></td><td>Onaylanan / Sevk Edilecek Miktar</td></tr>
+<tr><td><code>21</code></td><td>Sipariş Edilen Miktar</td></tr>
+<tr><td><code>47</code></td><td>Faturalanan Miktar</td></tr>
+<tr><td><code>48</code></td><td>Kabul Edilen (Sağlam)</td></tr>
+<tr><td><code>83</code></td><td>Bekleyen / Bakiye Miktar</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>106</code></td><td>Promosyonlu / Kampanyalı Satış</td></tr>
+<tr><td><code>113</code></td><td>Teslim Edilecek Miktar (Net)</td></tr>
+<tr><td><code>115</code></td><td>Bloke / Hasarlı Stok</td></tr>
+<tr><td><code>12</code></td><td>Sevk Edilen Miktar</td></tr>
+<tr><td><code>125</code></td><td>Kalite Kontroldeki Stok</td></tr>
+<tr><td><code>145</code></td><td>Eldeki Mevcut Stok (Satılabilir)</td></tr>
+<tr><td><code>153</code></td><td>Satılan Miktar</td></tr>
+<tr><td><code>194</code></td><td>Hasarlı / Bloke Stok</td></tr>
+<tr><td><code>21</code></td><td>Sipariş Miktarı</td></tr>
+<tr><td><code>47</code></td><td>Fatura Edilen Miktar</td></tr>
+<tr><td><code>48</code></td><td>Kabul Edilen Miktar (Sağlam)</td></tr>
+<tr><td><code>53</code></td><td>Minimum Sipariş Miktarı (MOQ)</td></tr>
+<tr><td><code>54</code></td><td>Maksimum Sipariş Miktarı</td></tr>
+<tr><td><code>59</code></td><td>İmha Edilen Miktar (Zayi)</td></tr>
+<tr><td><code>61</code></td><td>İade Miktarı</td></tr>
+<tr><td><code>70</code></td><td>Kümülatif Miktar (Toplam)</td></tr>
+<tr><td><code>90</code></td><td>Satılan Miktar (Net)</td></tr>
+<tr><td><code>91</code></td><td>Müşteri İadeleri</td></tr>
+<tr><td><code>99</code></td><td>Rezerve / Tahsisli Stok</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Üçüncü eleman ölçü birimidir (PCE adet, KGM kilogram, LTR litre). Birim yazılmazsa adet varsayılır, bu da yanlış anlaşılmaya açıktır.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

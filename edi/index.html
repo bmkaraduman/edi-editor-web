@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDI Referansı — ediviewer</title>
+<meta name="description" content="EDIFACT segmentleri, mesaj tipleri ve kod listeleri için Türkçe başvuru kaynağı.">
+<link rel="canonical" href="https://ediviewer.net/edi/index.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/index.html">
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/doc.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../edi/index.html">EDI Referansı</a>
+    <a href="en/index.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDI Referansı</h1>
+<div class="updated">EDIFACT segmentleri, mesaj tipleri ve kod listeleri için Türkçe başvuru kaynağı.</div>
+<h2>Rehberler</h2><ul class="link-list">
+<li><a href="guide/edifact-nedir.html"><strong>EDIFACT nedir? Yapısı ve okunuşu</strong><span>EDIFACT dosyalarının katman katman yapısı, ayırıcı karakterler ve bir satırın nasıl okunacağı.</span></a></li>
+<li><a href="guide/edifact-x12-farki.html"><strong>EDIFACT ve ANSI X12 arasındaki farklar</strong><span>İki büyük EDI standardının ayırıcıları, segment isimleri ve kullanım bölgeleri nasıl ayrışır.</span></a></li>
+<li><a href="guide/edi-dosyasi-sorun-giderme.html"><strong>EDI dosyalarında sık yapılan hatalar</strong><span>Reddedilen mesajların arkasındaki en yaygın teknik sebepler ve nasıl fark edilecekleri.</span></a></li>
+</ul>
+<h2>Mesaj Tipleri</h2><div class="chip-grid">
+<a class="chip" href="message/desadv.html"><code>DESADV</code><span>SEVK İHBARI / İRSALİYE (DESADV)</span></a>
+<a class="chip" href="message/invoic.html"><code>INVOIC</code><span>FATURA (INVOIC)</span></a>
+<a class="chip" href="message/orders.html"><code>ORDERS</code><span>SATIN ALMA SİPARİŞİ (ORDERS)</span></a>
+<a class="chip" href="message/ordrsp.html"><code>ORDRSP</code><span>SİPARİŞ YANITI (ORDRSP)</span></a>
+<a class="chip" href="message/pricat.html"><code>PRICAT</code><span>FİYAT KATALOĞU (PRICAT)</span></a>
+<a class="chip" href="message/recadv.html"><code>RECADV</code><span>MAL KABUL / TESLİM ONAYI (RECADV)</span></a>
+<a class="chip" href="message/slsrpt.html"><code>SLSRPT</code><span>SATIŞ RAPORU (SLSRPT)</span></a>
+</div>
+<h2>Segmentler</h2><div class="chip-grid">
+<a class="chip" href="segment/ajt.html"><code>AJT</code><span>Fiyat Ayarlaması / İskonto</span></a>
+<a class="chip" href="segment/alc.html"><code>ALC</code><span>Fiyat Farkı / İskonto / Masraf</span></a>
+<a class="chip" href="segment/bgm.html"><code>BGM</code><span>Mesaj Başlangıcı / Doküman Tipi</span></a>
+<a class="chip" href="segment/cni.html"><code>CNI</code><span>Yük / Konsinye Bilgisi</span></a>
+<a class="chip" href="segment/cnt.html"><code>CNT</code><span>Kontrol Toplamı</span></a>
+<a class="chip" href="segment/cps.html"><code>CPS</code><span>Paketleme Hiyerarşisi</span></a>
+<a class="chip" href="segment/cux.html"><code>CUX</code><span>Para Birimi</span></a>
+<a class="chip" href="segment/dgs.html"><code>DGS</code><span>Tehlikeli Madde Bilgisi</span></a>
+<a class="chip" href="segment/doc.html"><code>DOC</code><span>Belge / Fatura Bilgisi</span></a>
+<a class="chip" href="segment/dtm.html"><code>DTM</code><span>Tarih / Zaman / Süre</span></a>
+<a class="chip" href="segment/eqd.html"><code>EQD</code><span>Eki̇pman / Araç Detayi</span></a>
+<a class="chip" href="segment/fii.html"><code>FII</code><span>Banka Hesap Bilgileri</span></a>
+<a class="chip" href="segment/ftx.html"><code>FTX</code><span>Serbest Metin / Açıklama</span></a>
+<a class="chip" href="segment/gid.html"><code>GID</code><span>Mal Detayı (Sıra No)</span></a>
+<a class="chip" href="segment/gin.html"><code>GIN</code><span>Eti̇ket / Palet No</span></a>
+<a class="chip" href="segment/gir.html"><code>GIR</code><span>Bağlantılı Kimlikler</span></a>
+<a class="chip" href="segment/gis.html"><code>GIS</code><span>İşleme Yöntemi / Bildirim Türü</span></a>
+<a class="chip" href="segment/han.html"><code>HAN</code><span>Elleçleme / Taşıma Talimatı</span></a>
+<a class="chip" href="segment/imd.html"><code>IMD</code><span>Ürün Açıklaması / Tanımı</span></a>
+<a class="chip" href="segment/inv.html"><code>INV</code><span>Envanter Yönetim Bilgisi</span></a>
+<a class="chip" href="segment/lin.html"><code>LIN</code><span>Satır Kalemi (Ürün)</span></a>
+<a class="chip" href="segment/loc.html"><code>LOC</code><span>Konum / Yer Bilgisi</span></a>
+<a class="chip" href="segment/mea.html"><code>MEA</code><span>Ölçümler (Ağırlık/Hacim)</span></a>
+<a class="chip" href="segment/moa.html"><code>MOA</code><span>Parasal Tutar</span></a>
+<a class="chip" href="segment/nad.html"><code>NAD</code><span>İsim ve Adres (Taraf Bilgisi)</span></a>
+<a class="chip" href="segment/pac.html"><code>PAC</code><span>Paketleme Bilgisi</span></a>
+<a class="chip" href="segment/pai.html"><code>PAI</code><span>Ödeme Talimatı</span></a>
+<a class="chip" href="segment/pcd.html"><code>PCD</code><span>Yüzde Bilgisi</span></a>
+<a class="chip" href="segment/pci.html"><code>PCI</code><span>Paket Tanımlama</span></a>
+<a class="chip" href="segment/pia.html"><code>PIA</code><span>Ek Ürün Tanımı (Kodlar)</span></a>
+<a class="chip" href="segment/pri.html"><code>PRI</code><span>Fiyat Bilgisi</span></a>
+<a class="chip" href="segment/qty.html"><code>QTY</code><span>Miktar Bilgisi</span></a>
+<a class="chip" href="segment/rff.html"><code>RFF</code><span>Referans Bilgisi (Sipariş No vb.)</span></a>
+<a class="chip" href="segment/scc.html"><code>SCC</code><span>Planlama / Stok Durumu</span></a>
+<a class="chip" href="segment/seq.html"><code>SEQ</code><span>Sıra Detayı (Sequence)</span></a>
+<a class="chip" href="segment/sts.html"><code>STS</code><span>Durum Bilgisi</span></a>
+<a class="chip" href="segment/tax.html"><code>TAX</code><span>Vergi / KDV Detayları</span></a>
+<a class="chip" href="segment/tdt.html"><code>TDT</code><span>Taşıma Detayları</span></a>
+<a class="chip" href="segment/tsr.html"><code>TSR</code><span>Taşima Hi̇zmet Gereksi̇ni̇mi̇</span></a>
+<a class="chip" href="segment/ucd.html"><code>UCD</code><span>Hata Detayı / Kodu</span></a>
+<a class="chip" href="segment/uci.html"><code>UCI</code><span>Zarf (Interchange) Cevabı</span></a>
+<a class="chip" href="segment/ucm.html"><code>UCM</code><span>Mesaj Cevabı</span></a>
+<a class="chip" href="segment/ucs.html"><code>UCS</code><span>Hatalı Segment Bilgisi</span></a>
+<a class="chip" href="segment/unb.html"><code>UNB</code><span>Zarf Başlığı (Interchange Header)</span></a>
+<a class="chip" href="segment/unh.html"><code>UNH</code><span>Mesaj Başlığı</span></a>
+<a class="chip" href="segment/uns.html"><code>UNS</code><span>Bölüm Kontrolü</span></a>
+<a class="chip" href="segment/unt.html"><code>UNT</code><span>Mesaj Sonu</span></a>
+<a class="chip" href="segment/unz.html"><code>UNZ</code><span>Dosya Sonu</span></a>
+</div>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

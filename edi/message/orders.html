@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORDERS — SATIN ALMA SİPARİŞİ (ORDERS) — ediviewer</title>
+<meta name="description" content="Mal veya hizmet sipariş etmek için kullanılan temel EDI mesajıdır. Hangi ürünün, ne miktarda, hangi fiyata ve ne zaman teslim edilmek üzere istendiğini bil">
+<link rel="canonical" href="https://ediviewer.net/edi/message/orders.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/message/orders.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/message/orders.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>ORDERS — SATIN ALMA SİPARİŞİ (ORDERS)</h1>
+<div class="updated">EDIFACT mesaj tipi</div>
+<div class="doc-callout"><span class="ico">📄</span><p>Mal veya hizmet sipariş etmek için kullanılan temel EDI mesajıdır. Hangi ürünün, ne miktarda, hangi fiyata ve ne zaman teslim edilmek üzere istendiğini bildirir.</p></div>
+<h2>Kim gönderir</h2><p>Alıcı (satın alan taraf) tedarikçiye gönderir.</p>
+<p>ORDERS, EDI zincirinin başlangıç noktasıdır. Gönderildikten sonra tedarikçi genellikle ORDRSP ile yanıt verir, malı gönderirken DESADV, faturayı keserken INVOIC üretir. Bu dört mesaj birbirine BGM belge numarası ve RFF referansları üzerinden bağlanır.</p>
+<p>Sipariş değiştirilecekse yeni bir ORDERS değil, ORDCHG gönderilir; iptal için ise BGM&#x27;in üçüncü elemanına 1 yazılır. Bu ayrımı atlamak, karşı tarafta yinelenen sipariş oluşmasının en yaygın sebebidir.</p>
+<h2>Tipik Segment Akışı</h2>
+<p class="flow"><a href="../segment/unb.html"><code>UNB</code></a> &rarr; <a href="../segment/unh.html"><code>UNH</code></a> &rarr; <a href="../segment/bgm.html"><code>BGM</code></a> &rarr; <a href="../segment/dtm.html"><code>DTM</code></a> &rarr; <a href="../segment/nad.html"><code>NAD</code></a> &rarr; <a href="../segment/cux.html"><code>CUX</code></a> &rarr; <a href="../segment/lin.html"><code>LIN</code></a> &rarr; <a href="../segment/imd.html"><code>IMD</code></a> &rarr; <a href="../segment/qty.html"><code>QTY</code></a> &rarr; <a href="../segment/pri.html"><code>PRI</code></a> &rarr; <a href="../segment/uns.html"><code>UNS</code></a> &rarr; <a href="../segment/moa.html"><code>MOA</code></a> &rarr; <a href="../segment/unt.html"><code>UNT</code></a> &rarr; <a href="../segment/unz.html"><code>UNZ</code></a></p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm mesaj tipleri</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

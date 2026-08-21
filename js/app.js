@@ -103,6 +103,11 @@ function updateBanner(doc) {
     `${content.split('\n').length}${L('line_count_suffix')}`;
 }
 
+/** EDI referans bölümünün dile göre adresi */
+function referenceURL() {
+  return loc.currentLanguageCode === 'tr' ? 'edi/index.html' : 'edi/en/index.html';
+}
+
 /** Mesaj tipine göre PDF / Excel izinleri */
 function getExportPermissions() {
   const doc = docManager.activeDocument;
@@ -338,6 +343,9 @@ function renderContent() {
         </div>
         <div class="welcome-hint">
           <span>${esc(L('welcome_hint'))}</span>
+        </div>
+        <div class="welcome-links">
+          <a href="${referenceURL()}">${esc(L('edi_reference'))}</a>
         </div>
       </div>`;
     return;
@@ -588,6 +596,7 @@ function showAbout() {
     message: 'EDIFACT / ANSI X12 viewer & editor',
     buttons: [
       { label: L('btn_cancel'), kind: 'default', action: () => {} },
+      { label: L('edi_reference'), action: () => window.open(referenceURL(), '_blank', 'noopener') },
       { label: L('privacy_policy'), action: () => window.open(privacyURL(), '_blank', 'noopener') },
       // Rıza ekranı yalnızca Google'ın CMP'sinin yüklendiği bölgelerde vardır;
       // aksi hâlde düğme hiçbir şey yapmayacağı için hiç gösterilmez.

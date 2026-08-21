@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDIFACT ve ANSI X12 arasındaki farklar — ediviewer</title>
+<meta name="description" content="İki büyük EDI standardının ayırıcıları, segment isimleri ve kullanım bölgeleri nasıl ayrışır.">
+<link rel="canonical" href="https://ediviewer.net/edi/guide/edifact-x12-farki.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/guide/edifact-vs-x12.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/guide/edifact-vs-x12.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDIFACT ve ANSI X12 arasındaki farklar</h1>
+<div class="updated">İki büyük EDI standardının ayırıcıları, segment isimleri ve kullanım bölgeleri nasıl ayrışır.</div>
+<p>Dünyada iki büyük EDI standardı kullanılır: Avrupa merkezli <strong>UN/EDIFACT</strong> ve Kuzey Amerika merkezli <strong>ANSI ASC X12</strong>. Aynı işi yaparlar ama sözdizimleri ve isimlendirmeleri farklıdır.</p>
+<h2>Ayırıcı karakterler</h2>
+<table class="doc-table"><thead><tr><th></th><th>EDIFACT</th><th>X12</th></tr></thead><tbody>
+<tr><td>Segment sonu</td><td><code>&#x27;</code></td><td><code>~</code></td></tr>
+<tr><td>Eleman ayracı</td><td><code>+</code></td><td><code>*</code></td></tr>
+<table class="doc-table"><thead><tr><th>Alt eleman ayracı</th><th><code>:</code></th><th><code>&gt;</code></th></tr></thead><tbody>
+</tbody></table>
+<p>Bir dosyanın hangi standarda ait olduğunu anlamanın en hızlı yolu ilk satıra bakmaktır: <code>UNB</code> ile başlıyorsa EDIFACT, <code>ISA</code> ile başlıyorsa X12&#x27;dir.</p>
+<h2>Segment ve belge isimleri</h2>
+<p>EDIFACT belge tiplerini okunabilir adlarla anar (<code>ORDERS</code>, <code>INVOIC</code>, <code>DESADV</code>); X12 ise sayısal işlem kümesi numaraları kullanır.</p>
+<table class="doc-table"><thead><tr><th>Belge</th><th>EDIFACT</th><th>X12</th></tr></thead><tbody>
+<tr><td>Satın alma siparişi</td><td>ORDERS</td><td>850</td></tr>
+<tr><td>Sipariş yanıtı</td><td>ORDRSP</td><td>855</td></tr>
+<tr><td>Sipariş değişikliği</td><td>ORDCHG</td><td>860</td></tr>
+<tr><td>Sevk ihbarı</td><td>DESADV</td><td>856</td></tr>
+<tr><td>Fatura</td><td>INVOIC</td><td>810</td></tr>
+<tr><td>Stok raporu</td><td>INVRPT</td><td>846</td></tr>
+<table class="doc-table"><thead><tr><th>Ödeme bildirimi</th><th>REMADV</th><th>820</th></tr></thead><tbody>
+</tbody></table>
+<p>Segment isimleri de ayrışır: EDIFACT&#x27;te adres <code>NAD</code>, X12&#x27;de <code>N1</code>; miktar EDIFACT&#x27;te <code>QTY</code>, X12&#x27;de genellikle satır segmentinin (<code>PO1</code>, <code>IT1</code>) içindedir.</p>
+<h2>Yapısal fark</h2>
+<p>X12, zarfı üç katmanda kurar: <code>ISA</code> (interchange), <code>GS</code> (functional group) ve <code>ST</code> (transaction set). EDIFACT&#x27;te fonksiyonel grup katmanı (<code>UNG</code>) isteğe bağlıdır ve pratikte çoğu zaman kullanılmaz.</p>
+<h2>Hangisiyle çalışacaksınız?</h2>
+<p>Bu genellikle sizin değil, ticaret ortağınızın kararıdır. Avrupalı bir zincir mağazayla çalışıyorsanız EDIFACT, Amerikalı bir perakendeciyle çalışıyorsanız X12 beklemelisiniz. Her iki formatı da aynı araçla açıp okuyabilmek, iki tarafla birden çalışan firmalar için pratik bir gerekliliktir.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

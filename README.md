@@ -80,6 +80,27 @@ GitHub Pages statik dosyalara 10 dakikalık önbellek verir (`max-age=600`). Yen
 ziyaretçiler güncel sürümü alır; siteyi daha önce açmış olanlar bir deploy sonrası
 kısa süre eski CSS/JS görebilir. Hemen görmek için sabit yenileme (`Cmd/Ctrl+Shift+R`).
 
+## EDI Referansı
+
+`edi/` altındaki referans bölümü, `tools/build_reference.py` tarafından üretilir.
+Elle düzenlenmez — kaynaklar şunlardır:
+
+- `locales/*.json` — segment, eleman ve kod açıklamaları (uygulamayla ortak sözlük)
+- `tools/content.py` — elle yazılmış segment açıklamaları, örnekler ve rehber yazıları
+
+Yeniden üretmek için:
+
+```bash
+python3 tools/build_reference.py
+```
+
+Komut `edi/` klasörünü silip yeniden kurar, ayrıca `sitemap.xml` ve `robots.txt`
+dosyalarını günceller. Üretilen sayfalar repoya commit edilir; GitHub Pages'te
+derleme adımı olmadığı için hazır HTML gerekir.
+
+Çeviri dosyalarına yeni bir segment ya da kod eklendiğinde komutu tekrar çalıştırmak
+yeterlidir; sayfalar kendiliğinden oluşur.
+
 ## Açılış davranışı
 
 Uygulama, boş bir hoşgeldin ekranı yerine **örnek bir EDIFACT siparişi yüklü sekmeyle** açılır

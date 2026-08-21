@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTX — Serbest Metin / Açıklama — ediviewer</title>
+<meta name="description" content="Serbest metin notu taşır. Teslimat talimatı, ödeme koşulu ya da genel bir açıklama olabilir.">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/ftx.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/ftx.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/ftx.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>FTX — Serbest Metin / Açıklama</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Serbest metin notu taşır. Teslimat talimatı, ödeme koşulu ya da genel bir açıklama olabilir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>FTX+AAI+++TESLIMAT 08.00-16.00 SAATLERI ARASINDA YAPILACAKTIR&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Metin Konusu</td></tr>
+<tr><td><code>04</code></td><td>Metin İçeriği</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>AAA</code></td><td>Mal Tanımı</td></tr>
+<tr><td><code>AAB</code></td><td>Ödeme Koşulları</td></tr>
+<tr><td><code>AAI</code></td><td>Genel Bilgi (General Info)</td></tr>
+<tr><td><code>CUS</code></td><td>Gümrük Bilgisi</td></tr>
+<tr><td><code>DEL</code></td><td>Teslimat Bilgisi</td></tr>
+<tr><td><code>HAN</code></td><td>Elleçleme / Taşıma Talimatı</td></tr>
+<tr><td><code>INV</code></td><td>Fatura Talimatı</td></tr>
+<tr><td><code>LIN</code></td><td>Ürün / Satır Açıklaması</td></tr>
+<tr><td><code>ORI</code></td><td>Sipariş Talimatı</td></tr>
+<tr><td><code>PKG</code></td><td>Paketleme Bilgisi</td></tr>
+<tr><td><code>PUR</code></td><td>Satın Alma Bilgisi</td></tr>
+<tr><td><code>REG</code></td><td>Yasal / Mevzuat Bilgisi</td></tr>
+<tr><td><code>SIN</code></td><td>Özel Talimatlar</td></tr>
+<tr><td><code>SUR</code></td><td>Tedarikçi Açıklaması</td></tr>
+<tr><td><code>TRA</code></td><td>Nakliye / Ulaşım Bilgisi</td></tr>
+<tr><td><code>WHI</code></td><td>Depo / Antrepo Talimatı</td></tr>
+<tr><td><code>ZZZ</code></td><td>Özel Tanımlı Not (Diğer)</td></tr>
+</tbody></table>
+<h2>Dikkat</h2>
+<p>Serbest metin makine tarafından yorumlanmaz; kritik bilgiyi yalnızca FTX içine koymak otomasyonu bozar. Metinde iki nokta üst üste kullanılacaksa kaçış karakteri (?) gerekir.</p>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

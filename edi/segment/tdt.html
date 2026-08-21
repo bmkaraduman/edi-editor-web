@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TDT — Taşıma Detayları — ediviewer</title>
+<meta name="description" content="Taşıma detaylarını taşır: taşıma aşaması, taşıma modu (karayolu, denizyolu) ve taşıyıcı firma.">
+<link rel="canonical" href="https://ediviewer.net/edi/segment/tdt.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/tdt.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/segment/tdt.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>TDT — Taşıma Detayları</h1>
+<div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Taşıma detaylarını taşır: taşıma aşaması, taşıma modu (karayolu, denizyolu) ve taşıyıcı firma.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>TDT+20++30++ACME LOJISTIK&#x27;</code></pre>
+<h2>Veri Elemanları</h2>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
+<tr><td><code>01</code></td><td>Taşıma Aşaması</td></tr>
+<tr><td><code>03</code></td><td>Taşıma Modu</td></tr>
+<tr><td><code>05</code></td><td>Taşıyıcı / Nakliyeci</td></tr>
+</tbody></table>
+<h2>Kod Listesi</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>10</code></td><td>Denizyolu</td></tr>
+<tr><td><code>11</code></td><td>Gemi</td></tr>
+<tr><td><code>20</code></td><td>Demiryolu</td></tr>
+<tr><td><code>21</code></td><td>Tren Vagonu</td></tr>
+<tr><td><code>30</code></td><td>Karayolu</td></tr>
+<tr><td><code>31</code></td><td>Kamyon</td></tr>
+<tr><td><code>40</code></td><td>Havayolu</td></tr>
+<tr><td><code>41</code></td><td>Uçak</td></tr>
+<tr><td><code>MODE_30</code></td><td>Karayolu</td></tr>
+<tr><td><code>STAGE_20</code></td><td>Ana Taşıma</td></tr>
+<tr><td><code>VEHICLE_31</code></td><td>Kamyon / Tır</td></tr>
+</tbody></table>
+<p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>
