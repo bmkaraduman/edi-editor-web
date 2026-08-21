@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EDI Editor</title>
+<title>ediviewer</title>
+<meta name="description" content="ediviewer — EDIFACT ve ANSI X12 dosyalarini tarayicida goruntuleyin, duzenleyin, PDF ve Excel'e aktarin.">
 <link rel="stylesheet" href="css/styles.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<!-- Favicon: wordmark ile ayni gradyan, kare monogram -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -14,9 +16,14 @@
   <!-- ================= TOOLBAR ================= -->
   <header class="toolbar">
     <div class="toolbar-left">
-      <span class="brand-mark">EDI</span>
-      <span class="title-group">
-        <span id="win-title" class="win-title">EDI Editor</span>
+      <!-- LOGO (wordmark) -->
+      <div class="brand" title="ediviewer">
+        <span class="brand-mark" aria-hidden="true">e</span>
+        <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+      </div>
+      <span class="brand-sep" id="brand-sep" aria-hidden="true" hidden></span>
+      <span class="title-group" id="title-group" hidden>
+        <span id="win-title" class="win-title"></span>
         <span id="win-sub" class="win-sub"></span>
       </span>
     </div>

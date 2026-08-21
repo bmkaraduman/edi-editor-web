@@ -226,15 +226,22 @@ function render() {
   updateTitle();
 }
 
+/** Ürün adı — marka olduğu için çevrilmez */
+const APP_NAME = 'ediviewer';
+
 /** Pencere başlığı + alt satır */
 function updateTitle() {
-  const title = currentTitle();
-  $('#win-title').textContent = title;
-  document.title = title;
-
   const doc = docManager.activeDocument;
-  $('#win-sub').textContent =
-    doc && !doc.isStartPage ? detectStandard(doc.content) : L('default_window_title');
+  const hasDoc = !!doc && !doc.isStartPage;
+
+  // Dosya açık değilken başlık alanı boş kalır; markayı logo zaten taşıyor
+  $('#win-title').textContent = hasDoc ? currentTitle() : '';
+  $('#win-sub').textContent = hasDoc ? detectStandard(doc.content) : '';
+  $('#brand-sep').hidden = !hasDoc;
+  $('#title-group').hidden = !hasDoc;
+
+  // Sekme başlığında marka da görünsün
+  document.title = hasDoc ? `${currentTitle()} — ${APP_NAME}` : APP_NAME;
 }
 
 // --- TOOLBAR ---
@@ -311,13 +318,7 @@ function renderContent() {
     renderedDocID = null;
     content.innerHTML = `
       <div class="welcome">
-        <svg viewBox="0 0 24 24" class="welcome-icon">
-          <path d="M4 4h9l3 3v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M4 4v16h6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M6.5 8.5h6M6.5 12h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          <circle cx="15.5" cy="15.5" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
-          <path d="m18.6 18.6 3.1 3.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
+        <div class="brand-logo xl"><span class="lg-a">edi</span><span class="lg-b">viewer</span></div>
         <div class="welcome-title">${esc(L('welcome_title'))}</div>
         <div class="welcome-sub">EDIFACT &amp; ANSI X12 &middot; ${esc(L('pdf_export'))} &middot; ${esc(L('btn_excel'))}</div>
         <div class="welcome-buttons">
