@@ -954,5 +954,10 @@
   "alert_unsaved_changes_desc": "如果不保存，您的更改将会丢失。",
   "btn_dont_save": "不保存",
   "sample_file": "示例文件",
-  "welcome_hint": "也可以将 .edi 文件拖放到此处"
+  "welcome_hint": "也可以将 .edi 文件拖放到此处",
+  "consent_title": "Cookie",
+  "consent_msg": "我们希望使用 Cookie 来统计访问数据并展示广告。若您拒绝，将不会加载任何 Cookie，应用功能完全不受影响。",
+  "consent_accept": "接受",
+  "consent_reject": "拒绝",
+  "consent_manage": "Cookie 设置"
 }

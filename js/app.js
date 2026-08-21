@@ -7,6 +7,7 @@ import { SyntaxHighlightEditor } from './editor.js';
 import { renderSegmentDetail } from './segmentDetail.js';
 import { logoManager } from './logoManager.js';
 import { SAMPLE_EDI, SAMPLE_FILE_NAME } from './sampleData.js';
+import { initConsent, reopenConsent } from './consent.js';
 
 // =========================================================================
 // MARK: - TEMA SEÇENEKLERİ (AppTheme)
@@ -583,9 +584,13 @@ function wireEvents() {
 function showAbout() {
   showDialog({
     icon: '📄',
-    title: L('default_window_title'),
-    message: 'EDI Editor (Web)\nEDIFACT / ANSI X12 viewer & editor',
-    buttons: [{ label: L('btn_cancel'), kind: 'default', action: () => {} }],
+    title: APP_NAME,
+    message: 'EDIFACT / ANSI X12 viewer & editor',
+    buttons: [
+      { label: L('btn_cancel'), kind: 'default', action: () => {} },
+      // Onayı geri çekmek, vermek kadar kolay olmalı
+      { label: L('consent_manage'), action: () => reopenConsent() },
+    ],
   });
 }
 
@@ -628,4 +633,7 @@ function openSampleDocument() {
   // Açılışta boş hoşgeldin ekranı yerine örnek dosya yüklü bir sekme
   openSampleDocument();
   render();
+
+  // Çerez onayı — GA ve AdSense yalnızca kabul edilirse yüklenir
+  initConsent();
 })();

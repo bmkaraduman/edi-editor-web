@@ -954,5 +954,10 @@
   "alert_unsaved_changes_desc": "Ihre Änderungen gehen verloren, wenn Sie nicht speichern.",
   "btn_dont_save": "Nicht speichern",
   "sample_file": "Beispieldatei",
-  "welcome_hint": "Sie können eine .edi-Datei auch hierher ziehen"
+  "welcome_hint": "Sie können eine .edi-Datei auch hierher ziehen",
+  "consent_title": "Cookies",
+  "consent_msg": "Wir möchten Cookies für Besucherstatistiken und Werbung verwenden. Wenn Sie ablehnen, werden keine Cookies geladen und die App funktioniert genauso weiter.",
+  "consent_accept": "Akzeptieren",
+  "consent_reject": "Ablehnen",
+  "consent_manage": "Cookie-Einstellungen"
 }

@@ -1015,6 +1015,84 @@ kbd {
 .dlg-btn.default:hover { background: var(--accent-hover); }
 .dlg-btn.destructive { color: var(--danger); }
 
+/* =========================================================================
+   ÇEREZ ONAYI
+   ========================================================================= */
+.consent-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translate(-50%, calc(100% + 24px));
+  width: min(680px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--separator);
+  background: var(--control-bg);
+  box-shadow: var(--shadow-lg);
+  z-index: 90;
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.22s ease;
+}
+
+.consent-banner.visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+.consent-banner[hidden] { display: none; }
+
+.consent-text { flex: 1 1 auto; min-width: 0; }
+
+.consent-title {
+  font-size: 13px;
+  font-weight: 680;
+  margin-bottom: 3px;
+}
+
+.consent-msg {
+  font-size: 12px;
+  color: var(--secondary-label);
+  line-height: 1.5;
+}
+
+.consent-actions {
+  display: flex;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.consent-btn {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid var(--separator-strong);
+  background: var(--control-bg);
+  color: var(--label);
+  font-size: 12.5px;
+  font-weight: 550;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease;
+}
+
+.consent-btn:hover { background: var(--hover); }
+
+.consent-btn.primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #fff;
+}
+
+.consent-btn.primary:hover { background: var(--accent-hover); }
+
+@media (max-width: 620px) {
+  .consent-banner { flex-direction: column; align-items: stretch; gap: 12px; }
+  .consent-actions { justify-content: flex-end; }
+}
+
 /* Sürükle-bırak vurgusu */
 .content.drag-over::after {
   content: "";

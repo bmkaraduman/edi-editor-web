@@ -954,5 +954,10 @@
   "alert_unsaved_changes_desc": "Sus cambios se perderán si no los guarda.",
   "btn_dont_save": "No guardar",
   "sample_file": "Archivo de ejemplo",
-  "welcome_hint": "También puedes arrastrar y soltar un archivo .edi aquí"
+  "welcome_hint": "También puedes arrastrar y soltar un archivo .edi aquí",
+  "consent_title": "Cookies",
+  "consent_msg": "Nos gustaría usar cookies para estadísticas de visitas y publicidad. Si las rechazas, no se carga ninguna cookie y la aplicación sigue funcionando igual.",
+  "consent_accept": "Aceptar",
+  "consent_reject": "Rechazar",
+  "consent_manage": "Configuración de cookies"
 }

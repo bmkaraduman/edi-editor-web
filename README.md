@@ -6,8 +6,11 @@ EDIFACT ve ANSI X12 dosyalarını tarayıcıda görüntüleyin, düzenleyin, PDF
 
 macOS/SwiftUI **Editor** projesinin web'e 1:1 taşınmış hali.
 Saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı ve paket bağımlılığı yok;
-uygulama mantığının tamamı yereldir. Tek harici istek Google Analytics'tir
-(`index.html` içinde gtag.js) ve engellendiğinde uygulama normal çalışmaya devam eder.
+uygulama mantığının tamamı yereldir.
+
+Harici istekler yalnızca Google Analytics ve AdSense'ten ibarettir ve ikisi de
+**çerez onayına bağlıdır** (`js/consent.js`): ziyaretçi kabul etmedikçe hiçbir üçüncü
+taraf isteği yapılmaz. Reddedilse dahi uygulamanın tüm işlevleri çalışmaya devam eder.
 
 ## Çalıştırma
 
@@ -104,8 +107,9 @@ renklendirme, sürüklenebilir bölme çizgisi ve dar ekranlarda ikon moduna ge�
 | `LogoManager.swift` | `js/logoManager.js` | Şirket logosu seçimi ve kalıcı saklama |
 | `SyntaxHighlightEditor.swift` | `js/editor.js` | Söz dizimi vurgulu editör, seçili satır tespiti |
 | `windowsclosehandler.swift` | `js/app.js` (`beforeunload`) | Kaydedilmemiş değişiklik uyarısı |
-| `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki 954 anahtar birebir + web'e özel 2 anahtar (`sample_file`, `welcome_hint`) |
+| `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki 954 anahtar birebir + web'e özel 7 anahtar (örnek dosya, sürükle-bırak ipucu, çerez metinleri) = 961 |
 | — | `js/sampleData.js` | Açılışta yüklenen gömülü örnek EDIFACT dosyası |
+| — | `js/consent.js` | Çerez onayı; GA ve AdSense'i onaya bağlı yükler |
 
 ## Platform karşılıkları
 

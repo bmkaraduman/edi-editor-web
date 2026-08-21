@@ -954,5 +954,10 @@
   "alert_unsaved_changes_desc": "Your changes will be lost if you don't save them.",
   "btn_dont_save": "Don't Save",
   "sample_file": "Sample File",
-  "welcome_hint": "You can also drag & drop an .edi file here"
+  "welcome_hint": "You can also drag & drop an .edi file here",
+  "consent_title": "Cookies",
+  "consent_msg": "We would like to use cookies for visitor statistics and advertising. If you decline, no cookies are loaded and the app keeps working exactly the same.",
+  "consent_accept": "Accept",
+  "consent_reject": "Decline",
+  "consent_manage": "Cookie Settings"
 }
