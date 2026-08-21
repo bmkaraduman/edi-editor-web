@@ -8,9 +8,11 @@ macOS/SwiftUI **Editor** projesinin web'e 1:1 taşınmış hali.
 Saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı ve paket bağımlılığı yok;
 uygulama mantığının tamamı yereldir.
 
-Harici istekler yalnızca Google Analytics ve AdSense'ten ibarettir ve ikisi de
-**çerez onayına bağlıdır** (`js/consent.js`): ziyaretçi kabul etmedikçe hiçbir üçüncü
-taraf isteği yapılmaz. Reddedilse dahi uygulamanın tüm işlevleri çalışmaya devam eder.
+Harici istekler yalnızca Google Analytics ve AdSense'ten ibarettir. Rıza yönetimi
+Google Consent Mode v2 ile yapılır (`js/consent.js`): AEA / Birleşik Krallık / İsviçre
+ziyaretçileri için ölçüm ve reklam izinleri **varsayılan olarak reddedilmiş** başlar ve
+rıza ekranını Google'ın sertifikalı CMP'si gösterir. Çerezlere izin verilmese dahi
+uygulamanın tüm işlevleri eksiksiz çalışır.
 
 ## Çalıştırma
 
@@ -107,9 +109,10 @@ renklendirme, sürüklenebilir bölme çizgisi ve dar ekranlarda ikon moduna ge�
 | `LogoManager.swift` | `js/logoManager.js` | Şirket logosu seçimi ve kalıcı saklama |
 | `SyntaxHighlightEditor.swift` | `js/editor.js` | Söz dizimi vurgulu editör, seçili satır tespiti |
 | `windowsclosehandler.swift` | `js/app.js` (`beforeunload`) | Kaydedilmemiş değişiklik uyarısı |
-| `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki 954 anahtar birebir + web'e özel 7 anahtar (örnek dosya, sürükle-bırak ipucu, çerez metinleri) = 961 |
+| `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki 954 anahtar birebir + web'e özel 4 anahtar (örnek dosya, sürükle-bırak ipucu, gizlilik/çerez bağlantıları) = 958 |
 | — | `js/sampleData.js` | Açılışta yüklenen gömülü örnek EDIFACT dosyası |
-| — | `js/consent.js` | Çerez onayı; GA ve AdSense'i onaya bağlı yükler |
+| — | `js/consent.js` | Consent Mode v2 varsayılanları; GA ve AdSense yükleyicileri |
+| — | `gizlilik.html` / `privacy.html` | Gizlilik politikası (TR / EN) |
 
 ## Platform karşılıkları
 

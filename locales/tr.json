@@ -955,10 +955,6 @@
   "btn_dont_save": "Kaydetme",
   "sample_file": "Örnek Dosya",
   "welcome_hint": "Bir .edi dosyasını buraya sürükleyip bırakabilirsiniz",
-  "consent_title": "Çerezler",
-  "consent_msg": "Ziyaretçi istatistikleri ve reklamlar için çerez kullanmak istiyoruz. Reddederseniz hiçbir çerez yüklenmez; uygulama aynı şekilde çalışmaya devam eder.",
-  "consent_accept": "Kabul Et",
-  "consent_reject": "Reddet",
-  "consent_manage": "Çerez Ayarları",
-  "privacy_policy": "Gizlilik Politikası"
+  "privacy_policy": "Gizlilik Politikası",
+  "consent_manage": "Çerez Ayarları"
 }

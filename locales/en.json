@@ -955,10 +955,6 @@
   "btn_dont_save": "Don't Save",
   "sample_file": "Sample File",
   "welcome_hint": "You can also drag & drop an .edi file here",
-  "consent_title": "Cookies",
-  "consent_msg": "We would like to use cookies for visitor statistics and advertising. If you decline, no cookies are loaded and the app keeps working exactly the same.",
-  "consent_accept": "Accept",
-  "consent_reject": "Decline",
-  "consent_manage": "Cookie Settings",
-  "privacy_policy": "Privacy Policy"
+  "privacy_policy": "Privacy Policy",
+  "consent_manage": "Cookie Settings"
 }

@@ -955,10 +955,6 @@
   "btn_dont_save": "Ne pas enregistrer",
   "sample_file": "Fichier d'exemple",
   "welcome_hint": "Vous pouvez aussi glisser-déposer un fichier .edi ici",
-  "consent_title": "Cookies",
-  "consent_msg": "Nous souhaitons utiliser des cookies pour les statistiques de visite et la publicité. Si vous refusez, aucun cookie n'est chargé et l'application fonctionne exactement de la même manière.",
-  "consent_accept": "Accepter",
-  "consent_reject": "Refuser",
-  "consent_manage": "Paramètres des cookies",
-  "privacy_policy": "Politique de confidentialité"
+  "privacy_policy": "Politique de confidentialité",
+  "consent_manage": "Paramètres des cookies"
 }

@@ -7,7 +7,7 @@ import { SyntaxHighlightEditor } from './editor.js';
 import { renderSegmentDetail } from './segmentDetail.js';
 import { logoManager } from './logoManager.js';
 import { SAMPLE_EDI, SAMPLE_FILE_NAME } from './sampleData.js';
-import { initConsent, reopenConsent, privacyURL } from './consent.js';
+import { initConsent, privacyURL, reopenConsent, consentUIAvailable } from './consent.js';
 
 // =========================================================================
 // MARK: - TEMA SEÇENEKLERİ (AppTheme)
@@ -588,9 +588,12 @@ function showAbout() {
     message: 'EDIFACT / ANSI X12 viewer & editor',
     buttons: [
       { label: L('btn_cancel'), kind: 'default', action: () => {} },
-      // Onayı geri çekmek, vermek kadar kolay olmalı
-      { label: L('consent_manage'), action: () => reopenConsent() },
       { label: L('privacy_policy'), action: () => window.open(privacyURL(), '_blank', 'noopener') },
+      // Rıza ekranı yalnızca Google'ın CMP'sinin yüklendiği bölgelerde vardır;
+      // aksi hâlde düğme hiçbir şey yapmayacağı için hiç gösterilmez.
+      ...(consentUIAvailable()
+        ? [{ label: L('consent_manage'), action: () => reopenConsent() }]
+        : []),
     ],
   });
 }
@@ -625,6 +628,9 @@ function openSampleDocument() {
 // MARK: - BAŞLATMA
 // =========================================================================
 (async function main() {
+  // Consent Mode varsayılanları gtag.js'ten önce tanımlanmalı, o yüzden en başta
+  initConsent();
+
   applyTheme();
   await loc.loadTranslations();
   document.documentElement.lang = loc.currentLanguageCode;
@@ -634,7 +640,4 @@ function openSampleDocument() {
   // Açılışta boş hoşgeldin ekranı yerine örnek dosya yüklü bir sekme
   openSampleDocument();
   render();
-
-  // Çerez onayı — GA ve AdSense yalnızca kabul edilirse yüklenir
-  initConsent();
 })();

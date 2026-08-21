@@ -1,32 +1,44 @@
-// Çerez onayı.
-// Google Analytics ve AdSense YALNIZCA kullanıcı kabul ettikten sonra yüklenir;
-// reddedilirse hiçbir harici istek yapılmaz.
-import { loc, L } from './i18n.js';
+// Rıza yönetimi — Google Consent Mode v2.
+//
+// Kendi çerez bandımız YOKTUR. AEA / Birleşik Krallık / İsviçre kullanıcılarına
+// rıza ekranını Google'ın sertifikalı CMP'si (AdSense → Gizlilik ve mesajlaşma)
+// gösterir. Buradaki görev, CMP karar verene kadar varsayılanı "reddedildi"
+// tutmak; yani ölçüm ve reklam scriptleri yüklense bile çerez yazmazlar.
+//
+// Bu bölgelerin dışında (ör. Türkiye) varsayılan davranış korunur, aksi hâlde
+// CMP hiç gösterilmediği için hiçbir veri toplanamazdı.
 
-const KEY = 'cookieConsent'; // 'granted' | 'denied' | (yok)
 const GA_ID = 'G-3C1DF6XY4D';
 const ADSENSE_CLIENT = 'ca-pub-7507702503844486';
 
-let injected = false;
-let bannerEl = null;
-let hideTimer = null;
+/** AEA (AB 27 + İzlanda, Lihtenştayn, Norveç) + Birleşik Krallık + İsviçre */
+const CONSENT_REQUIRED_REGIONS = [
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR',
+  'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK',
+  'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH',
+];
 
-// =========================================================================
-// MARK: - DURUM
-// =========================================================================
+/**
+ * Consent Mode varsayılanlarını tanımlar.
+ * gtag.js'ten ÖNCE çalışmak zorundadır; sonrası geç kalmış sayılır.
+ */
+function setConsentDefaults() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
 
-export function getConsent() {
-  const v = localStorage.getItem(KEY);
-  return v === 'granted' || v === 'denied' ? v : null;
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    // CMP'nin kararını bildirmesi için kısa bir pencere bırak
+    wait_for_update: 500,
+    region: CONSENT_REQUIRED_REGIONS,
+  });
+
+  // Rıza yokken reklam tıklama kimliklerini de kısıtla
+  window.gtag('set', 'ads_data_redaction', true);
 }
-
-function setConsent(value) {
-  localStorage.setItem(KEY, value);
-}
-
-// =========================================================================
-// MARK: - ÜÇÜNCÜ TARAF SCRIPTLERİ
-// =========================================================================
 
 function loadGoogleAnalytics() {
   const s = document.createElement('script');
@@ -34,8 +46,6 @@ function loadGoogleAnalytics() {
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
   document.head.appendChild(s);
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
   window.gtag('config', GA_ID);
 }
@@ -48,107 +58,31 @@ function loadAdSense() {
   document.head.appendChild(s);
 }
 
-/** Yalnızca onay verildiğinde ve bir kez çağrılır. */
-function injectTrackers() {
-  if (injected) return;
-  injected = true;
-  loadGoogleAnalytics();
-  loadAdSense();
-}
-
-// =========================================================================
-// MARK: - BANDROL
-// =========================================================================
-
-function esc(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
 /** Gizlilik politikasının dile göre adresi (TR ayrı sayfa, diğerleri İngilizce) */
 export function privacyURL() {
-  return loc.currentLanguageCode === 'tr' ? 'gizlilik.html' : 'privacy.html';
-}
-
-function renderBanner() {
-  if (!bannerEl) return;
-  bannerEl.innerHTML = `
-    <div class="consent-text">
-      <div class="consent-title">${esc(L('consent_title'))}</div>
-      <div class="consent-msg">${esc(L('consent_msg'))}
-        <a class="consent-link" href="${privacyURL()}">${esc(L('privacy_policy'))}</a>
-      </div>
-    </div>
-    <div class="consent-actions">
-      <button class="consent-btn" data-consent="denied">${esc(L('consent_reject'))}</button>
-      <button class="consent-btn primary" data-consent="granted">${esc(L('consent_accept'))}</button>
-    </div>`;
-}
-
-export function showBanner() {
-  if (!bannerEl) {
-    bannerEl = document.createElement('div');
-    bannerEl.className = 'consent-banner';
-    bannerEl.setAttribute('role', 'dialog');
-    bannerEl.setAttribute('aria-live', 'polite');
-
-    bannerEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-consent]');
-      if (!btn) return;
-      const choice = btn.dataset.consent;
-      setConsent(choice);
-      hideBanner();
-      if (choice === 'granted') injectTrackers();
-    });
-
-    document.body.appendChild(bannerEl);
-
-    // Dil değişince bandroldeki metinler de güncellensin
-    loc.addEventListener('change', renderBanner);
-  }
-
-  // Gizleme zamanlayıcısı beklemedeyse iptal et; yoksa yeni açılan
-  // bandrolü hemen tekrar gizler.
-  if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
-
-  renderBanner();
-  bannerEl.hidden = false;
-
-  // Girişte aşağıdan yukarı kaysın.
-  // requestAnimationFrame arka plandaki sekmelerde tetiklenmediği için
-  // geçişi zorlanmış bir reflow ile başlatıyoruz.
-  void bannerEl.offsetWidth;
-  bannerEl.classList.add('visible');
-}
-
-function hideBanner() {
-  if (!bannerEl) return;
-  bannerEl.classList.remove('visible');
-  hideTimer = setTimeout(() => {
-    if (bannerEl) bannerEl.hidden = true;
-    hideTimer = null;
-  }, 200);
-}
-
-// =========================================================================
-// MARK: - GİRİŞ NOKTASI
-// =========================================================================
-
-/** Uygulama açılışında çağrılır. */
-export function initConsent() {
-  const choice = getConsent();
-  if (choice === 'granted') {
-    injectTrackers();
-  } else if (choice === null) {
-    showBanner();
-  }
-  // 'denied' -> hiçbir şey yüklenmez
+  return (localStorage.getItem('selectedLanguageCode') || 'en') === 'tr'
+    ? 'gizlilik.html'
+    : 'privacy.html';
 }
 
 /**
- * Kullanıcının kararını geri alması için (GDPR: onayı geri çekmek,
- * vermek kadar kolay olmalıdır). "Hakkında" penceresinden çağrılır.
+ * Google'ın CMP'si sayfada mı? Yalnızca rıza istenen bölgelerde yüklenir,
+ * bu yüzden "Çerez Ayarları" düğmesi de yalnızca o zaman gösterilmelidir.
  */
+export function consentUIAvailable() {
+  return typeof window.googlefc?.showRevocationMessage === 'function';
+}
+
+/** Rıza ekranını yeniden açar (yalnızca CMP yüklüyse anlamlıdır). */
 export function reopenConsent() {
-  localStorage.removeItem(KEY);
-  showBanner();
+  if (!consentUIAvailable()) return false;
+  window.googlefc.showRevocationMessage();
+  return true;
+}
+
+/** Uygulama açılışında, mümkün olan en erken anda çağrılır. */
+export function initConsent() {
+  setConsentDefaults();
+  loadGoogleAnalytics();
+  loadAdSense();
 }
