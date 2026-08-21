@@ -957,5 +957,6 @@
   "welcome_hint": "Sie können eine .edi-Datei auch hierher ziehen",
   "privacy_policy": "Datenschutzerklärung",
   "consent_manage": "Cookie-Einstellungen",
-  "edi_reference": "EDI-Referenz"
+  "edi_reference": "EDI-Referenz",
+  "segment_docs": "Über dieses Segment"
 }

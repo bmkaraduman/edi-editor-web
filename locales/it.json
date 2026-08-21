@@ -957,5 +957,6 @@
   "welcome_hint": "Puoi anche trascinare qui un file .edi",
   "privacy_policy": "Informativa sulla privacy",
   "consent_manage": "Impostazioni cookie",
-  "edi_reference": "Riferimento EDI"
+  "edi_reference": "Riferimento EDI",
+  "segment_docs": "Informazioni su questo segmento"
 }

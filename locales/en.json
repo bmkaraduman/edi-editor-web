@@ -957,5 +957,6 @@
   "welcome_hint": "You can also drag & drop an .edi file here",
   "privacy_policy": "Privacy Policy",
   "consent_manage": "Cookie Settings",
-  "edi_reference": "EDI Reference"
+  "edi_reference": "EDI Reference",
+  "segment_docs": "About this segment"
 }

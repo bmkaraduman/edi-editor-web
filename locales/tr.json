@@ -957,5 +957,6 @@
   "welcome_hint": "Bir .edi dosyasını buraya sürükleyip bırakabilirsiniz",
   "privacy_policy": "Gizlilik Politikası",
   "consent_manage": "Çerez Ayarları",
-  "edi_reference": "EDI Referansı"
+  "edi_reference": "EDI Referansı",
+  "segment_docs": "Bu segment hakkında"
 }

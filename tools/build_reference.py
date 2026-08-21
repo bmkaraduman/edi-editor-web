@@ -408,6 +408,7 @@ def main():
 
     urls = []
     stats = {}
+    stats_segments = set()
     for lang in LANGS:
         d = load(lang)
         segs, alt_titles, elems, codes, types = collect(d)
@@ -420,6 +421,7 @@ def main():
                   set(segs) | set(alt_titles) | set(C.SEGMENTS))
         segs = {c: segs.get(c) or alt_titles.get(c) or c for c in wanted}
 
+        stats_segments.update(segs)
         for code in segs:
             build_segment(lang, code, segs, elems, codes, urls)
         for code in types:
@@ -428,6 +430,16 @@ def main():
             build_guide(lang, g, urls)
         build_hub(lang, segs, types, urls)
         stats[lang] = (len(segs), len(types), len(C.GUIDES))
+
+    # Uygulamanın hangi segmentler için referans bağlantısı gösterebileceğini
+    # bilmesi gerekir; aksi hâlde sayfası olmayan segmentlerde 404'e link verir.
+    have = sorted(stats_segments)
+    write(os.path.join(ROOT, 'js', 'referenceIndex.js'),
+          '// Bu dosya tools/build_reference.py tarafından üretilir — elle düzenlemeyin.\n'
+          '// Referans sayfası bulunan segment kodları.\n'
+          'export const REFERENCE_SEGMENTS = new Set([\n'
+          + ''.join(f"  '{c}',\n" for c in have)
+          + ']);\n')
 
     # sitemap + robots
     today = date.today().isoformat()
@@ -446,6 +458,7 @@ def main():
     for lang, (s, m, g) in stats.items():
         print(f'  {lang}: {s} segment + {m} mesaj tipi + {g} rehber')
     print(f'  sitemap.xml: {total + len(extra)} URL')
+    print(f'  js/referenceIndex.js: {len(have)} segment kodu')
     print(f'  TOPLAM {total} sayfa uretildi -> edi/')
 
 

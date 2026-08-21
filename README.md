@@ -94,8 +94,10 @@ Yeniden üretmek için:
 python3 tools/build_reference.py
 ```
 
-Komut `edi/` klasörünü silip yeniden kurar, ayrıca `sitemap.xml` ve `robots.txt`
-dosyalarını günceller. Üretilen sayfalar repoya commit edilir; GitHub Pages'te
+Komut `edi/` klasörünü silip yeniden kurar; ayrıca `sitemap.xml`, `robots.txt` ve
+`js/referenceIndex.js` dosyalarını üretir. Sonuncusu, uygulamanın hangi segmentler
+için referans bağlantısı gösterebileceğini bildirir — sayfası olmayan bir segmentte
+bağlantı hiç çıkmaz, böylece 404 oluşmaz. Üretilen sayfalar repoya commit edilir; GitHub Pages'te
 derleme adımı olmadığı için hazır HTML gerekir.
 
 Çeviri dosyalarına yeni bir segment ya da kod eklendiğinde komutu tekrar çalıştırmak
@@ -133,6 +135,7 @@ renklendirme, sürüklenebilir bölme çizgisi ve dar ekranlarda ikon moduna ge�
 | `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki 954 anahtar birebir + web'e özel 4 anahtar (örnek dosya, sürükle-bırak ipucu, gizlilik/çerez bağlantıları) = 958 |
 | — | `js/sampleData.js` | Açılışta yüklenen gömülü örnek EDIFACT dosyası |
 | — | `js/consent.js` | Consent Mode v2 varsayılanları; GA ve AdSense yükleyicileri |
+| — | `js/referenceIndex.js` | Üretilmiştir: referans sayfası olan segment kodları |
 | — | `gizlilik.html` / `privacy.html` | Gizlilik politikası (TR / EN) |
 
 ## Platform karşılıkları

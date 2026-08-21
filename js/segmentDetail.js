@@ -1,7 +1,8 @@
 // SegmentDetailView.swift -> web karşılığı
 // analyzeElement: segment/element bazlı "akıllı" etiket + değer üretimi (1:1 port)
-import { L, Lf } from './i18n.js';
+import { loc, L, Lf } from './i18n.js';
 import { EDIParser } from './parser.js';
+import { REFERENCE_SEGMENTS } from './referenceIndex.js';
 
 // --- TARİH FORMATLAYICI ---
 export function formatEDIDate(value, formatCode) {
@@ -1097,9 +1098,26 @@ export function renderSegmentDetail(container, rawLine, currentCurrency) {
     <div class="detail-header">
       <div class="detail-tag">${esc(segment.tag)}</div>
       <div class="detail-headinfo">
-        <div class="detail-title">${esc(getSegmentDescription(segment.tag))}</div>
+        <div class="detail-title">
+          ${esc(getSegmentDescription(segment.tag))}
+          ${referenceLink(segment.tag)}
+        </div>
         <div class="detail-rawline">${esc(segment.rawLine)}</div>
       </div>
     </div>
     <div class="detail-list">${rows}</div>`;
+}
+
+/**
+ * Segmentin referans sayfasına bağlantı.
+ * Yalnızca sayfası üretilmiş segmentler için döner; aksi hâlde boş string.
+ * Yeni sekmede açılır, böylece düzenlenen dosya ve sekmeler kaybolmaz.
+ */
+function referenceLink(tag) {
+  if (!REFERENCE_SEGMENTS.has(tag)) return '';
+  const dir = loc.currentLanguageCode === 'tr' ? 'edi/segment' : 'edi/en/segment';
+  return `<a class="detail-doclink" href="${dir}/${tag.toLowerCase()}.html"
+     target="_blank" rel="noopener" title="${esc(L('segment_docs'))}">
+     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.15" fill="currentColor"/></svg>
+     <span>${esc(L('segment_docs'))}</span></a>`;
 }

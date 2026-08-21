@@ -957,5 +957,6 @@
   "welcome_hint": "也可以将 .edi 文件拖放到此处",
   "privacy_policy": "隐私政策",
   "consent_manage": "Cookie 设置",
-  "edi_reference": "EDI 参考"
+  "edi_reference": "EDI 参考",
+  "segment_docs": "关于该段"
 }
