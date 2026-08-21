@@ -959,5 +959,6 @@
   "consent_msg": "Wir möchten Cookies für Besucherstatistiken und Werbung verwenden. Wenn Sie ablehnen, werden keine Cookies geladen und die App funktioniert genauso weiter.",
   "consent_accept": "Akzeptieren",
   "consent_reject": "Ablehnen",
-  "consent_manage": "Cookie-Einstellungen"
+  "consent_manage": "Cookie-Einstellungen",
+  "privacy_policy": "Datenschutzerklärung"
 }

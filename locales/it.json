@@ -959,5 +959,6 @@
   "consent_msg": "Vorremmo usare i cookie per le statistiche di visita e la pubblicità. Se rifiuti, non viene caricato alcun cookie e l'app continua a funzionare allo stesso modo.",
   "consent_accept": "Accetta",
   "consent_reject": "Rifiuta",
-  "consent_manage": "Impostazioni cookie"
+  "consent_manage": "Impostazioni cookie",
+  "privacy_policy": "Informativa sulla privacy"
 }

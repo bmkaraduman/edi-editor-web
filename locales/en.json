@@ -959,5 +959,6 @@
   "consent_msg": "We would like to use cookies for visitor statistics and advertising. If you decline, no cookies are loaded and the app keeps working exactly the same.",
   "consent_accept": "Accept",
   "consent_reject": "Decline",
-  "consent_manage": "Cookie Settings"
+  "consent_manage": "Cookie Settings",
+  "privacy_policy": "Privacy Policy"
 }

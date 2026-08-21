@@ -64,12 +64,19 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+/** Gizlilik politikasının dile göre adresi (TR ayrı sayfa, diğerleri İngilizce) */
+export function privacyURL() {
+  return loc.currentLanguageCode === 'tr' ? 'gizlilik.html' : 'privacy.html';
+}
+
 function renderBanner() {
   if (!bannerEl) return;
   bannerEl.innerHTML = `
     <div class="consent-text">
       <div class="consent-title">${esc(L('consent_title'))}</div>
-      <div class="consent-msg">${esc(L('consent_msg'))}</div>
+      <div class="consent-msg">${esc(L('consent_msg'))}
+        <a class="consent-link" href="${privacyURL()}">${esc(L('privacy_policy'))}</a>
+      </div>
     </div>
     <div class="consent-actions">
       <button class="consent-btn" data-consent="denied">${esc(L('consent_reject'))}</button>

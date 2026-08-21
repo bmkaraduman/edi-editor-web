@@ -7,7 +7,7 @@ import { SyntaxHighlightEditor } from './editor.js';
 import { renderSegmentDetail } from './segmentDetail.js';
 import { logoManager } from './logoManager.js';
 import { SAMPLE_EDI, SAMPLE_FILE_NAME } from './sampleData.js';
-import { initConsent, reopenConsent } from './consent.js';
+import { initConsent, reopenConsent, privacyURL } from './consent.js';
 
 // =========================================================================
 // MARK: - TEMA SEÇENEKLERİ (AppTheme)
@@ -590,6 +590,7 @@ function showAbout() {
       { label: L('btn_cancel'), kind: 'default', action: () => {} },
       // Onayı geri çekmek, vermek kadar kolay olmalı
       { label: L('consent_manage'), action: () => reopenConsent() },
+      { label: L('privacy_policy'), action: () => window.open(privacyURL(), '_blank', 'noopener') },
     ],
   });
 }

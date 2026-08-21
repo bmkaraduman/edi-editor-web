@@ -1058,6 +1058,11 @@ kbd {
   line-height: 1.5;
 }
 
+.consent-link {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
 .consent-actions {
   display: flex;
   gap: 8px;

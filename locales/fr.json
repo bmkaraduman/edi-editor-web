@@ -959,5 +959,6 @@
   "consent_msg": "Nous souhaitons utiliser des cookies pour les statistiques de visite et la publicité. Si vous refusez, aucun cookie n'est chargé et l'application fonctionne exactement de la même manière.",
   "consent_accept": "Accepter",
   "consent_reject": "Refuser",
-  "consent_manage": "Paramètres des cookies"
+  "consent_manage": "Paramètres des cookies",
+  "privacy_policy": "Politique de confidentialité"
 }

@@ -1,0 +1,136 @@
+/* Belge sayfaları (gizlilik politikası vb.) — styles.css'teki tema
+   değişkenlerini kullanır, üzerine okunabilir bir metin düzeni koyar. */
+
+body {
+  overflow: auto;
+  background: var(--window-bg);
+}
+
+.doc-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px;
+  background: var(--chrome-bg);
+  border-bottom: 1px solid var(--separator);
+}
+
+.doc-header .brand { text-decoration: none; }
+
+.doc-langs {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+
+.doc-langs a {
+  color: var(--secondary-label);
+  text-decoration: none;
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+
+.doc-langs a:hover { background: var(--hover); color: var(--label); }
+.doc-langs a.active { background: var(--accent-quiet); color: var(--accent); font-weight: 650; }
+
+.doc {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 44px 20px 90px;
+  line-height: 1.68;
+  font-size: 14.5px;
+  color: var(--label);
+}
+
+.doc h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0 0 6px;
+}
+
+.doc .updated {
+  color: var(--tertiary-label);
+  font-size: 12.5px;
+  margin-bottom: 34px;
+}
+
+.doc h2 {
+  font-size: 17px;
+  font-weight: 680;
+  letter-spacing: -0.2px;
+  margin: 36px 0 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--separator);
+}
+
+.doc h2:first-of-type { border-top: 0; padding-top: 0; }
+
+.doc p { margin: 0 0 14px; color: var(--label); }
+
+.doc ul { margin: 0 0 14px; padding-left: 22px; }
+.doc li { margin-bottom: 7px; }
+
+.doc a { color: var(--accent); }
+
+.doc strong { font-weight: 650; }
+
+.doc code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  background: var(--control);
+  padding: 1.5px 5px;
+  border-radius: 4px;
+}
+
+/* Öne çıkan kutu — "verileriniz cihazınızdan çıkmaz" gibi ana mesaj için */
+.doc-callout {
+  display: flex;
+  gap: 13px;
+  padding: 16px 18px;
+  margin: 0 0 30px;
+  border-radius: 12px;
+  background: var(--accent-quiet);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.doc-callout .ico { font-size: 20px; line-height: 1.3; flex: 0 0 auto; }
+.doc-callout p { margin: 0; font-size: 13.5px; }
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 16px;
+  font-size: 13.5px;
+}
+
+.doc-table th,
+.doc-table td {
+  text-align: left;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--separator);
+  vertical-align: top;
+}
+
+.doc-table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--secondary-label);
+  font-weight: 700;
+}
+
+.doc-footer {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px 50px;
+  font-size: 12.5px;
+  color: var(--tertiary-label);
+}
+
+.doc-footer a { color: var(--secondary-label); }

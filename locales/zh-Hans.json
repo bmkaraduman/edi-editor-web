@@ -959,5 +959,6 @@
   "consent_msg": "我们希望使用 Cookie 来统计访问数据并展示广告。若您拒绝，将不会加载任何 Cookie，应用功能完全不受影响。",
   "consent_accept": "接受",
   "consent_reject": "拒绝",
-  "consent_manage": "Cookie 设置"
+  "consent_manage": "Cookie 设置",
+  "privacy_policy": "隐私政策"
 }
