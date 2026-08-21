@@ -16,6 +16,25 @@ Ardından tarayıcıda: <http://localhost:5599>
 
 Farklı port için: `python3 serve.py 8080`
 
+## Yayınlama (GitHub Pages)
+
+Proje tamamen statik: derleme adımı, sunucu tarafı kod veya harici bağımlılık yok.
+Tüm yollar göreli olduğu için `kullaniciadi.github.io/repo-adi/` gibi bir alt dizinde
+de sorunsuz çalışır.
+
+1. GitHub'da boş bir repo açıp push edin.
+2. **Settings → Pages → Source: Deploy from a branch**, branch `main`, klasör `/ (root)`.
+3. Bir dakika içinde `https://kullaniciadi.github.io/repo-adi/` adresinde yayında olur.
+
+Kökteki boş `.nojekyll` dosyası, GitHub'ın içeriği Jekyll'den geçirmesini engeller —
+dağıtım hem hızlanır hem de dosyalar olduğu gibi servis edilir.
+
+Özel alan adı sonradan **Settings → Pages → Custom domain** üzerinden eklenebilir;
+mevcut adres çalışmaya devam eder.
+
+> HTTPS gereklidir: "Kaydet" özelliği File System Access API kullanır ve bu API yalnızca
+> güvenli bağlamda çalışır. `*.github.io` adreslerinde HTTPS varsayılan olarak açıktır.
+
 ### Açılış davranışı
 
 Uygulama, boş bir hoşgeldin ekranı yerine **örnek bir EDIFACT siparişi yüklü sekmeyle** açılır
