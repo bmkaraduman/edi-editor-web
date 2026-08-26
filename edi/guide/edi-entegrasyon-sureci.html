@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDI&#x27;ye başlarken: ticaret ortağıyla entegrasyon süreci — ediviewer</title>
+<meta name="description" content="Bir perakendeci &quot;EDI ile çalışacağız&quot; dediğinde sizden ne istenir, süreç hangi adımlardan geçer.">
+<link rel="canonical" href="https://ediviewer.net/edi/guide/edi-entegrasyon-sureci.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/guide/edi-integration-process.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/guide/edi-integration-process.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDI&#x27;ye başlarken: ticaret ortağıyla entegrasyon süreci</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Bir perakendeci &quot;EDI ile çalışacağız&quot; dediğinde sizden ne istenir, süreç hangi adımlardan geçer.</div>
+<p>Çoğu firma EDI&#x27;yi kendi isteğiyle değil, büyük bir müşteri şart koştuğu için kurar. Süreç ilk bakışta karmaşık görünür ama adımları bellidir.</p>
+<h2>1. Şartnameyi alın</h2>
+<p>Ortağınız size bir <strong>EDI şartnamesi</strong> verir (İngilizcesi genellikle *Message Implementation Guideline* ya da kısaca MIG). Bu belge, standardın genelini değil, o ortağın sizden tam olarak ne beklediğini anlatır.</p>
+<p>Şartnamede aranacak dört şey:</p>
+<ul>
+<li>Hangi <strong>mesajlar</strong> kullanılacak (yalnızca ORDERS ve INVOIC mi, DESADV de var mı)</li>
+<li>Hangi <strong>sürüm</strong> (EDIFACT D.96A, D.01B gibi)</li>
+<li>Hangi <strong>segmentler zorunlu</strong>, hangileri isteğe bağlı</li>
+<li>Tarafların <strong>GLN</strong> numaraları</li>
+</ul>
+<p>Şartnamenin en kritik kısmı zorunlu alanlar listesidir. Standart bir segmenti isteğe bağlı saysa bile, ortağınız onu zorunlu tutuyorsa mesajınız reddedilir.</p>
+<h2>2. Aktarım yöntemini belirleyin</h2>
+<p>Dosyanın karşı tarafa nasıl gideceği ayrı bir karardır ve içerikle ilgisi yoktur:</p>
+<table class="doc-table"><thead><tr><th>Yöntem</th><th>Ne zaman</th></tr></thead><tbody>
+<tr><td><strong>AS2</strong></td><td>İnternet üzerinden doğrudan, imzalı ve şifreli. Büyük perakendecilerin standardı.</td></tr>
+<tr><td><strong>SFTP</strong></td><td>Basit ve yaygın. Dosyalar bir sunucuya bırakılır ya da alınır.</td></tr>
+<tr><td><strong>VAN</strong></td><td>Aracı bir servis sağlayıcı üzerinden. Kurulum kolay, işlem başına ücret var.</td></tr>
+<table class="doc-table"><thead><tr><th><strong>E-posta / X.400</strong></th><th>Eski kurulumlarda görülür, yenilerde tercih edilmez.</th></tr></thead><tbody>
+</tbody></table>
+<p>Küçük hacimlerde SFTP veya bir VAN genelde en pratik başlangıçtır; AS2 kurulumu sertifika yönetimi gerektirir.</p>
+<h2>3. Test aşaması</h2>
+<p>Üretime geçmeden önce test dosyaları alışverişi yapılır. Bu aşama genellikle sanıldığından uzun sürer ve birkaç tur döner. Karşı taraf mesajınızı kendi doğrulayıcısından geçirir ve hataları bildirir.</p>
+<p>Test aşamasında en sık dönen hatalar:</p>
+<ul>
+<li>Zorunlu bir segmentin eksik olması</li>
+<li>GLN&#x27;nin ortağın sisteminde tanımlı olmaması</li>
+<li>Karakter setinin yanlış seçilmesi (Türkçe karakterlerin bozulması)</li>
+<li>UNT segment sayacının tutmaması</li>
+<li>Tarih format kodunun yanlış olması</li>
+</ul>
+<p>Bunların hepsi dosyaya bakarak tespit edilebilir; hata mesajını beklemek yerine gönderdiğiniz dosyayı bir görüntüleyicide açıp kontrol etmek zaman kazandırır.</p>
+<h2>4. Üretime geçiş</h2>
+<p>Test onaylanınca üretim ortamına geçilir. Burada dikkat edilecek iki şey vardır:</p>
+<p><strong>Test ve üretim GLN&#x27;leri farklı olabilir.</strong> Ortağınız test için ayrı bir numara verdiyse üretimde onu kullanmaya devam etmek, mesajların sessizce kaybolmasına yol açar.</p>
+<p><strong>İlk hafta yakın takip gerekir.</strong> Test verisi temiz olur; gerçek siparişlerde beklenmedik karakterler, uzun ürün adları ve sıra dışı miktarlar çıkar.</p>
+<h2>5. Süreklilik</h2>
+<p>Entegrasyon bitmiş bir iş değildir. Ortağınız sürüm güncelleyebilir, yeni zorunlu alan ekleyebilir ya da yeni bir mesaj tipi isteyebilir. Gelen şartname güncellemelerini takip etmek, bir sabah siparişlerin akmayı bırakmasından iyidir.</p>
+<h2>Kendi tarafınızda ne gerekir</h2>
+<p>Küçük hacimde çalışıyorsanız her şeyi otomatikleştirmeniz şart değil. Pek çok firma gelen siparişi görüntüleyip elle sisteme girerek başlar, hacim arttıkça otomasyona geçer. Önemli olan, gelen dosyayı <strong>okuyabilmek</strong> ve giden dosyanın şartnameye uyduğunu <strong>doğrulayabilmektir</strong>.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

@@ -27,7 +27,7 @@
 
 <main class="doc">
 <h1>Common mistakes in EDI files</h1>
-<div class="updated">The most frequent technical reasons behind rejected messages, and how to spot them.</div>
+<div class="updated"><time datetime="2026-08-21">21 August 2026</time> &middot; The most frequent technical reasons behind rejected messages, and how to spot them.</div>
 <p>When an EDI message is rejected, the cause usually lies in syntax or qualifier choice rather than business logic. These are the ones seen most often in practice.</p>
 <h2>1. The release character is forgotten</h2>
 <p>A <code>+</code>, <code>:</code> or <code>&#x27;</code> appearing inside a free-text field (<code>FTX</code>, <code>IMD</code>) is taken for a separator and splits the line. The fix is to precede such characters with <code>?</code>.</p>

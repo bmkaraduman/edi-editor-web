@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siparişten faturaya: EDI mesaj akışı — ediviewer</title>
+<meta name="description" content="ORDERS ile başlayan zincirin fatura ve ödemeye kadar nasıl ilerlediği, mesajların birbirine nasıl bağlandığı.">
+<link rel="canonical" href="https://ediviewer.net/edi/guide/siparisten-faturaya-edi-akisi.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/guide/order-to-invoice-edi-flow.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/guide/order-to-invoice-edi-flow.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Siparişten faturaya: EDI mesaj akışı</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; ORDERS ile başlayan zincirin fatura ve ödemeye kadar nasıl ilerlediği, mesajların birbirine nasıl bağlandığı.</div>
+<p>Tek bir EDI mesajı nadiren tek başına anlam taşır. Gerçek değer, mesajların bir zincir oluşturmasında ve her adımın bir öncekine referans vermesindedir. Tipik bir perakende alışverişi altı mesajdan geçer.</p>
+<h2>Zincir</h2>
+<pre class="doc-code"><code>
+ALICI                          TEDARİKÇİ
+  |                                |
+  |------------ ORDERS -----------&gt;|   sipariş
+  |&lt;----------- ORDRSP ------------|   sipariş yanıtı
+  |&lt;----------- DESADV ------------|   sevk ihbarı (mal yolda)
+  |------------ RECADV -----------&gt;|   mal kabul
+  |&lt;----------- INVOIC ------------|   fatura
+  |------------ REMADV -----------&gt;|   ödeme bildirimi
+</code></pre>
+<p>Her ok bir belgedir ve önceki adıma bağlıdır.</p>
+<h2>1. ORDERS — sipariş</h2>
+<p>Alıcı ne istediğini bildirir: ürün, miktar, fiyat, teslim tarihi. Belgeye bir numara verilir ve bu numara tüm zincir boyunca referans olarak kullanılır:</p>
+<pre class="doc-code"><code>
+BGM+220+PO-2026-0042+9&#x27;
+</code></pre>
+<h2>2. ORDRSP — sipariş yanıtı</h2>
+<p>Tedarikçi kabul, kısmi kabul veya red bildirir. Kritik nokta, yanıtın **satır bazında** olabilmesidir: üç kalem gönderilebilir, dördüncü stokta olmayabilir.</p>
+<p>Yanıt, siparişe RFF ile bağlanır:</p>
+<pre class="doc-code"><code>
+RFF+ON:PO-2026-0042&#x27;
+</code></pre>
+<p><code>ON</code> nitelikçisi &quot;order number&quot; demektir. Bu bağ olmadan hangi siparişe yanıt verildiği anlaşılamaz.</p>
+<h2>3. DESADV — sevk ihbarı</h2>
+<p>Mal yola çıkarken gönderilir ve <strong>maldan önce varır</strong>. Depo, gelecek sevkiyatın içeriğini önceden bilir; hangi palette ne olduğu SSCC numaralarıyla bildirilir.</p>
+<p>Bu, mal kabulü sayma işleminden okutma işlemine dönüştürür.</p>
+<h2>4. RECADV — mal kabul</h2>
+<p>Alıcı fiilen ne teslim aldığını bildirir. Aynı satır için iki miktar taşır: sevk edilen (QTY 12) ve teslim alınan (QTY 194). Aradaki fark eksik, fazla veya hasarlı teslimatı ortaya çıkarır.</p>
+<h2>5. INVOIC — fatura</h2>
+<p>Tedarikçi faturayı keser. Alıcı sistem burada <strong>üçlü eşleştirme</strong> yapar:</p>
+<ul>
+<li>sipariş ne diyordu (ORDERS)</li>
+<li>fiilen ne teslim alındı (RECADV)</li>
+<li>fatura ne için kesildi (INVOIC)</li>
+</ul>
+<p>Üçü tutuyorsa fatura otomatik onaylanır ve ödemeye düşer. Tutmuyorsa insana gider. EDI&#x27;nin asıl tasarrufu buradadır: eşleşen faturalar kimsenin eline değmeden geçer.</p>
+<h2>6. REMADV — ödeme bildirimi</h2>
+<p>Alıcı hangi faturaları, ne kadar ödediğini bildirir. Kesinti yapıldıysa gerekçesi AJT segmentiyle verilir. Tedarikçi bu mesajla açık faturalarını otomatik kapatır.</p>
+<h2>Bağların özeti</h2>
+<p>Zincirin tamamı iki mekanizmayla ayakta durur:</p>
+<ul>
+<li><strong>BGM</strong> her belgeye kendi numarasını verir</li>
+<li><strong>RFF</strong> o belgenin hangi önceki belgeye ait olduğunu söyler</li>
+</ul>
+<p>Bir mesaj RFF taşımıyorsa otomatik eşleştirme yapılamaz ve iş elle takibe düşer. Entegrasyon sorunlarının önemli bir kısmı, eksik ya da yanlış RFF referansından kaynaklanır.</p>
+<h2>Her zincir tam işlemez</h2>
+<p>Tüm ticaret ortakları altı mesajın hepsini kullanmaz. Küçük hacimli ilişkilerde çoğu zaman yalnızca ORDERS ve INVOIC alışverişi yapılır; DESADV ve RECADV, depo otomasyonu olan büyük perakendecilerde anlamlıdır. Hangi mesajların zorunlu olduğu, ortağınızın size verdiği EDI şartnamesinde yazar.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

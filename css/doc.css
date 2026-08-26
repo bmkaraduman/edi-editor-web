@@ -247,3 +247,10 @@ body {
   .app-cta { flex-direction: column; align-items: stretch; }
   .app-cta-btn { text-align: center; }
 }
+
+.link-date {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--tertiary-label);
+}

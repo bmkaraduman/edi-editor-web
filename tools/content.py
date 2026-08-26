@@ -630,6 +630,7 @@ MESSAGES = {
 GUIDES = [
     {
         'slug': 'edifact-nedir',
+        'date': '2026-08-21',
         'slug_en': 'what-is-edifact',
         'tr': {
             'title': 'EDIFACT nedir? Yapısı ve okunuşu',
@@ -791,6 +792,7 @@ types section to understand a particular kind of document.
     },
     {
         'slug': 'edifact-x12-farki',
+        'date': '2026-08-21',
         'slug_en': 'edifact-vs-x12',
         'tr': {
             'title': 'EDIFACT ve ANSI X12 arasındaki farklar',
@@ -900,6 +902,7 @@ companies that trade with both.
     },
     {
         'slug': 'edi-dosyasi-sorun-giderme',
+        'date': '2026-08-21',
         'slug_en': 'edi-troubleshooting',
         'tr': {
             'title': 'EDI dosyalarında sık yapılan hatalar',
@@ -1041,6 +1044,584 @@ for Latin-1.
 Opening the file in ediviewer highlights the segment tags and lists every element
 of the selected line with a name against it. An element sitting opposite a label
 you did not expect usually points to one of the mistakes above.
+""",
+        },
+    },
+    {
+        'slug': 'gln-gtin-sscc',
+        'date': '2026-08-26',
+        'slug_en': 'gln-gtin-sscc',
+        'tr': {
+            'title': 'GLN, GTIN ve SSCC: EDI\'de kimlik numaraları',
+            'summary': 'EDI mesajlarındaki üç GS1 numarası — kim, ne ve hangi palet — '
+                       'nerede geçer, nasıl doğrulanır.',
+            'body': """
+EDI mesajlarında firma adı ya da ürün açıklaması yazmak yeterli değildir. İki
+sistemin birbirini anlaması için ortak, benzersiz ve makine tarafından
+doğrulanabilir numaralar gerekir. Bunları GS1 adlı uluslararası kuruluş tanımlar.
+
+Üç numarayı ayırt etmek, EDI'yi anlamanın yarısıdır: **GLN kimi**, **GTIN neyi**,
+**SSCC hangi fiziksel paketi** gösterir.
+
+## GLN — Global Location Number
+
+13 haneli bu numara bir **tarafı veya konumu** tanımlar: bir firmayı, bir
+mağazayı, bir depoyu, hatta bir fatura adresini.
+
+EDI'de iki yerde karşınıza çıkar. Zarf başlığında gönderen ve alıcıyı belirler:
+
+```
+UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042'
+```
+
+Buradaki `:14` kodu, "bu numara bir GLN'dir" demektir. Mesajın içinde ise
+taraflar NAD segmentiyle verilir:
+
+```
+NAD+SU+8712345678901::9++ACME FOODS BV'
+```
+
+Buradaki `::9` ise numaranın GS1 standardına göre atandığını söyler.
+
+Pratikte GLN eşleşmesi bir mesajın kabul edilip edilmemesini belirler. Karşı
+taraf sizi GLN'nizden tanır; sistemlerinde kayıtlı olmayan bir GLN ile mesaj
+gönderirseniz, içerik kusursuz olsa bile reddedilirsiniz.
+
+## GTIN — Global Trade Item Number
+
+Ürünü tanımlar. Marketten aldığınız bir ürünün üzerindeki barkod (EAN-13) bir
+GTIN'dir. EDI'de LIN segmentinde taşınır:
+
+```
+LIN+1++5410013101234:EN'
+```
+
+`EN` nitelikçisi numaranın bir EAN/GTIN olduğunu belirtir.
+
+Burada sık yapılan hata, kendi iç stok kodunuzu GTIN yerine koymaktır. İç kodun
+yeri farklıdır — PIA segmentinde, uygun nitelikçiyle verilir:
+
+```
+PIA+1+B-2002:IN'
+```
+
+`IN` alıcının stok kodu, `SA` tedarikçinin stok kodu demektir. GTIN alanına iç
+kod yazmak, karşı tarafın ürünü tanıyamamasına ve satırın reddedilmesine yol
+açar.
+
+## SSCC — Serial Shipping Container Code
+
+18 haneli bu numara, **fiziksel bir sevkiyat birimini** tanımlar: belirli bir
+palet, belirli bir koli. GTIN gibi ürün türünü değil, o tek nesneyi gösterir.
+Aynı üründen bin palet varsa bin farklı SSCC olur.
+
+Sevk irsaliyesinde GIN segmentiyle taşınır:
+
+```
+GIN+BJ+340123456789012345'
+```
+
+SSCC'nin asıl değeri depoda ortaya çıkar. Palet geldiğinde üzerindeki etiket
+okutulur; sistem o numarayı DESADV'de zaten aldığı için içindekileri anında
+bilir. Tek tek kutu sayma ihtiyacı ortadan kalkar.
+
+Bir SSCC **tekrar kullanılmamalıdır**. GS1 kuralı, aynı numaranın en az bir yıl
+boyunca yeniden verilmemesini söyler; aksi hâlde depo sistemi eski sevkiyatla
+karıştırır.
+
+## Kontrol hanesi
+
+Üç numaranın da son hanesi kontrol hanesidir ve diğer hanelerden hesaplanır.
+Bu, tek haneli yazım hatalarını yakalar: rakamları soldan sağa sırayla 3 ve 1
+ile çarpıp toplarsınız, sonucu bir sonraki onluğa tamamlayan sayı kontrol
+hanesidir.
+
+Numara elle girildiğinde hata yapıldıysa kontrol hanesi tutmaz ve pek çok sistem
+mesajı daha içeriğe bakmadan reddeder. Bir GLN veya GTIN sürekli reddediliyorsa
+ilk bakılacak yer burasıdır.
+
+## Özet
+
+| Numara | Uzunluk | Neyi tanımlar | EDI'de nerede |
+|---|---|---|---|
+| GLN | 13 | Taraf veya konum | UNB, NAD |
+| GTIN | 8-14 | Ürün türü | LIN |
+| SSCC | 18 | Tek bir palet/koli | GIN |
+""",
+        },
+        'en': {
+            'title': 'GLN, GTIN and SSCC: identifiers in EDI',
+            'summary': 'The three GS1 numbers in EDI messages — who, what and which pallet — '
+                       'where they appear and how they are validated.',
+            'body': """
+Writing a company name or a product description into an EDI message is not
+enough. For two systems to understand each other they need shared, unique,
+machine-verifiable numbers. These are defined by an international body called
+GS1.
+
+Telling the three numbers apart is half of understanding EDI: **GLN says who**,
+**GTIN says what**, and **SSCC says which physical package**.
+
+## GLN — Global Location Number
+
+This 13-digit number identifies a **party or a location**: a company, a store, a
+warehouse, even a billing address.
+
+It appears in two places. In the interchange header it names the sender and the
+receiver:
+
+```
+UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042'
+```
+
+The `:14` code means "this number is a GLN". Inside the message, parties are
+given with the NAD segment:
+
+```
+NAD+SU+8712345678901::9++ACME FOODS BV'
+```
+
+Here `::9` says the number was assigned under the GS1 standard.
+
+In practice, GLN matching decides whether a message is accepted at all. Your
+partner recognises you by your GLN; send a message with a GLN that is not
+registered in their system and you are rejected, however perfect the content.
+
+## GTIN — Global Trade Item Number
+
+This identifies the product. The barcode (EAN-13) on an item you buy in a shop
+is a GTIN. In EDI it travels in the LIN segment:
+
+```
+LIN+1++5410013101234:EN'
+```
+
+The `EN` qualifier marks the number as an EAN/GTIN.
+
+A frequent mistake here is putting your own internal stock code where the GTIN
+belongs. The internal code has its own place — the PIA segment, with the right
+qualifier:
+
+```
+PIA+1+B-2002:IN'
+```
+
+`IN` means the buyer's item number, `SA` the supplier's. Putting an internal
+code in the GTIN field leaves your partner unable to recognise the product, and
+the line is rejected.
+
+## SSCC — Serial Shipping Container Code
+
+This 18-digit number identifies a **physical shipping unit**: one particular
+pallet, one particular carton. Unlike a GTIN it does not describe a product
+type but that single object. A thousand pallets of the same product carry a
+thousand different SSCCs.
+
+It travels in the GIN segment of a despatch advice:
+
+```
+GIN+BJ+340123456789012345'
+```
+
+The value of the SSCC becomes clear in the warehouse. When the pallet arrives
+its label is scanned; because the system already received that number in the
+DESADV, it instantly knows the contents. Counting boxes one by one becomes
+unnecessary.
+
+An SSCC **must not be reused**. The GS1 rule is that the same number is not
+reissued for at least a year; otherwise the warehouse system confuses it with
+an earlier shipment.
+
+## The check digit
+
+The last digit of all three numbers is a check digit calculated from the others.
+It catches single-digit typing errors: multiply the digits alternately by 3 and
+1, add them up, and the number that rounds the sum up to the next multiple of
+ten is the check digit.
+
+If a number was mistyped, the check digit will not match and many systems reject
+the message before even looking at the content. When a GLN or GTIN is being
+rejected persistently, this is the first thing to check.
+
+## Summary
+
+| Number | Length | Identifies | Where in EDI |
+|---|---|---|---|
+| GLN | 13 | A party or location | UNB, NAD |
+| GTIN | 8-14 | A product type | LIN |
+| SSCC | 18 | One pallet or carton | GIN |
+""",
+        },
+    },
+    {
+        'slug': 'siparisten-faturaya-edi-akisi',
+        'date': '2026-08-26',
+        'slug_en': 'order-to-invoice-edi-flow',
+        'tr': {
+            'title': 'Siparişten faturaya: EDI mesaj akışı',
+            'summary': 'ORDERS ile başlayan zincirin fatura ve ödemeye kadar nasıl ilerlediği, '
+                       'mesajların birbirine nasıl bağlandığı.',
+            'body': """
+Tek bir EDI mesajı nadiren tek başına anlam taşır. Gerçek değer, mesajların bir
+zincir oluşturmasında ve her adımın bir öncekine referans vermesindedir. Tipik
+bir perakende alışverişi altı mesajdan geçer.
+
+## Zincir
+
+```
+ALICI                          TEDARİKÇİ
+  |                                |
+  |------------ ORDERS ----------->|   sipariş
+  |<----------- ORDRSP ------------|   sipariş yanıtı
+  |<----------- DESADV ------------|   sevk ihbarı (mal yolda)
+  |------------ RECADV ----------->|   mal kabul
+  |<----------- INVOIC ------------|   fatura
+  |------------ REMADV ----------->|   ödeme bildirimi
+```
+
+Her ok bir belgedir ve önceki adıma bağlıdır.
+
+## 1. ORDERS — sipariş
+
+Alıcı ne istediğini bildirir: ürün, miktar, fiyat, teslim tarihi. Belgeye bir
+numara verilir ve bu numara tüm zincir boyunca referans olarak kullanılır:
+
+```
+BGM+220+PO-2026-0042+9'
+```
+
+## 2. ORDRSP — sipariş yanıtı
+
+Tedarikçi kabul, kısmi kabul veya red bildirir. Kritik nokta, yanıtın **satır
+bazında** olabilmesidir: üç kalem gönderilebilir, dördüncü stokta olmayabilir.
+
+Yanıt, siparişe RFF ile bağlanır:
+
+```
+RFF+ON:PO-2026-0042'
+```
+
+`ON` nitelikçisi "order number" demektir. Bu bağ olmadan hangi siparişe yanıt
+verildiği anlaşılamaz.
+
+## 3. DESADV — sevk ihbarı
+
+Mal yola çıkarken gönderilir ve **maldan önce varır**. Depo, gelecek sevkiyatın
+içeriğini önceden bilir; hangi palette ne olduğu SSCC numaralarıyla bildirilir.
+
+Bu, mal kabulü sayma işleminden okutma işlemine dönüştürür.
+
+## 4. RECADV — mal kabul
+
+Alıcı fiilen ne teslim aldığını bildirir. Aynı satır için iki miktar taşır:
+sevk edilen (QTY 12) ve teslim alınan (QTY 194). Aradaki fark eksik, fazla veya
+hasarlı teslimatı ortaya çıkarır.
+
+## 5. INVOIC — fatura
+
+Tedarikçi faturayı keser. Alıcı sistem burada **üçlü eşleştirme** yapar:
+
+- sipariş ne diyordu (ORDERS)
+- fiilen ne teslim alındı (RECADV)
+- fatura ne için kesildi (INVOIC)
+
+Üçü tutuyorsa fatura otomatik onaylanır ve ödemeye düşer. Tutmuyorsa insana
+gider. EDI'nin asıl tasarrufu buradadır: eşleşen faturalar kimsenin eline
+değmeden geçer.
+
+## 6. REMADV — ödeme bildirimi
+
+Alıcı hangi faturaları, ne kadar ödediğini bildirir. Kesinti yapıldıysa
+gerekçesi AJT segmentiyle verilir. Tedarikçi bu mesajla açık faturalarını
+otomatik kapatır.
+
+## Bağların özeti
+
+Zincirin tamamı iki mekanizmayla ayakta durur:
+
+- **BGM** her belgeye kendi numarasını verir
+- **RFF** o belgenin hangi önceki belgeye ait olduğunu söyler
+
+Bir mesaj RFF taşımıyorsa otomatik eşleştirme yapılamaz ve iş elle takibe düşer.
+Entegrasyon sorunlarının önemli bir kısmı, eksik ya da yanlış RFF referansından
+kaynaklanır.
+
+## Her zincir tam işlemez
+
+Tüm ticaret ortakları altı mesajın hepsini kullanmaz. Küçük hacimli
+ilişkilerde çoğu zaman yalnızca ORDERS ve INVOIC alışverişi yapılır; DESADV ve
+RECADV, depo otomasyonu olan büyük perakendecilerde anlamlıdır. Hangi
+mesajların zorunlu olduğu, ortağınızın size verdiği EDI şartnamesinde yazar.
+""",
+        },
+        'en': {
+            'title': 'From order to invoice: the EDI message flow',
+            'summary': 'How the chain that starts with ORDERS runs through to invoicing and '
+                       'payment, and how the messages link to one another.',
+            'body': """
+A single EDI message rarely means much on its own. The value lies in the
+messages forming a chain, each step referencing the one before it. A typical
+retail transaction passes through six messages.
+
+## The chain
+
+```
+BUYER                          SUPPLIER
+  |                                |
+  |------------ ORDERS ----------->|   order
+  |<----------- ORDRSP ------------|   order response
+  |<----------- DESADV ------------|   despatch advice (goods on the way)
+  |------------ RECADV ----------->|   receiving advice
+  |<----------- INVOIC ------------|   invoice
+  |------------ REMADV ----------->|   remittance advice
+```
+
+Every arrow is a document, and each is tied to the step before it.
+
+## 1. ORDERS — the order
+
+The buyer states what is wanted: product, quantity, price, delivery date. The
+document is given a number, and that number is referenced throughout the chain:
+
+```
+BGM+220+PO-2026-0042+9'
+```
+
+## 2. ORDRSP — the order response
+
+The supplier confirms, partially confirms or rejects. The critical point is that
+the answer can be given **line by line**: three items may ship while the fourth
+is out of stock.
+
+The response is tied to the order with an RFF:
+
+```
+RFF+ON:PO-2026-0042'
+```
+
+The `ON` qualifier means "order number". Without this link there is no way to
+tell which order is being answered.
+
+## 3. DESADV — the despatch advice
+
+Sent as the goods leave, it **arrives before them**. The warehouse knows the
+contents of the incoming shipment in advance, with SSCC numbers saying what sits
+on which pallet.
+
+This turns goods-in from a counting exercise into a scanning one.
+
+## 4. RECADV — the receiving advice
+
+The buyer reports what was actually received. It carries two quantities for the
+same line: despatched (QTY 12) and received (QTY 194). The difference exposes
+short, over or damaged deliveries.
+
+## 5. INVOIC — the invoice
+
+The supplier bills. Here the buyer's system performs a **three-way match**:
+
+- what the order said (ORDERS)
+- what was actually received (RECADV)
+- what is being billed (INVOIC)
+
+If all three agree, the invoice is approved automatically and goes to payment.
+If they do not, it goes to a human. This is where EDI actually saves money:
+matching invoices pass without anyone touching them.
+
+## 6. REMADV — the remittance advice
+
+The buyer states which invoices were paid and for how much. Where a deduction
+was made, the reason travels in an AJT segment. The supplier uses this message
+to close open invoices automatically.
+
+## The links in summary
+
+The whole chain rests on two mechanisms:
+
+- **BGM** gives every document its own number
+- **RFF** says which earlier document it belongs to
+
+A message without an RFF cannot be matched automatically and falls back to
+manual handling. A large share of integration problems come down to a missing or
+wrong RFF reference.
+
+## Not every chain runs in full
+
+Not all trading partners use all six messages. Low-volume relationships often
+exchange only ORDERS and INVOIC; DESADV and RECADV pay off where the buyer has
+warehouse automation. Which messages are mandatory is set out in the EDI
+specification your partner gives you.
+""",
+        },
+    },
+    {
+        'slug': 'edi-entegrasyon-sureci',
+        'date': '2026-08-26',
+        'slug_en': 'edi-integration-process',
+        'tr': {
+            'title': 'EDI\'ye başlarken: ticaret ortağıyla entegrasyon süreci',
+            'summary': 'Bir perakendeci "EDI ile çalışacağız" dediğinde sizden ne istenir, '
+                       'süreç hangi adımlardan geçer.',
+            'body': """
+Çoğu firma EDI'yi kendi isteğiyle değil, büyük bir müşteri şart koştuğu için
+kurar. Süreç ilk bakışta karmaşık görünür ama adımları bellidir.
+
+## 1. Şartnameyi alın
+
+Ortağınız size bir **EDI şartnamesi** verir (İngilizcesi genellikle *Message
+Implementation Guideline* ya da kısaca MIG). Bu belge, standardın genelini değil,
+o ortağın sizden tam olarak ne beklediğini anlatır.
+
+Şartnamede aranacak dört şey:
+
+- Hangi **mesajlar** kullanılacak (yalnızca ORDERS ve INVOIC mi, DESADV de var mı)
+- Hangi **sürüm** (EDIFACT D.96A, D.01B gibi)
+- Hangi **segmentler zorunlu**, hangileri isteğe bağlı
+- Tarafların **GLN** numaraları
+
+Şartnamenin en kritik kısmı zorunlu alanlar listesidir. Standart bir segmenti
+isteğe bağlı saysa bile, ortağınız onu zorunlu tutuyorsa mesajınız reddedilir.
+
+## 2. Aktarım yöntemini belirleyin
+
+Dosyanın karşı tarafa nasıl gideceği ayrı bir karardır ve içerikle ilgisi
+yoktur:
+
+| Yöntem | Ne zaman |
+|---|---|
+| **AS2** | İnternet üzerinden doğrudan, imzalı ve şifreli. Büyük perakendecilerin standardı. |
+| **SFTP** | Basit ve yaygın. Dosyalar bir sunucuya bırakılır ya da alınır. |
+| **VAN** | Aracı bir servis sağlayıcı üzerinden. Kurulum kolay, işlem başına ücret var. |
+| **E-posta / X.400** | Eski kurulumlarda görülür, yenilerde tercih edilmez. |
+
+Küçük hacimlerde SFTP veya bir VAN genelde en pratik başlangıçtır; AS2 kurulumu
+sertifika yönetimi gerektirir.
+
+## 3. Test aşaması
+
+Üretime geçmeden önce test dosyaları alışverişi yapılır. Bu aşama genellikle
+sanıldığından uzun sürer ve birkaç tur döner. Karşı taraf mesajınızı kendi
+doğrulayıcısından geçirir ve hataları bildirir.
+
+Test aşamasında en sık dönen hatalar:
+
+- Zorunlu bir segmentin eksik olması
+- GLN'nin ortağın sisteminde tanımlı olmaması
+- Karakter setinin yanlış seçilmesi (Türkçe karakterlerin bozulması)
+- UNT segment sayacının tutmaması
+- Tarih format kodunun yanlış olması
+
+Bunların hepsi dosyaya bakarak tespit edilebilir; hata mesajını beklemek yerine
+gönderdiğiniz dosyayı bir görüntüleyicide açıp kontrol etmek zaman kazandırır.
+
+## 4. Üretime geçiş
+
+Test onaylanınca üretim ortamına geçilir. Burada dikkat edilecek iki şey vardır:
+
+**Test ve üretim GLN'leri farklı olabilir.** Ortağınız test için ayrı bir numara
+verdiyse üretimde onu kullanmaya devam etmek, mesajların sessizce kaybolmasına
+yol açar.
+
+**İlk hafta yakın takip gerekir.** Test verisi temiz olur; gerçek siparişlerde
+beklenmedik karakterler, uzun ürün adları ve sıra dışı miktarlar çıkar.
+
+## 5. Süreklilik
+
+Entegrasyon bitmiş bir iş değildir. Ortağınız sürüm güncelleyebilir, yeni
+zorunlu alan ekleyebilir ya da yeni bir mesaj tipi isteyebilir. Gelen
+şartname güncellemelerini takip etmek, bir sabah siparişlerin akmayı
+bırakmasından iyidir.
+
+## Kendi tarafınızda ne gerekir
+
+Küçük hacimde çalışıyorsanız her şeyi otomatikleştirmeniz şart değil. Pek çok
+firma gelen siparişi görüntüleyip elle sisteme girerek başlar, hacim arttıkça
+otomasyona geçer. Önemli olan, gelen dosyayı **okuyabilmek** ve giden dosyanın
+şartnameye uyduğunu **doğrulayabilmektir**.
+""",
+        },
+        'en': {
+            'title': 'Starting with EDI: integrating with a trading partner',
+            'summary': 'What you are asked for when a retailer says "we work over EDI", and '
+                       'the steps the process goes through.',
+            'body': """
+Most companies set up EDI not because they chose to but because a large customer
+requires it. The process looks daunting at first, but its steps are well
+defined.
+
+## 1. Get the specification
+
+Your partner gives you an **EDI specification**, usually called a *Message
+Implementation Guideline* or MIG. This document does not describe the standard
+in general; it describes exactly what that partner expects from you.
+
+Four things to look for:
+
+- Which **messages** are in scope (only ORDERS and INVOIC, or DESADV too)
+- Which **version** (EDIFACT D.96A, D.01B and so on)
+- Which **segments are mandatory** and which are optional
+- The **GLN** numbers of both parties
+
+The most critical part is the list of mandatory fields. Even where the standard
+treats a segment as optional, if your partner makes it mandatory your message
+will be rejected without it.
+
+## 2. Decide how the file travels
+
+How the file reaches the other side is a separate decision with no bearing on
+the content:
+
+| Method | When |
+|---|---|
+| **AS2** | Directly over the internet, signed and encrypted. The standard for large retailers. |
+| **SFTP** | Simple and widespread. Files are dropped on or collected from a server. |
+| **VAN** | Through an intermediary service provider. Easy to set up, charged per transaction. |
+| **Email / X.400** | Seen in older setups, rarely chosen for new ones. |
+
+At low volumes SFTP or a VAN is usually the most practical start; AS2 requires
+certificate management.
+
+## 3. The test phase
+
+Test files are exchanged before going live. This phase usually takes longer than
+expected and goes through several rounds. Your partner runs your message through
+their validator and reports the errors.
+
+The failures that come back most often:
+
+- A mandatory segment missing
+- The GLN not registered in the partner's system
+- The wrong character set, corrupting accented characters
+- The UNT segment count not matching
+- The wrong date format code
+
+All of these are visible in the file itself. Opening what you sent in a viewer
+and checking it saves time over waiting for the error report.
+
+## 4. Going live
+
+Once testing is approved you move to production. Two things deserve attention
+here.
+
+**Test and production GLNs may differ.** If your partner issued a separate
+number for testing, continuing to use it in production makes messages disappear
+silently.
+
+**The first week needs watching.** Test data is clean; real orders bring
+unexpected characters, long product names and unusual quantities.
+
+## 5. It keeps going
+
+Integration is not a finished job. Your partner may upgrade the version, add a
+newly mandatory field or ask for another message type. Tracking specification
+updates beats discovering one morning that orders have stopped arriving.
+
+## What you need on your side
+
+At low volumes you do not have to automate everything. Plenty of companies start
+by viewing the incoming order and keying it in by hand, then automate as volume
+grows. What matters is being able to **read** the incoming file and to
+**verify** that the outgoing one follows the specification.
 """,
         },
     },

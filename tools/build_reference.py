@@ -39,6 +39,21 @@ ELEM_RE = re.compile(r'^elem_([A-Z]{3})_(\d{2})$')
 TYPE_RE = re.compile(r'^type_([A-Z]{4,6})$')
 
 
+MONTHS = {
+    'tr': ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz',
+           'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+    'en': ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+           'August', 'September', 'October', 'November', 'December'],
+}
+
+
+def fmt_date(iso, lang):
+    """2026-08-26 -> '26 Ağustos 2026' / '26 August 2026'"""
+    y, m, d = (int(x) for x in iso.split('-'))
+    name = MONTHS[lang][m - 1]
+    return f'{d} {name} {y}' if lang == 'tr' else f'{d} {name} {y}'
+
+
 def esc(s):
     return htmllib.escape(str(s), quote=True)
 
@@ -307,7 +322,7 @@ def build_segment(lang, code, segs, elems, codes, urls):
            else f'/edi/segment/{code.lower()}.html')
     rel = (f'../en/segment/{code.lower()}.html' if lang == 'tr'
            else f'../../segment/{code.lower()}.html')
-    urls.append(canon)
+    urls.append((canon, None))
     write(os.path.join(outdir(lang), seg_dir(lang), f'{code.lower()}.html'),
           page(lang, h1, desc, '\n'.join(b), depth(lang), canon, alt, rel))
 
@@ -341,15 +356,18 @@ def build_message(lang, code, types, urls):
            else f'/edi/message/{code.lower()}.html')
     rel = (f'../en/message/{code.lower()}.html' if lang == 'tr'
            else f'../../message/{code.lower()}.html')
-    urls.append(canon)
+    urls.append((canon, None))
     write(os.path.join(outdir(lang), msg_dir(lang), f'{code.lower()}.html'),
           page(lang, h1, desc, '\n'.join(b), depth(lang), canon, alt, rel))
 
 
 def build_guide(lang, g, urls):
     loc = g[lang]
+    dt = g.get('date')
+    meta = (f'<time datetime="{dt}">{esc(fmt_date(dt, lang))}</time> &middot; '
+            if dt else '')
     b = [f'<h1>{esc(loc["title"])}</h1>',
-         f'<div class="updated">{esc(loc["summary"])}</div>',
+         f'<div class="updated">{meta}{esc(loc["summary"])}</div>',
          md(loc['body'])]
     slug = guide_slug(g, lang)
     canon = f'{base(lang)}{gd_dir(lang)}/{slug}.html'
@@ -357,7 +375,7 @@ def build_guide(lang, g, urls):
            else f'/edi/guide/{g["slug"]}.html')
     rel = (f'../en/guide/{g["slug_en"]}.html' if lang == 'tr'
            else f'../../guide/{g["slug"]}.html')
-    urls.append(canon)
+    urls.append((canon, g.get('date')))
     write(os.path.join(outdir(lang), gd_dir(lang), f'{slug}.html'),
           page(lang, loc['title'], loc['summary'], '\n'.join(b), depth(lang), canon, alt, rel))
 
@@ -368,11 +386,15 @@ def build_hub(lang, segs, types, urls):
          f'<div class="updated">{esc(ui["hub_tagline"])}</div>']
 
     b.append(f'<h2>{esc(ui["guides"])}</h2><ul class="link-list">')
-    for g in C.GUIDES:
+    # En yeni yazı üstte
+    for g in sorted(C.GUIDES, key=lambda x: x.get('date', ''), reverse=True):
         loc = g[lang]
+        dt = g.get('date')
+        stamp = (f'<time class="link-date" datetime="{dt}">{esc(fmt_date(dt, lang))}</time>'
+                 if dt else '')
         b.append(f'<li><a href="{gd_dir(lang)}/{guide_slug(g, lang)}.html">'
                  f'<strong>{esc(loc["title"])}</strong>'
-                 f'<span>{esc(loc["summary"])}</span></a></li>')
+                 f'<span>{esc(loc["summary"])}</span>{stamp}</a></li>')
     b.append('</ul>')
 
     b.append(f'<h2>{esc(ui["messages"])}</h2><div class="chip-grid">')
@@ -392,7 +414,7 @@ def build_hub(lang, segs, types, urls):
     canon = base(lang) + 'index.html'
     alt = '/edi/en/index.html' if lang == 'tr' else '/edi/index.html'
     rel = 'en/index.html' if lang == 'tr' else '../index.html'
-    urls.append(canon)
+    urls.append((canon, None))
     write(os.path.join(outdir(lang), 'index.html'),
           page(lang, ui['hub_title'], ui['hub_tagline'], '\n'.join(b),
                1 if lang == 'tr' else 2, canon, alt, rel))
@@ -446,9 +468,10 @@ def main():
     extra = ['/index.html', '/gizlilik.html', '/privacy.html']
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    for u in extra + sorted(urls):
+    rows = [(u, None) for u in extra] + sorted(urls)
+    for u, when in rows:
         loc = SITE + ('/' if u == '/index.html' else u)
-        sm.append(f'  <url><loc>{loc}</loc><lastmod>{today}</lastmod></url>')
+        sm.append(f'  <url><loc>{loc}</loc><lastmod>{when or today}</lastmod></url>')
     sm.append('</urlset>')
     write(os.path.join(ROOT, 'sitemap.xml'), '\n'.join(sm) + '\n')
     write(os.path.join(ROOT, 'robots.txt'),

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From order to invoice: the EDI message flow — ediviewer</title>
+<meta name="description" content="How the chain that starts with ORDERS runs through to invoicing and payment, and how the messages link to one another.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/guide/order-to-invoice-edi-flow.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/guide/siparisten-faturaya-edi-akisi.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../guide/siparisten-faturaya-edi-akisi.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>From order to invoice: the EDI message flow</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; How the chain that starts with ORDERS runs through to invoicing and payment, and how the messages link to one another.</div>
+<p>A single EDI message rarely means much on its own. The value lies in the messages forming a chain, each step referencing the one before it. A typical retail transaction passes through six messages.</p>
+<h2>The chain</h2>
+<pre class="doc-code"><code>
+BUYER                          SUPPLIER
+  |                                |
+  |------------ ORDERS -----------&gt;|   order
+  |&lt;----------- ORDRSP ------------|   order response
+  |&lt;----------- DESADV ------------|   despatch advice (goods on the way)
+  |------------ RECADV -----------&gt;|   receiving advice
+  |&lt;----------- INVOIC ------------|   invoice
+  |------------ REMADV -----------&gt;|   remittance advice
+</code></pre>
+<p>Every arrow is a document, and each is tied to the step before it.</p>
+<h2>1. ORDERS — the order</h2>
+<p>The buyer states what is wanted: product, quantity, price, delivery date. The document is given a number, and that number is referenced throughout the chain:</p>
+<pre class="doc-code"><code>
+BGM+220+PO-2026-0042+9&#x27;
+</code></pre>
+<h2>2. ORDRSP — the order response</h2>
+<p>The supplier confirms, partially confirms or rejects. The critical point is that the answer can be given <strong>line by line</strong>: three items may ship while the fourth is out of stock.</p>
+<p>The response is tied to the order with an RFF:</p>
+<pre class="doc-code"><code>
+RFF+ON:PO-2026-0042&#x27;
+</code></pre>
+<p>The <code>ON</code> qualifier means &quot;order number&quot;. Without this link there is no way to tell which order is being answered.</p>
+<h2>3. DESADV — the despatch advice</h2>
+<p>Sent as the goods leave, it <strong>arrives before them</strong>. The warehouse knows the contents of the incoming shipment in advance, with SSCC numbers saying what sits on which pallet.</p>
+<p>This turns goods-in from a counting exercise into a scanning one.</p>
+<h2>4. RECADV — the receiving advice</h2>
+<p>The buyer reports what was actually received. It carries two quantities for the same line: despatched (QTY 12) and received (QTY 194). The difference exposes short, over or damaged deliveries.</p>
+<h2>5. INVOIC — the invoice</h2>
+<p>The supplier bills. Here the buyer&#x27;s system performs a <strong>three-way match</strong>:</p>
+<ul>
+<li>what the order said (ORDERS)</li>
+<li>what was actually received (RECADV)</li>
+<li>what is being billed (INVOIC)</li>
+</ul>
+<p>If all three agree, the invoice is approved automatically and goes to payment. If they do not, it goes to a human. This is where EDI actually saves money: matching invoices pass without anyone touching them.</p>
+<h2>6. REMADV — the remittance advice</h2>
+<p>The buyer states which invoices were paid and for how much. Where a deduction was made, the reason travels in an AJT segment. The supplier uses this message to close open invoices automatically.</p>
+<h2>The links in summary</h2>
+<p>The whole chain rests on two mechanisms:</p>
+<ul>
+<li><strong>BGM</strong> gives every document its own number</li>
+<li><strong>RFF</strong> says which earlier document it belongs to</li>
+</ul>
+<p>A message without an RFF cannot be matched automatically and falls back to manual handling. A large share of integration problems come down to a missing or wrong RFF reference.</p>
+<h2>Not every chain runs in full</h2>
+<p>Not all trading partners use all six messages. Low-volume relationships often exchange only ORDERS and INVOIC; DESADV and RECADV pay off where the buyer has warehouse automation. Which messages are mandatory is set out in the EDI specification your partner gives you.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Starting with EDI: integrating with a trading partner — ediviewer</title>
+<meta name="description" content="What you are asked for when a retailer says &quot;we work over EDI&quot;, and the steps the process goes through.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/guide/edi-integration-process.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/guide/edi-entegrasyon-sureci.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../guide/edi-entegrasyon-sureci.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Starting with EDI: integrating with a trading partner</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; What you are asked for when a retailer says &quot;we work over EDI&quot;, and the steps the process goes through.</div>
+<p>Most companies set up EDI not because they chose to but because a large customer requires it. The process looks daunting at first, but its steps are well defined.</p>
+<h2>1. Get the specification</h2>
+<p>Your partner gives you an <strong>EDI specification</strong>, usually called a *Message Implementation Guideline* or MIG. This document does not describe the standard in general; it describes exactly what that partner expects from you.</p>
+<p>Four things to look for:</p>
+<ul>
+<li>Which <strong>messages</strong> are in scope (only ORDERS and INVOIC, or DESADV too)</li>
+<li>Which <strong>version</strong> (EDIFACT D.96A, D.01B and so on)</li>
+<li>Which <strong>segments are mandatory</strong> and which are optional</li>
+<li>The <strong>GLN</strong> numbers of both parties</li>
+</ul>
+<p>The most critical part is the list of mandatory fields. Even where the standard treats a segment as optional, if your partner makes it mandatory your message will be rejected without it.</p>
+<h2>2. Decide how the file travels</h2>
+<p>How the file reaches the other side is a separate decision with no bearing on the content:</p>
+<table class="doc-table"><thead><tr><th>Method</th><th>When</th></tr></thead><tbody>
+<tr><td><strong>AS2</strong></td><td>Directly over the internet, signed and encrypted. The standard for large retailers.</td></tr>
+<tr><td><strong>SFTP</strong></td><td>Simple and widespread. Files are dropped on or collected from a server.</td></tr>
+<tr><td><strong>VAN</strong></td><td>Through an intermediary service provider. Easy to set up, charged per transaction.</td></tr>
+<table class="doc-table"><thead><tr><th><strong>Email / X.400</strong></th><th>Seen in older setups, rarely chosen for new ones.</th></tr></thead><tbody>
+</tbody></table>
+<p>At low volumes SFTP or a VAN is usually the most practical start; AS2 requires certificate management.</p>
+<h2>3. The test phase</h2>
+<p>Test files are exchanged before going live. This phase usually takes longer than expected and goes through several rounds. Your partner runs your message through their validator and reports the errors.</p>
+<p>The failures that come back most often:</p>
+<ul>
+<li>A mandatory segment missing</li>
+<li>The GLN not registered in the partner&#x27;s system</li>
+<li>The wrong character set, corrupting accented characters</li>
+<li>The UNT segment count not matching</li>
+<li>The wrong date format code</li>
+</ul>
+<p>All of these are visible in the file itself. Opening what you sent in a viewer and checking it saves time over waiting for the error report.</p>
+<h2>4. Going live</h2>
+<p>Once testing is approved you move to production. Two things deserve attention here.</p>
+<p><strong>Test and production GLNs may differ.</strong> If your partner issued a separate number for testing, continuing to use it in production makes messages disappear silently.</p>
+<p><strong>The first week needs watching.</strong> Test data is clean; real orders bring unexpected characters, long product names and unusual quantities.</p>
+<h2>5. It keeps going</h2>
+<p>Integration is not a finished job. Your partner may upgrade the version, add a newly mandatory field or ask for another message type. Tracking specification updates beats discovering one morning that orders have stopped arriving.</p>
+<h2>What you need on your side</h2>
+<p>At low volumes you do not have to automate everything. Plenty of companies start by viewing the incoming order and keying it in by hand, then automate as volume grows. What matters is being able to <strong>read</strong> the incoming file and to <strong>verify</strong> that the outgoing one follows the specification.</p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>
