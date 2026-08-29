@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miktar ve birim: QTY segmentinde ne yazar? — ediviewer</title>
+<meta name="description" content="Sipariş edilen mi, sevk edilen mi, teslim alınan mı? Ve PCE ile KGM karışırsa ne olur.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/qty-miktar-olcu-birimleri.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/qty-units-of-measure.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/qty-units-of-measure.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Miktar ve birim: QTY segmentinde ne yazar?</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Sipariş edilen mi, sevk edilen mi, teslim alınan mı? Ve PCE ile KGM karışırsa ne olur.</div>
+<p><code>QTY+21:480:PCE&#x27;</code> satırı üç şey söyler: hangi miktar, ne kadar, hangi birimde. Üçünü de doğru okumak gerekir.</p>
+<h2>Hangi miktar?</h2>
+<p>İlk eleman nitelikçidir ve miktarın anlamını belirler:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>21</code></td><td>Sipariş edilen miktar</td></tr>
+<tr><td><code>12</code></td><td>Sevk edilen miktar</td></tr>
+<tr><td><code>194</code></td><td>Teslim alınan miktar</td></tr>
+<tr><td><code>192</code></td><td>Ücretsiz miktar</td></tr>
+<tr><td><code>152</code></td><td>Satılan miktar (satış raporu)</td></tr>
+<table class="doc-table"><thead><tr><th><code>59</code></th><th>Paket içi adet</th></tr></thead><tbody>
+</tbody></table>
+<p>Aynı satırda birden fazla QTY bulunabilir. Mal kabul mesajında (RECADV) bu zaten kuraldır: <code>12</code> sevk edileni, <code>194</code> teslim alınanı verir; ikisinin farkı eksik teslimattır.</p>
+<h2>Hangi birim?</h2>
+<p>Üçüncü eleman ölçü birimidir:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Birim</th></tr></thead><tbody>
+<tr><td><code>PCE</code></td><td>Adet</td></tr>
+<tr><td><code>KGM</code></td><td>Kilogram</td></tr>
+<tr><td><code>LTR</code></td><td>Litre</td></tr>
+<tr><td><code>MTR</code></td><td>Metre</td></tr>
+<tr><td><code>CT</code></td><td>Karton / koli</td></tr>
+<table class="doc-table"><thead><tr><th><code>PF</code></th><th>Palet</th></tr></thead><tbody>
+</tbody></table>
+<p>Birim atlanırsa çoğu sistem adet varsayar. Kilogramla satılan bir ürün için bu varsayım, siparişi bin kat yanlış hesaplatabilir.</p>
+<h2>Fiyatla ilişkisi</h2>
+<p>Burada gözden kaçan bir nokta var: <code>PRI</code> segmenti <strong>birim fiyattır</strong> ve hangi birim başına olduğunu söylemez. Yani <code>QTY</code>&#x27;deki birimle <code>PRI</code>&#x27;deki fiyatın aynı temele oturduğu varsayılır.</p>
+<p>Miktar kilogram, fiyat adet başınaysa hesap tutmaz. Bu tür uyuşmazlıklar faturada ortaya çıkar ve genellikle geç fark edilir.</p>
+<h2>Kontrol alışkanlığı</h2>
+<p>Bir satırın toplamı beklediğinizden farklıysa üç şeye bakın: nitelikçi doğru mu, birim yazılmış mı, fiyat aynı birim üzerinden mi. Üçü tutuyorsa hata başka yerdedir.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/qty.html"><code>QTY</code></a> <a href="../segment/pri.html"><code>PRI</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

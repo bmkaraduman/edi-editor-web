@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="../css/doc.css">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
 </head>
 <body>
 
@@ -28,6 +33,7 @@
 <main class="doc">
 <h1>EDI Referansı</h1>
 <div class="updated">EDIFACT segmentleri, mesaj tipleri ve kod listeleri için Türkçe başvuru kaynağı.</div>
+<div class="hub-nav"><a class="hub-card" href="ara.html"><strong>Ne Nedir?</strong><span>Segment, kod ya da mesaj tipi yazın; ne işe yaradığını gösterelim.</span></a><a class="hub-card" href="blog/index.html"><strong>Blog</strong><span>EDI dosyalarıyla çalışanlar için kısa, pratik yazılar.</span></a></div>
 <h2>Rehberler</h2><ul class="link-list">
 <li><a href="guide/gln-gtin-sscc.html"><strong>GLN, GTIN ve SSCC: EDI&#x27;de kimlik numaraları</strong><span>EDI mesajlarındaki üç GS1 numarası — kim, ne ve hangi palet — nerede geçer, nasıl doğrulanır.</span><time class="link-date" datetime="2026-08-26">26 Ağustos 2026</time></a></li>
 <li><a href="guide/siparisten-faturaya-edi-akisi.html"><strong>Siparişten faturaya: EDI mesaj akışı</strong><span>ORDERS ile başlayan zincirin fatura ve ödemeye kadar nasıl ilerlediği, mesajların birbirine nasıl bağlandığı.</span><time class="link-date" datetime="2026-08-26">26 Ağustos 2026</time></a></li>

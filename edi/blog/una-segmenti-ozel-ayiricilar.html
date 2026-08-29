@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNA segmenti: ayırıcılar her zaman aynı değildir — ediviewer</title>
+<meta name="description" content="Dosya UNA ile başlıyorsa varsayılan ayırıcıları unutun — hangi karakterin ne olduğu orada yazar.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/una-segmenti-ozel-ayiricilar.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/una-segment-custom-delimiters.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/una-segment-custom-delimiters.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>UNA segmenti: ayırıcılar her zaman aynı değildir</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Dosya UNA ile başlıyorsa varsayılan ayırıcıları unutun — hangi karakterin ne olduğu orada yazar.</div>
+<p>EDIFACT ayrıştırıcı yazanların ilk varsayımı şudur: segment sonu <code>&#x27;</code>, eleman ayracı <code>+</code>, alt eleman ayracı <code>:</code>. Çoğu dosyada doğrudur — ama garanti değildir.</p>
+<h2>UNA ne yapar?</h2>
+<p>Bir dosya <code>UNA</code> ile başlıyorsa, o satır ayırıcıların ne olduğunu <strong>tanımlar</strong>:</p>
+<pre class="doc-code"><code>
+UNA:+.? &#x27;
+</code></pre>
+<p>Altı karakterin her biri bir görevi belirler:</p>
+<table class="doc-table"><thead><tr><th>Sıra</th><th>Karakter</th><th>Görev</th></tr></thead><tbody>
+<tr><td>1</td><td><code>:</code></td><td>Alt eleman ayracı</td></tr>
+<tr><td>2</td><td><code>+</code></td><td>Eleman ayracı</td></tr>
+<tr><td>3</td><td><code>.</code></td><td>Ondalık işareti</td></tr>
+<tr><td>4</td><td><code>?</code></td><td>Kaçış (release) karakteri</td></tr>
+<tr><td>5</td><td>(boşluk)</td><td>Ayrılmış, kullanılmıyor</td></tr>
+<table class="doc-table"><thead><tr><th>6</th><th><code>&#x27;</code></th><th>Segment sonu</th></tr></thead><tbody>
+</tbody></table>
+<p>Yukarıdaki örnek varsayılan değerleri tekrar ettiği için görsel olarak bir şey değiştirmez. Ama şöyle bir UNA da geçerlidir:</p>
+<pre class="doc-code"><code>
+UNA|*.? ~
+</code></pre>
+<p>Burada eleman ayracı <code>*</code>, segment sonu <code>~</code> olur. Varsayılanlara göre yazılmış bir ayrıştırıcı bu dosyayı tek bir dev segment olarak okur.</p>
+<h2>Ondalık işareti</h2>
+<p>Üçüncü karakter sık atlanır. Bazı ülkelerde ondalık ayracı virgüldür:</p>
+<pre class="doc-code"><code>
+UNA:+,? &#x27;
+</code></pre>
+<p>Bu dosyada <code>PRI+AAA:1,85&#x27;</code> satırındaki değer bir buçuk değil, bir nokta seksen beştir. Virgülü binlik ayracı sanıp <code>185</code> okumak, faturayı yüz kat şişirir.</p>
+<h2>Pratikte ne yapmalı</h2>
+<ul>
+<li>Dosya <code>UNA</code> ile başlıyorsa ayırıcıları <strong>oradan okuyun</strong>, varsaymayın</li>
+<li><code>UNA</code> yoksa varsayılanlar geçerlidir</li>
+<li><code>UNA</code> satırı hiçbir zaman segment sonu karakteriyle bitmez; sabit altı</li>
+</ul>
+<p>karakter uzunluğundadır</p>
+<p>Karşınıza gelen dosyada ilk üç harf <code>UNA</code> ise, ayrıştırma mantığınızı çalıştırmadan önce bakılacak yer orasıdır.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

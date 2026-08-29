@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is EDI the same as e-invoicing? — ediviewer</title>
+<meta name="description" content="Both carry electronic invoices, but they differ in purpose, audience and whether they are compulsory.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/edi-vs-e-invoicing.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/edi-ve-e-fatura-farki.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/edi-ve-e-fatura-farki.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Is EDI the same as e-invoicing?</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Both carry electronic invoices, but they differ in purpose, audience and whether they are compulsory.</div>
+<p>Government e-invoicing schemes and EDI both move invoices electronically. They are not the same thing, and one does not replace the other.</p>
+<h2>Who is the counterparty?</h2>
+<p>That is the core difference:</p>
+<ul>
+<li><strong>E-invoicing</strong> is an obligation towards the state. It uses a format the tax</li>
+</ul>
+<p>authority defines, sent over its infrastructure. The purpose is tax oversight.</p>
+<ul>
+<li><strong>EDI</strong> is an agreement with your trading partner. The parties decide the</li>
+</ul>
+<p>format and content. The purpose is automating business processes.</p>
+<p>One is a legal requirement, the other a commercial one.</p>
+<h2>Different scope</h2>
+<p>E-invoicing covers the invoice alone. EDI also carries the order, the order response, the despatch advice, the receiving advice and the remittance advice. The invoice is one link in the chain EDI concerns itself with.</p>
+<p>A company using EDI is therefore not exempt from e-invoicing; it runs both.</p>
+<h2>Different formats</h2>
+<table class="doc-table"><thead><tr><th></th><th>E-invoicing</th><th>EDI (EDIFACT)</th></tr></thead><tbody>
+<tr><td>Format</td><td>XML (UBL or similar)</td><td>EDIFACT (text)</td></tr>
+<tr><td>Defined by</td><td>The tax authority</td><td>Trading partners</td></tr>
+<tr><td>Compulsory</td><td>Above a legal threshold</td><td>When a partner requires it</td></tr>
+<table class="doc-table"><thead><tr><th>Scope</th><th>The invoice only</th><th>The whole trade chain</th></tr></thead><tbody>
+</tbody></table>
+<h2>How it works in practice</h2>
+<p>The common arrangement: orders and shipments flow over EDI, while the invoice goes both to the trading partner as EDI and to the state in the mandated XML. The same commercial event is reported to two audiences in two formats.</p>
+<p>The duplication looks wasteful but has a logic to it: the fields your partner needs and the fields the tax authority needs do not overlap.</p>
+<h2>The point not to confuse</h2>
+<p>Sending an EDI invoice does not discharge a legal e-invoicing obligation. And the reverse holds too: filing the legal e-invoice without sending your partner an EDI INVOIC leaves their system with nothing to trigger payment.</p>
+<p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The UNA segment: delimiters are not always the same — ediviewer</title>
+<meta name="description" content="If a file opens with UNA, forget the defaults — that line says which character does what.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/una-segment-custom-delimiters.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/una-segmenti-ozel-ayiricilar.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/una-segmenti-ozel-ayiricilar.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>The UNA segment: delimiters are not always the same</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; If a file opens with UNA, forget the defaults — that line says which character does what.</div>
+<p>The first assumption every EDIFACT parser makes is that the segment terminator is <code>&#x27;</code>, the element separator <code>+</code> and the component separator <code>:</code>. True for most files — but not guaranteed.</p>
+<h2>What UNA does</h2>
+<p>If a file opens with <code>UNA</code>, that line <strong>defines</strong> the delimiters:</p>
+<pre class="doc-code"><code>
+UNA:+.? &#x27;
+</code></pre>
+<p>Each of the six characters sets one role:</p>
+<table class="doc-table"><thead><tr><th>Position</th><th>Character</th><th>Role</th></tr></thead><tbody>
+<tr><td>1</td><td><code>:</code></td><td>Component separator</td></tr>
+<tr><td>2</td><td><code>+</code></td><td>Element separator</td></tr>
+<tr><td>3</td><td><code>.</code></td><td>Decimal mark</td></tr>
+<tr><td>4</td><td><code>?</code></td><td>Release (escape) character</td></tr>
+<tr><td>5</td><td>(space)</td><td>Reserved, unused</td></tr>
+<table class="doc-table"><thead><tr><th>6</th><th><code>&#x27;</code></th><th>Segment terminator</th></tr></thead><tbody>
+</tbody></table>
+<p>The example above restates the defaults, so it changes nothing visually. But this is equally valid:</p>
+<pre class="doc-code"><code>
+UNA|*.? ~
+</code></pre>
+<p>Here the element separator is <code>*</code> and the terminator <code>~</code>. A parser written to the defaults reads that file as one enormous segment.</p>
+<h2>The decimal mark</h2>
+<p>The third character is often overlooked. In some countries the decimal separator is a comma:</p>
+<pre class="doc-code"><code>
+UNA:+,? &#x27;
+</code></pre>
+<p>In that file, the value in <code>PRI+AAA:1,85&#x27;</code> is one point eight five, not one and a half. Mistaking the comma for a thousands separator and reading <code>185</code> inflates the invoice a hundredfold.</p>
+<h2>What to do in practice</h2>
+<ul>
+<li>If the file starts with <code>UNA</code>, <strong>read</strong> the delimiters from it; do not assume</li>
+<li>With no <code>UNA</code>, the defaults apply</li>
+<li>The <code>UNA</code> line never ends with a segment terminator; it is exactly six</li>
+</ul>
+<p>characters long</p>
+<p>When the first three letters of a file are <code>UNA</code>, that is where to look before your parsing logic runs at all.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

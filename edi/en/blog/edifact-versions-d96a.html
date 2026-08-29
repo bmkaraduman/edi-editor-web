@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What does D.96A mean? Understanding EDIFACT versions — ediviewer</title>
+<meta name="description" content="Every part of &quot;D:96A:UN&quot; in the UNH line, and why the version matters.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/edifact-versions-d96a.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/edifact-surumleri-d96a.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/edifact-surumleri-d96a.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>What does D.96A mean? Understanding EDIFACT versions</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Every part of &quot;D:96A:UN&quot; in the UNH line, and why the version matters.</div>
+<p>Every EDIFACT message declares which rule set it follows, in the UNH segment:</p>
+<pre class="doc-code"><code>
+UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;
+</code></pre>
+<p>Each part of that line says something.</p>
+<h2>The parts</h2>
+<table class="doc-table"><thead><tr><th>Part</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>ORDERS</code></td><td>Message type</td></tr>
+<tr><td><code>D</code></td><td>Directory type — the published standard directory</td></tr>
+<tr><td><code>96A</code></td><td>Version: the A release of 1996</td></tr>
+<tr><td><code>UN</code></td><td>Controlling agency: the United Nations</td></tr>
+<table class="doc-table"><thead><tr><th><code>EAN008</code></th><th>Associated usage guideline, where one applies</th></tr></thead><tbody>
+</tbody></table>
+<p>So <code>D.96A</code> means the standard directory published in the first half of 1996.</p>
+<h2>Why still 1996?</h2>
+<p>Newer versions exist — D.01B, D.07A, D.16A. Yet retail has largely stayed on D.96A. The reason is simple: upgrading a working integration costs more than the newer version is worth.</p>
+<p>Differences between versions are mostly added segments and codes; the core structure (UNB, UNH, BGM, NAD, LIN) has stayed the same throughout.</p>
+<h2>The fifth part: the usage guideline</h2>
+<p>A value such as <code>EAN008</code> points not at the standard itself but at an industry guideline. EANCOM is GS1&#x27;s EDIFACT subset for retail, and in European retail it is in practice more decisive than the standard it derives from.</p>
+<p>This field records which guideline you are following, as set out in your partner&#x27;s specification.</p>
+<h2>When it bites</h2>
+<p>A version mismatch is a quiet source of failure. Send D.96A where your partner expects D.01B and the message will usually still process — right up until you use a segment that exists only in the newer version.</p>
+<p>That makes the version in the specification a field to match exactly, not one to skim past.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/unh.html"><code>UNH</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

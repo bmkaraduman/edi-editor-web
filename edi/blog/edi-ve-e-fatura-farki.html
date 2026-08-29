@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDI ile e-fatura aynı şey mi? — ediviewer</title>
+<meta name="description" content="İkisi de elektronik fatura taşır ama amaçları, muhatapları ve zorunluluk durumları farklıdır.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/edi-ve-e-fatura-farki.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/edi-vs-e-invoicing.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/edi-vs-e-invoicing.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDI ile e-fatura aynı şey mi?</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; İkisi de elektronik fatura taşır ama amaçları, muhatapları ve zorunluluk durumları farklıdır.</div>
+<p>Türkiye&#x27;de &quot;elektronik fatura&quot; denince akla e-Fatura ve e-Arşiv gelir. EDI de fatura taşır. Aynı şey değildirler ve birbirinin yerine geçmezler.</p>
+<h2>Muhatap kim?</h2>
+<p>Temel fark burada:</p>
+<ul>
+<li><strong>e-Fatura</strong>, devlete karşı yükümlülüktür. Gelir İdaresi&#x27;nin belirlediği</li>
+</ul>
+<p>formatta (UBL-TR), onun altyapısı üzerinden gönderilir. Amaç vergi denetimidir.</p>
+<ul>
+<li><strong>EDI</strong>, ticari ortağınıza karşı bir anlaşmadır. Formatı ve içeriği taraflar</li>
+</ul>
+<p>belirler. Amaç iş süreçlerini otomatikleştirmektir.</p>
+<p>Biri yasal, diğeri ticari bir gerekliliktir.</p>
+<h2>Kapsam farkı</h2>
+<p>e-Fatura yalnızca faturayı kapsar. EDI ise sipariş, sipariş yanıtı, sevk ihbarı, mal kabul ve ödeme bildirimini de taşır. Fatura, EDI&#x27;nin ilgilendiği zincirin yalnızca bir halkasıdır.</p>
+<p>Bu yüzden EDI kullanan bir firma e-Fatura yükümlülüğünden kurtulmaz; ikisini birlikte yürütür.</p>
+<h2>Format farkı</h2>
+<table class="doc-table"><thead><tr><th></th><th>e-Fatura</th><th>EDI (EDIFACT)</th></tr></thead><tbody>
+<tr><td>Format</td><td>UBL-TR (XML)</td><td>EDIFACT (metin)</td></tr>
+<tr><td>Belirleyen</td><td>Gelir İdaresi</td><td>Ticaret ortakları</td></tr>
+<tr><td>Zorunluluk</td><td>Yasal eşik üstü firmalar</td><td>Ortağın talebi</td></tr>
+<table class="doc-table"><thead><tr><th>Kapsam</th><th>Yalnızca fatura</th><th>Tüm ticari zincir</th></tr></thead><tbody>
+</tbody></table>
+<h2>Pratikte nasıl yürür?</h2>
+<p>Yaygın kurgu şudur: sipariş ve sevkiyat EDI ile akar, fatura hem EDI ile ticari ortağa hem UBL-TR ile devlete gider. Aynı ticari olayın iki farklı muhataba, iki farklı formatta bildirilmesi söz konusudur.</p>
+<p>Bu ikilik gereksiz görünse de mantığı vardır: ortağınızın istediği alanlarla devletin istediği alanlar örtüşmez.</p>
+<h2>Karıştırılmaması gereken nokta</h2>
+<p>EDI faturası gönderdiğiniz için e-Fatura kesmediyseniz, vergi açısından fatura kesilmemiş sayılır. Tersi de geçerlidir: e-Fatura kestiğiniz hâlde ortağınıza EDI INVOIC göndermediyseniz, onun sistemi ödemeyi tetiklemez.</p>
+<p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is what? — EDI lookup — ediviewer</title>
+<meta name="description" content="Type a segment, a code or a message type and see what it does.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/search.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/ara.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Reference</a>
+    <a href="../ara.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>What is what? — EDI lookup</h1>
+<div class="updated">Type a segment, a code or a message type and see what it does.</div>
+<div class="search-box">
+  <input type="search" id="q" placeholder="NAD, DTM 137, ORDERS, pallet..." autocomplete="off" autofocus>
+</div>
+<div class="search-hint" id="hint">Tip: type a message type such as ORDERS and we also list the segments inside it.</div>
+<div id="results"></div>
+<script type="module">
+  import { initSearch } from "../../js/refSearch.js";
+  initSearch({
+    index: "search-index.json",
+    labels: {
+      msg: "Message Types",
+      seg: "Segments",
+      code: "Code List",
+      inside: "segments inside",
+      none: "No results."
+    }
+  });
+</script>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

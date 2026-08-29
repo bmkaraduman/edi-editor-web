@@ -42,6 +42,15 @@ UI = {
         'typical_flow': 'Tipik Segment Akışı',
         'who_sends': 'Kim gönderir',
         'used_for': 'Ne için kullanılır',
+        'blog': 'Blog',
+        'search': 'Ne Nedir?',
+        'search_title': 'Ne Nedir? — EDI Arama',
+        'search_tagline': 'Segment, kod ya da mesaj tipi yazın; ne işe yaradığını gösterelim.',
+        'search_ph': 'NAD, DTM 137, ORDERS, palet...',
+        'search_hint': 'Örnek: bir mesaj tipi yazarsanız (ORDERS gibi) '
+                       'içindeki segmentleri de listeleriz.',
+        'search_inside': 'içindeki segmentler',
+        'search_none': 'Sonuç bulunamadı.',
     },
     'en': {
         'lang_name': 'English',
@@ -73,6 +82,15 @@ UI = {
         'typical_flow': 'Typical Segment Flow',
         'who_sends': 'Who sends it',
         'used_for': 'What it is used for',
+        'blog': 'Blog',
+        'search': 'What is what?',
+        'search_title': 'What is what? — EDI lookup',
+        'search_tagline': 'Type a segment, a code or a message type and see what it does.',
+        'search_ph': 'NAD, DTM 137, ORDERS, pallet...',
+        'search_hint': 'Tip: type a message type such as ORDERS and we also list '
+                       'the segments inside it.',
+        'search_inside': 'segments inside',
+        'search_none': 'No results.',
     },
 }
 

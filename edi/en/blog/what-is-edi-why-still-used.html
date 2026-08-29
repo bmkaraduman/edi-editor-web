@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is EDI, and why is it still used in the API era? — ediviewer</title>
+<meta name="description" content="Why does a 40-year-old format survive alongside REST APIs? The answer is commercial, not technical.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/what-is-edi-why-still-used.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/edi-nedir-neden-kullaniliyor.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/edi-nedir-neden-kullaniliyor.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>What is EDI, and why is it still used in the API era?</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Why does a 40-year-old format survive alongside REST APIs? The answer is commercial, not technical.</div>
+<p>EDI is how two companies exchange trade documents without human hands touching them. Orders, despatch notes, invoices — all in a standard structure, straight from one system to another.</p>
+<h2>&quot;Why not JSON?&quot;</h2>
+<p>Every developer meeting EDI asks the same thing: with REST APIs available, why use a text format from the 1980s?</p>
+<p>The answer is not technical. A retailer works with thousands of suppliers. Rather than negotiating a separate API with each one, it imposes a single standard: &quot;send us an EDIFACT ORDERS&quot;. The standard removes the cost of one party adapting to the other.</p>
+<p>And that standard has barely changed in decades. An integration written in 2005 still runs today. That sentence is rarely spoken in the API world.</p>
+<h2>Who uses it?</h2>
+<ul>
+<li><strong>Retail chains</strong> — nearly all order and invoice flow</li>
+<li><strong>Automotive</strong> — production line supply, just-in-time calls</li>
+<li><strong>Logistics</strong> — transport instructions and status reports</li>
+<li><strong>Healthcare and public sector</strong> — especially in Europe</li>
+</ul>
+<h2>Is it really outdated?</h2>
+<p>The syntax is old; the logic is not. The problem EDI solves — two independent systems agreeing on a shared vocabulary — has not changed. Modern alternatives such as APIs and networks like Peppol solve the same problem with different syntax.</p>
+<p>In practice both coexist: many companies use JSON internally and translate to EDIFACT at the boundary.</p>
+<h2>Where to start</h2>
+<p>If an EDI file has landed on your desk, the first thing you need is to be able to <strong>read</strong> it. Opening the file and seeing what the segments mean is the natural first step, long before integration work begins.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a> <a href="../segment/unh.html"><code>UNH</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

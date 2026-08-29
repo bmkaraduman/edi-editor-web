@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="../../css/doc.css">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
 </head>
 <body>
 
@@ -28,6 +33,7 @@
 <main class="doc">
 <h1>EDI Reference</h1>
 <div class="updated">A reference for EDIFACT segments, message types and code lists.</div>
+<div class="hub-nav"><a class="hub-card" href="search.html"><strong>What is what?</strong><span>Type a segment, a code or a message type and see what it does.</span></a><a class="hub-card" href="blog/index.html"><strong>Blog</strong><span>Short, practical posts for people who work with EDI files.</span></a></div>
 <h2>Guides</h2><ul class="link-list">
 <li><a href="guide/gln-gtin-sscc.html"><strong>GLN, GTIN and SSCC: identifiers in EDI</strong><span>The three GS1 numbers in EDI messages — who, what and which pallet — where they appear and how they are validated.</span><time class="link-date" datetime="2026-08-26">26 August 2026</time></a></li>
 <li><a href="guide/order-to-invoice-edi-flow.html"><strong>From order to invoice: the EDI message flow</strong><span>How the chain that starts with ORDERS runs through to invoicing and payment, and how the messages link to one another.</span><time class="link-date" datetime="2026-08-26">26 August 2026</time></a></li>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CONTRL: did my file arrive? — ediviewer</title>
+<meta name="description" content="The EDI equivalent of a read receipt is the CONTRL message. What it means when none arrives, or when it carries errors.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/contrl-acknowledgement.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/contrl-mesaji-teyit.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/contrl-mesaji-teyit.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>CONTRL: did my file arrive?</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; The EDI equivalent of a read receipt is the CONTRL message. What it means when none arrives, or when it carries errors.</div>
+<p>You sent an EDI file. Did it arrive? Was it processed? A separate message answers that: <strong>CONTRL</strong>.</p>
+<h2>What it does</h2>
+<p>CONTRL takes no interest in content. It does not say &quot;I accept your order&quot;; it says &quot;I received your file and the syntax is valid&quot;. It is a technical acknowledgement, not a commercial one.</p>
+<p>Two things not to confuse:</p>
+<ul>
+<li><strong>CONTRL</strong> — the file arrived and parses</li>
+<li><strong>ORDRSP</strong> — I do or do not accept the order</li>
+</ul>
+<p>Receiving a CONTRL does not mean your order was accepted.</p>
+<h2>Its structure</h2>
+<p>A CONTRL message points at where an error sits, if there is one:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>UCI</code></td><td>Status at interchange level</td></tr>
+<tr><td><code>UCM</code></td><td>Status at message level</td></tr>
+<tr><td><code>UCS</code></td><td>Position of the offending segment</td></tr>
+<table class="doc-table"><thead><tr><th><code>UCD</code></th><th>The reason and which element</th></tr></thead><tbody>
+</tbody></table>
+<p>The status codes are terse: <code>7</code> accepted, <code>4</code> rejected, <code>8</code> processed with errors.</p>
+<pre class="doc-code"><code>
+UCI+REF00042+8712345678901:14+8798765432109:14+7&#x27;
+</code></pre>
+<p>The trailing <code>7</code> says the interchange was accepted cleanly.</p>
+<h2>When an error comes back</h2>
+<p>On a rejection, <code>UCS</code> gives you the segment position and <code>UCD</code> the reason:</p>
+<pre class="doc-code"><code>
+UCS+12&#x27;
+UCD+13+QTY+2&#x27;
+</code></pre>
+<p>That says there is an error in the second data element of the <code>QTY</code> at segment 12. Opening your file and going to segment 12 shows the problem directly.</p>
+<h2>When no CONTRL arrives at all</h2>
+<p>This is usually a <strong>transport</strong> problem rather than a content one:</p>
+<ul>
+<li>The file never reached the other side (SFTP directory, AS2 certificate)</li>
+<li>Your partner does not send CONTRL — not all do; the specification says so</li>
+<li>The file arrived but is sitting in a queue unprocessed</li>
+</ul>
+<p>That is the order to check: the transport channel first, then the specification.</p>
+<h2>A practical habit</h2>
+<p>Keep your CONTRL messages. In an argument about an invoice that &quot;never arrived&quot;, a timestamped acknowledgement is the fastest way to settle it.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/uci.html"><code>UCI</code></a> <a href="../segment/ucm.html"><code>UCM</code></a> <a href="../segment/ucs.html"><code>UCS</code></a> <a href="../segment/ucd.html"><code>UCD</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

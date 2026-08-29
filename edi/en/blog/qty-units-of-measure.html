@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantity and unit: what a QTY segment says — ediviewer</title>
+<meta name="description" content="Ordered, despatched or received? And what happens when PCE and KGM get mixed up.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/qty-units-of-measure.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/qty-miktar-olcu-birimleri.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/qty-miktar-olcu-birimleri.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Quantity and unit: what a QTY segment says</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Ordered, despatched or received? And what happens when PCE and KGM get mixed up.</div>
+<p>The line <code>QTY+21:480:PCE&#x27;</code> says three things: which quantity, how much, and in what unit. All three need reading correctly.</p>
+<h2>Which quantity?</h2>
+<p>The first element is the qualifier and sets the meaning:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>21</code></td><td>Ordered quantity</td></tr>
+<tr><td><code>12</code></td><td>Despatched quantity</td></tr>
+<tr><td><code>194</code></td><td>Received quantity</td></tr>
+<tr><td><code>192</code></td><td>Free-of-charge quantity</td></tr>
+<tr><td><code>152</code></td><td>Quantity sold (sales report)</td></tr>
+<table class="doc-table"><thead><tr><th><code>59</code></th><th>Number of units in a pack</th></tr></thead><tbody>
+</tbody></table>
+<p>A line may carry several QTY segments. In a receiving advice (RECADV) that is the rule rather than the exception: <code>12</code> gives what was despatched, <code>194</code> what arrived, and the difference is the shortfall.</p>
+<h2>Which unit?</h2>
+<p>The third element is the unit of measure:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Unit</th></tr></thead><tbody>
+<tr><td><code>PCE</code></td><td>Pieces</td></tr>
+<tr><td><code>KGM</code></td><td>Kilograms</td></tr>
+<tr><td><code>LTR</code></td><td>Litres</td></tr>
+<tr><td><code>MTR</code></td><td>Metres</td></tr>
+<tr><td><code>CT</code></td><td>Carton</td></tr>
+<table class="doc-table"><thead><tr><th><code>PF</code></th><th>Pallet</th></tr></thead><tbody>
+</tbody></table>
+<p>If the unit is omitted, most systems assume pieces. For a product sold by weight, that assumption can be wrong by a factor of a thousand.</p>
+<h2>Its relationship with price</h2>
+<p>An easily missed point: the <code>PRI</code> segment is a <strong>unit price</strong> and does not say which unit it is per. The quantity&#x27;s unit and the price&#x27;s basis are assumed to match.</p>
+<p>If the quantity is in kilograms while the price is per piece, the arithmetic fails. Mismatches like this surface on the invoice, usually late.</p>
+<h2>A habit worth having</h2>
+<p>When a line total differs from what you expect, check three things: is the qualifier right, is the unit stated, and is the price on the same basis. If all three hold, the error is elsewhere.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/qty.html"><code>QTY</code></a> <a href="../segment/pri.html"><code>PRI</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

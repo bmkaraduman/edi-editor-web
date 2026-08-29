@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CONTRL: gönderdiğim dosya ulaştı mı? — ediviewer</title>
+<meta name="description" content="EDI&#x27;de &quot;okundu bilgisi&quot; CONTRL mesajıdır. Gelmiyorsa ya da hata içeriyorsa ne anlama gelir.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/contrl-mesaji-teyit.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/contrl-acknowledgement.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/contrl-acknowledgement.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>CONTRL: gönderdiğim dosya ulaştı mı?</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; EDI&#x27;de &quot;okundu bilgisi&quot; CONTRL mesajıdır. Gelmiyorsa ya da hata içeriyorsa ne anlama gelir.</div>
+<p>Bir EDI dosyası gönderdiniz. Ulaştı mı? İşlendi mi? Bunu söyleyen ayrı bir mesaj vardır: <strong>CONTRL</strong>.</p>
+<h2>Ne işe yarar?</h2>
+<p>CONTRL, içerikle ilgilenmez. &quot;Siparişini kabul ettim&quot; demez; &quot;dosyanı aldım ve sözdizimi geçerli&quot; der. Yani teknik bir teyittir, ticari değil.</p>
+<p>İki farklı şey karıştırılmamalıdır:</p>
+<ul>
+<li><strong>CONTRL</strong> — dosya ulaştı, sözdizimi doğru</li>
+<li><strong>ORDRSP</strong> — siparişi kabul ediyorum / etmiyorum</li>
+</ul>
+<p>CONTRL almanız siparişinizin kabul edildiği anlamına gelmez.</p>
+<h2>Yapısı</h2>
+<p>CONTRL mesajı, hata varsa nerede olduğunu gösterir:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Görevi</th></tr></thead><tbody>
+<tr><td><code>UCI</code></td><td>Zarf düzeyinde durum</td></tr>
+<tr><td><code>UCM</code></td><td>Mesaj düzeyinde durum</td></tr>
+<tr><td><code>UCS</code></td><td>Hatalı segmentin sırası</td></tr>
+<table class="doc-table"><thead><tr><th><code>UCD</code></th><th>Hatanın nedeni ve hangi eleman</th></tr></thead><tbody>
+</tbody></table>
+<p>Durum kodları kısadır: <code>7</code> kabul, <code>4</code> reddedildi, <code>8</code> hata var ama işlendi.</p>
+<pre class="doc-code"><code>
+UCI+REF00042+8712345678901:14+8798765432109:14+7&#x27;
+</code></pre>
+<p>Sondaki <code>7</code>, zarfın sorunsuz kabul edildiğini söyler.</p>
+<h2>Hata geldiğinde</h2>
+<p>Reddedilme durumunda <code>UCS</code> size satır numarasını verir, <code>UCD</code> ise nedeni:</p>
+<pre class="doc-code"><code>
+UCS+12&#x27;
+UCD+13+QTY+2&#x27;
+</code></pre>
+<p>Bu, 12. segmentteki <code>QTY</code>&#x27;nin 2. veri elemanında hata olduğunu söyler. Elinizdeki dosyayı açıp 12. segmente bakmak, sorunu doğrudan gösterir.</p>
+<h2>Hiç CONTRL gelmiyorsa</h2>
+<p>Bu genellikle içerik hatası değil, <strong>aktarım</strong> sorunudur:</p>
+<ul>
+<li>Dosya karşı tarafa hiç ulaşmamıştır (SFTP dizini, AS2 sertifikası)</li>
+<li>Ortağınız CONTRL göndermiyordur — her ortak göndermez, şartnamede yazar</li>
+<li>Dosya ulaşmış ama işlenmeden kuyrukta beklemektedir</li>
+</ul>
+<p>Sırasıyla bakılacak yer budur: önce aktarım kanalı, sonra şartname.</p>
+<h2>Pratik öneri</h2>
+<p>CONTRL mesajlarını saklayın. Bir fatura &quot;gelmedi&quot; tartışmasında, tarihli bir kabul teyidi en hızlı çözen belgedir.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/uci.html"><code>UCI</code></a> <a href="../segment/ucm.html"><code>UCM</code></a> <a href="../segment/ucs.html"><code>UCS</code></a> <a href="../segment/ucd.html"><code>UCD</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

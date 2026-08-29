@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why was my invoice rejected? An INVOIC checklist — ediviewer</title>
+<meta name="description" content="EDI invoices usually come back for matching and totalling errors, not for their content.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/why-invoices-get-rejected.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/invoic-neden-reddedilir.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/invoic-neden-reddedilir.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Why was my invoice rejected? An INVOIC checklist</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; EDI invoices usually come back for matching and totalling errors, not for their content.</div>
+<p>When an EDI invoice is rejected, the first assumption is that an amount is wrong. In practice the cause is usually more mundane.</p>
+<h2>1. The order reference is missing</h2>
+<p>If the buyer&#x27;s system cannot match the invoice to an order, it drops to manual handling or is rejected outright. The link is made by this line:</p>
+<pre class="doc-code"><code>
+RFF+ON:PO-2026-0042&#x27;
+</code></pre>
+<p>Without it the invoice is orphaned. This is the single most common rejection reason.</p>
+<h2>2. The totals do not add up</h2>
+<p>The summary section holds several MOA segments, each a different total:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>79</code></td><td>Goods total (sum of the lines)</td></tr>
+<tr><td><code>124</code></td><td>Tax amount</td></tr>
+<tr><td><code>77</code></td><td>Grand total</td></tr>
+<table class="doc-table"><thead><tr><th><code>9</code></th><th>Amount payable</th></tr></thead><tbody>
+</tbody></table>
+<p>The buyer&#x27;s system checks that <code>79 + 124 = 77</code>. Even a rounding difference is enough to fail. Summing the line amounts to the cent and comparing them against the summary is the cheapest check you can run before sending.</p>
+<h2>3. No tax rate</h2>
+<p>With no <code>TAX</code> segment, or an empty rate, the buyer cannot compute VAT and cannot process the invoice:</p>
+<pre class="doc-code"><code>
+TAX+7+VAT+++:::20&#x27;
+</code></pre>
+<h2>4. Quantities do not match the order</h2>
+<p>If the invoice bills more than was delivered, the three-way match fails. A partial delivery must produce a partial invoice.</p>
+<h2>5. The wrong GLN</h2>
+<p>If the invoicee (<code>NAD+IV</code>) differs from the one agreed with the partner, the message is rejected before its content is even read.</p>
+<h2>6. No currency</h2>
+<p>Without a <code>CUX</code> segment the currency of the amounts is undefined. Some systems assume, others reject — neither is what you want.</p>
+<h2>Before you send</h2>
+<p>Opening the invoice in a viewer and confirming five lines exist heads off most of the rejection loop: <code>RFF+ON</code>, <code>CUX</code>, <code>TAX</code>, <code>MOA+79</code> and <code>MOA+77</code>.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/moa.html"><code>MOA</code></a> <a href="../segment/tax.html"><code>TAX</code></a></p>
+<p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

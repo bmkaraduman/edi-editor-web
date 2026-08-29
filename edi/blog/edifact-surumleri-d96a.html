@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D.96A ne demek? EDIFACT sürümlerini anlamak — ediviewer</title>
+<meta name="description" content="UNH satırındaki &quot;D:96A:UN&quot; ifadesinin her parçası ne anlatır ve sürüm farkı neden önemlidir.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/edifact-surumleri-d96a.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/edifact-versions-d96a.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/edifact-versions-d96a.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>D.96A ne demek? EDIFACT sürümlerini anlamak</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; UNH satırındaki &quot;D:96A:UN&quot; ifadesinin her parçası ne anlatır ve sürüm farkı neden önemlidir.</div>
+<p>Her EDIFACT mesajı hangi kural setine göre yazıldığını UNH segmentinde bildirir:</p>
+<pre class="doc-code"><code>
+UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;
+</code></pre>
+<p>Bu satırdaki her parça bir şey söyler.</p>
+<h2>Parçalar</h2>
+<table class="doc-table"><thead><tr><th>Parça</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>ORDERS</code></td><td>Mesaj tipi</td></tr>
+<tr><td><code>D</code></td><td>Dizin tipi — &quot;Draft&quot;, yayımlanmış standart dizin</td></tr>
+<tr><td><code>96A</code></td><td>Sürüm: 1996 yılının A yayımı</td></tr>
+<tr><td><code>UN</code></td><td>Sorumlu kuruluş: Birleşmiş Milletler</td></tr>
+<table class="doc-table"><thead><tr><th><code>EAN008</code></th><th>İlişkili kullanım kılavuzu (varsa)</th></tr></thead><tbody>
+</tbody></table>
+<p>Yani <code>D.96A</code>, 1996&#x27;nın ilk yarısında yayımlanmış standart dizin demektir.</p>
+<h2>Neden hâlâ 1996?</h2>
+<p>Yeni sürümler var — D.01B, D.07A, D.16A. Ama perakende sektörü büyük ölçüde D.96A üzerinde kalmış durumda. Sebep basit: çalışan bir entegrasyonu güncellemenin maliyeti, yeni sürümün getirdiği faydadan yüksek.</p>
+<p>Sürümler arası fark çoğunlukla yeni segment ve kod eklemeleridir; temel yapı (UNB, UNH, BGM, NAD, LIN) sürümler boyunca aynı kalmıştır.</p>
+<h2>Beşinci parça: kullanım kılavuzu</h2>
+<p><code>EAN008</code> gibi bir değer, standardın kendisini değil, bir sektör kılavuzunu işaret eder. EANCOM, GS1&#x27;in perakende için hazırladığı EDIFACT alt kümesidir ve pratikte Avrupa perakendesinde standardın kendisinden daha belirleyicidir.</p>
+<p>Bu alan, ortağınızın şartnamesinde hangi kılavuza uyduğunuzu gösterir.</p>
+<h2>Ne zaman sorun çıkar</h2>
+<p>Sürüm uyuşmazlığı sessiz bir hata kaynağıdır. Ortağınız D.01B beklerken D.96A gönderirseniz mesaj çoğu zaman yine de işlenir — ta ki yalnızca yeni sürümde bulunan bir segment kullanana kadar.</p>
+<p>Bu yüzden şartnamedeki sürüm bilgisi, göz gezdirilecek değil, birebir uyulacak bir alandır.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/unh.html"><code>UNH</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

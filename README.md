@@ -87,6 +87,12 @@ Elle düzenlenmez — kaynaklar şunlardır:
 
 - `locales/*.json` — segment, eleman ve kod açıklamaları (uygulamayla ortak sözlük)
 - `tools/content.py` — elle yazılmış segment açıklamaları, örnekler ve rehber yazıları
+- `tools/blog.py` — blog yazıları
+
+Üretilen bölümler: segment ve mesaj tipi sayfaları, rehberler, blog (`edi/blog/`) ve
+**Ne Nedir?** arama sayfası (`edi/ara.html`, `edi/en/search.html`). Arama, üretilen
+`edi/search-index.json` dosyasını istemci tarafında filtreler (`js/refSearch.js`);
+bir mesaj tipi aratıldığında içindeki segmentleri de listeler.
 
 Yeniden üretmek için:
 

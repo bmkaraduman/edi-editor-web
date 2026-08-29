@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faturam neden reddedildi? INVOIC kontrol listesi — ediviewer</title>
+<meta name="description" content="EDI faturaları çoğunlukla içerik yüzünden değil, eşleştirme ve toplam hataları yüzünden geri döner.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/invoic-neden-reddedilir.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/why-invoices-get-rejected.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/why-invoices-get-rejected.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Faturam neden reddedildi? INVOIC kontrol listesi</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; EDI faturaları çoğunlukla içerik yüzünden değil, eşleştirme ve toplam hataları yüzünden geri döner.</div>
+<p>EDI faturası reddedildiğinde ilk düşünülen tutarın yanlış olduğudur. Pratikte sebep genellikle daha sıradan bir şeydir.</p>
+<h2>1. Sipariş referansı eksik</h2>
+<p>Alıcı sistem faturayı siparişle eşleştiremezse elle işleme düşürür ya da reddeder. Bağ şu satırla kurulur:</p>
+<pre class="doc-code"><code>
+RFF+ON:PO-2026-0042&#x27;
+</code></pre>
+<p>Bu satır yoksa fatura &quot;sahipsizdir&quot;. EDI faturalarında en sık görülen ret sebebi budur.</p>
+<h2>2. Toplamlar tutmuyor</h2>
+<p>Özet bölümünde birden fazla MOA bulunur ve her biri farklı bir toplamdır:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>79</code></td><td>Mal toplamı (satırların toplamı)</td></tr>
+<tr><td><code>124</code></td><td>Vergi tutarı</td></tr>
+<tr><td><code>77</code></td><td>Genel toplam</td></tr>
+<table class="doc-table"><thead><tr><th><code>9</code></th><th>Ödenecek tutar</th></tr></thead><tbody>
+</tbody></table>
+<p>Alıcı sistem <code>79 + 124 = 77</code> eşitliğini kontrol eder. Yuvarlama farkı bile reddedilmeye yeter. Satır tutarlarını kuruş bazında toplayıp özetle karşılaştırmak, göndermeden önce yapılacak en ucuz kontroldür.</p>
+<h2>3. Vergi oranı belirtilmemiş</h2>
+<p><code>TAX</code> segmenti yoksa ya da oran boşsa, alıcı KDV&#x27;yi kendisi hesaplayamaz ve faturayı işleyemez:</p>
+<pre class="doc-code"><code>
+TAX+7+VAT+++:::20&#x27;
+</code></pre>
+<h2>4. Miktar sipariştekiyle uyuşmuyor</h2>
+<p>Fatura, teslim edilenden fazlasını içeriyorsa üçlü eşleştirme başarısız olur. Kısmi teslimatta fatura da kısmi olmalıdır.</p>
+<h2>5. GLN yanlış</h2>
+<p>Fatura adresi (<code>NAD+IV</code>) ile sipariş adresi farklıysa ve bu ortakla mutabık değilse, mesaj daha içeriğe bakılmadan reddedilir.</p>
+<h2>6. Para birimi yok</h2>
+<p><code>CUX</code> segmenti yoksa tutarların hangi para biriminde olduğu belirsizdir. Bazı sistemler varsayar, bazıları reddeder — ikisi de istenmez.</p>
+<h2>Göndermeden önce</h2>
+<p>Faturayı bir görüntüleyicide açıp şu beş satırın varlığını doğrulamak, ret döngüsünün büyük kısmını önler: <code>RFF+ON</code>, <code>CUX</code>, <code>TAX</code>, <code>MOA+79</code>, <code>MOA+77</code>.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/moa.html"><code>MOA</code></a> <a href="../segment/tax.html"><code>TAX</code></a></p>
+<p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DTM: which date is which? — ediviewer</title>
+<meta name="description" content="A message can hold five different DTMs. The qualifier says which one is delivery and which is the document date.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/dtm-date-qualifiers.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/dtm-tarih-nitelikcileri.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/dtm-tarih-nitelikcileri.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>DTM: which date is which?</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; A message can hold five different DTMs. The qualifier says which one is delivery and which is the document date.</div>
+<p>There is no single &quot;date&quot; in an EDI message. Order date, requested delivery date, actual delivery date, payment due date — each travels in its own DTM segment, and they all look alike.</p>
+<p>What separates them is the <strong>qualifier</strong> in the first element.</p>
+<h2>The qualifiers you meet most</h2>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>137</code></td><td>Document / message date</td></tr>
+<tr><td><code>2</code></td><td>Requested delivery date</td></tr>
+<tr><td><code>35</code></td><td>Actual delivery date</td></tr>
+<tr><td><code>11</code></td><td>Despatch date</td></tr>
+<tr><td><code>13</code></td><td>Payment due date</td></tr>
+<tr><td><code>132</code></td><td>Estimated arrival</td></tr>
+<tr><td><code>356</code></td><td>Period start</td></tr>
+<table class="doc-table"><thead><tr><th><code>357</code></th><th>Period end</th></tr></thead><tbody>
+</tbody></table>
+<p><code>DTM+137:20260117:102&#x27;</code> is the document date; <code>DTM+2:20260125:102&#x27;</code> is the delivery date. An integration that reads them interchangeably schedules the order on the wrong day.</p>
+<h2>The third part: the format</h2>
+<p>The third element says how to read the value:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Format</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>102</code></td><td>YYYYMMDD</td><td><code>20260117</code></td></tr>
+<tr><td><code>203</code></td><td>YYYYMMDDHHMM</td><td><code>202601171030</code></td></tr>
+<tr><td><code>718</code></td><td>A date range (two dates joined)</td><td><code>2026010120260630</code></td></tr>
+<tr><td><code>610</code></td><td>YYYYMM (month)</td><td><code>202601</code></td></tr>
+<table class="doc-table"><thead><tr><th><code>616</code></th><th>YYYYWW (week)</th><th><code>202603</code></th></tr></thead><tbody>
+</tbody></table>
+<p>Parsing the value without reading the format code is a common mistake. Treating <code>202601171030</code> as <code>102</code> and taking the first eight digits gives you the right day while silently dropping the time.</p>
+<h2>The week format</h2>
+<p><code>616</code> turns up especially in automotive: the delivery week is stated, not the day. <code>202603</code> means week three of 2026. Trying to parse that as a date produces nonsense.</p>
+<h2>A practical check</h2>
+<p>If you cannot find the date you expect in a file, line up every DTM in the message and read their qualifiers. The date is usually there — under a different code.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/dtm.html"><code>DTM</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>

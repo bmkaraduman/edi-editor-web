@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDI dosyasını Excel&#x27;e aktarmak — ediviewer</title>
+<meta name="description" content="Segment yapısını satır-sütun düzenine çevirirken nelere dikkat etmeli.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/edi-dosyasini-excele-aktarmak.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/edi-to-excel.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/edi-to-excel.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDI dosyasını Excel&#x27;e aktarmak</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Segment yapısını satır-sütun düzenine çevirirken nelere dikkat etmeli.</div>
+<p>EDI dosyasını Excel&#x27;de görmek isteyen çoğu kişi aslında tek bir şeyi ister: kalemleri bir tabloda yan yana görmek. Ama EDI tablo değil, iç içe geçmiş bir ağaçtır; düzleştirmek bilinçli bir karar gerektirir.</p>
+<h2>Sorun: hiyerarşi düzleşmiyor</h2>
+<p>Bir siparişte yapı şöyledir:</p>
+<pre class="doc-code"><code>
+Mesaj
+ ├── Başlık (BGM, DTM, NAD)
+ └── Kalemler
+      ├── LIN  → IMD, QTY, PRI, MOA
+      └── LIN  → IMD, QTY, PRI, MOA
+</code></pre>
+<p>Excel&#x27;de bir satır bir kalem olmalıdır. Yani <code>LIN</code> satır açar, sonrasında gelen <code>IMD</code>, <code>QTY</code>, <code>PRI</code> o satırın sütunlarını doldurur — ta ki bir sonraki <code>LIN</code> gelene kadar.</p>
+<p>Bu mantığı kurmadan dosyayı satır satır Excel&#x27;e dökerseniz, her segment ayrı bir satır olur ve tablo işe yaramaz.</p>
+<h2>Hangi sütunlar?</h2>
+<p>Bir sipariş için pratikte yeterli olan set:</p>
+<table class="doc-table"><thead><tr><th>Sütun</th><th>Kaynak</th></tr></thead><tbody>
+<tr><td>Ürün kodu</td><td><code>LIN</code> eleman 3</td></tr>
+<tr><td>Açıklama</td><td><code>IMD</code> eleman 3, son parça</td></tr>
+<tr><td>Miktar</td><td><code>QTY</code> nitelikçi <code>21</code></td></tr>
+<tr><td>Birim</td><td><code>QTY</code> üçüncü parça</td></tr>
+<tr><td>Birim fiyat</td><td><code>PRI</code> nitelikçi <code>AAA</code></td></tr>
+<table class="doc-table"><thead><tr><th>Satır tutarı</th><th><code>MOA</code> nitelikçi <code>203</code></th></tr></thead><tbody>
+</tbody></table>
+<p>Başlık bilgileri (sipariş no, tarih, tedarikçi) tabloya değil, üst kısma ya da ayrı bir sayfaya yazılır.</p>
+<h2>Türkçe karakter tuzağı</h2>
+<p>CSV dosyasını Excel doğrudan açtığında Türkçe karakterler bozulabilir. Sebep, Excel&#x27;in dosyayı UTF-8 sanmamasıdır. Çözüm, dosyanın başına BOM (byte order mark) koymaktır — ediviewer&#x27;ın Excel çıktısı bunu zaten ekler.</p>
+<h2>Ayraç seçimi</h2>
+<p>Türkçe Windows kurulumlarında Excel varsayılan olarak <strong>noktalı virgül</strong> bekler. Virgülle ayrılmış bir dosya tek sütunda açılır. Bu yüzden CSV çıktılarında <code>;</code> kullanmak Türkiye&#x27;de daha güvenlidir.</p>
+<h2>Hızlı yol</h2>
+<p>Dosyayı ediviewer&#x27;da açıp <strong>Excel&#x27;e Aktar</strong> demek, yukarıdaki eşlemeyi hazır yapar: kalemler satır satır, doğru sütunlarda, BOM ve noktalı virgülle.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/lin.html"><code>LIN</code></a> <a href="../segment/qty.html"><code>QTY</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

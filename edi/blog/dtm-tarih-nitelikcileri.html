@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DTM: hangi tarih hangisi? — ediviewer</title>
+<meta name="description" content="Bir mesajda beş farklı DTM olabilir. Hangisinin teslim, hangisinin belge tarihi olduğunu nitelikçi söyler.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/dtm-tarih-nitelikcileri.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/dtm-date-qualifiers.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/dtm-date-qualifiers.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>DTM: hangi tarih hangisi?</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Bir mesajda beş farklı DTM olabilir. Hangisinin teslim, hangisinin belge tarihi olduğunu nitelikçi söyler.</div>
+<p>Bir EDI mesajında tek bir &quot;tarih&quot; yoktur. Sipariş tarihi, istenen teslim tarihi, fiili teslim tarihi, vade tarihi — hepsi ayrı DTM segmentleriyle taşınır ve hepsi aynı görünür.</p>
+<p>Ayıran şey ilk elemandaki <strong>nitelikçidir</strong>.</p>
+<h2>En sık kullanılan nitelikçiler</h2>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>137</code></td><td>Belge / mesaj tarihi</td></tr>
+<tr><td><code>2</code></td><td>İstenen teslim tarihi</td></tr>
+<tr><td><code>35</code></td><td>Fiili teslim tarihi</td></tr>
+<tr><td><code>11</code></td><td>Sevk tarihi</td></tr>
+<tr><td><code>13</code></td><td>Vade (ödeme) tarihi</td></tr>
+<tr><td><code>132</code></td><td>Tahmini varış</td></tr>
+<tr><td><code>356</code></td><td>Dönem başlangıcı</td></tr>
+<table class="doc-table"><thead><tr><th><code>357</code></th><th>Dönem bitişi</th></tr></thead><tbody>
+</tbody></table>
+<p><code>DTM+137:20260117:102&#x27;</code> belge tarihidir; <code>DTM+2:20260125:102&#x27;</code> ise teslim tarihi. İkisini ayırmadan okuyan bir entegrasyon, siparişi yanlış güne planlar.</p>
+<h2>Üçüncü parça: format</h2>
+<p>Değerin nasıl okunacağını üçüncü eleman söyler:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Format</th><th>Örnek</th></tr></thead><tbody>
+<tr><td><code>102</code></td><td>YYYYMMDD</td><td><code>20260117</code></td></tr>
+<tr><td><code>203</code></td><td>YYYYMMDDHHMM</td><td><code>202601171030</code></td></tr>
+<tr><td><code>718</code></td><td>Tarih aralığı (iki tarih bitişik)</td><td><code>2026010120260630</code></td></tr>
+<tr><td><code>610</code></td><td>YYYYMM (ay)</td><td><code>202601</code></td></tr>
+<table class="doc-table"><thead><tr><th><code>616</code></th><th>YYYYWW (hafta)</th><th><code>202603</code></th></tr></thead><tbody>
+</tbody></table>
+<p>Format kodunu okumadan değeri ayrıştırmak yaygın bir hatadır. <code>202601171030</code> değerini <code>102</code> sanıp ilk sekiz haneyi almak size doğru günü verir ama saati sessizce düşürür.</p>
+<h2>Hafta formatı</h2>
+<p><code>616</code> özellikle otomotivde görülür: teslimat haftası bildirilir, günü değil. <code>202603</code> değeri 2026&#x27;nın üçüncü haftası demektir. Bunu tarih sanıp ayrıştırmaya çalışmak anlamsız sonuç verir.</p>
+<h2>Pratik kontrol</h2>
+<p>Bir dosyada beklediğiniz tarihi bulamıyorsanız, mesajdaki tüm DTM satırlarını yan yana koyup nitelikçilerine bakın. Aradığınız tarih genellikle oradadır, sadece farklı bir kodla.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/dtm.html"><code>DTM</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

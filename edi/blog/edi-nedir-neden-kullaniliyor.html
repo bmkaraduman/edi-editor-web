@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDI nedir ve API çağında neden hâlâ kullanılıyor? — ediviewer</title>
+<meta name="description" content="REST API varken 40 yıllık bir format neden ayakta? Cevap teknolojide değil, ticari ilişkide.">
+<link rel="canonical" href="https://ediviewer.net/edi/blog/edi-nedir-neden-kullaniliyor.html">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/blog/what-is-edi-why-still-used.html">
+<link rel="stylesheet" href="../../css/styles.css">
+<link rel="stylesheet" href="../../css/doc.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../edi/index.html">EDI Referansı</a>
+    <a href="../en/blog/what-is-edi-why-still-used.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>EDI nedir ve API çağında neden hâlâ kullanılıyor?</h1>
+<div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; REST API varken 40 yıllık bir format neden ayakta? Cevap teknolojide değil, ticari ilişkide.</div>
+<p>EDI, iki şirketin ticari belgeleri insan eli değmeden değiş tokuş etmesidir. Sipariş, irsaliye, fatura; hepsi standart bir yapıda, doğrudan sistemden sisteme.</p>
+<h2>&quot;JSON dursun, bu ne?&quot;</h2>
+<p>EDI&#x27;yi ilk gören her yazılımcı aynı soruyu sorar: bugün REST API yazmak varken neden 1980&#x27;lerden kalma bir metin formatı kullanılıyor?</p>
+<p>Cevap teknik değil. Bir perakendeci binlerce tedarikçiyle çalışır. Her biriyle ayrı API konuşmak yerine tek bir standart dayatır: &quot;bize EDIFACT ORDERS gönderin&quot;. Standart, taraflardan birinin diğerine uyum sağlama maliyetini sıfırlar.</p>
+<p>Üstelik bu standart onlarca yıldır aynı. 2005&#x27;te yazılmış bir entegrasyon bugün hâlâ çalışıyor. API dünyasında bu cümle nadiren kurulur.</p>
+<h2>Kim kullanıyor?</h2>
+<ul>
+<li><strong>Perakende zincirleri</strong> — sipariş ve fatura akışının neredeyse tamamı</li>
+<li><strong>Otomotiv</strong> — üretim hattı beslemesi, JIT çağrıları</li>
+<li><strong>Lojistik</strong> — sevkiyat talimatları ve durum bildirimleri</li>
+<li><strong>Sağlık ve kamu</strong> — özellikle Avrupa&#x27;da</li>
+</ul>
+<p>Türkiye&#x27;de de büyük zincir marketlerin tedarikçilerinden EDI beklemesi yaygınlaşıyor.</p>
+<h2>Peki gerçekten eski mi?</h2>
+<p>Format eski, mantık değil. EDI&#x27;nin çözdüğü problem — iki bağımsız sistemin ortak bir sözlükle anlaşması — bugün de aynı. Modern alternatifler (API&#x27;ler, Peppol gibi ağlar) aynı problemi farklı sözdizimiyle çözüyor.</p>
+<p>Pratikte ikisi bir arada yaşıyor: pek çok firma iç sistemlerinde JSON kullanıp dış dünyaya EDIFACT çeviriyor.</p>
+<h2>Nereden başlamalı</h2>
+<p>Karşınıza bir EDI dosyası geldiyse önce <strong>okuyabilmek</strong> gerekir. Dosyayı açıp segmentlerin ne anlama geldiğini görmek, entegrasyona girişmeden önceki doğal ilk adımdır.</p>
+<h2>İlgili referans</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a> <a href="../segment/unh.html"><code>UNH</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">EDI dosyanızı tarayıcıda açın</div>
+      <div class="app-cta-text">ediviewer, EDIFACT ve X12 dosyalarını okunabilir hâle getirir; PDF ve Excel&#x27;e aktarır. Dosyalarınız cihazınızdan çıkmaz.</div>
+    </div>
+    <a class="app-cta-btn" href="../../index.html">Uygulamayı aç</a>
+  </div>
+  <p><a href="../../edi/index.html">EDI Referansı</a> &middot;
+     <a href="../../gizlilik.html">Gizlilik Politikası</a></p>
+</section>
+
+</body>
+</html>

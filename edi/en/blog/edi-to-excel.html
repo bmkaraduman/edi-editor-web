@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exporting an EDI file to Excel — ediviewer</title>
+<meta name="description" content="What to watch for when flattening a segment structure into rows and columns.">
+<link rel="canonical" href="https://ediviewer.net/edi/en/blog/edi-to-excel.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/blog/edi-dosyasini-excele-aktarmak.html">
+<link rel="stylesheet" href="../../../css/styles.css">
+<link rel="stylesheet" href="../../../css/doc.css">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 varsayilanlari + GA/AdSense yukleyicisi.
+  // Uygulamayla ayni modul; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('../../../js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="../../../index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="../../../edi/index.html">EDI Reference</a>
+    <a href="../../blog/edi-dosyasini-excele-aktarmak.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Exporting an EDI file to Excel</h1>
+<div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; What to watch for when flattening a segment structure into rows and columns.</div>
+<p>Most people who want to see an EDI file in Excel want one thing: the line items side by side in a table. But EDI is not a table — it is a nested tree, and flattening it takes a deliberate decision.</p>
+<h2>The problem: hierarchy does not flatten itself</h2>
+<p>An order is structured like this:</p>
+<pre class="doc-code"><code>
+Message
+ ├── Header (BGM, DTM, NAD)
+ └── Line items
+      ├── LIN  → IMD, QTY, PRI, MOA
+      └── LIN  → IMD, QTY, PRI, MOA
+</code></pre>
+<p>In Excel one row should be one line item. So <code>LIN</code> opens a row, and the <code>IMD</code>, <code>QTY</code> and <code>PRI</code> that follow fill that row&#x27;s columns — until the next <code>LIN</code> appears.</p>
+<p>Dump the file into Excel line by line without that logic and every segment becomes its own row, leaving a table nobody can use.</p>
+<h2>Which columns?</h2>
+<p>The set that proves sufficient in practice for an order:</p>
+<table class="doc-table"><thead><tr><th>Column</th><th>Source</th></tr></thead><tbody>
+<tr><td>Product code</td><td><code>LIN</code> element 3</td></tr>
+<tr><td>Description</td><td><code>IMD</code> element 3, last component</td></tr>
+<tr><td>Quantity</td><td><code>QTY</code> qualifier <code>21</code></td></tr>
+<tr><td>Unit</td><td><code>QTY</code> third component</td></tr>
+<tr><td>Unit price</td><td><code>PRI</code> qualifier <code>AAA</code></td></tr>
+<table class="doc-table"><thead><tr><th>Line amount</th><th><code>MOA</code> qualifier <code>203</code></th></tr></thead><tbody>
+</tbody></table>
+<p>Header information — order number, date, supplier — belongs above the table or on a separate sheet, not in the rows.</p>
+<h2>The encoding trap</h2>
+<p>Opening a CSV directly in Excel can corrupt accented characters, because Excel does not assume UTF-8. The fix is a BOM (byte order mark) at the start of the file; ediviewer&#x27;s Excel export writes one already.</p>
+<h2>Choosing a separator</h2>
+<p>Excel on many European locales expects a <strong>semicolon</strong>. A comma-separated file opens in a single column there. Using <code>;</code> is the safer default outside the US.</p>
+<h2>The quick route</h2>
+<p>Opening the file in ediviewer and choosing <strong>Export to Excel</strong> applies the mapping above for you: line items as rows, in the right columns, with the BOM and semicolons already handled.</p>
+<h2>Related reference</h2><p class="flow"><a href="../segment/lin.html"><code>LIN</code></a> <a href="../segment/qty.html"><code>QTY</code></a></p>
+<p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
+</main>
+
+<section class="doc-footer">
+  <div class="app-cta">
+    <div>
+      <div class="app-cta-title">Open your EDI file in the browser</div>
+      <div class="app-cta-text">ediviewer makes EDIFACT and X12 files readable and exports them to PDF and Excel. Your files never leave your device.</div>
+    </div>
+    <a class="app-cta-btn" href="../../../index.html">Open the app</a>
+  </div>
+  <p><a href="../../../edi/index.html">EDI Reference</a> &middot;
+     <a href="../../../privacy.html">Privacy Policy</a></p>
+</section>
+
+</body>
+</html>
