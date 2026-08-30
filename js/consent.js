@@ -132,17 +132,20 @@ function showFallbackBanner() {
     hideFallbackBanner();
   });
 
+  // Bant ekli olduğu anda görünür durumdadır; .entering yalnızca giriş
+  // animasyonunu başlatmak için kısa süre durur. Geçiş hiç çalışmasa bile
+  // bant ekranda kalır — rıza ekranı animasyona bağımlı olmamalıdır.
+  bannerEl.classList.add('entering');
   document.body.appendChild(bannerEl);
-  // Geçişi başlatmak için zorlanmış reflow; rAF arka plan sekmelerinde tetiklenmez
   void bannerEl.offsetWidth;
-  bannerEl.classList.add('visible');
+  bannerEl.classList.remove('entering');
 }
 
 function hideFallbackBanner() {
   if (!bannerEl) return;
-  bannerEl.classList.remove('visible');
   const el = bannerEl;
   bannerEl = null;
+  el.classList.add('leaving');
   setTimeout(() => el.remove(), 250);
 }
 

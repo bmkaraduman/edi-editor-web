@@ -1097,11 +1097,15 @@ kbd {
    ÇEREZ / ÖLÇÜM RIZASI — yedek bant
    Google'ın CMP'si yüklenmediğinde devreye girer (js/consent.js).
    ========================================================================= */
+/* Varsayilan durum GORUNUR olmali: bandin ekranda olmasi bir CSS gecisine
+   bagli kalirsa, gecis ilerlemedigi durumlarda (arka plan sekmesi, kisitlanmis
+   animasyon) riza ekrani hic gorunmez. Giris animasyonu yalnizca bir suslemedir:
+   .entering kisa sure uygulanir, kaldirilinca banda kayar. */
 .consent-banner {
   position: fixed;
   left: 50%;
   bottom: 16px;
-  transform: translate(-50%, calc(100% + 24px));
+  transform: translate(-50%, 0);
   width: min(680px, calc(100vw - 32px));
   display: flex;
   align-items: center;
@@ -1112,11 +1116,15 @@ kbd {
   background: var(--control-bg);
   box-shadow: var(--shadow-lg);
   z-index: 90;
-  opacity: 0;
+  opacity: 1;
   transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.22s ease;
 }
 
-.consent-banner.visible { transform: translate(-50%, 0); opacity: 1; }
+.consent-banner.entering,
+.consent-banner.leaving {
+  transform: translate(-50%, calc(100% + 24px));
+  opacity: 0;
+}
 
 .consent-text { flex: 1 1 auto; min-width: 0; }
 .consent-title { font-size: 13px; font-weight: 680; margin-bottom: 3px; }
