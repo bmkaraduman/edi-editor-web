@@ -80,9 +80,17 @@ export function reopenConsent() {
   return true;
 }
 
-/** Uygulama açılışında, mümkün olan en erken anda çağrılır. */
-export function initConsent() {
+/**
+ * Uygulama açılışında, mümkün olan en erken anda çağrılır.
+ *
+ * @param {{ads?: boolean}} opts
+ *   ads=false → yalnızca ölçüm yüklenir, reklam yüklenmez.
+ *   Editör sayfası bunu kullanır: gövdesi `overflow: hidden` ve `100vh`
+ *   olduğu için Auto Ads'in yerleştirebileceği bir belge akışı yoktur;
+ *   sabit yerleşimli araç arayüzüne reklam sokmak düzeni bozar.
+ */
+export function initConsent({ ads = true } = {}) {
   setConsentDefaults();
   loadGoogleAnalytics();
-  loadAdSense();
+  if (ads) loadAdSense();
 }

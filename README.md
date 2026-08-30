@@ -8,6 +8,11 @@ macOS/SwiftUI **Editor** projesinin web'e 1:1 taşınmış hali.
 Saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı ve paket bağımlılığı yok;
 uygulama mantığının tamamı yereldir.
 
+Reklamlar **Auto Ads** ile yalnızca içerik sayfalarında (`edi/**`, gizlilik) çalışır;
+editör sayfası `initConsent({ ads: false })` ile yalnızca ölçüm yükler. Sebebi
+uygulamanın `overflow: hidden` ve `100vh` bir yerleşime sahip olması — Auto Ads'in
+yerleştirebileceği bir belge akışı yoktur ve sabit yerleşime reklam sokmak editörü bozar.
+
 Harici istekler yalnızca Google Analytics ve AdSense'ten ibarettir. Rıza yönetimi
 Google Consent Mode v2 ile yapılır (`js/consent.js`): AEA / Birleşik Krallık / İsviçre
 ziyaretçileri için ölçüm ve reklam izinleri **varsayılan olarak reddedilmiş** başlar ve

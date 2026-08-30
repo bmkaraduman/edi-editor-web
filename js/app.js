@@ -637,8 +637,10 @@ function openSampleDocument() {
 // MARK: - BAŞLATMA
 // =========================================================================
 (async function main() {
-  // Consent Mode varsayılanları gtag.js'ten önce tanımlanmalı, o yüzden en başta
-  initConsent();
+  // Consent Mode varsayılanları gtag.js'ten önce tanımlanmalı, o yüzden en başta.
+  // Editörde reklam yüklenmez: sayfa tam ekran ve kaydırmasız, Auto Ads'in
+  // yerleştireceği akış yok. Reklamlar içerik sayfalarında (edi/**) çalışır.
+  initConsent({ ads: false });
 
   applyTheme();
   await loc.loadTranslations();
