@@ -7,7 +7,7 @@ import { SyntaxHighlightEditor } from './editor.js';
 import { renderSegmentDetail } from './segmentDetail.js';
 import { logoManager } from './logoManager.js';
 import { SAMPLE_EDI, SAMPLE_FILE_NAME } from './sampleData.js';
-import { initConsent, privacyURL, reopenConsent, consentUIAvailable } from './consent.js';
+import { initConsent, privacyURL, reopenConsent } from './consent.js';
 
 // =========================================================================
 // MARK: - TEMA SEÇENEKLERİ (AppTheme)
@@ -598,11 +598,9 @@ function showAbout() {
       { label: L('btn_cancel'), kind: 'default', action: () => {} },
       { label: L('edi_reference'), action: () => window.open(referenceURL(), '_blank', 'noopener') },
       { label: L('privacy_policy'), action: () => window.open(privacyURL(), '_blank', 'noopener') },
-      // Rıza ekranı yalnızca Google'ın CMP'sinin yüklendiği bölgelerde vardır;
-      // aksi hâlde düğme hiçbir şey yapmayacağı için hiç gösterilmez.
-      ...(consentUIAvailable()
-        ? [{ label: L('consent_manage'), action: () => reopenConsent() }]
-        : []),
+      // Rıza ekranı her zaman açılabilir: Google'ın CMP'si varsa o, yoksa
+      // ölçüm izni soran yedek bant gösterilir.
+      { label: L('consent_manage'), action: () => reopenConsent() },
     ],
   });
 }
@@ -638,9 +636,7 @@ function openSampleDocument() {
 // =========================================================================
 (async function main() {
   // Consent Mode varsayılanları gtag.js'ten önce tanımlanmalı, o yüzden en başta.
-  // Editörde reklam yüklenmez: sayfa tam ekran ve kaydırmasız, Auto Ads'in
-  // yerleştireceği akış yok. Reklamlar içerik sayfalarında (edi/**) çalışır.
-  initConsent({ ads: false });
+  initConsent({ ads: true });
 
   applyTheme();
   await loc.loadTranslations();
