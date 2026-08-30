@@ -83,9 +83,21 @@ dağıtım hem hızlanır hem de dosyalar olduğu gibi servis edilir.
 
 ### Dağıtım önbelleği
 
-GitHub Pages statik dosyalara 10 dakikalık önbellek verir (`max-age=600`). Yeni
-ziyaretçiler güncel sürümü alır; siteyi daha önce açmış olanlar bir deploy sonrası
-kısa süre eski CSS/JS görebilir. Hemen görmek için sabit yenileme (`Cmd/Ctrl+Shift+R`).
+GitHub Pages HTML'e 10 dakikalık önbellek verir; **Cloudflare ise `.js` ve `.css`
+dosyalarını kenarda 4 saat tutar** (`max-age=14400`). Bu, bir deploy'dan sonra yeni
+JS ile eski CSS'in aynı anda servis edilmesine ve arayüzün bozulmasına yol açabilir.
+
+Bunu önlemek için CSS bağlantıları içerik özetiyle damgalanır:
+`css/styles.css?v=<hash>`. Damgayı `tools/build_reference.py` hesaplar ve hem üretilen
+sayfalara hem elle yazılan üç sayfaya (`index.html`, `gizlilik.html`, `privacy.html`)
+yazar. CSS değişince damga değişir, adres yeni bir önbellek anahtarı olur ve eski
+sürüm servis edilemez.
+
+**CSS'i elle düzenledikten sonra `python3 tools/build_reference.py` çalıştırmak
+gerekir**, aksi hâlde damga eskide kalır.
+
+JS modülleri birbirini damgasız `import` ettiği için aynı koruma onlarda yoktur;
+JS'te kırıcı bir değişiklik yapılırsa Cloudflare önbelleğini temizlemek gerekebilir.
 
 ## EDI Referansı
 

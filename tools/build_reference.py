@@ -24,6 +24,8 @@ import shutil
 import html as htmllib
 from datetime import date
 
+import hashlib
+
 import content as C
 import blog as B
 
@@ -41,6 +43,23 @@ TYPE_RE = re.compile(r'^type_([A-Z]{4,6})$')
 
 # Referans sayfası üretilmiş segmentler (main() doldurur)
 _REF_SEGMENTS = set()
+
+
+def css_stamp():
+    """CSS dosyalarinin icerik ozeti.
+
+    Cloudflare statik dosyalari 4 saat kenarda tutuyor. Yeni JS ile eski CSS
+    ayni anda servis edilirse arayuz bozulur; adrese icerik damgasi koyunca
+    her degisiklik yeni bir onbellek anahtari olur ve bu esitsizlik olusmaz.
+    """
+    h = hashlib.sha1()
+    for name in ('styles.css', 'doc.css'):
+        with open(os.path.join(ROOT, 'css', name), 'rb') as f:
+            h.update(f.read())
+    return h.hexdigest()[:8]
+
+
+CSS_V = None
 
 
 MONTHS = {
@@ -122,8 +141,8 @@ def page(lang, title, desc, body, depth, canonical, alt_href=None, alt_rel=None)
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{SITE}{canonical}">
 {f'<link rel="alternate" hreflang="{other}" href="{SITE}{alt_href}">' if alt_href else ''}
-<link rel="stylesheet" href="{up}css/styles.css">
-<link rel="stylesheet" href="{up}css/doc.css">
+<link rel="stylesheet" href="{up}css/styles.css?v={CSS_V}">
+<link rel="stylesheet" href="{up}css/doc.css?v={CSS_V}">
 <link rel="icon" href="{up}favicon.svg" type="image/svg+xml">
 <meta name="google-adsense-account" content="ca-pub-7507702503844486">
 <script type="module">
@@ -569,7 +588,27 @@ def build_hub(lang, segs, types, urls):
 # ANA AKIŞ
 # =========================================================================
 
+def stamp_static_pages(version):
+    """Jeneratorun uretmedigi sayfalarin CSS baglantilarini da damgalar."""
+    for name in ('index.html', 'gizlilik.html', 'privacy.html'):
+        path = os.path.join(ROOT, name)
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding='utf-8') as f:
+            txt = f.read()
+        new = re.sub(r'(href="css/(?:styles|doc)\.css)(\?v=[0-9a-f]+)?"',
+                     rf'\1?v={version}"', txt)
+        if new != txt:
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(new)
+            print(f'  {name}: CSS damgasi guncellendi')
+
+
 def main():
+    global CSS_V
+    CSS_V = css_stamp()
+    stamp_static_pages(CSS_V)
+
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
 
@@ -634,6 +673,7 @@ def main():
         print(f'  {lang}: {sg} segment + {m} mesaj tipi + {g} rehber + {bl} blog yazisi')
     print(f'  sitemap.xml: {total + len(extra)} URL')
     print(f'  js/referenceIndex.js: {len(have)} segment kodu')
+    print(f'  CSS damgasi: ?v={CSS_V}')
     print(f'  TOPLAM {total} sayfa uretildi -> edi/')
 
 
