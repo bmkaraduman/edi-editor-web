@@ -8,6 +8,11 @@ import { renderSegmentDetail } from './segmentDetail.js';
 import { logoManager } from './logoManager.js';
 import { SAMPLE_EDI, SAMPLE_FILE_NAME } from './sampleData.js';
 import { initConsent, privacyURL, reopenConsent } from './consent.js';
+import {
+  convertMenuHTML, convertDocument, conversionErrorDialog,
+  convertOptions, setConvertOption,
+} from './convertPanel.js';
+import { runSelfTest } from './convert.js';
 
 // =========================================================================
 // MARK: - TEMA SEÇENEKLERİ (AppTheme)
@@ -91,13 +96,30 @@ function detectStandard(content) {
 function updateBanner(doc) {
   if (!editorNode || !doc) return;
   const content = doc.content;
+  const isEDI = doc.language === 'edi';
 
-  editorNode.querySelector('.banner-title').textContent = EDIParser.detectMessageType(content);
-  editorNode.querySelector('.pill.std').textContent = detectStandard(content);
+  // EDI olmayan belgede mesaj tipi/standart tespiti anlamsız: EDIParser
+  // JSON metnini de ayrıştırmaya çalışır ve "BİLİNMEYEN TÜR" der.
+  editorNode.querySelector('.banner-title').textContent = isEDI
+    ? EDIParser.detectMessageType(content)
+    : L(`conv_lang_${doc.language}`);
+  editorNode.querySelector('.pill.std').textContent = isEDI
+    ? detectStandard(content)
+    : doc.language.toUpperCase();
 
   const statusEl = editorNode.querySelector('.banner-status');
   statusEl.textContent = L('status_edited');
   statusEl.hidden = !doc.hasUnsavedChanges;
+
+  // Round-trip rozeti — dönüşümle üretilmiş sekmelerde görünür
+  const rtEl = editorNode.querySelector('.banner-roundtrip');
+  if (doc.conversion) {
+    rtEl.textContent = doc.conversion.ok ? L('conv_rt_ok') : L('conv_rt_warn');
+    rtEl.className = `pill banner-roundtrip ${doc.conversion.ok ? 'ok' : 'warn'}`;
+    rtEl.hidden = false;
+  } else {
+    rtEl.hidden = true;
+  }
 
   editorNode.querySelector('.banner-lines').textContent =
     `${content.split('\n').length}${L('line_count_suffix')}`;
@@ -112,6 +134,9 @@ function referenceURL() {
 function getExportPermissions() {
   const doc = docManager.activeDocument;
   if (!doc || doc.isStartPage) return { pdf: false, excel: false };
+  // İçinde "ORDERS" geçen bir JSON metni de bu testlerden geçerdi; üreticiler
+  // ise EDIParser çıktısı bekliyor. Dışa aktarma yalnızca EDI belgelerinde.
+  if (doc.language !== 'edi') return { pdf: false, excel: false };
 
   const content = doc.content;
   if (content.includes('SLSRPT')) return { pdf: true, excel: true };
@@ -242,7 +267,13 @@ function updateTitle() {
 
   // Dosya açık değilken başlık alanı boş kalır; markayı logo zaten taşıyor
   $('#win-title').textContent = hasDoc ? currentTitle() : '';
-  $('#win-sub').textContent = hasDoc ? detectStandard(doc.content) : '';
+  // JSON çıktısı içinde "EDIFACT" dizgesi geçer; standardı içerikten tahmin
+  // etmek yalnızca EDI belgelerinde doğru sonuç verir.
+  $('#win-sub').textContent = !hasDoc
+    ? ''
+    : doc.language === 'edi'
+      ? detectStandard(doc.content)
+      : doc.language.toUpperCase();
   $('#brand-sep').hidden = !hasDoc;
   $('#title-group').hidden = !hasDoc;
 
@@ -269,6 +300,10 @@ function renderToolbar() {
   $('#btn-save').disabled = startOrEmpty;
   $('#btn-pdf').disabled = startOrEmpty || !permissions.pdf;
   $('#btn-excel').disabled = startOrEmpty || !permissions.excel;
+
+  // Dönüşüm menüsü (EDI <-> JSON <-> XML)
+  $('#btn-convert').title = L('conv_title');
+  $('#convert-popup').innerHTML = convertMenuHTML(docManager.activeDocument);
 
   // Tema menüsü (Picker .inline karşılığı)
   $('#theme-popup').innerHTML =
@@ -359,21 +394,27 @@ function renderContent() {
   }
 
   // Sekme değiştiyse metni ve seçimi tazele
-  if (renderedDocID !== doc.id) {
-    renderedDocID = doc.id;
-    editorView.setText(doc.content);
-  } else {
-    editorView.setText(doc.content);
-  }
+  renderedDocID = doc.id;
+  editorView.setLanguage(doc.language);
+  editorView.setText(doc.content);
 
   // BANNER
   updateBanner(doc);
 
   // DETAY PANELİ
+  renderDetailFor(doc);
+}
+
+/**
+ * Detay panelini çizer. Segment analizi yalnızca EDI belgelerinde anlamlıdır;
+ * JSON/XML sekmelerinde seçili satır bir segment değildir.
+ */
+function renderDetailFor(doc) {
+  const panel = editorNode.querySelector('.detail-panel');
   renderSegmentDetail(
-    editorNode.querySelector('.detail-panel'),
-    doc.selectedLineContent,
-    findCurrency(doc.content)
+    panel,
+    doc.language === 'edi' ? doc.selectedLineContent : '',
+    doc.language === 'edi' ? findCurrency(doc.content) : ''
   );
 }
 
@@ -391,6 +432,7 @@ function buildEditorNode() {
         <div class="banner-meta">
           <span class="pill std"></span>
           <span class="pill edited banner-status" hidden></span>
+          <span class="pill banner-roundtrip" hidden></span>
         </div>
       </div>
       <div class="banner-right">
@@ -415,11 +457,7 @@ function buildEditorNode() {
       const doc = docManager.activeDocument;
       if (!doc || doc.selectedLineContent === line) return;
       doc.selectedLineContent = line;
-      renderSegmentDetail(
-        editorNode.querySelector('.detail-panel'),
-        line,
-        findCurrency(doc.content)
-      );
+      renderDetailFor(doc);
     },
   });
 
@@ -502,6 +540,21 @@ function wireEvents() {
     await loc.setLanguage(opt.dataset.langOpt);
   });
 
+  $('#convert-popup').addEventListener('click', (e) => {
+    const opt = e.target.closest('[data-convert-opt]');
+    if (opt) {
+      // Seçenek değişince menü açık kalsın: kullanıcı genelde iki kutuyu da
+      // ayarlayıp sonra hedefe basıyor.
+      e.stopPropagation();
+      const name = opt.dataset.convertOpt;
+      setConvertOption(name, !convertOptions[name]);
+      $('#convert-popup').innerHTML = convertMenuHTML(docManager.activeDocument);
+      return;
+    }
+    const target = e.target.closest('[data-convert-to]');
+    if (target) runConversion(target.dataset.convertTo);
+  });
+
   // --- Tab bar (delegasyon) ---
   $('#tabbar').addEventListener('click', (e) => {
     const close = e.target.closest('[data-close]');
@@ -581,7 +634,10 @@ function wireEvents() {
   });
 
   // --- Yeniden çizim tetikleyicileri ---
-  docManager.addEventListener('change', render);
+  docManager.addEventListener('change', () => {
+    render();
+    maybeOfferConversion();
+  });
   logoManager.addEventListener('change', renderToolbar);
   loc.addEventListener('change', () => {
     document.documentElement.lang = loc.currentLanguageCode;
@@ -603,6 +659,75 @@ function showAbout() {
       { label: L('consent_manage'), action: () => reopenConsent() },
     ],
   });
+}
+
+// =========================================================================
+// MARK: - DÖNÜŞÜM
+// =========================================================================
+
+/** Aktif belgeyi hedef biçime çevirir ve sonucu yeni bir sekmede açar. */
+function runConversion(target) {
+  const doc = docManager.activeDocument;
+  if (!doc || doc.isStartPage) return;
+
+  let result;
+  try {
+    result = convertDocument(doc, target);
+  } catch (e) {
+    showDialog({
+      ...conversionErrorDialog(e),
+      buttons: [{ label: L('btn_cancel'), kind: 'default' }],
+    });
+    return;
+  }
+
+  const newDoc = createDocument({
+    content: result.content,
+    fileName: result.fileName,
+    isStartPage: false,
+    language: result.language,
+    conversion: result.conversion,
+  });
+  // Sonuç yalnızca bellekte: sekme "kaydedilmemiş" görünsün ki kapatılırken
+  // sorulsun ve kullanıcı çıktıyı diske almayı unutmasın.
+  newDoc.originalContent = '';
+
+  docManager.tabs.push(newDoc);
+  docManager.activeTabID = newDoc.id;
+  docManager.changed();
+
+  // Kayıpsızlık doğrulanamadıysa sessiz geçme
+  if (!result.conversion.ok) {
+    showDialog({
+      icon: '⚠️',
+      title: L('conv_rt_warn_title'),
+      message: L('conv_rt_warn_msg'),
+      buttons: [{ label: L('btn_cancel'), kind: 'default' }],
+    });
+  }
+}
+
+/** Şemamıza ait bir JSON/XML açıldıysa EDI'ye çevirmeyi teklif eder. */
+async function maybeOfferConversion() {
+  const doc = docManager.pendingConvertOffer;
+  if (!doc) return;
+  docManager.pendingConvertOffer = null;
+
+  const accepted = await askDialog({
+    icon: '🔄',
+    title: L('conv_open_title'),
+    message: L('conv_open_msg'),
+    buttons: [
+      { label: L('conv_btn_convert'), kind: 'default', value: true },
+      { label: L('btn_cancel'), value: false },
+    ],
+  });
+  if (!accepted) return;
+
+  // Diyalog açıkken sekme kapatılmış olabilir
+  if (!docManager.tabs.some((t) => t.id === doc.id)) return;
+  docManager.activeTabID = doc.id;
+  runConversion('edi');
 }
 
 // =========================================================================
@@ -647,4 +772,24 @@ function openSampleDocument() {
   // Açılışta boş hoşgeldin ekranı yerine örnek dosya yüklü bir sekme
   openSampleDocument();
   render();
+
+  // Derleme adımı yok, bu yüzden test koşucusu da yok: dönüşüm modülünün
+  // kayıpsızlık sınaması ?selftest=1 ile tarayıcıda çalışır.
+  if (new URLSearchParams(location.search).has('selftest')) showSelfTest();
 })();
+
+/** ?selftest=1 — altı dönüşüm yolunu gömülü örneklerle sınar. */
+function showSelfTest() {
+  const results = runSelfTest({ sample: SAMPLE_EDI });
+  const failed = results.filter((r) => !r.ok);
+
+  console.table(results);
+  showDialog({
+    icon: failed.length ? '⚠️' : '✅',
+    title: `Self-test: ${results.length - failed.length}/${results.length}`,
+    message: failed.length
+      ? failed.map((r) => `${r.name}: ${r.note}`).join('\n')
+      : 'Tüm dönüşümler baytı baytına geri geldi.',
+    buttons: [{ label: L('btn_cancel'), kind: 'default' }],
+  });
+}

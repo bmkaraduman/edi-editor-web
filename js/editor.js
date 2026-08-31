@@ -14,6 +14,8 @@ export class SyntaxHighlightEditor {
     this.root = root;
     this.handlers = handlers;
     this._activeLine = -1;
+    /** 'edi' | 'json' | 'xml' — vurgulama kuralını seçer */
+    this._language = 'edi';
 
     root.innerHTML = `
       <div class="editor-gutter" aria-hidden="true"><div class="editor-gutter-inner"></div></div>
@@ -87,7 +89,15 @@ export class SyntaxHighlightEditor {
     this.emitSelectedLine();
   }
 
-  /** Segmentleri (UNB, BGM vs) mavi + kalın yapar: /^[A-Z]{3}/m */
+  /** Belge dilini değiştirir (dönüştürülmüş sekmelerde JSON/XML vurgusu için) */
+  setLanguage(language) {
+    const next = language || 'edi';
+    if (this._language === next) return;
+    this._language = next;
+    this.highlightSyntax();
+  }
+
+  /** Dile göre vurgulama: EDI'de segment etiketi, JSON/XML'de token'lar */
   highlightSyntax() {
     const raw = this.textarea.value;
     const escaped = raw
@@ -95,8 +105,11 @@ export class SyntaxHighlightEditor {
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
 
+    let html;
+    if (this._language === 'json') html = highlightJSON(escaped);
+    else if (this._language === 'xml') html = highlightXML(escaped);
     // Satır başındaki 3 büyük harf
-    const html = escaped.replace(/^([A-Z]{3})/gm, '<span class="seg-tag">$1</span>');
+    else html = escaped.replace(/^([A-Z]{3})/gm, '<span class="seg-tag">$1</span>');
 
     // Son satır boşsa yükseklik korunsun
     this.code.innerHTML = html + '\n';
@@ -148,4 +161,37 @@ export class SyntaxHighlightEditor {
 
     this.handlers.onSelectLine(value.slice(start, end).trim());
   }
+}
+
+// =========================================================================
+// MARK: - JSON / XML VURGULAMA
+// Tek geçişli regex kullanılır: replace, kendi ürettiği <span>'leri yeniden
+// taramaz. Çok geçişli bir yaklaşım eklenen `class="..."` tırnaklarını metin
+// sanıp iç içe geçmiş bozuk HTML üretirdi.
+// =========================================================================
+
+const JSON_TOKEN =
+  /("(?:[^"\\]|\\.)*")(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g;
+
+function highlightJSON(escaped) {
+  return escaped.replace(JSON_TOKEN, (m, str, colon) => {
+    if (str) {
+      return colon
+        ? `<span class="tok-key">${str}</span>${colon}`
+        : `<span class="tok-str">${str}</span>`;
+    }
+    if (m === 'true' || m === 'false' || m === 'null') return `<span class="tok-lit">${m}</span>`;
+    return `<span class="tok-num">${m}</span>`;
+  });
+}
+
+// Metin zaten kaçışlandığı için etiketler &lt; ile başlar; veri içindeki
+// gerçek "&lt;" ise &amp;lt; olur ve bu kalıba takılmaz.
+const XML_TOKEN = /(&lt;[?!/]*)([A-Za-z_][\w:.-]*)|([A-Za-z_][\w:.-]*)=("[^"]*")/g;
+
+function highlightXML(escaped) {
+  return escaped.replace(XML_TOKEN, (m, open, name, attr, value) => {
+    if (open !== undefined) return `${open}<span class="tok-tag">${name}</span>`;
+    return `<span class="tok-key">${attr}</span>=<span class="tok-str">${value}</span>`;
+  });
 }
