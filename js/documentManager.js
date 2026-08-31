@@ -5,6 +5,7 @@ import { L } from './i18n.js';
 import { EDIParser } from './parser.js';
 import { PDFExportManager } from './pdfExport.js';
 import { CSVExportManager, csvBlob } from './csvExport.js';
+import { detectFormat, isConversionDocument } from './convert.js';
 
 let uid = 0;
 const nextID = () => `doc-${++uid}`;
@@ -12,7 +13,14 @@ const nextID = () => `doc-${++uid}`;
 export const supportsFS = typeof window.showOpenFilePicker === 'function';
 
 // MARK: - EDIDocumentModel karşılığı
-export function createDocument({ content = '', fileHandle = null, fileName = null, isStartPage = false }) {
+export function createDocument({
+  content = '',
+  fileHandle = null,
+  fileName = null,
+  isStartPage = false,
+  language = 'edi',
+  conversion = null,
+}) {
   return {
     id: nextID(),
     content,
@@ -21,6 +29,15 @@ export function createDocument({ content = '', fileHandle = null, fileName = nul
     fileHandle,
     fileName: fileName ?? L('default_new_filename'),
     isStartPage,
+
+    /**
+     * 'edi' | 'json' | 'xml' — belgenin biçimi.
+     * PDF/Excel dışa aktarma, banner, detay paneli ve söz dizimi vurgusu buna
+     * bakar: EDI olmayan bir belgeyi EDIParser'a vermek anlamsız çıktı üretir.
+     */
+    language,
+    /** Dönüşümle üretildiyse round-trip doğrulamasının sonucu */
+    conversion,
 
     // Hesaplanmış özellik: İçerik orijinal halinden farklı mı?
     get hasUnsavedChanges() {
@@ -44,6 +61,8 @@ export class DocumentManager extends EventTarget {
     this.activeAlert = null;
     /** UI'ın diyalog göstermesi için kanca (app.js atar) */
     this.presentAlert = null;
+    /** Açılışta EDI'ye dönüştürme teklif edilecek belge (app.js tüketir) */
+    this.pendingConvertOffer = null;
   }
 
   changed() {
@@ -69,7 +88,7 @@ export class DocumentManager extends EventTarget {
   // MARK: - PDF DIŞA AKTAR
   exportCurrentDocumentToPDF() {
     const doc = this.activeDocument;
-    if (!doc) return;
+    if (!doc || doc.language !== 'edi') return;
     const segments = EDIParser.parse(doc.content);
     PDFExportManager.exportToPDF(segments);
   }
@@ -77,7 +96,7 @@ export class DocumentManager extends EventTarget {
   // MARK: - EXCEL (CSV) DIŞA AKTAR
   async prepareCSVExport() {
     const doc = this.activeDocument;
-    if (!doc) return;
+    if (!doc || doc.language !== 'edi') return;
     const segments = EDIParser.parse(doc.content);
     const csvString = CSVExportManager.generateCSV(segments);
     const blob = csvBlob(csvString);
@@ -166,8 +185,12 @@ export class DocumentManager extends EventTarget {
         handles = await window.showOpenFilePicker({
           multiple: true,
           types: [{
-            description: 'EDI / Text',
-            accept: { 'text/plain': ['.edi', '.txt', '.dat', '.x12', '.edifact'] },
+            description: 'EDI / JSON / XML',
+            accept: {
+              'text/plain': ['.edi', '.txt', '.dat', '.x12', '.edifact'],
+              'application/json': ['.json'],
+              'application/xml': ['.xml'],
+            },
           }],
           excludeAcceptAllOption: false,
         });
@@ -193,7 +216,7 @@ export class DocumentManager extends EventTarget {
     const input = document.createElement('input');
     input.type = 'file';
     input.multiple = true;
-    input.accept = '.edi,.txt,.dat,.x12,text/plain';
+    input.accept = '.edi,.txt,.dat,.x12,.json,.xml,text/plain';
     input.addEventListener('change', async () => {
       for (const file of Array.from(input.files || [])) {
         try {
@@ -210,6 +233,7 @@ export class DocumentManager extends EventTarget {
 
   /** Açılan içeriği aktif başlangıç sekmesine yerleştirir veya yeni sekme açar */
   _acceptOpenedFile(data, name, handle) {
+    const language = detectFormat(data, name);
     const doc = this.activeDocument;
     if (doc && doc.isStartPage) {
       doc.content = data;
@@ -217,10 +241,18 @@ export class DocumentManager extends EventTarget {
       doc.fileHandle = handle;
       doc.fileName = name;
       doc.isStartPage = false;
+      doc.language = language;
+      doc.conversion = null;
     } else {
-      const newDoc = createDocument({ content: data, fileHandle: handle, fileName: name, isStartPage: false });
+      const newDoc = createDocument({
+        content: data, fileHandle: handle, fileName: name, isStartPage: false, language,
+      });
       this.tabs.push(newDoc);
       this.activeTabID = newDoc.id;
+    }
+    // Şemamıza ait bir JSON/XML açıldıysa arayüz EDI'ye çevirmeyi teklif eder
+    if (language !== 'edi' && isConversionDocument(data)) {
+      this.pendingConvertOffer = this.activeDocument;
     }
   }
 
@@ -248,7 +280,9 @@ export class DocumentManager extends EventTarget {
       return await this.saveAsDocument();
     }
 
-    if (!EDIParser.isProbablyEDI(doc.content)) {
+    // Biçim uyarısı yalnızca EDI belgeleri için anlamlı; dönüştürülmüş bir
+    // JSON/XML sekmesinde her kaydetmede uyarmak yanlış olurdu.
+    if (doc.language === 'edi' && !EDIParser.isProbablyEDI(doc.content)) {
       this.activeAlert = 'invalidFormat';
       const proceed = this.presentAlert ? await this.presentAlert('invalidFormat') : true;
       this.activeAlert = null;
@@ -304,13 +338,14 @@ export class DocumentManager extends EventTarget {
     if (!doc) return false;
 
     const nameToUse = suggestedName ?? doc.fileName;
-    const blob = new Blob([doc.content], { type: 'text/plain;charset=utf-8' });
+    const kind = SAVE_KINDS[doc.language] ?? SAVE_KINDS.edi;
+    const blob = new Blob([doc.content], { type: `${kind.mime};charset=utf-8` });
 
     if (supportsFS && typeof window.showSaveFilePicker === 'function') {
       try {
         const handle = await window.showSaveFilePicker({
           suggestedName: nameToUse,
-          types: [{ description: 'EDI', accept: { 'text/plain': ['.edi', '.txt'] } }],
+          types: [{ description: kind.description, accept: { [kind.mime]: kind.extensions } }],
         });
         const w = await handle.createWritable();
         await w.write(blob);
@@ -331,7 +366,7 @@ export class DocumentManager extends EventTarget {
 
     // Fallback: indirme
     let finalName = nameToUse;
-    if (extensionOf(finalName) === '') finalName += '.edi';
+    if (extensionOf(finalName) === '') finalName += kind.extensions[0];
     downloadBlob(blob, finalName);
     doc.fileName = finalName;
     doc.markAsSaved();
@@ -344,6 +379,13 @@ export class DocumentManager extends EventTarget {
 // =========================================================================
 // MARK: - YARDIMCILAR
 // =========================================================================
+
+/** Belge diline göre kaydetme diyaloğunun dosya türü */
+const SAVE_KINDS = {
+  edi: { description: 'EDI', mime: 'text/plain', extensions: ['.edi', '.txt'] },
+  json: { description: 'JSON', mime: 'application/json', extensions: ['.json'] },
+  xml: { description: 'XML', mime: 'application/xml', extensions: ['.xml'] },
+};
 
 export function extensionOf(name) {
   const i = String(name).lastIndexOf('.');

@@ -27,6 +27,11 @@
   --orange: #b26a00;
   --orange-quiet: #fdf3e2;
   --danger: #d02b20;
+  --green: #1a7f47;
+  --green-quiet: #e6f5ec;
+
+  --purple: #7a3fbe;
+  --teal: #0f7a86;
 
   --hover: rgba(15, 20, 30, 0.055);
   --active: rgba(15, 20, 30, 0.1);
@@ -72,6 +77,11 @@
   --orange: #f0a33c;
   --orange-quiet: rgba(240, 163, 60, 0.13);
   --danger: #ff6a5e;
+  --green: #5ed69b;
+  --green-quiet: rgba(94, 214, 155, 0.14);
+
+  --purple: #c39cf5;
+  --teal: #5cc6d4;
 
   --hover: rgba(255, 255, 255, 0.06);
   --active: rgba(255, 255, 255, 0.1);
@@ -108,6 +118,11 @@
     --orange: #f0a33c;
     --orange-quiet: rgba(240, 163, 60, 0.13);
     --danger: #ff6a5e;
+    --green: #5ed69b;
+    --green-quiet: rgba(94, 214, 155, 0.14);
+
+    --purple: #c39cf5;
+    --teal: #5cc6d4;
 
     --hover: rgba(255, 255, 255, 0.06);
     --active: rgba(255, 255, 255, 0.1);
@@ -1066,6 +1081,38 @@ kbd {
 }
 
 .welcome-links a:hover { background: var(--accent-quiet); }
+
+/* =========================================================================
+   DÖNÜŞÜM (EDI <-> JSON <-> XML)
+   ========================================================================= */
+
+/* Dönüşüm menüsü hedefler + seçenekler taşıdığı için biraz daha geniş */
+.menu-popup.wide { min-width: 216px; }
+
+.menu-sep {
+  height: 1px;
+  background: var(--separator);
+  margin: 5px 0;
+}
+
+.menu-empty {
+  padding: 7px 12px 9px;
+  font-size: 11.5px;
+  color: var(--tertiary-label);
+  line-height: 1.45;
+  max-width: 216px;
+}
+
+/* Round-trip rozeti — dönüştürülmüş sekmenin banner'ında */
+.pill.ok { background: var(--green-quiet); color: var(--green); }
+.pill.warn { background: var(--orange-quiet); color: var(--orange); }
+
+/* JSON / XML söz dizimi vurgusu */
+.editor-highlight .tok-key { color: var(--accent); font-weight: 650; }
+.editor-highlight .tok-str { color: var(--green); }
+.editor-highlight .tok-num { color: var(--purple); }
+.editor-highlight .tok-lit { color: var(--orange); font-weight: 600; }
+.editor-highlight .tok-tag { color: var(--teal); font-weight: 650; }
 
 /* Detay panelinden segment referansına bağlantı */
 .detail-title {

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ediviewer</title>
 <meta name="description" content="ediviewer — EDIFACT ve ANSI X12 dosyalarini tarayicida goruntuleyin, duzenleyin, PDF ve Excel'e aktarin.">
-<link rel="stylesheet" href="css/styles.css?v=0f88761b">
+<link rel="stylesheet" href="css/styles.css?v=090688df">
 <!-- Favicon: wordmark ile ayni gradyan, kare monogram -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
@@ -93,6 +93,15 @@
         <svg viewBox="0 0 24 24" class="ic"><rect x="3.5" y="4.5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15M15 4.5v15" stroke="currentColor" stroke-width="1.4"/></svg>
         <span data-i18n="btn_excel"></span>
       </button>
+
+      <!-- 5b. DÖNÜŞTÜR (EDI <-> JSON <-> XML) -->
+      <div class="menu" id="menu-convert">
+        <button class="tb-btn" id="btn-convert" data-menu-trigger>
+          <svg viewBox="0 0 24 24" class="ic"><path d="M4 8h13m0 0-3.2-3.2M17 8l-3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 16H7m0 0 3.2-3.2M7 16l3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="conv_title"></span>
+        </button>
+        <div class="menu-popup wide" role="menu" id="convert-popup"></div>
+      </div>
 
       <!-- 6. HAKKINDA -->
       <button class="tb-btn icon-only" id="btn-about">

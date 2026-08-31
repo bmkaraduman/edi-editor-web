@@ -2,7 +2,8 @@
 
 **Canlı: <https://ediviewer.net>**
 
-EDIFACT ve ANSI X12 dosyalarını tarayıcıda görüntüleyin, düzenleyin, PDF ve Excel'e aktarın.
+EDIFACT ve ANSI X12 dosyalarını tarayıcıda görüntüleyin, düzenleyin, PDF ve Excel'e
+aktarın, JSON ve XML'e çevirin.
 
 macOS/SwiftUI **Editor** projesinin web'e 1:1 taşınmış hali.
 Saf HTML + CSS + ES modülleri (JavaScript). Derleme adımı ve paket bağımlılığı yok;
@@ -128,6 +129,79 @@ derleme adımı olmadığı için hazır HTML gerekir.
 Çeviri dosyalarına yeni bir segment ya da kod eklendiğinde komutu tekrar çalıştırmak
 yeterlidir; sayfalar kendiliğinden oluşur.
 
+## Dönüşüm (EDI ↔ JSON ↔ XML)
+
+Toolbar'daki **Dönüştür** menüsü dört yönü de sunar: EDI→JSON, JSON→EDI,
+EDI→XML, XML→EDI (kaynak JSON ya da XML iken ikisi arasında da geçilebilir).
+Sonuç **yeni bir sekmede** açılır; düzenlenebilir, geri çevrilebilir ve
+kaydedilebilir — sekme altyapısının tamamı olduğu gibi kullanılır.
+
+Dört yön tek bir kanonik modelden geçer, okuyucular ve yazıcılar bağımsızdır:
+
+```
+.edi  ─┐                                   ┌─  .edi
+.json ─┼─ EdiModel { syntax, segments } ─┼─  .json
+.xml  ─┘                                   └─  .xml
+```
+
+### Şema
+
+`segments[].elements` **`string[][]`**'dir: dış dizi veri elemanları (etiket
+hariç), iç dizi bileşenler. Basit eleman tek elemanlı dizidir. Nesne/anahtar
+tabanlı bir şema `NAD+BY+871::9++ACME` içindeki `::` ve `++` boşluklarını
+koruyamazdı; konumsal dizi korur.
+
+`syntax` bloğu ayraçları, kaçış karakterini, satır sonu biçimini ve BOM'u taşır —
+şemanın kayıpsız olmasının nedeni budur. XML sürümü JSON'un birebir aynasıdır
+(`<segment tag="…"><element><component>…`), böylece tek ayrıştırma yolu yeter.
+
+**Açıklamalı mod** (`Açıklamaları ekle`) segmentlere `description`, elemanlara
+`info` ekler. Bunlar uygulamanın kendi sözlüğünden gelir — arayüzde ne yazıyorsa
+dosyada da o yazar — ve şemanın **üst kümesidir**: okuyucu yok sayar, dolayısıyla
+açıklamalı çıktı da geri dönüştürülebilir. Şema anahtarları hiçbir zaman
+çevrilmez; yalnızca `description`/`info` değerleri yerelleşir, böylece bir dilde
+üretilen dosya başka bir dilde açılabilir.
+
+### Kayıpsızlık
+
+Her dönüşümden sonra sonuç geri çevrilip EDI bayt biçiminde kaynakla
+karşılaştırılır. Sekme banner'ında **Round-trip doğrulandı** / **Round-trip
+farklı** rozeti çıkar; ikinci durumda ayrıca bir uyarı diyaloğu gösterilir.
+Sessiz veri kaybı olmaz.
+
+Bilinen tek normalleştirme: release karakterinin özel olmayan bir karakterden
+önce kullanılması (`?X`) — bu geçersiz EDI'dir, standarda göre `X` olarak
+çözülür ve `?` geri yazılmaz. Doğrulayıcı bu farkı yakalar.
+
+`js/ediSyntax.js`, `js/parser.js`'teki `EDIParser`'dan **ayrıdır ve onun yerini
+almaz**. EDIParser akıllı açıklama, detay paneli ve PDF/CSV üreticileri için
+tasarlandı: satırları trim'ler, satır sonlarını siler, ayraçları sabit varsayar
+ve release karakterini bilmez. Bunlar o kullanım için zararsız, ama round-trip
+için değil. İki tarayıcının yan yana durması bilinçlidir — alternatifi
+EDIParser'ı değiştirip ona bağlı bütün üreticileri regresyon riskine atmaktı.
+
+### Sınama
+
+Derleme adımı olmadığı için test koşucusu da yok; kayıpsızlık sınaması
+tarayıcıda çalışır:
+
+```
+http://localhost:5599/?selftest=1
+```
+
+Gömülü örnekleri (X12, UNA + CRLF, kaçış karakterleri, özel ayraçlar, tek satır,
+boş elemanlar) her iki hedefe ve her iki modda çevirip baytı baytına eşitlik
+arar; sonucu diyalog ve `console.table` ile bildirir.
+
+Dil dosyalarının anahtar paritesi ayrı bir komutla denetlenir:
+
+```bash
+python3 tools/check_locales.py
+```
+
+`js/i18n.js` İngilizceye fallback yaptığı için eksik bir anahtar hata vermez,
+sessizce İngilizce metin sızdırır — bu komut onu yakalar.
+
 ## Açılış davranışı
 
 Uygulama, boş bir hoşgeldin ekranı yerine **örnek bir EDIFACT siparişi yüklü sekmeyle** açılır
@@ -143,6 +217,10 @@ detay paneli ilk karede doludur. Tüm sekmeler kapatılırsa hoşgeldin ekranı 
 Satır numarası cetveli, aktif satır vurgusu (hem cetvelde hem metinde), segment etiketi
 renklendirme, sürüklenebilir bölme çizgisi ve dar ekranlarda ikon moduna geçen toolbar.
 
+Dönüştürülmüş sekmelerde vurgulama belgenin diline göre değişir (JSON ve XML için
+ayrı kurallar). PDF/Excel dışa aktarma, segment detay paneli ve mesaj tipi tespiti
+yalnızca EDI belgelerinde etkindir — belgenin dili `language` alanında tutulur.
+
 ## Swift ↔ Web dosya eşlemesi
 
 | Swift | Web | İçerik |
@@ -157,8 +235,11 @@ renklendirme, sürüklenebilir bölme çizgisi ve dar ekranlarda ikon moduna ge�
 | `LogoManager.swift` | `js/logoManager.js` | Şirket logosu seçimi ve kalıcı saklama |
 | `SyntaxHighlightEditor.swift` | `js/editor.js` | Söz dizimi vurgulu editör, seçili satır tespiti |
 | `windowsclosehandler.swift` | `js/app.js` (`beforeunload`) | Kaydedilmemiş değişiklik uyarısı |
-| `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki 954 anahtar birebir + web'e özel 4 anahtar (örnek dosya, sürükle-bırak ipucu, gizlilik/çerez bağlantıları) = 958 |
+| `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki anahtarlar birebir + web'e özel anahtarlar (örnek dosya, sürükle-bırak ipucu, gizlilik/çerez bağlantıları, dönüşüm modülü) — 7 dilde 984 anahtar, `tools/check_locales.py` ile denetlenir |
 | — | `js/sampleData.js` | Açılışta yüklenen gömülü örnek EDIFACT dosyası |
+| — | `js/ediSyntax.js` | Kayıpsız EDI sözdizimi katmanı: UNA, X12 ISA konumsal ayraçları, release karakteri, satır sonu ve BOM korunumu |
+| — | `js/convert.js` | Kanonik model, JSON ve XML okuyucu/yazıcıları, biçim algılama, round-trip doğrulaması, `?selftest=1` sınaması |
+| — | `js/convertPanel.js` | Dönüştür menüsü, seçenekler ve dönüşümün yürütülmesi |
 | — | `js/consent.js` | Consent Mode v2 varsayılanları; GA ve AdSense yükleyicileri |
 | — | `js/referenceIndex.js` | Üretilmiştir: referans sayfası olan segment kodları |
 | — | `gizlilik.html` / `privacy.html` | Gizlilik politikası (TR / EN) |
