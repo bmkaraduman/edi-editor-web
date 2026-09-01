@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ediviewer.net/</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/gizlilik.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/privacy.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/ara.html</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ediviewer.net/</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/gizlilik.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/privacy.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/hakkinda.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/about.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/iletisim.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/contact.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/kosullar.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/terms.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/ara.html</loc><lastmod>2026-09-02</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/contrl-mesaji-teyit.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/dtm-tarih-nitelikcileri.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/edi-dosyasini-excele-aktarmak.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/edi-nedir-neden-kullaniliyor.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/edi-ve-e-fatura-farki.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/edifact-surumleri-d96a.html</loc><lastmod>2026-08-26</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/blog/index.html</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/blog/index.html</loc><lastmod>2026-09-02</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/invoic-neden-reddedilir.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/kucuk-isletme-edi-maliyeti.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/blog/qty-miktar-olcu-birimleri.html</loc><lastmod>2026-08-26</lastmod></url>
@@ -21,7 +27,7 @@
   <url><loc>https://ediviewer.net/edi/en/blog/edi-to-excel.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/blog/edi-vs-e-invoicing.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/blog/edifact-versions-d96a.html</loc><lastmod>2026-08-26</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/blog/index.html</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/blog/index.html</loc><lastmod>2026-09-02</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/blog/qty-units-of-measure.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/blog/una-segment-custom-delimiters.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/blog/what-is-edi-why-still-used.html</loc><lastmod>2026-08-26</lastmod></url>
@@ -32,123 +38,123 @@
   <url><loc>https://ediviewer.net/edi/en/guide/gln-gtin-sscc.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/guide/order-to-invoice-edi-flow.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/en/guide/what-is-edifact.html</loc><lastmod>2026-08-21</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/index.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/desadv.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/invoic.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/orders.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/ordrsp.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/pricat.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/recadv.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/message/slsrpt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/search.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/ajt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/alc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/bgm.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/cni.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/cnt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/cps.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/cux.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/dgs.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/doc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/dtm.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/eqd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/fii.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/ftx.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/gid.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/gin.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/gir.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/gis.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/han.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/imd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/inv.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/lin.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/loc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/mea.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/moa.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/nad.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/pac.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/pai.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/pcd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/pci.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/pia.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/pri.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/qty.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/rff.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/scc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/seq.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/sts.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/tax.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/tdt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/tsr.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/ucd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/uci.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/ucm.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/ucs.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/unb.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/unh.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/uns.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/unt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/en/segment/unz.html</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/index.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/desadv.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/invoic.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/orders.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/ordrsp.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/pricat.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/recadv.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/message/slsrpt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/search.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/ajt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/alc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/bgm.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/cni.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/cnt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/cps.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/cux.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/dgs.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/doc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/dtm.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/eqd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/fii.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/ftx.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/gid.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/gin.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/gir.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/gis.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/han.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/imd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/inv.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/lin.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/loc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/mea.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/moa.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/nad.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/pac.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/pai.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/pcd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/pci.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/pia.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/pri.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/qty.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/rff.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/scc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/seq.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/sts.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/tax.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/tdt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/tsr.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/ucd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/uci.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/ucm.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/ucs.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/unb.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/unh.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/uns.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/unt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/en/segment/unz.html</loc><lastmod>2026-09-02</lastmod></url>
   <url><loc>https://ediviewer.net/edi/guide/edi-dosyasi-sorun-giderme.html</loc><lastmod>2026-08-21</lastmod></url>
   <url><loc>https://ediviewer.net/edi/guide/edi-entegrasyon-sureci.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/guide/edifact-nedir.html</loc><lastmod>2026-08-21</lastmod></url>
   <url><loc>https://ediviewer.net/edi/guide/edifact-x12-farki.html</loc><lastmod>2026-08-21</lastmod></url>
   <url><loc>https://ediviewer.net/edi/guide/gln-gtin-sscc.html</loc><lastmod>2026-08-26</lastmod></url>
   <url><loc>https://ediviewer.net/edi/guide/siparisten-faturaya-edi-akisi.html</loc><lastmod>2026-08-26</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/index.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/desadv.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/invoic.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/orders.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/ordrsp.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/pricat.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/recadv.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/message/slsrpt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/ajt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/alc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/bgm.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/cni.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/cnt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/cps.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/cux.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/dgs.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/doc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/dtm.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/eqd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/fii.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/ftx.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/gid.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/gin.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/gir.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/gis.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/han.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/imd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/inv.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/lin.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/loc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/mea.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/moa.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/nad.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/pac.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/pai.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/pcd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/pci.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/pia.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/pri.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/qty.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/rff.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/scc.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/seq.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/sts.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/tax.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/tdt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/tsr.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/ucd.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/uci.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/ucm.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/ucs.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/unb.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/unh.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/uns.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/unt.html</loc><lastmod>2026-09-01</lastmod></url>
-  <url><loc>https://ediviewer.net/edi/segment/unz.html</loc><lastmod>2026-09-01</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/index.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/desadv.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/invoic.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/orders.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/ordrsp.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/pricat.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/recadv.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/message/slsrpt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/ajt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/alc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/bgm.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/cni.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/cnt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/cps.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/cux.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/dgs.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/doc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/dtm.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/eqd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/fii.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/ftx.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/gid.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/gin.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/gir.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/gis.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/han.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/imd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/inv.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/lin.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/loc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/mea.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/moa.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/nad.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/pac.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/pai.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/pcd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/pci.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/pia.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/pri.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/qty.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/rff.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/scc.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/seq.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/sts.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/tax.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/tdt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/tsr.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/ucd.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/uci.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/ucm.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/ucs.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/unb.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/unh.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/uns.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/unt.html</loc><lastmod>2026-09-02</lastmod></url>
+  <url><loc>https://ediviewer.net/edi/segment/unz.html</loc><lastmod>2026-09-02</lastmod></url>
 </urlset>

@@ -1014,5 +1014,9 @@
   "seg_GS": "FUNKTIONSGRUPPENKOPF (US)",
   "seg_HL": "HIERARCHIEEBENE (US)",
   "seg_N3": "ADRESSANGABEN (US)",
-  "seg_N4": "GEOGRAFISCHER ORT (US)"
+  "seg_N4": "GEOGRAFISCHER ORT (US)",
+  "//_INFO_PAGES": "--------------------------------",
+  "menu_about_page": "Über",
+  "contact_page": "Kontakt",
+  "terms_of_use": "Nutzungsbedingungen"
 }

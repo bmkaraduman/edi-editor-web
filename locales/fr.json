@@ -1014,5 +1014,9 @@
   "seg_GS": "EN-TÊTE DE GROUPE FONCTIONNEL (US)",
   "seg_HL": "NIVEAU HIÉRARCHIQUE (US)",
   "seg_N3": "INFORMATIONS D’ADRESSE (US)",
-  "seg_N4": "LOCALISATION GÉOGRAPHIQUE (US)"
+  "seg_N4": "LOCALISATION GÉOGRAPHIQUE (US)",
+  "//_INFO_PAGES": "--------------------------------",
+  "menu_about_page": "À propos",
+  "contact_page": "Contact",
+  "terms_of_use": "Conditions d'utilisation"
 }

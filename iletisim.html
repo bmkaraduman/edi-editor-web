@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İletişim — ediviewer</title>
+<meta name="description" content="ediviewer ile iletişime geçin: hata bildirimi, eksik segment, çeviri düzeltmesi veya öneriler için formu doldurun.">
+<link rel="stylesheet" href="css/styles.css?v=89da52df">
+<link rel="stylesheet" href="css/doc.css?v=89da52df">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 + GA/AdSense; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('./js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a class="active" href="iletisim.html">Türkçe</a>
+    <a href="contact.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+  <h1>İletişim</h1>
+
+  <div class="doc-callout" id="sent-note" hidden>
+    <span class="ico">✅</span>
+    <p><strong>Mesajınız gönderildi.</strong> En kısa sürede dönüş yapacağım.
+    Teşekkürler.</p>
+  </div>
+
+  <p>Soru, hata bildirimi ve önerileriniz için aşağıdaki formu kullanabilirsiniz.
+  Doğrudan e-posta yazmayı tercih ederseniz adres:
+  <a href="mailto:smetin.karaduman@gmail.com">smetin.karaduman@gmail.com</a></p>
+
+  <h2>Ne yazabilirsiniz?</h2>
+  <ul>
+    <li><strong>Dosyam doğru görüntülenmiyor.</strong> En değerli geri bildirim
+      türü. Hangi mesaj tipi olduğunu ve neyin yanlış göründüğünü yazarsanız
+      yeterli — <em>dosyanın kendisini göndermeyin</em>, ticari veri içerir.
+      Gerekirse sizden anonimleştirilmiş birkaç satır isteyeceğim.</li>
+    <li><strong>Eksik segment veya kod.</strong> Referansta bulamadığınız bir
+      segment ya da açıklaması olmayan bir nitelikçi varsa bildirin.</li>
+    <li><strong>Çeviri hatası.</strong> Yedi dilde açıklama var; hatalı veya kulağa
+      yanlış gelen bir ifade görürseniz hangi dil ve hangi sayfa olduğunu yazın.</li>
+    <li><strong>Özellik önerisi.</strong> Hangi mesaj tipinin PDF çıktısına ihtiyaç
+      duyduğunuzu bilmek, sıradaki işi belirlememe yardımcı oluyor.</li>
+  </ul>
+
+  <h2>Form</h2>
+
+  <form class="doc-form" action="https://formsubmit.co/smetin.karaduman@gmail.com" method="POST">
+    <label for="cf-name">Adınız</label>
+    <input id="cf-name" type="text" name="name" required autocomplete="name">
+
+    <label for="cf-email">E-posta adresiniz</label>
+    <input id="cf-email" type="email" name="email" required autocomplete="email">
+    <p class="doc-hint">Yalnızca size dönüş yapabilmek için kullanılır.</p>
+
+    <label for="cf-subject">Konu</label>
+    <select id="cf-subject" name="subject">
+      <option value="Hata bildirimi">Hata bildirimi</option>
+      <option value="Eksik segment veya kod">Eksik segment veya kod</option>
+      <option value="Çeviri düzeltmesi">Çeviri düzeltmesi</option>
+      <option value="Özellik önerisi">Özellik önerisi</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+
+    <label for="cf-message">Mesajınız</label>
+    <textarea id="cf-message" name="message" rows="7" required></textarea>
+    <p class="doc-hint">Lütfen gerçek EDI dosyanızı yapıştırmayın; ticari veri içerir.</p>
+
+    <!-- FormSubmit ayarlari: e-posta konusu, yonlendirme ve spam tuzagi -->
+    <input type="hidden" name="_subject" value="ediviewer — iletişim formu">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://ediviewer.net/iletisim.html?sent=1">
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <button class="doc-submit" type="submit">Mesajı gönder</button>
+  </form>
+
+  <h2>Gizlilik</h2>
+  <p>Form gönderimleri <a href="https://formsubmit.co" target="_blank" rel="noopener">FormSubmit</a>
+  adlı üçüncü taraf hizmeti üzerinden iletilir; bu hizmet mesajınızı e-posta olarak
+  bana ulaştırır. Formda verdiğiniz ad, e-posta ve mesaj yalnızca size dönüş yapmak
+  için kullanılır, pazarlama amacıyla kullanılmaz ve üçüncü taraflarla paylaşılmaz.
+  Ayrıntılar için <a href="gizlilik.html">Gizlilik Politikası</a>.</p>
+
+  <p><strong>Uygulamada açtığınız EDI dosyaları bu formdan bağımsızdır ve hiçbir
+  zaman sunucuya gönderilmez.</strong> Form yalnızca sizin yazdığınız metni iletir.</p>
+
+  <h2>Yanıt süresi</h2>
+  <p>ediviewer tek kişilik bir proje. Mesajları genellikle birkaç gün içinde
+  yanıtlıyorum, ancak yoğun dönemlerde bu süre uzayabilir. Hata bildirimlerine
+  öncelik veriyorum.</p>
+</main>
+
+<footer class="doc-footer">
+  <p><a href="index.html">← ediviewer uygulamasına dön</a> &middot;
+     <a href="hakkinda.html">Hakkında</a> &middot;
+     <a href="edi/index.html">EDI Referansı</a> &middot;
+     <a href="gizlilik.html">Gizlilik</a> &middot;
+     <a href="kosullar.html">Kullanım Koşulları</a></p>
+</footer>
+
+<script>
+  // Gonderimden sonra FormSubmit buraya ?sent=1 ile geri dondurur.
+  if (new URLSearchParams(location.search).has('sent')) {
+    document.getElementById('sent-note').hidden = false;
+  }
+</script>
+
+</body>
+</html>

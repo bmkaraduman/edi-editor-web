@@ -1014,5 +1014,9 @@
   "seg_GS": "FONKSİYONEL GRUP BAŞLIĞI (ABD)",
   "seg_HL": "HİYERARŞİ SEVİYESİ (ABD)",
   "seg_N3": "ADRES BİLGİSİ (ABD)",
-  "seg_N4": "ŞEHİR / ÜLKE BİLGİSİ (ABD)"
+  "seg_N4": "ŞEHİR / ÜLKE BİLGİSİ (ABD)",
+  "//_INFO_PAGES": "--------------------------------",
+  "menu_about_page": "Hakkında",
+  "contact_page": "İletişim",
+  "terms_of_use": "Kullanım Koşulları"
 }

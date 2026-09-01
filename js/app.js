@@ -131,6 +131,19 @@ function referenceURL() {
   return loc.currentLanguageCode === 'tr' ? 'edi/index.html' : 'edi/en/index.html';
 }
 
+/** Bilgi sayfalarının dile göre adresi (yalnızca TR ve EN sürümleri var) */
+function aboutURL() {
+  return loc.currentLanguageCode === 'tr' ? 'hakkinda.html' : 'about.html';
+}
+
+function contactURL() {
+  return loc.currentLanguageCode === 'tr' ? 'iletisim.html' : 'contact.html';
+}
+
+function termsURL() {
+  return loc.currentLanguageCode === 'tr' ? 'kosullar.html' : 'terms.html';
+}
+
 /** Mesaj tipine göre PDF / Excel izinleri */
 function getExportPermissions() {
   const doc = docManager.activeDocument;
@@ -382,6 +395,8 @@ function renderContent() {
         </div>
         <div class="welcome-links">
           <a href="${referenceURL()}">${esc(L('edi_reference'))}</a>
+          <a href="${aboutURL()}">${esc(L('menu_about_page'))}</a>
+          <a href="${contactURL()}">${esc(L('contact_page'))}</a>
         </div>
       </div>`;
     return;
@@ -674,6 +689,9 @@ function showAbout() {
     buttons: [
       { label: L('btn_cancel'), kind: 'default', action: () => {} },
       { label: L('edi_reference'), action: () => window.open(referenceURL(), '_blank', 'noopener') },
+      { label: L('menu_about_page'), action: () => window.open(aboutURL(), '_blank', 'noopener') },
+      { label: L('contact_page'), action: () => window.open(contactURL(), '_blank', 'noopener') },
+      { label: L('terms_of_use'), action: () => window.open(termsURL(), '_blank', 'noopener') },
       { label: L('privacy_policy'), action: () => window.open(privacyURL(), '_blank', 'noopener') },
       // Rıza ekranı her zaman açılabilir: Google'ın CMP'si varsa o, yoksa
       // ölçüm izni soran yedek bant gösterilir.

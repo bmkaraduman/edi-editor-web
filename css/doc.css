@@ -345,3 +345,85 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* =========================================================================
+   İLETİŞİM FORMU
+   ========================================================================= */
+.doc-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 10px;
+}
+
+.doc-form label {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--label);
+  margin-bottom: 6px;
+}
+
+.doc-form input[type="text"],
+.doc-form input[type="email"],
+.doc-form select,
+.doc-form textarea {
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--label);
+  background: var(--control-bg);
+  border: 1px solid var(--separator-strong);
+  border-radius: 8px;
+  padding: 9px 11px;
+  margin-bottom: 16px;
+  width: 100%;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.doc-form textarea { resize: vertical; min-height: 120px; line-height: 1.55; }
+
+.doc-form input:focus,
+.doc-form select:focus,
+.doc-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-quiet);
+}
+
+/* Bir ipucu, ait olduğu alanın hemen altında durmalı */
+.doc-form input + .doc-hint,
+.doc-form textarea + .doc-hint { margin-top: -10px; }
+
+.doc-hint {
+  font-size: 12px;
+  color: var(--secondary-label);
+  margin: 0 0 16px;
+  line-height: 1.45;
+}
+
+/* Spam tuzağı: gerçek ziyaretçi görmez, botlar doldurur */
+.doc-form input[name="_honey"] {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.doc-submit {
+  align-self: flex-start;
+  height: 38px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.doc-submit:hover { background: var(--accent-hover); }
+
+.doc-callout[hidden] { display: none; }

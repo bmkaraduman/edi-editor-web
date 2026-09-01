@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hakkında — ediviewer</title>
+<meta name="description" content="ediviewer nedir, kim yaptı, neden yapıldı? EDIFACT ve ANSI X12 dosyalarını tarayıcıda açan, verinizi cihazınızdan çıkarmayan ücretsiz bir araç.">
+<link rel="stylesheet" href="css/styles.css?v=89da52df">
+<link rel="stylesheet" href="css/doc.css?v=89da52df">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 + GA/AdSense; AEA/BK/Isvicre'de izinler reddedilmis baslar.
+  import('./js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a class="active" href="hakkinda.html">Türkçe</a>
+    <a href="about.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+  <h1>Hakkında</h1>
+  <div class="updated">Son güncelleme: 1 Eylül 2026</div>
+
+  <div class="doc-callout">
+    <span class="ico">📄</span>
+    <p><strong>ediviewer, EDIFACT ve ANSI X12 dosyalarını tarayıcıda açan ücretsiz bir
+    görüntüleyici ve düzenleyicidir.</strong> Dosyalarınız cihazınızdan çıkmaz; kayıt
+    veya kurulum gerekmez.</p>
+  </div>
+
+  <h2>Bu araç hangi sorunu çözüyor?</h2>
+  <p>Bir gün e-postanıza <code>.edi</code> uzantılı bir dosya düşer. Açarsınız ve
+  karşınıza şuna benzer bir şey çıkar:</p>
+
+  <pre class="doc-code"><code>UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042'
+UNH+ME000001+ORDERS:D:96A:UN:EAN008'
+BGM+220+PO-2026-0042+9'
+NAD+BY+8798765432109::9++MEGA RETAIL AS+Barbaros Bulvari 12+ISTANBUL+34353+TR'</code></pre>
+
+  <p>Bu bir sipariştir. Kimden kime gittiği, hangi ürünlerin istendiği, ne zaman
+  teslim edilmesi gerektiği hepsi bu satırların içindedir — ama düz bir metin
+  düzenleyicide bunların hiçbiri görünmez.</p>
+
+  <p>Kurumsal EDI yazılımları bu dosyaları okur, ancak lisansları pahalıdır ve
+  genellikle kurulum ister. Tedarikçi tarafındaki küçük bir firma, muhasebeci ya da
+  entegrasyonu ilk kez yapan bir yazılımcı için tek bir dosyaya bakmak adına bunlara
+  girmek orantısızdır. ediviewer tam olarak bu boşluğu doldurmak için var:
+  <strong>dosyayı aç, ne yazdığını gör.</strong></p>
+
+  <h2>Neler yapabilir?</h2>
+  <ul>
+    <li><strong>Okunur hale getirir.</strong> Her segmenti ve içindeki her veri
+      elemanını açıklamasıyla birlikte gösterir. <code>NAD+BY</code> satırının
+      "alıcı adresi" olduğunu, <code>DTM+137</code>'nin "belge tarihi" anlamına
+      geldiğini söyler.</li>
+    <li><strong>Düzenlemenizi sağlar.</strong> Söz dizimi renklendirmesi, satır
+      numaraları ve aktif satır vurgusuyla birlikte, dosyayı düzenleyip
+      kaydedebilirsiniz.</li>
+    <li><strong>PDF'e aktarır.</strong> ORDERS, INVOIC, DESADV gibi mesaj tiplerini
+      okunabilir bir belgeye dönüştürür — siparişi tablo halinde, faturayı
+      toplamlarıyla birlikte.</li>
+    <li><strong>Excel'e aktarır.</strong> Satış raporu (SLSRPT) ve fiyat kataloğu
+      (PRICAT) dosyalarını tabloya çevirir.</li>
+    <li><strong>JSON ve XML'e çevirir.</strong> EDI ↔ JSON ↔ XML dönüşümü yapar ve
+      her dönüşümden sonra sonucu geri çevirip kaynakla karşılaştırarak veri kaybı
+      olmadığını doğrular.</li>
+    <li><strong>Yedi dilde çalışır.</strong> Türkçe, İngilizce, Almanca, Fransızca,
+      İspanyolca, İtalyanca ve Basitleştirilmiş Çince.</li>
+  </ul>
+
+  <h2>Verileriniz nerede işleniyor?</h2>
+  <p>Cihazınızda. Tamamı. Uygulamanın mantığının tümü tarayıcınızda çalışan
+  JavaScript'tir; dosya ayrıştırma, PDF üretimi, Excel dışa aktarma ve format
+  dönüşümü dahil hiçbir işlem sunucuya gitmez.</p>
+
+  <p>Bu bir tercih değil, mimarinin sonucu: dosyalarınızı alabileceğimiz bir sunucu
+  yok. Ticari belgeler — fiyatlarınız, müşterileriniz, sipariş hacimleriniz —
+  hassas bilgilerdir ve bir web sitesine yüklenmemeleri gerekir. Ayrıntılar için
+  <a href="gizlilik.html">Gizlilik Politikası</a> sayfasına bakabilirsiniz.</p>
+
+  <p>Bunun pratik bir yan faydası da var: internet bağlantınız kesilse bile sayfa
+  açıkken uygulama çalışmaya devam eder.</p>
+
+  <h2>EDI Referansı</h2>
+  <p>Uygulamanın yanında, ücretsiz ve kayıt gerektirmeyen bir başvuru bölümü
+  bulunuyor: <a href="edi/index.html">EDI Referansı</a>. İçinde 48 segmentin
+  açıklaması, yaygın mesaj tiplerinin yapısı, kavramları anlatan rehberler ve
+  uygulamalı yazılar var.</p>
+
+  <p>Bu bölüm, aracı kullanırken takıldığınız yerde başvurabileceğiniz bir sözlük
+  olarak tasarlandı. Detay panelinde bir segmenti seçtiğinizde, o segmentin referans
+  sayfasına doğrudan bağlantı çıkar.</p>
+
+  <h2>Kim yapıyor?</h2>
+  <p>ediviewer'ı Metin Karaduman geliştiriyor. Araç, EDI dosyalarıyla çalışırken
+  ortaya çıkan pratik bir ihtiyaçtan doğdu: elde bir dosya var, içinde ne yazdığını
+  görmek gerekiyor ve bunun için kurumsal bir yazılım kurmak istemiyorsunuz.</p>
+
+  <p>Önce macOS için bir masaüstü uygulaması olarak yazıldı, sonra kurulum
+  gerektirmeden herkesin erişebilmesi için web'e taşındı. Web sürümü masaüstü
+  sürümün birebir karşılığıdır.</p>
+
+  <h2>Ücretsiz mi?</h2>
+  <p>Evet. Kayıt, abonelik veya kullanım sınırı yok. Site, işletme masraflarını
+  karşılamak için reklam gösterir. Reklamlar uygulamanın işlevlerini etkilemez ve
+  çerezlere izin vermeseniz de her özellik eksiksiz çalışır.</p>
+
+  <h2>Geri bildirim</h2>
+  <p>Eksik bulduğunuz bir segment, yanlış çevrilmiş bir açıklama veya beklediğiniz
+  gibi çalışmayan bir dosya varsa duymak isterim. Hata bildirimleri özellikle
+  değerli: elinizdeki dosya doğru görüntülenmiyorsa, büyük ihtimalle başkalarının
+  dosyaları da görüntülenmiyordur.</p>
+
+  <p><a href="iletisim.html">İletişim sayfasından</a> yazabilirsiniz.</p>
+</main>
+
+<footer class="doc-footer">
+  <p><a href="index.html">← ediviewer uygulamasına dön</a> &middot;
+     <a href="edi/index.html">EDI Referansı</a> &middot;
+     <a href="iletisim.html">İletişim</a> &middot;
+     <a href="gizlilik.html">Gizlilik</a> &middot;
+     <a href="kosullar.html">Kullanım Koşulları</a></p>
+</footer>
+
+</body>
+</html>

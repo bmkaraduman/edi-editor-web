@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — ediviewer</title>
+<meta name="description" content="What ediviewer is, who builds it and why. A free tool that opens EDIFACT and ANSI X12 files in your browser without your data ever leaving your device.">
+<link rel="stylesheet" href="css/styles.css?v=89da52df">
+<link rel="stylesheet" href="css/doc.css?v=89da52df">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<script type="module">
+  // Consent Mode v2 + GA/AdSense; defaults are denied in the EEA/UK/Switzerland.
+  import('./js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a href="hakkinda.html">Türkçe</a>
+    <a class="active" href="about.html">English</a>
+  </nav>
+</header>
+
+<main class="doc">
+  <h1>About</h1>
+  <div class="updated">Last updated: 1 September 2026</div>
+
+  <div class="doc-callout">
+    <span class="ico">📄</span>
+    <p><strong>ediviewer is a free viewer and editor for EDIFACT and ANSI X12 files
+    that runs entirely in your browser.</strong> Your files never leave your device,
+    and there is nothing to install or sign up for.</p>
+  </div>
+
+  <h2>What problem does it solve?</h2>
+  <p>One day a file with an <code>.edi</code> extension arrives in your inbox. You
+  open it and find something like this:</p>
+
+  <pre class="doc-code"><code>UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042'
+UNH+ME000001+ORDERS:D:96A:UN:EAN008'
+BGM+220+PO-2026-0042+9'
+NAD+BY+8798765432109::9++MEGA RETAIL AS+Barbaros Bulvari 12+ISTANBUL+34353+TR'</code></pre>
+
+  <p>This is a purchase order. Who sent it, who it is for, which products are wanted
+  and when they should be delivered are all in those lines — but none of it is
+  visible in a plain text editor.</p>
+
+  <p>Enterprise EDI software reads these files, but the licences are expensive and
+  usually require an installation. For a small supplier, an accountant, or a
+  developer doing their first integration, all of that is out of proportion to
+  simply looking at one file. ediviewer exists to fill exactly that gap:
+  <strong>open the file, see what it says.</strong></p>
+
+  <h2>What can it do?</h2>
+  <ul>
+    <li><strong>Makes files readable.</strong> It shows every segment and every data
+      element inside it with a description. It tells you that a <code>NAD+BY</code>
+      line is the buyer's address and that <code>DTM+137</code> means the document
+      date.</li>
+    <li><strong>Lets you edit.</strong> Syntax highlighting, line numbers and active
+      line marking, with the ability to edit and save the file.</li>
+    <li><strong>Exports to PDF.</strong> Turns message types such as ORDERS, INVOIC
+      and DESADV into a readable document — the order as a table, the invoice with
+      its totals.</li>
+    <li><strong>Exports to Excel.</strong> Converts sales report (SLSRPT) and price
+      catalogue (PRICAT) files into a spreadsheet.</li>
+    <li><strong>Converts to JSON and XML.</strong> EDI ↔ JSON ↔ XML in every
+      direction, and after each conversion it converts the result back and compares
+      it to the source to prove nothing was lost.</li>
+    <li><strong>Speaks seven languages.</strong> Turkish, English, German, French,
+      Spanish, Italian and Simplified Chinese.</li>
+  </ul>
+
+  <h2>Where is your data processed?</h2>
+  <p>On your device. All of it. The entire application is JavaScript running in your
+  browser; parsing, PDF generation, Excel export and format conversion never reach a
+  server.</p>
+
+  <p>This is not a policy choice but a consequence of the architecture: there is no
+  server that could receive your files. Commercial documents — your prices, your
+  customers, your order volumes — are sensitive, and they should not be uploaded to
+  a website. See the <a href="privacy.html">Privacy Policy</a> for details.</p>
+
+  <p>There is a practical side benefit: once the page is open, the application keeps
+  working even if your connection drops.</p>
+
+  <h2>EDI Reference</h2>
+  <p>Alongside the application there is a free reference section that requires no
+  sign-up: the <a href="edi/en/index.html">EDI Reference</a>. It covers 48 segments,
+  the structure of common message types, guides explaining the underlying concepts,
+  and practical articles.</p>
+
+  <p>It is designed as a dictionary you can reach for at the moment you get stuck.
+  When you select a segment in the detail panel, a direct link to that segment's
+  reference page appears.</p>
+
+  <h2>Who builds it?</h2>
+  <p>ediviewer is developed by Metin Karaduman. It grew out of a practical need that
+  comes up when working with EDI files: you have a file in hand, you need to see what
+  is in it, and you would rather not install enterprise software to do so.</p>
+
+  <p>It was first written as a macOS desktop application, then brought to the web so
+  that anyone could reach it without installing anything. The web version is a
+  faithful counterpart of the desktop one.</p>
+
+  <h2>Is it free?</h2>
+  <p>Yes. No registration, no subscription, no usage limits. The site shows adverts to
+  cover its running costs. Adverts do not affect how the application works, and every
+  feature remains fully functional even if you decline cookies.</p>
+
+  <h2>Feedback</h2>
+  <p>If you find a missing segment, a mistranslated description, or a file that does
+  not behave as you expect, I would like to hear about it. Bug reports are especially
+  valuable: if a file of yours does not display correctly, chances are other people's
+  files do not either.</p>
+
+  <p>You can write from the <a href="contact.html">contact page</a>.</p>
+</main>
+
+<footer class="doc-footer">
+  <p><a href="index.html">← Back to the ediviewer app</a> &middot;
+     <a href="edi/en/index.html">EDI Reference</a> &middot;
+     <a href="contact.html">Contact</a> &middot;
+     <a href="privacy.html">Privacy</a> &middot;
+     <a href="terms.html">Terms of Use</a></p>
+</footer>
+
+</body>
+</html>

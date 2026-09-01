@@ -1014,5 +1014,9 @@
   "seg_GS": "CABECERA DE GRUPO FUNCIONAL (EE. UU.)",
   "seg_HL": "NIVEL JERÁRQUICO (EE. UU.)",
   "seg_N3": "INFORMACIÓN DE DIRECCIÓN (EE. UU.)",
-  "seg_N4": "UBICACIÓN GEOGRÁFICA (EE. UU.)"
+  "seg_N4": "UBICACIÓN GEOGRÁFICA (EE. UU.)",
+  "//_INFO_PAGES": "--------------------------------",
+  "menu_about_page": "Acerca de",
+  "contact_page": "Contacto",
+  "terms_of_use": "Condiciones de uso"
 }
