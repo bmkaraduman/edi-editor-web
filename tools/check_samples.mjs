@@ -8,6 +8,7 @@
 //   · katalogdaki pdf/excel bayrakları gerçek mantıkla ayrışmış mı
 //   · üreticiler örnekten gerçekten veri çıkarıyor mu
 //   · örnekler dönüşüm modülünde kayıpsız round-trip yapıyor mu
+//   · her segmentin açıklaması sözlükte çözülüyor mu (ham anahtar sızmasın)
 //
 // Kullanım:  node tools/check_samples.mjs
 import fs from 'node:fs';
@@ -31,6 +32,7 @@ const { EDIParser } = await import(`${ROOT}/js/parser.js`);
 const { PDFExportManager } = await import(`${ROOT}/js/pdfExport.js`);
 const { CSVExportManager } = await import(`${ROOT}/js/csvExport.js`);
 const { roundTripEDI } = await import(`${ROOT}/js/ediSyntax.js`);
+const { segmentDescription } = await import(`${ROOT}/js/parser.js`);
 
 // --- app.js:getExportPermissions birebir kopyası (tek doğruluk kaynağı orası) ---
 function exportPermissions(content) {
@@ -142,6 +144,23 @@ for (const { type, standard, content, pdf, excel } of SAMPLE_CATALOG) {
       if (!csv.includes(needle)) fail(type, `CSV ciktisinda "${needle}" yok`);
     }
   }
+}
+
+// --- 6. her segment etiketinin acıklaması cozuluyor mu ---
+// Sozluk anahtarlari hem seg_UNB hem seg_unz biciminde birikmis; tek yazimla
+// arayan bir cagiran detay panelinde ham anahtar gosterir. Ornek dosyalardaki
+// TUM etiketleri denetleriz, boylece yeni ornek eklendiginde de yakalanir.
+const allTags = new Set();
+for (const { content } of SAMPLE_CATALOG) {
+  for (const seg of EDIParser.parse(content)) allTags.add(seg.tag);
+}
+const undescribed = [...allTags].sort().filter((t) => segmentDescription(t) === '');
+console.log('─'.repeat(100));
+if (undescribed.length) {
+  failures++;
+  console.log(`  ✗ aciklamasi cozulemeyen ${undescribed.length} segment: ${undescribed.join(', ')}`);
+} else {
+  console.log(`${allTags.size} farkli segment etiketinin aciklamasi cozuldu`);
 }
 
 console.log('─'.repeat(100));
