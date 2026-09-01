@@ -1,6 +1,6 @@
 // CSVExportManager.swift -> web karşılığı
 import { L } from './i18n.js';
-import { get, swiftSplit } from './parser.js';
+import { get, swiftSplit, segmentDescription } from './parser.js';
 
 export const CSVExportManager = {
   // Ana Yönlendirme Fonksiyonu
@@ -135,10 +135,9 @@ function generateGenericCSV(segments) {
     const tag = clean(seg.tag);
     const rawLine = clean(seg.rawLine);
 
-    // Segment Açıklaması (JSON sözlüğünden)
-    const key = `seg_${seg.tag}`;
-    const localizedDesc = L(key);
-    const description = localizedDesc !== key ? clean(localizedDesc) : '-';
+    // Segment Açıklaması (JSON sözlüğünden; büyük/küçük harf toleranslı)
+    const localizedDesc = segmentDescription(seg.tag);
+    const description = localizedDesc !== '' ? clean(localizedDesc) : '-';
 
     const val1 = seg.elements.length > 1 ? clean(seg.elements[1]) : '';
     const val2 = seg.elements.length > 2 ? clean(seg.elements[2]) : '';

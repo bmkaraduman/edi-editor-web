@@ -15,6 +15,27 @@ export function swiftSplit(str, sep) {
   return String(str).split(sep).filter((p) => p.length > 0);
 }
 
+/**
+ * Segment açıklamasını sözlükten çeker.
+ *
+ * Anahtarlar tarihsel olarak iki yazımla birikmiş: 116 `seg_` anahtarının 48'i
+ * büyük (`seg_UNB`), 68'i küçük harfli (`seg_unz`) ve 30 segmentin ikisi birden
+ * var. Tek yazımla arayan çağıranlar bu yüzden bazı segmentlerde ham anahtar
+ * gösteriyordu — örneğin her EDIFACT dosyasının son satırındaki UNZ için
+ * "seg_UNZ", her X12 dosyasının ilk satırındaki ISA için "seg_ISA".
+ *
+ * @returns {string} açıklama; sözlükte hiç karşılığı yoksa boş dizge
+ */
+export function segmentDescription(tag) {
+  const upper = `seg_${String(tag).toUpperCase()}`;
+  const fromUpper = L(upper);
+  if (fromUpper !== upper) return fromUpper;
+
+  const lower = `seg_${String(tag).toLowerCase()}`;
+  const fromLower = L(lower);
+  return fromLower !== lower ? fromLower : '';
+}
+
 export const EDIParser = {
   // --- 1. DOSYA TÜRÜNÜ ALGILA (Banner ve PDF Başlığı için) ---
   detectMessageType(content) {

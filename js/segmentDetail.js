@@ -1,7 +1,7 @@
 // SegmentDetailView.swift -> web karşılığı
 // analyzeElement: segment/element bazlı "akıllı" etiket + değer üretimi (1:1 port)
 import { loc, L, Lf } from './i18n.js';
-import { EDIParser } from './parser.js';
+import { EDIParser, segmentDescription } from './parser.js';
 import { REFERENCE_SEGMENTS } from './referenceIndex.js';
 
 // --- TARİH FORMATLAYICI ---
@@ -34,7 +34,9 @@ export function formatEDIDate(value, formatCode) {
 }
 
 export function getSegmentDescription(tag) {
-  return L(`seg_${tag}`);
+  // Sözlükte anahtarlar hem `seg_UNB` hem `seg_unz` biçiminde; tek yazımla
+  // arayınca bazı segmentlerde ham anahtar görünüyordu (bkz. parser.js).
+  return segmentDescription(tag) || tag;
 }
 
 /** elem_%@_%02d biçimli anahtar */
