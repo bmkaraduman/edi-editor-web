@@ -189,9 +189,26 @@ tarayıcıda çalışır:
 http://localhost:5599/?selftest=1
 ```
 
-Gömülü örnekleri (X12, UNA + CRLF, kaçış karakterleri, özel ayraçlar, tek satır,
-boş elemanlar) her iki hedefe ve her iki modda çevirip baytı baytına eşitlik
-arar; sonucu diyalog ve `console.table` ile bildirir.
+Sözdizimi vakalarını (X12, UNA + CRLF, kaçış karakterleri, özel ayraçlar, tek satır,
+boş elemanlar) **ve 15 örnek dosyanın tamamını** her iki hedefe ve her iki modda
+çevirip baytı baytına eşitlik arar; sonucu diyalog ve `console.table` ile bildirir.
+Örnek seti eklendikten sonra bu sınama 28'den 84 denetime çıktı — örnekler aynı
+zamanda dönüşüm modülünün regresyon kapsamıdır.
+
+Örnek dosyalar ayrı bir komutla denetlenir:
+
+```bash
+node tools/check_samples.mjs
+```
+
+Sayaç segmentini (UNT / SE), X12'de ISA'nın 106 karakter olmasını, mesaj tipi
+tespitini, PDF/Excel izinlerini ve üretici yönlendirmesini, katalogdaki `pdf`/`excel`
+bayraklarının `getExportPermissions` ile tutarlılığını, üreticilerin örnekten
+gerçekten veri çıkardığını ve round-trip'i denetler.
+
+Yönlendirme denetimi özellikle önemlidir: hem PDF hem Excel yönlendiricisi içerikte
+**dizge araması** yapar (`content.includes('ORDERS')`), dolayısıyla bir örneğin serbest
+metninde başka bir mesaj tipinin adı geçerse yanlış üreticiye düşer. Bu komut onu yakalar.
 
 Dil dosyalarının anahtar paritesi ayrı bir komutla denetlenir:
 
@@ -202,15 +219,53 @@ python3 tools/check_locales.py
 `js/i18n.js` İngilizceye fallback yaptığı için eksik bir anahtar hata vermez,
 sessizce İngilizce metin sızdırır — bu komut onu yakalar.
 
-## Açılış davranışı
+## Açılış davranışı ve örnek dosyalar
 
-Uygulama, boş bir hoşgeldin ekranı yerine **örnek bir EDIFACT siparişi yüklü sekmeyle** açılır
-(`js/sampleData.js` içinde gömülü; ek istek gerektirmez). İlk segment seçili gelir, böylece
-detay paneli ilk karede doludur. Tüm sekmeler kapatılırsa hoşgeldin ekranı görünür ve oradaki
-**Örnek Dosya** butonu aynı dosyayı yeniden açar.
+Uygulama, boş bir hoşgeldin ekranı yerine **örnek bir dosya yüklü sekmeyle** açılır.
+İlk segment seçili gelir, böylece detay paneli ilk karede doludur. Tüm sekmeler
+kapatılırsa hoşgeldin ekranı görünür.
 
-`samples/` klasöründe ORDERS, INVOIC ve SLSRPT örnek dosyaları var
-(dosyayı editöre sürükleyip bırakabilir veya **Dosya Aç** ile seçebilirsiniz).
+Hoşgeldin ekranındaki **Örnek Dosya** butonu bir seçim ekranı açar: **15 mesaj tipi**,
+UN/EDIFACT ve ANSI ASC X12 olarak iki grupta. Her kart, o tiple uygulamanın ne
+yapabildiğini rozetle gösterir (PDF / Excel / yalnızca görüntüleme). Son seçim
+`localStorage`'da hatırlanır ve bir sonraki açılışta o tip yüklenir; her ziyarette
+seçim ekranı çıkmaz.
+
+Örneklerin tamamı `js/sampleData.js` içinde **gömülüdür** — sunucuya ek istek gitmez
+ve çevrimdışı da çalışır.
+
+### Tek senaryo
+
+Bütün EDIFACT örnekleri **aynı iş akışını** anlatır: ACME FOODS BV (tedarikçi, NL) ile
+MEGA RETAIL AS (alıcı, TR) arasındaki `PO-2026-0042` numaralı sipariş.
+
+```
+ORDERS ─► ORDRSP ─► ORDCHG ─► DESADV ─► RECADV ─► INVOIC ─► REMADV
+```
+
+Sayılar da zincir boyunca tutarlıdır: 2. kalemden 120 adet istenir, ORDRSP 100 adet
+onaylar, DESADV 100 sevk eder, RECADV 96 kabul eder (4 adet hasarlı), INVOIC sevk
+edileni faturalar, REMADV hasarlı adedin bedelini düşer. Böylece örnek seti aynı
+zamanda EDI akışını anlatan bir öğretim aracıdır.
+
+### Kapsam
+
+| Grup | Tipler | Not |
+|---|---|---|
+| PDF üretenler | ORDERS, ORDRSP, ORDCHG, DESADV, RECADV, INVOIC, REMADV, DELJIT, IFTMIN | Her PDF üreticisi bir örnekle karşılanır |
+| PDF + Excel | SLSRPT | İkisini birden üreten tek tip |
+| Excel | PRICAT | |
+| ANSI X12 | 850, 810, 856, 997 | Üretici yoktur; görüntülenir ve JSON/XML'e çevrilebilir |
+
+X12 örneklerindeki **ISA satırının boşluk dolgusu süs değildir**: ayraçlar UNA'dan
+değil konumdan okunur (eleman 3., bileşen 104., sonlandırıcı 105. karakter), bu yüzden
+satır tam 106 karakter olmak zorundadır.
+
+Katalogdaki `pdf` / `excel` bayrakları veridir ve `getExportPermissions` mantığından
+ayrışabilirler; bu yüzden ikisinin eşitliği denetlenir (aşağıya bakın).
+
+`samples/` klasöründeki üç dosya uygulamadan yüklenmez; elle sürükle-bırak denemeleri
+için durur.
 
 ## Editör özellikleri
 
@@ -236,7 +291,8 @@ yalnızca EDI belgelerinde etkindir — belgenin dili `language` alanında tutul
 | `SyntaxHighlightEditor.swift` | `js/editor.js` | Söz dizimi vurgulu editör, seçili satır tespiti |
 | `windowsclosehandler.swift` | `js/app.js` (`beforeunload`) | Kaydedilmemiş değişiklik uyarısı |
 | `tr/en/de/fr/es/it/zh-Hans.json` | `locales/*.json` | Swift'teki anahtarlar birebir + web'e özel anahtarlar (örnek dosya, sürükle-bırak ipucu, gizlilik/çerez bağlantıları, dönüşüm modülü) — 7 dilde 984 anahtar, `tools/check_locales.py` ile denetlenir |
-| — | `js/sampleData.js` | Açılışta yüklenen gömülü örnek EDIFACT dosyası |
+| — | `js/sampleData.js` | 15 mesaj tipi için gömülü örnek dosyalar (tek senaryo) ve yetenek bayrakları |
+| — | `js/samplePicker.js` | Örnek dosya seçim ekranı; son seçimi hatırlar |
 | — | `js/ediSyntax.js` | Kayıpsız EDI sözdizimi katmanı: UNA, X12 ISA konumsal ayraçları, release karakteri, satır sonu ve BOM korunumu |
 | — | `js/convert.js` | Kanonik model, JSON ve XML okuyucu/yazıcıları, biçim algılama, round-trip doğrulaması, `?selftest=1` sınaması |
 | — | `js/convertPanel.js` | Dönüştür menüsü, seçenekler ve dönüşümün yürütülmesi |

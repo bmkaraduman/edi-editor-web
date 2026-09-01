@@ -982,5 +982,9 @@
   "conv_err_schema": "该文件不符合 ediviewer 转换架构。",
   "conv_open_title": "转换为 EDI？",
   "conv_open_msg": "该文件看起来是 ediviewer 的 JSON/XML 文档。是否要将其转换为 EDI？",
-  "conv_btn_convert": "转换"
+  "conv_btn_convert": "转换",
+  "//_SAMPLE_PICKER": "--------------------------------",
+  "sample_picker_title": "选择示例文件",
+  "sample_picker_desc": "所有示例都描述同样两家公司之间的同一笔订单，因此您可以完整跟踪从采购订单到付款的单据链。",
+  "sample_badge_view": "仅查看"
 }

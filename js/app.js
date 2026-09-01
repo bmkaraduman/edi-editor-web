@@ -6,7 +6,8 @@ import { DocumentManager, createDocument } from './documentManager.js';
 import { SyntaxHighlightEditor } from './editor.js';
 import { renderSegmentDetail } from './segmentDetail.js';
 import { logoManager } from './logoManager.js';
-import { SAMPLE_EDI, SAMPLE_FILE_NAME } from './sampleData.js';
+import { SAMPLE_CATALOG, sampleContent, sampleFileName } from './sampleData.js';
+import { renderSamplePicker, lastSampleType, rememberSampleType } from './samplePicker.js';
 import { initConsent, privacyURL, reopenConsent } from './consent.js';
 import {
   convertMenuHTML, convertDocument, conversionErrorDialog,
@@ -578,13 +579,33 @@ function wireEvents() {
   $('#content').addEventListener('click', (e) => {
     if (e.target.closest('#welcome-open')) docManager.openDocument();
     else if (e.target.closest('#welcome-new')) docManager.createNewEditorTab();
-    else if (e.target.closest('#welcome-sample')) openSampleDocument();
+    else if (e.target.closest('#welcome-sample')) openSamplePicker();
+  });
+
+  // --- Örnek seçim ekranı ---
+  $('#sample-picker-cancel').addEventListener('click', closeSamplePicker);
+  $('#sample-backdrop').addEventListener('click', (e) => {
+    // Boşluğa tıklayınca kapansın, kartın üstüne tıklayınca değil
+    if (e.target === $('#sample-backdrop')) {
+      closeSamplePicker();
+      return;
+    }
+    const card = e.target.closest('[data-sample-type]');
+    if (!card) return;
+    const type = card.dataset.sampleType;
+    rememberSampleType(type);
+    closeSamplePicker();
+    openSampleDocument(type);
   });
 
   // --- Klavye kısayolları (CommandGroup karşılığı) ---
   window.addEventListener('keydown', (e) => {
     const mod = e.metaKey || e.ctrlKey;
     if (!mod) {
+      if (e.key === 'Escape' && !$('#sample-backdrop').hidden) {
+        closeSamplePicker();
+        return;
+      }
       // Escape -> son buton (her diyalogda "İptal") tetiklenir
       if (e.key === 'Escape' && !$('#backdrop').hidden) {
         const btns = $('#dlg-buttons').querySelectorAll('.dlg-btn');
@@ -734,15 +755,16 @@ async function maybeOfferConversion() {
 // MARK: - ÖRNEK DOSYA
 // =========================================================================
 
-/** Örnek EDI dosyasını yeni bir sekmede açar ve ilk segmenti seçer. */
-function openSampleDocument() {
+/** Seçilen mesaj tipinin örneğini yeni bir sekmede açar ve ilk segmenti seçer. */
+function openSampleDocument(type = lastSampleType()) {
+  const content = sampleContent(type);
   const doc = createDocument({
-    content: SAMPLE_EDI,
-    fileName: SAMPLE_FILE_NAME,
+    content,
+    fileName: sampleFileName(type),
     isStartPage: false,
   });
   // İlk satır seçili gelsin ki detay paneli boş görünmesin
-  doc.selectedLineContent = SAMPLE_EDI.split('\n')[0].trim();
+  doc.selectedLineContent = content.split('\n')[0].trim();
 
   const active = docManager.activeDocument;
   if (active && active.isStartPage) {
@@ -754,6 +776,34 @@ function openSampleDocument() {
   }
   docManager.activeTabID = doc.id;
   docManager.changed();
+}
+
+/** Örnek seçim ekranını açar. */
+function openSamplePicker() {
+  $('#sample-picker-title').textContent = L('sample_picker_title');
+  $('#sample-picker-desc').textContent = L('sample_picker_desc');
+  $('#sample-picker-cancel').textContent = L('btn_cancel');
+  renderSamplePicker($('#sample-picker-body'), lastSampleType());
+  $('#sample-backdrop').hidden = false;
+
+  const body = $('#sample-picker-body');
+  body.scrollTop = 0;
+
+  // Panel `hidden` kalkar kalkmaz henüz yerleşmemiş oluyor; o anda ölçülen
+  // geometri yanlış çıkar ve liste kendiliğinden kayar. Bu yüzden odaklanma
+  // bir sonraki kareye bırakılır: `nearest` o noktada zaten görünen kartı
+  // oynatmaz, aşağıda kalan kartı görünür yapar.
+  const active = body.querySelector('.sample-card.active') || body.querySelector('.sample-card');
+  if (!active) return;
+  requestAnimationFrame(() => {
+    body.scrollTop = 0;
+    active.focus({ preventScroll: true });
+    active.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+function closeSamplePicker() {
+  $('#sample-backdrop').hidden = true;
 }
 
 // =========================================================================
@@ -778,9 +828,10 @@ function openSampleDocument() {
   if (new URLSearchParams(location.search).has('selftest')) showSelfTest();
 })();
 
-/** ?selftest=1 — altı dönüşüm yolunu gömülü örneklerle sınar. */
+/** ?selftest=1 — dönüşüm yollarını gömülü örneklerin TAMAMIYLA sınar. */
 function showSelfTest() {
-  const results = runSelfTest({ sample: SAMPLE_EDI });
+  const samples = Object.fromEntries(SAMPLE_CATALOG.map((s) => [s.type, s.content]));
+  const results = runSelfTest(samples);
   const failed = results.filter((r) => !r.ok);
 
   console.table(results);

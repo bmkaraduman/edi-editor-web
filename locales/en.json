@@ -982,5 +982,9 @@
   "conv_err_schema": "This file does not match the ediviewer conversion schema.",
   "conv_open_title": "Convert to EDI?",
   "conv_open_msg": "This file looks like an ediviewer JSON/XML document. Do you want to convert it to EDI?",
-  "conv_btn_convert": "Convert"
+  "conv_btn_convert": "Convert",
+  "//_SAMPLE_PICKER": "--------------------------------",
+  "sample_picker_title": "Choose a sample file",
+  "sample_picker_desc": "Every sample describes the same order between the same two companies, so you can follow one document chain from purchase order to payment.",
+  "sample_badge_view": "View only"
 }
