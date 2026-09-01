@@ -982,5 +982,9 @@
   "conv_err_schema": "Bu dosya ediviewer dönüşüm şemasına uymuyor.",
   "conv_open_title": "EDI'ye dönüştürülsün mü?",
   "conv_open_msg": "Bu dosya bir ediviewer JSON/XML belgesine benziyor. EDI'ye dönüştürmek ister misiniz?",
-  "conv_btn_convert": "Dönüştür"
+  "conv_btn_convert": "Dönüştür",
+  "//_SAMPLE_PICKER": "--------------------------------",
+  "sample_picker_title": "Örnek dosya seçin",
+  "sample_picker_desc": "Bütün örnekler aynı iki firma arasındaki aynı siparişi anlatır; böylece siparişten ödemeye tek bir belge zincirini takip edebilirsiniz.",
+  "sample_badge_view": "Yalnızca görüntüleme"
 }

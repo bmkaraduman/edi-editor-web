@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ediviewer</title>
 <meta name="description" content="ediviewer — EDIFACT ve ANSI X12 dosyalarini tarayicida goruntuleyin, duzenleyin, PDF ve Excel'e aktarin.">
-<link rel="stylesheet" href="css/styles.css?v=090688df">
+<link rel="stylesheet" href="css/styles.css?v=89d8aeb7">
 <!-- Favicon: wordmark ile ayni gradyan, kare monogram -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
@@ -126,6 +126,20 @@
     <div class="dialog-title" id="dlg-title"></div>
     <div class="dialog-msg" id="dlg-msg"></div>
     <div class="dialog-buttons" id="dlg-buttons"></div>
+  </div>
+</div>
+
+<!-- ================= ÖRNEK DOSYA SEÇİMİ ================= -->
+<div class="backdrop" id="sample-backdrop" hidden>
+  <div class="picker" role="dialog" aria-modal="true">
+    <div class="picker-head">
+      <div class="picker-title" id="sample-picker-title"></div>
+      <div class="picker-desc" id="sample-picker-desc"></div>
+    </div>
+    <div class="picker-body" id="sample-picker-body"></div>
+    <div class="picker-foot">
+      <button class="dlg-btn" id="sample-picker-cancel"></button>
+    </div>
   </div>
 </div>
 

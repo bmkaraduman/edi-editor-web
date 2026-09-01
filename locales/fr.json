@@ -982,5 +982,9 @@
   "conv_err_schema": "Ce fichier ne correspond pas au schéma de conversion ediviewer.",
   "conv_open_title": "Convertir en EDI ?",
   "conv_open_msg": "Ce fichier ressemble à un document JSON/XML ediviewer. Voulez-vous le convertir en EDI ?",
-  "conv_btn_convert": "Convertir"
+  "conv_btn_convert": "Convertir",
+  "//_SAMPLE_PICKER": "--------------------------------",
+  "sample_picker_title": "Choisir un fichier d’exemple",
+  "sample_picker_desc": "Tous les exemples décrivent la même commande entre les deux mêmes entreprises, ce qui vous permet de suivre une chaîne de documents de la commande au paiement.",
+  "sample_badge_view": "Lecture seule"
 }
