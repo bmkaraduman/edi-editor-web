@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GID — Mal Detayı (Sıra No) — ediviewer</title>
-<meta name="description" content="GID segmenti: Mal Detayı (Sıra No)">
+<meta name="description" content="Nakliye talimatında bir yük kalemini açar. Kaç paketten oluştuğunu ve paketin türünü bildirir; ardından gelen PAC, MEA ve HAN segmentleri bu kaleme aittir.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/gid.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/gid.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>GID — Mal Detayı (Sıra No)</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Nakliye talimatında bir yük kalemini açar. Kaç paketten oluştuğunu ve paketin türünü bildirir; ardından gelen PAC, MEA ve HAN segmentleri bu kaleme aittir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>GID+1+24:CT&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -40,6 +43,8 @@
 <tr><td><code>CT</code></td><td>Koli / Kutu</td></tr>
 <tr><td><code>PX</code></td><td>Palet</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>İlk eleman kalem sırasıdır ve ürün koduyla ilgisi yoktur. Nakliyeci için önemli olan kaç koli taşındığıdır; ürün ayrımı bu segmentte yapılmaz, o bilgi sipariş ve irsaliyede durur.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UCD — Error Detail / Code — ediviewer</title>
-<meta name="description" content="UCD segment: Error Detail / Code">
+<meta name="description" content="States the reason for the error and exactly which data element caused it. UCS says which segment; UCD says which element within that segment was not accept">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/ucd.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/ucd.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>UCD — Error Detail / Code</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>States the reason for the error and exactly which data element caused it. UCS says which segment; UCD says which element within that segment was not accepted, and why.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>UCD+13+QTY+2&#x27;</code></pre>
 <h2>Data Elements</h2>
 <table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Error Code</td></tr>
@@ -44,6 +47,8 @@
 <tr><td><code>14</code></td><td>Unsupported Value</td></tr>
 <tr><td><code>15</code></td><td>Unsupported Segment</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The error code tells you the kind of problem, not the fix. 13 means a mandatory field is missing, 12 an invalid value, 14 an unsupported value and 15 an unsupported segment. Which field is mandatory is defined by your trading partner’s specification.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

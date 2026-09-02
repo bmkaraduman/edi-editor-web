@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PIA — Ek Ürün Tanımı (Kodlar) — ediviewer</title>
-<meta name="description" content="PIA segmenti: Ek Ürün Tanımı (Kodlar)">
+<meta name="description" content="Bir ürün için ek tanımlayıcı taşır. LIN segmenti ana kodu (genellikle GTIN) verir; PIA ise tedarikçi stok kodu, üretici kodu veya müşterinin kendi kodu gib">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/pia.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/pia.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PIA — Ek Ürün Tanımı (Kodlar)</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir ürün için ek tanımlayıcı taşır. LIN segmenti ana kodu (genellikle GTIN) verir; PIA ise tedarikçi stok kodu, üretici kodu veya müşterinin kendi kodu gibi alternatif numaraları ekler.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>PIA+1+9012345678904:SA&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Ürün ID Fonksiyonu</td></tr>
@@ -46,6 +49,8 @@
 <tr><td><code>IN</code></td><td>Alıcı Stok Kodu</td></tr>
 <tr><td><code>SA</code></td><td>Satıcı Stok Kodu</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Kodun türünü ikinci bileşendeki nitelikçi söyler: SA tedarikçinin stok kodu, BP alıcının parça numarası, IN ise alıcının kendi ürün kodudur. Nitelikçiyi okumadan ilk PIA satırını almak, yanlış sistemin kodunu eşleştirmenize yol açar.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

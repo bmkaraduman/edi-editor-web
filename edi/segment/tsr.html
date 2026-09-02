@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TSR — Taşima Hi̇zmet Gereksi̇ni̇mi̇ — ediviewer</title>
-<meta name="description" content="TSR segmenti: Taşima Hi̇zmet Gereksi̇ni̇mi̇">
+<meta name="description" content="Taşıma hizmetinin koşullarını bildirir: hizmet türü, öncelik ve kapsam. Nakliye talimatında taşıyıcıdan ne beklendiğini tanımlar.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/tsr.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/tsr.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>TSR — Taşima Hi̇zmet Gereksi̇ni̇mi̇</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Taşıma hizmetinin koşullarını bildirir: hizmet türü, öncelik ve kapsam. Nakliye talimatında taşıyıcıdan ne beklendiğini tanımlar.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>TSR+2+3&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -45,6 +48,8 @@
 <tr><td><code>P1</code></td><td>Yüksek Öncelik</td></tr>
 <tr><td><code>ST</code></td><td>Standart Servis</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Burada kodlanan şey sözleşmesel bir taahhüttür, temenni değil. Öncelik kodunu yükseltmek genellikle ek ücrete tabidir; şartnameyi okumadan bu alanı doldurmak beklenmeyen maliyet doğurabilir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

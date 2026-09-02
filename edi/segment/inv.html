@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>INV — Envanter Yönetim Bilgisi — ediviewer</title>
-<meta name="description" content="INV segmenti: Envanter Yönetim Bilgisi">
+<meta name="description" content="Stok hareketinin türünü bildirir. Stok raporunda bir miktarın ne anlama geldiğini belirler: eldeki stok mu, satılan mı, iade mi, hasarlı mı.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/inv.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/inv.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>INV — Envanter Yönetim Bilgisi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Stok hareketinin türünü bildirir. Stok raporunda bir miktarın ne anlama geldiğini belirler: eldeki stok mu, satılan mı, iade mi, hasarlı mı.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>INV+1+1&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -41,6 +44,8 @@
 <tr><td><code>2</code></td><td>Stok Farkı / Düzeltme</td></tr>
 <tr><td><code>3</code></td><td>Stok Durum Değişikliği</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Miktarı taşıyan QTY segmentidir; INV yalnızca o miktarın niteliğini söyler. İkisini birlikte okumadan stok raporu işlemek, iadeleri eldeki stoka eklemek gibi hatalara yol açar.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

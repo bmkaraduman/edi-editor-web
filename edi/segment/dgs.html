@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DGS — Tehlikeli Madde Bilgisi — ediviewer</title>
-<meta name="description" content="DGS segmenti: Tehlikeli Madde Bilgisi">
+<meta name="description" content="Tehlikeli madde bilgisini taşır. Hangi düzenlemeye tabi olduğunu, tehlike sınıfını ve maddenin UN numarasını bildirir; nakliye belgelerinde yasal olarak zo">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/dgs.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/dgs.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>DGS — Tehlikeli Madde Bilgisi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Tehlikeli madde bilgisini taşır. Hangi düzenlemeye tabi olduğunu, tehlike sınıfını ve maddenin UN numarasını bildirir; nakliye belgelerinde yasal olarak zorunludur.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>DGS+IMD+3:1203+UN1203&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -50,6 +53,8 @@
 <tr><td><code>REG_IATA</code></td><td>Havayolu (IATA)</td></tr>
 <tr><td><code>REG_IMD</code></td><td>IMDG (Denizyolu)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Bu alan yasal bir beyandır, açıklayıcı bir not değil. Eksik veya yanlış bir UN numarası sevkiyatın gümrükte durdurulmasına ve idari yaptırıma yol açabilir; değeri tahminle doldurmak yerine güvenlik bilgi formundan almak gerekir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

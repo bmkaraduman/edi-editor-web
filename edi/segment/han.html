@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HAN — Elleçleme / Taşıma Talimatı — ediviewer</title>
-<meta name="description" content="HAN segmenti: Elleçleme / Taşıma Talimatı">
+<meta name="description" content="Yükün nasıl elleçleneceğini bildirir: soğuk zincir, kırılabilir, istiflenemez gibi. Nakliye talimatlarında taşıyıcıya verilen operasyonel uyarıdır.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/han.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/han.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>HAN — Elleçleme / Taşıma Talimatı</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Yükün nasıl elleçleneceğini bildirir: soğuk zincir, kırılabilir, istiflenemez gibi. Nakliye talimatlarında taşıyıcıya verilen operasyonel uyarıdır.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>HAN+CO&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -50,6 +53,8 @@
 <tr><td><code>STA</code></td><td>İstiflenebilir (Stackable)</td></tr>
 <tr><td><code>VAL</code></td><td>Değerli Kargo (Valuable)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Bu kodlar ticari değil operasyonel şarttır ve atlanması doğrudan mala zarar verir. FRO donmuş, FRG kırılabilir, NST istiflenemez demektir; soğuk zincir kodunu kaybeden bir aktarım, ürünün bozulmasıyla sonuçlanabilir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

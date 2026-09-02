@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SCC — Scheduling / Stock Status — ediviewer</title>
-<meta name="description" content="SCC segment: Scheduling / Stock Status">
+<meta name="description" content="States the nature of a delivery schedule: a firm order, a forecast, or a planning estimate. It is the decisive field in delivery schedule messages.">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/scc.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/scc.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>SCC — Scheduling / Stock Status</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>States the nature of a delivery schedule: a firm order, a forecast, or a planning estimate. It is the decisive field in delivery schedule messages.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>SCC+1&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -40,6 +43,8 @@
 <tr><td><code>1</code></td><td>Firm</td></tr>
 <tr><td><code>4</code></td><td>Forecast</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>This code determines commercial commitment. Treating a quantity marked as a forecast as though it were a firm order, and starting production on it, is one of the most expensive mistakes a supplier can make.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

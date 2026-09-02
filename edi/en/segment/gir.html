@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GIR — Related Identities — ediviewer</title>
-<meta name="description" content="GIR segment: Related Identities">
+<meta name="description" content="Carries related identifiers together. In just-in-time delivery it links a call number, serial number or batch number to a line item.">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/gir.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/gir.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>GIR — Related Identities</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries related identifiers together. In just-in-time delivery it links a call number, serial number or batch number to a line item.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>GIR+1+CALL-2026-0451:AAN&#x27;</code></pre>
 <h2>Data Elements</h2>
 <table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Set Number</td></tr>
@@ -42,6 +45,8 @@
 <tr><td><code>AL</code></td><td>Kanban Card No</td></tr>
 <tr><td><code>VN</code></td><td>Vehicle Identification No (VIN)</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The qualifier in the second component states which kind of number it is. Taking the value without reading the qualifier can record a batch number where a call number was meant; both can appear in the same segment.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

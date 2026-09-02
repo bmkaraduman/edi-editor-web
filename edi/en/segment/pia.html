@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PIA — Additional Product ID — ediviewer</title>
-<meta name="description" content="PIA segment: Additional Product ID">
+<meta name="description" content="Carries an additional identifier for a product. The LIN segment gives the main code, usually a GTIN; PIA adds alternatives such as the supplier’s article n">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/pia.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/pia.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PIA — Additional Product ID</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries an additional identifier for a product. The LIN segment gives the main code, usually a GTIN; PIA adds alternatives such as the supplier’s article number, the manufacturer’s code or the buyer’s own code.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>PIA+1+9012345678904:SA&#x27;</code></pre>
 <h2>Data Elements</h2>
 <table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Product ID Function</td></tr>
@@ -46,6 +49,8 @@
 <tr><td><code>IN</code></td><td>Buyer Item No</td></tr>
 <tr><td><code>SA</code></td><td>Supplier Item No</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The qualifier in the second component states the kind of code: SA is the supplier’s item number, BP the buyer’s part number and IN the buyer’s own item number. Taking the first PIA line without reading the qualifier means matching against the wrong system’s code.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

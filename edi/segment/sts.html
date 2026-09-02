@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>STS — Durum Bilgisi — ediviewer</title>
-<meta name="description" content="STS segmenti: Durum Bilgisi">
+<meta name="description" content="Bir sevkiyatın veya kalemin durumunu bildirir: yola çıktı, gümrükte, teslim edildi, gecikti. Taşıma durum bildiriminin taşıdığı asıl bilgidir.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/sts.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/sts.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>STS — Durum Bilgisi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir sevkiyatın veya kalemin durumunu bildirir: yola çıktı, gümrükte, teslim edildi, gecikti. Taşıma durum bildiriminin taşıdığı asıl bilgidir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>STS+1+1&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -51,6 +54,8 @@
 <tr><td><code>TYPE_2</code></td><td>⏳ Tahmini</td></tr>
 <tr><td><code>TYPE_3</code></td><td>⚠️ Uyarı / İstisna</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Durum kodları taşıyıcıya göre farklı yorumlanabilir; aynı kod bir ortakta gümrük beklemesi, diğerinde depoda beklemeyi gösterebilir. Kodun anlamı standarttan değil, ortağınızın şartnamesinden okunmalıdır.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PCI — Paket Tanımlama — ediviewer</title>
-<meta name="description" content="PCI segmenti: Paket Tanımlama">
+<meta name="description" content="Paketin nasıl etiketlendiğini bildirir. Genellikle ardından gelen GIN segmentinin hangi tür numarayı taşıdığını hazırlar; sevkiyat etiketlerinin okunmasınd">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/pci.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/pci.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PCI — Paket Tanımlama</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Paketin nasıl etiketlendiğini bildirir. Genellikle ardından gelen GIN segmentinin hangi tür numarayı taşıdığını hazırlar; sevkiyat etiketlerinin okunmasında ilk halkadır.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>PCI+33E&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>İşaretleme Talimat Kodu</td></tr>
@@ -47,6 +50,8 @@
 <tr><td><code>30E</code></td><td>SSCC Barkodu (Palet Kimliği)</td></tr>
 <tr><td><code>33E</code></td><td>GS1-128 Barkod (Lojistik)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Kod 33E, etiketin GS1 kurallarına göre basıldığını ve ardından bir SSCC numarası geleceğini söyler. PCI atlanırsa GIN’deki numaranın hangi standarda ait olduğu belirsiz kalır.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

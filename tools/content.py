@@ -451,11 +451,516 @@ SEGMENTS = {
                     'message-level totals, not line amounts.',
         },
     },
+    'UCI': {
+        'example': 'UCI+REF00042+8712345678901:14+8798765432109:14+7\'',
+        'tr': {
+            'purpose': 'CONTRL mesajında zarf düzeyindeki sonucu bildirir. Hangi '
+                       'aktarımın değerlendirildiğini, gönderen ve alıcıyı, sonucun '
+                       'kabul mü ret mi olduğunu taşır. Bir CONTRL mesajında tam '
+                       'olarak bir tane bulunur.',
+            'note': 'İkinci elemandaki referans, gönderdiğiniz dosyanın UNB '
+                    'satırındaki numarayla eşleşir; hangi teyidin hangi dosyaya ait '
+                    'olduğunu böyle bulursunuz. Sondaki kod 7 ise zarf kabul edilmiştir, 8 ise reddedilmiştir; 4 kısmen kabul anlamına gelir.',
+        },
+        'en': {
+            'purpose': 'Reports the outcome at interchange level inside a CONTRL '
+                       'message. It carries which transmission was assessed, the '
+                       'sender and receiver, and whether the result is acceptance or '
+                       'rejection. Exactly one appears per CONTRL message.',
+            'note': 'The reference in the second element matches the number on the '
+                    'UNB line of the file you sent; that is how you tell which '
+                    'acknowledgement belongs to which file. A trailing 7 means the interchange was accepted and 8 that it was rejected; 4 means partially accepted.',
+        },
+    },
+    'UCM': {
+        'example': 'UCM+1+ORDERS:D:96A:UN+7\'',
+        'tr': {
+            'purpose': 'Zarf içindeki tek bir mesajın sonucunu bildirir. Bir aktarım '
+                       'birden fazla mesaj taşıyabildiği için, UCI zarfın tamamını, '
+                       'UCM ise her mesajı ayrı ayrı değerlendirir.',
+            'note': 'Zarf kabul edilmişken içindeki bir mesaj reddedilmiş olabilir. '
+                    'Bu yüzden yalnızca UCI koduna bakmak yanıltıcıdır; mesaj '
+                    'başına sonucu UCM satırlarından okumak gerekir.',
+        },
+        'en': {
+            'purpose': 'Reports the outcome for a single message inside the '
+                       'interchange. Because one transmission can carry several '
+                       'messages, UCI assesses the interchange as a whole while UCM '
+                       'assesses each message separately.',
+            'note': 'An interchange can be accepted while a message inside it is '
+                    'rejected. Looking only at the UCI code is therefore '
+                    'misleading; the per-message result has to be read from the UCM '
+                    'lines.',
+        },
+    },
+    'UCS': {
+        'example': 'UCS+12\'',
+        'tr': {
+            'purpose': 'Hatanın hangi segmentte olduğunu söyler. Değer, mesajın '
+                       'başından itibaren sayılan segment sırasıdır; böylece '
+                       'gönderdiğiniz dosyada doğrudan o satıra bakabilirsiniz.',
+            'note': 'Sayım UNH segmentinden başlar ve mesaja aittir, dosyanın '
+                    'tamamına değil. Birden fazla mesaj taşıyan bir aktarımda '
+                    'sırayı dosya satır numarasıyla karıştırmak yanlış yere '
+                    'bakmanıza yol açar.',
+        },
+        'en': {
+            'purpose': 'Identifies the segment in which the error was found. The value '
+                       'is the segment position counted from the start of the message, '
+                       'so you can go straight to that line in the file you sent.',
+            'note': 'The count starts at the UNH segment and belongs to the '
+                    'message, not to the whole file. In an interchange carrying '
+                    'several messages, confusing this position with a line number '
+                    'in the file sends you to the wrong place.',
+        },
+    },
+    'UCD': {
+        'example': 'UCD+13+QTY+2\'',
+        'tr': {
+            'purpose': 'Hatanın nedenini ve tam olarak hangi veri elemanında olduğunu '
+                       'bildirir. UCS hangi segment olduğunu söyler, UCD ise o '
+                       'segmentin kaçıncı elemanının neden kabul edilmediğini söyler.',
+            'note': 'Hata kodu sorunun türünü söyler, çözümünü değil. 13 zorunlu alan eksik, 12 geçersiz değer, 14 desteklenmeyen değer, 15 desteklenmeyen segment demektir. Hangi alanın zorunlu olduğunu ticari '
+                    'ortağınızın şartnamesi belirler.',
+        },
+        'en': {
+            'purpose': 'States the reason for the error and exactly which data element '
+                       'caused it. UCS says which segment; UCD says which element '
+                       'within that segment was not accepted, and why.',
+            'note': 'The error code tells you the kind of problem, not the fix. 13 means a mandatory field is missing, 12 an invalid value, 14 an unsupported value and 15 an unsupported segment. Which field is mandatory is '
+                    'defined by your trading partner’s specification.',
+        },
+    },
+    'DOC': {
+        'example': 'DOC+380+FT-2026-777\'',
+        'tr': {
+            'purpose': 'Bir belgeyi tipiyle ve numarasıyla tanımlar. En sık ödeme '
+                       'bildiriminde (REMADV) kullanılır: ödemenin hangi faturalara '
+                       'karşılık geldiğini bu segment sıralar.',
+            'note': 'İlk elemandaki tip kodu önemlidir: 380 fatura, 381 iade '
+                    'faturası (alacak dekontu) anlamına gelir. İkisini karıştırmak, '
+                    'alacak dekontunun borç olarak kaydedilmesine yol açar.',
+        },
+        'en': {
+            'purpose': 'Identifies a document by its type and number. It is most often '
+                       'used in a remittance advice (REMADV), where it lists which '
+                       'invoices a payment relates to.',
+            'note': 'The type code in the first element matters: 380 is an invoice '
+                    'and 381 a credit note. Confusing the two results in a credit '
+                    'note being posted as a debit.',
+        },
+    },
+    'FII': {
+        'example': 'FII+RB+NL91ABNA0417164300:ACME FOODS BV:::ABN AMRO\'',
+        'tr': {
+            'purpose': 'Bir tarafın banka hesap bilgilerini taşır. Faturada ödemenin '
+                       'hangi hesaba yapılacağını, ödeme bildiriminde ise hangi '
+                       'hesaptan çıktığını bildirir.',
+            'note': 'İlk elemandaki rol kodu hesabın kime ait olduğunu söyler: RB parayı alan banka, PB ödemeyi yapan banka, BF ise hesap sahibi demektir. Rolü okumadan '
+                    'IBAN’ı almak, ödemeyi yanlış tarafa yönlendirebilir.',
+        },
+        'en': {
+            'purpose': 'Carries a party’s bank account details. On an invoice it '
+                       'states which account the payment should reach; on a remittance '
+                       'advice, which account it came from.',
+            'note': 'The role code in the first element says whose account it is: '
+                    'RB is the receiving bank, PB the paying bank and BF the account holder. Taking the IBAN '
+                    'without reading the role can route a payment to the wrong '
+                    'party.',
+        },
+    },
+    'PAI': {
+        'example': 'PAI+::42\'',
+        'tr': {
+            'purpose': 'Ödemenin nasıl yapılacağını bildirir: havale, çek, akreditif '
+                       'gibi. Faturada ödeme koşullarını tamamlayan segmenttir; PAT '
+                       'vadeyi, PAI ise yöntemi söyler.',
+            'note': 'Kod üçüncü bileşende durur, bu yüzden segment PAI+::42 gibi '
+                    'iki boş bileşenle başlar görünür. 42 banka hesabına ödeme, 30 EFT, 1 çek anlamına gelir. Boş bileşenleri atlayan bir ayrıştırıcı kodu '
+                    'bulamaz.',
+        },
+        'en': {
+            'purpose': 'States how payment is to be made: transfer, cheque, letter of '
+                       'credit and so on. It complements the payment terms on an '
+                       'invoice, where PAT gives the timing and PAI the method.',
+            'note': 'The code sits in the third component, which is why the segment '
+                    'appears as PAI+::42 with two empty components first. 42 means payment to a bank account, 30 an electronic transfer and 1 a cheque. A parser that skips empty '
+                    'components will not find the code.',
+        },
+    },
+    'AJT': {
+        'example': 'AJT+1+71\'',
+        'tr': {
+            'purpose': 'Bir ödemeden neden kesinti yapıldığını açıklar. Ödeme '
+                       'bildiriminde fatura tutarıyla ödenen tutar arasında fark '
+                       'varsa, gerekçesi bu segmentte kodlanır.',
+            'note': 'İlk eleman yönü belirtir: 1 kesinti, 2 ilave. İkinci eleman '
+                    'ise nedeni verir; 71 hasarlı mal, 72 eksik teslimat gibi. '
+                    'Nedeni okumadan farkı muhasebeleştirmek mutabakatı '
+                    'zorlaştırır.',
+        },
+        'en': {
+            'purpose': 'Explains why an amount was deducted from a payment. Where a '
+                       'remittance advice shows a difference between the invoiced and '
+                       'the paid amount, the reason is coded here.',
+            'note': 'The first element gives the direction: 1 is a deduction, 2 an '
+                    'addition. The second gives the reason, such as 71 for damaged '
+                    'goods or 72 for a short delivery. Posting the difference '
+                    'without reading the reason makes reconciliation harder.',
+        },
+    },
+    'PCD': {
+        'example': 'PCD+3:5\'',
+        'tr': {
+            'purpose': 'Bir yüzde değerini taşır. Neredeyse her zaman iskonto veya '
+                       'masraf grubunun (ALC) içinde bulunur ve o iskontonun oranını '
+                       'verir.',
+            'note': 'Yüzdenin neye uygulandığını PCD söylemez; bunu içinde '
+                    'bulunduğu ALC segmenti belirler. PCD satırını tek başına '
+                    'okumak, iskontonun satıra mı yoksa belgenin tamamına mı ait '
+                    'olduğunu göstermez.',
+        },
+        'en': {
+            'purpose': 'Carries a percentage value. It almost always appears inside an '
+                       'allowance or charge group (ALC) and gives the rate of that '
+                       'allowance.',
+            'note': 'PCD does not say what the percentage applies to; the enclosing '
+                    'ALC segment does. Reading a PCD line on its own will not tell '
+                    'you whether the discount belongs to a line item or to the '
+                    'whole document.',
+        },
+    },
+    'PIA': {
+        'example': 'PIA+1+9012345678904:SA\'',
+        'tr': {
+            'purpose': 'Bir ürün için ek tanımlayıcı taşır. LIN segmenti ana kodu '
+                       '(genellikle GTIN) verir; PIA ise tedarikçi stok kodu, üretici '
+                       'kodu veya müşterinin kendi kodu gibi alternatif numaraları '
+                       'ekler.',
+            'note': 'Kodun türünü ikinci bileşendeki nitelikçi söyler: SA tedarikçinin stok kodu, BP alıcının parça numarası, IN ise alıcının kendi ürün kodudur. Nitelikçiyi '
+                    'okumadan ilk PIA satırını almak, yanlış sistemin kodunu '
+                    'eşleştirmenize yol açar.',
+        },
+        'en': {
+            'purpose': 'Carries an additional identifier for a product. The LIN '
+                       'segment gives the main code, usually a GTIN; PIA adds '
+                       'alternatives such as the supplier’s article number, the '
+                       'manufacturer’s code or the buyer’s own code.',
+            'note': 'The qualifier in the second component states the kind of code: '
+                    'SA is the supplier’s item number, BP the buyer’s part number and IN the buyer’s own item number. Taking the first PIA line without reading the '
+                    'qualifier means matching against the wrong system’s code.',
+        },
+    },
+    'MEA': {
+        'example': 'MEA+AAE++KGM:480\'',
+        'tr': {
+            'purpose': 'Bir ölçüyü taşır: ağırlık, hacim, uzunluk. Sevkiyat ve nakliye '
+                       'mesajlarında paletin veya yük kaleminin brüt ağırlığını '
+                       'bildirmek için kullanılır.',
+            'note': 'Birim ve değer aynı bileşende, birim önce gelir: KGM:480 dört '
+                    'yüz seksen kilogram demektir. Sıralamayı ters okuyan bir '
+                    'eşleme, ağırlığı birim koduna atar ve hata çoğu zaman ancak '
+                    'taşıma faturasında fark edilir.',
+        },
+        'en': {
+            'purpose': 'Carries a measurement: weight, volume or dimension. In '
+                       'despatch and transport messages it states the gross weight of '
+                       'a pallet or of a goods item.',
+            'note': 'The unit and the value share a component, with the unit first: '
+                    'KGM:480 means four hundred and eighty kilograms. A mapping '
+                    'that reads the order the other way round assigns the weight to '
+                    'the unit code, and the error usually surfaces only on the '
+                    'freight invoice.',
+        },
+    },
+    'CPS': {
+        'example': 'CPS+1\'',
+        'tr': {
+            'purpose': 'Sevkiyattaki paketleme hiyerarşisini kurar. Palet, koli ve '
+                       'ürün ilişkisini seviyelerle anlatır: her CPS bir seviye açar, '
+                       'ikinci elemanı ise bir üst seviyeye işaret eder.',
+            'note': 'CPS+2+1 ifadesi, ikinci seviyenin birinci seviyenin altında '
+                    'olduğunu söyler. Bu bağı kurmayan bir okuma, hangi kolinin '
+                    'hangi palette olduğunu kaybeder; mal kabulde palet bazlı sayım '
+                    'yapılamaz.',
+        },
+        'en': {
+            'purpose': 'Establishes the packing hierarchy of a shipment. It expresses '
+                       'the relationship between pallet, carton and product as levels: '
+                       'each CPS opens a level, and its second element points at the '
+                       'level above.',
+            'note': 'CPS+2+1 says that level two sits beneath level one. A reading '
+                    'that ignores this link loses which carton is on which pallet, '
+                    'and pallet-level counting at goods receipt becomes impossible.',
+        },
+    },
+    'PCI': {
+        'example': 'PCI+33E\'',
+        'tr': {
+            'purpose': 'Paketin nasıl etiketlendiğini bildirir. Genellikle ardından '
+                       'gelen GIN segmentinin hangi tür numarayı taşıdığını hazırlar; '
+                       'sevkiyat etiketlerinin okunmasında ilk halkadır.',
+            'note': 'Kod 33E, etiketin GS1 kurallarına göre basıldığını ve ardından '
+                    'bir SSCC numarası geleceğini söyler. PCI atlanırsa GIN’deki '
+                    'numaranın hangi standarda ait olduğu belirsiz kalır.',
+        },
+        'en': {
+            'purpose': 'States how a package is marked. It usually sets up the GIN '
+                       'segment that follows by declaring which kind of number is '
+                       'coming, and is the first link in reading shipping labels.',
+            'note': 'The code 33E says the label follows GS1 rules and that an SSCC '
+                    'number will follow. If PCI is skipped, it is unclear which '
+                    'standard the number in GIN belongs to.',
+        },
+    },
+    'GID': {
+        'example': 'GID+1+24:CT\'',
+        'tr': {
+            'purpose': 'Nakliye talimatında bir yük kalemini açar. Kaç paketten '
+                       'oluştuğunu ve paketin türünü bildirir; ardından gelen PAC, MEA '
+                       've HAN segmentleri bu kaleme aittir.',
+            'note': 'İlk eleman kalem sırasıdır ve ürün koduyla ilgisi yoktur. '
+                    'Nakliyeci için önemli olan kaç koli taşındığıdır; ürün ayrımı '
+                    'bu segmentte yapılmaz, o bilgi sipariş ve irsaliyede durur.',
+        },
+        'en': {
+            'purpose': 'Opens a goods item in a transport instruction. It states how '
+                       'many packages it consists of and their type; the PAC, MEA and '
+                       'HAN segments that follow belong to this item.',
+            'note': 'The first element is the item sequence and has nothing to do '
+                    'with a product code. What matters to the carrier is how many '
+                    'cartons travel; product-level detail is not made here, it '
+                    'lives in the order and the despatch advice.',
+        },
+    },
+    'HAN': {
+        'example': 'HAN+CO\'',
+        'tr': {
+            'purpose': 'Yükün nasıl elleçleneceğini bildirir: soğuk zincir, '
+                       'kırılabilir, istiflenemez gibi. Nakliye talimatlarında '
+                       'taşıyıcıya verilen operasyonel uyarıdır.',
+            'note': 'Bu kodlar ticari değil operasyonel şarttır ve atlanması '
+                    'doğrudan mala zarar verir. FRO donmuş, FRG kırılabilir, NST '
+                    'istiflenemez demektir; soğuk zincir kodunu kaybeden bir '
+                    'aktarım, ürünün bozulmasıyla sonuçlanabilir.',
+        },
+        'en': {
+            'purpose': 'States how the goods must be handled: cold chain, fragile, do '
+                       'not stack, and so on. In transport instructions it is the '
+                       'operational warning given to the carrier.',
+            'note': 'These codes are an operational requirement rather than a '
+                    'commercial one, and losing them damages the goods directly. '
+                    'FRO means frozen, FRG fragile, NST do not stack; a transfer '
+                    'that drops the cold-chain code can end with spoiled product.',
+        },
+    },
+    'EQD': {
+        'example': 'EQD+CN+ACLU1234567+42G1++2\'',
+        'tr': {
+            'purpose': 'Taşımada kullanılan ekipmanı tanımlar: konteyner, römork, '
+                       'vagon. Ekipman türünü, numarasını ve boyut kodunu taşır.',
+            'note': 'Dördüncü elemandaki ISO boyut kodu dört karakterdir ve '
+                    'okunabilir bilgi içerir: 42G1’deki 4 kırk footluk, G genel '
+                    'amaçlı kuru yük demektir. Bu kodu düz metin sanmak, ekipman '
+                    'planlamasında yanlış kapasite hesabına yol açar.',
+        },
+        'en': {
+            'purpose': 'Identifies the equipment used in transport: container, trailer '
+                       'or wagon. It carries the equipment type, its number and a size '
+                       'code.',
+            'note': 'The ISO size code in the fourth element is four characters and '
+                    'is readable: in 42G1 the 4 means forty foot and the G '
+                    'general-purpose dry cargo. Treating it as opaque text leads to '
+                    'wrong capacity assumptions in equipment planning.',
+        },
+    },
+    'TSR': {
+        'example': 'TSR+2+3\'',
+        'tr': {
+            'purpose': 'Taşıma hizmetinin koşullarını bildirir: hizmet türü, öncelik '
+                       've kapsam. Nakliye talimatında taşıyıcıdan ne beklendiğini '
+                       'tanımlar.',
+            'note': 'Burada kodlanan şey sözleşmesel bir taahhüttür, temenni değil. '
+                    'Öncelik kodunu yükseltmek genellikle ek ücrete tabidir; '
+                    'şartnameyi okumadan bu alanı doldurmak beklenmeyen maliyet '
+                    'doğurabilir.',
+        },
+        'en': {
+            'purpose': 'States the conditions of the transport service: service type, '
+                       'priority and scope. In a transport instruction it defines what '
+                       'is expected of the carrier.',
+            'note': 'What is coded here is a contractual commitment, not a '
+                    'preference. Raising the priority code usually attracts a '
+                    'surcharge; filling this field without reading the '
+                    'specification can create unexpected cost.',
+        },
+    },
+    'CNI': {
+        'example': 'CNI+1+CONS-2026-0088\'',
+        'tr': {
+            'purpose': 'Bir sevkiyatı (konsinye) tanımlar ve ona bir takip numarası '
+                       'verir. Taşıma durum bildirimlerinde, gelen durumun hangi '
+                       'sevkiyata ait olduğunu bu numara söyler.',
+            'note': 'Bu numara nakliyecinin takip numarasıdır; sipariş numarasıyla '
+                    'karıştırılmamalıdır. Bir sevkiyat birden fazla siparişi '
+                    'taşıyabilir, dolayısıyla ikisi arasında birebir eşleşme '
+                    'beklemek yanlıştır.',
+        },
+        'en': {
+            'purpose': 'Identifies a consignment and gives it a tracking reference. In '
+                       'transport status reports this number says which shipment the '
+                       'reported status belongs to.',
+            'note': 'This is the carrier’s tracking number and should not be '
+                    'confused with the order number. One consignment can carry '
+                    'several orders, so expecting a one-to-one match between the '
+                    'two is a mistake.',
+        },
+    },
+    'STS': {
+        'example': 'STS+1+1\'',
+        'tr': {
+            'purpose': 'Bir sevkiyatın veya kalemin durumunu bildirir: yola çıktı, '
+                       'gümrükte, teslim edildi, gecikti. Taşıma durum bildiriminin '
+                       'taşıdığı asıl bilgidir.',
+            'note': 'Durum kodları taşıyıcıya göre farklı yorumlanabilir; aynı kod '
+                    'bir ortakta gümrük beklemesi, diğerinde depoda beklemeyi '
+                    'gösterebilir. Kodun anlamı standarttan değil, ortağınızın '
+                    'şartnamesinden okunmalıdır.',
+        },
+        'en': {
+            'purpose': 'Reports the status of a consignment or item: departed, in '
+                       'customs, delivered, delayed. It is the substance of a '
+                       'transport status report.',
+            'note': 'Status codes can be interpreted differently by different '
+                    'carriers; the same code may mean waiting at customs for one '
+                    'partner and waiting in a warehouse for another. Read the '
+                    'meaning from your partner’s specification, not from the '
+                    'standard alone.',
+        },
+    },
+    'GIS': {
+        'example': 'GIS+37\'',
+        'tr': {
+            'purpose': 'Bir işlem göstergesi taşır. Mesajın nasıl işlenmesi '
+                       'gerektiğine dair kısa bir talimattır; genellikle bir bölümün '
+                       'başında durur ve o bölümün yorumunu değiştirir.',
+            'note': 'Tek başına anlamı yoktur; hangi bölümde geçtiğine bağlıdır. '
+                    'Aynı kod farklı mesaj tiplerinde farklı şey ifade edebileceği '
+                    'için, konumundan bağımsız okunmamalıdır.',
+        },
+        'en': {
+            'purpose': 'Carries a processing indicator. It is a short instruction '
+                       'about how the message should be handled, usually placed at the '
+                       'start of a section whose interpretation it changes.',
+            'note': 'It has no meaning on its own; that depends on the section it '
+                    'appears in. The same code can mean different things in '
+                    'different message types, so it should never be read out of '
+                    'position.',
+        },
+    },
+    'SEQ': {
+        'example': 'SEQ++1\'',
+        'tr': {
+            'purpose': 'Bir sıra numarası açar. Tam zamanında teslimat çağrılarında '
+                       'her teslim penceresini ayırmak için kullanılır: her SEQ bir '
+                       'çağrıyı başlatır, ardından gelen QTY ve DTM o çağrıya aittir.',
+            'note': 'Numara ikinci elemanda durur, birinci eleman genellikle '
+                    'boştur; bu yüzden segment SEQ++1 gibi görünür. Boş elemanı '
+                    'atlayan bir ayrıştırıcı sıra numarasını yanlış konumdan okur.',
+        },
+        'en': {
+            'purpose': 'Opens a sequence number. In just-in-time delivery calls it '
+                       'separates each delivery window: every SEQ starts a call, and '
+                       'the QTY and DTM segments that follow belong to it.',
+            'note': 'The number sits in the second element and the first is usually '
+                    'empty, which is why the segment looks like SEQ++1. A parser '
+                    'that skips the empty element reads the sequence number from '
+                    'the wrong position.',
+        },
+    },
+    'GIR': {
+        'example': 'GIR+1+CALL-2026-0451:AAN\'',
+        'tr': {
+            'purpose': 'İlgili tanımlayıcıları bir arada taşır. Tam zamanında '
+                       'teslimatta çağrı numarasını, seri numarasını veya parti '
+                       'numarasını kaleme bağlamak için kullanılır.',
+            'note': 'Numaranın türünü ikinci bileşendeki nitelikçi söyler. '
+                    'Nitelikçiyi okumadan değeri almak, çağrı numarası yerine parti '
+                    'numarasını kaydetmenize yol açabilir; ikisi de aynı segmentte '
+                    'geçebilir.',
+        },
+        'en': {
+            'purpose': 'Carries related identifiers together. In just-in-time delivery '
+                       'it links a call number, serial number or batch number to a '
+                       'line item.',
+            'note': 'The qualifier in the second component states which kind of '
+                    'number it is. Taking the value without reading the qualifier '
+                    'can record a batch number where a call number was meant; both '
+                    'can appear in the same segment.',
+        },
+    },
+    'SCC': {
+        'example': 'SCC+1\'',
+        'tr': {
+            'purpose': 'Bir teslimat planının niteliğini bildirir: kesin sipariş mi, '
+                       'tahmin mi, yoksa planlama amaçlı bir öngörü mü. Teslimat '
+                       'programı mesajlarında en belirleyici alandır.',
+            'note': 'Bu kod ticari bağlayıcılığı belirler. Tahmin olarak '
+                    'işaretlenmiş bir miktarı kesin sipariş sanıp üretim başlatmak, '
+                    'EDI ile çalışan tedarikçilerin en pahalı hatalarından biridir.',
+        },
+        'en': {
+            'purpose': 'States the nature of a delivery schedule: a firm order, a '
+                       'forecast, or a planning estimate. It is the decisive field in '
+                       'delivery schedule messages.',
+            'note': 'This code determines commercial commitment. Treating a '
+                    'quantity marked as a forecast as though it were a firm order, '
+                    'and starting production on it, is one of the most expensive '
+                    'mistakes a supplier can make.',
+        },
+    },
+    'INV': {
+        'example': 'INV+1+1\'',
+        'tr': {
+            'purpose': 'Stok hareketinin türünü bildirir. Stok raporunda bir miktarın '
+                       'ne anlama geldiğini belirler: eldeki stok mu, satılan mı, iade '
+                       'mi, hasarlı mı.',
+            'note': 'Miktarı taşıyan QTY segmentidir; INV yalnızca o miktarın '
+                    'niteliğini söyler. İkisini birlikte okumadan stok raporu '
+                    'işlemek, iadeleri eldeki stoka eklemek gibi hatalara yol açar.',
+        },
+        'en': {
+            'purpose': 'States the type of an inventory movement. In an inventory '
+                       'report it determines what a quantity means: stock on hand, '
+                       'sold, returned or damaged.',
+            'note': 'The quantity itself is carried by QTY; INV only says what kind '
+                    'of quantity it is. Processing an inventory report without '
+                    'reading the two together leads to errors such as adding '
+                    'returns to stock on hand.',
+        },
+    },
+    'DGS': {
+        'example': 'DGS+IMD+3:1203+UN1203\'',
+        'tr': {
+            'purpose': 'Tehlikeli madde bilgisini taşır. Hangi düzenlemeye tabi '
+                       'olduğunu, tehlike sınıfını ve maddenin UN numarasını bildirir; '
+                       'nakliye belgelerinde yasal olarak zorunludur.',
+            'note': 'Bu alan yasal bir beyandır, açıklayıcı bir not değil. Eksik '
+                    'veya yanlış bir UN numarası sevkiyatın gümrükte durdurulmasına '
+                    've idari yaptırıma yol açabilir; değeri tahminle doldurmak '
+                    'yerine güvenlik bilgi formundan almak gerekir.',
+        },
+        'en': {
+            'purpose': 'Carries dangerous goods information: which regulation applies, '
+                       'the hazard class and the substance’s UN number. It is a legal '
+                       'requirement on transport documents.',
+            'note': 'This field is a legal declaration, not an explanatory note. A '
+                    'missing or wrong UN number can have a shipment stopped at '
+                    'customs and attract a penalty; the value must come from the '
+                    'safety data sheet rather than be guessed.',
+        },
+    },
 }
-
-# =========================================================================
-# MESAJ TİPİ AÇIKLAMALARI
-# =========================================================================
 
 MESSAGES = {
     'ORDERS': {

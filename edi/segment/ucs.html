@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UCS — Hatalı Segment Bilgisi — ediviewer</title>
-<meta name="description" content="UCS segmenti: Hatalı Segment Bilgisi">
+<meta name="description" content="Hatanın hangi segmentte olduğunu söyler. Değer, mesajın başından itibaren sayılan segment sırasıdır; böylece gönderdiğiniz dosyada doğrudan o satıra bakabi">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/ucs.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/ucs.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,11 +33,16 @@
 <main class="doc">
 <h1>UCS — Hatalı Segment Bilgisi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Hatanın hangi segmentte olduğunu söyler. Değer, mesajın başından itibaren sayılan segment sırasıdır; böylece gönderdiğiniz dosyada doğrudan o satıra bakabilirsiniz.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>UCS+12&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Segment Sırası</td></tr>
 <tr><td><code>02</code></td><td>Segment Adı</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Sayım UNH segmentinden başlar ve mesaja aittir, dosyanın tamamına değil. Birden fazla mesaj taşıyan bir aktarımda sırayı dosya satır numarasıyla karıştırmak yanlış yere bakmanıza yol açar.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

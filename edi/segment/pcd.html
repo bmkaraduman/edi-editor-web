@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PCD — Yüzde Bilgisi — ediviewer</title>
-<meta name="description" content="PCD segmenti: Yüzde Bilgisi">
+<meta name="description" content="Bir yüzde değerini taşır. Neredeyse her zaman iskonto veya masraf grubunun (ALC) içinde bulunur ve o iskontonun oranını verir.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/pcd.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/pcd.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PCD — Yüzde Bilgisi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir yüzde değerini taşır. Neredeyse her zaman iskonto veya masraf grubunun (ALC) içinde bulunur ve o iskontonun oranını verir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>PCD+3:5&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -40,6 +43,8 @@
 <tr><td><code>1</code></td><td>İskonto / Artırım Oranı (%)</td></tr>
 <tr><td><code>3</code></td><td>Ceza Oranı (%)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Yüzdenin neye uygulandığını PCD söylemez; bunu içinde bulunduğu ALC segmenti belirler. PCD satırını tek başına okumak, iskontonun satıra mı yoksa belgenin tamamına mı ait olduğunu göstermez.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

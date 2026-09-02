@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SCC — Planlama / Stok Durumu — ediviewer</title>
-<meta name="description" content="SCC segmenti: Planlama / Stok Durumu">
+<meta name="description" content="Bir teslimat planının niteliğini bildirir: kesin sipariş mi, tahmin mi, yoksa planlama amaçlı bir öngörü mü. Teslimat programı mesajlarında en belirleyici ">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/scc.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/scc.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>SCC — Planlama / Stok Durumu</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir teslimat planının niteliğini bildirir: kesin sipariş mi, tahmin mi, yoksa planlama amaçlı bir öngörü mü. Teslimat programı mesajlarında en belirleyici alandır.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>SCC+1&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -40,6 +43,8 @@
 <tr><td><code>1</code></td><td>Kesin</td></tr>
 <tr><td><code>4</code></td><td>Tahmin</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Bu kod ticari bağlayıcılığı belirler. Tahmin olarak işaretlenmiş bir miktarı kesin sipariş sanıp üretim başlatmak, EDI ile çalışan tedarikçilerin en pahalı hatalarından biridir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

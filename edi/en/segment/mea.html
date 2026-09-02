@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MEA — Measurements (Weight/Volume) — ediviewer</title>
-<meta name="description" content="MEA segment: Measurements (Weight/Volume)">
+<meta name="description" content="Carries a measurement: weight, volume or dimension. In despatch and transport messages it states the gross weight of a pallet or of a goods item.">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/mea.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/mea.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>MEA — Measurements (Weight/Volume)</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries a measurement: weight, volume or dimension. In despatch and transport messages it states the gross weight of a pallet or of a goods item.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>MEA+AAE++KGM:480&#x27;</code></pre>
 <h2>Data Elements</h2>
 <table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Measurement Attribute</td></tr>
@@ -54,6 +57,8 @@
 <tr><td><code>WD</code></td><td>Width</td></tr>
 <tr><td><code>WT</code></td><td>Weight Information</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The unit and the value share a component, with the unit first: KGM:480 means four hundred and eighty kilograms. A mapping that reads the order the other way round assigns the weight to the unit code, and the error usually surfaces only on the freight invoice.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 
