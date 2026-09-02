@@ -33,45 +33,54 @@
 <main class="doc">
 <h1>CONTRL: did my file arrive?</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; The EDI equivalent of a read receipt is the CONTRL message. What it means when none arrives, or when it carries errors.</div>
-<p>You sent an EDI file. Did it arrive? Was it processed? A separate message answers that: <strong>CONTRL</strong>.</p>
-<h2>What it does</h2>
+<p>You sent an EDI file. Did it arrive? Was it processed? A separate message answers that: <strong>CONTRL</strong>. It is the EDI equivalent of a read receipt.</p>
+<h2>What it does and does not do</h2>
 <p>CONTRL takes no interest in content. It does not say &quot;I accept your order&quot;; it says &quot;I received your file and the syntax is valid&quot;. It is a technical acknowledgement, not a commercial one.</p>
 <p>Two things not to confuse:</p>
 <ul>
 <li><strong>CONTRL</strong> — the file arrived and parses</li>
 <li><strong>ORDRSP</strong> — I do or do not accept the order</li>
 </ul>
-<p>Receiving a CONTRL does not mean your order was accepted.</p>
+<p>Receiving a CONTRL does not mean your order was accepted. An order with flawless syntax that will be commercially rejected still gets a positive CONTRL.</p>
 <h2>Its structure</h2>
-<p>A CONTRL message points at where an error sits, if there is one:</p>
-<table class="doc-table"><thead><tr><th>Segment</th><th>Role</th></tr></thead><tbody>
+<p>A CONTRL message shows where the error is, if there is one:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Purpose</th></tr></thead><tbody>
 <tr><td><code>UCI</code></td><td>Status at interchange level</td></tr>
 <tr><td><code>UCM</code></td><td>Status at message level</td></tr>
-<tr><td><code>UCS</code></td><td>Position of the offending segment</td></tr>
-<table class="doc-table"><thead><tr><th><code>UCD</code></th><th>The reason and which element</th></tr></thead><tbody>
+<tr><td><code>UCS</code></td><td>Position of the segment in error</td></tr>
+<tr><td><code>UCD</code></td><td>The reason and which element</td></tr>
 </tbody></table>
-<p>The status codes are terse: <code>7</code> accepted, <code>4</code> rejected, <code>8</code> processed with errors.</p>
+<p>The status codes are short: <code>7</code> accepted, <code>4</code> rejected, <code>8</code> errors present but processed.</p>
 <pre class="doc-code"><code>
 UCI+REF00042+8712345678901:14+8798765432109:14+7&#x27;
 </code></pre>
-<p>The trailing <code>7</code> says the interchange was accepted cleanly.</p>
-<h2>When an error comes back</h2>
+<p>The trailing <code>7</code> says the interchange was accepted without problems. The reference on that line (<code>REF00042</code>) matches the number on the <code>UNB</code> line of the file you sent — that is how you tell which acknowledgement belongs to which file.</p>
+<h2>When errors come back</h2>
 <p>On a rejection, <code>UCS</code> gives you the segment position and <code>UCD</code> the reason:</p>
 <pre class="doc-code"><code>
 UCS+12&#x27;
 UCD+13+QTY+2&#x27;
 </code></pre>
-<p>That says there is an error in the second data element of the <code>QTY</code> at segment 12. Opening your file and going to segment 12 shows the problem directly.</p>
-<h2>When no CONTRL arrives at all</h2>
-<p>This is usually a <strong>transport</strong> problem rather than a content one:</p>
-<ul>
-<li>The file never reached the other side (SFTP directory, AS2 certificate)</li>
-<li>Your partner does not send CONTRL — not all do; the specification says so</li>
-<li>The file arrived but is sitting in a queue unprocessed</li>
-</ul>
-<p>That is the order to check: the transport channel first, then the specification.</p>
-<h2>A practical habit</h2>
-<p>Keep your CONTRL messages. In an argument about an invoice that &quot;never arrived&quot;, a timestamped acknowledgement is the fastest way to settle it.</p>
+<p>That says there is an error in the second data element of the <code>QTY</code> at segment 12. Opening your file and looking at segment 12 shows the problem directly.</p>
+<p>Error codes you will see often:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>12</code></td><td>Invalid value</td></tr>
+<tr><td><code>13</code></td><td>Mandatory field missing</td></tr>
+<tr><td><code>15</code></td><td>Value not in the code list</td></tr>
+<tr><td><code>35</code></td><td>Segment repeated too many times</td></tr>
+<tr><td><code>36</code></td><td>Segment missing</td></tr>
+</tbody></table>
+<p>These codes tell you the <strong>kind</strong> of problem, not the fix. When you get &quot;mandatory field missing&quot;, your specification tells you which field is mandatory.</p>
+<h2>If no CONTRL arrives at all</h2>
+<p>That is usually a <strong>transport</strong> problem rather than a content one. Places to look, in order:</p>
+<p>1. <strong>Did the file reach the other side?</strong> Check the SFTP directory, the expiry of the AS2 certificate, and the connection logs. 2. <strong>Does your partner send CONTRL at all?</strong> Not everyone does. The specification says so; if they do not, waiting is pointless. 3. <strong>Did it arrive but sit in a queue?</strong> Some systems process in batches and the acknowledgement can be hours behind.</p>
+<p>The expected turnaround is also defined in the specification; it usually ranges from a few minutes to a few hours.</p>
+<h2>Should you send CONTRL yourself?</h2>
+<p>If you process incoming files, your partner will most likely expect an acknowledgement from you too. This is not a one-way mechanism.</p>
+<p>The most common mistake when generating your own CONTRL is returning an unconditional <code>7</code> (accepted) for every file. That marks a syntactically broken file as accepted, and the other side only discovers the problem when an invoice goes unpaid.</p>
+<h2>A practical suggestion</h2>
+<p>Keep your CONTRL messages. In an argument about an invoice that &quot;never arrived&quot;, a dated acknowledgement is the document that settles it fastest. Proving syntactic validity does not resolve a commercial dispute, but it moves the discussion to the right place: if the file arrived, the problem is not transport but a business rule.</p>
+<p>When a CONTRL lands on your desk, reading the numbers in its <code>UCS</code> and <code>UCD</code> lines alongside the file you sent is the quickest route to a diagnosis.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/uci.html"><code>UCI</code></a> <a href="../segment/ucm.html"><code>UCM</code></a> <a href="../segment/ucs.html"><code>UCS</code></a> <a href="../segment/ucd.html"><code>UCD</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

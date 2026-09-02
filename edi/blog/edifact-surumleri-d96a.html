@@ -33,29 +33,48 @@
 <main class="doc">
 <h1>D.96A ne demek? EDIFACT sürümlerini anlamak</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; UNH satırındaki &quot;D:96A:UN&quot; ifadesinin her parçası ne anlatır ve sürüm farkı neden önemlidir.</div>
-<p>Her EDIFACT mesajı hangi kural setine göre yazıldığını UNH segmentinde bildirir:</p>
+<p>Bir EDI şartnamesinde <code>ORDERS D.96A UN EAN008</code> gibi bir satır görürsünüz. Bu dört parça, dosyanın hangi sözlüğe göre okunacağını söyler. Yanlış sürüm, &quot;geçerli ama anlaşılmayan&quot; bir dosya demektir.</p>
+<h2>Dört parça ne anlatır?</h2>
+<p>Bilgi <code>UNH</code> segmentinin ikinci veri elemanında durur:</p>
 <pre class="doc-code"><code>
 UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;
 </code></pre>
-<p>Bu satırdaki her parça bir şey söyler.</p>
-<h2>Parçalar</h2>
-<table class="doc-table"><thead><tr><th>Parça</th><th>Anlamı</th></tr></thead><tbody>
-<tr><td><code>ORDERS</code></td><td>Mesaj tipi</td></tr>
-<tr><td><code>D</code></td><td>Dizin tipi — &quot;Draft&quot;, yayımlanmış standart dizin</td></tr>
-<tr><td><code>96A</code></td><td>Sürüm: 1996 yılının A yayımı</td></tr>
-<tr><td><code>UN</code></td><td>Sorumlu kuruluş: Birleşmiş Milletler</td></tr>
-<table class="doc-table"><thead><tr><th><code>EAN008</code></th><th>İlişkili kullanım kılavuzu (varsa)</th></tr></thead><tbody>
+<table class="doc-table"><thead><tr><th>Parça</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td>Mesaj tipi</td><td><code>ORDERS</code></td><td>Bu bir sipariş</td></tr>
+<tr><td>Sürüm</td><td><code>D</code></td><td>Taslak (draft) dizin ailesi</td></tr>
+<tr><td>Yayın</td><td><code>96A</code></td><td>1996 yılının A yayını</td></tr>
+<tr><td>Kuruluş</td><td><code>UN</code></td><td>Birleşmiş Milletler (UN/CEFACT)</td></tr>
+<tr><td>Atama kodu</td><td><code>EAN008</code></td><td>Sektör alt kümesi — burada GS1/EAN</td></tr>
 </tbody></table>
-<p>Yani <code>D.96A</code>, 1996&#x27;nın ilk yarısında yayımlanmış standart dizin demektir.</p>
+<p>İlk üçü standardı, sonuncusu ise <strong>kimin alt kümesini</strong> kullandığınızı belirler.</p>
 <h2>Neden hâlâ 1996?</h2>
-<p>Yeni sürümler var — D.01B, D.07A, D.16A. Ama perakende sektörü büyük ölçüde D.96A üzerinde kalmış durumda. Sebep basit: çalışan bir entegrasyonu güncellemenin maliyeti, yeni sürümün getirdiği faydadan yüksek.</p>
-<p>Sürümler arası fark çoğunlukla yeni segment ve kod eklemeleridir; temel yapı (UNB, UNH, BGM, NAD, LIN) sürümler boyunca aynı kalmıştır.</p>
-<h2>Beşinci parça: kullanım kılavuzu</h2>
-<p><code>EAN008</code> gibi bir değer, standardın kendisini değil, bir sektör kılavuzunu işaret eder. EANCOM, GS1&#x27;in perakende için hazırladığı EDIFACT alt kümesidir ve pratikte Avrupa perakendesinde standardın kendisinden daha belirleyicidir.</p>
-<p>Bu alan, ortağınızın şartnamesinde hangi kılavuza uyduğunuzu gösterir.</p>
-<h2>Ne zaman sorun çıkar</h2>
-<p>Sürüm uyuşmazlığı sessiz bir hata kaynağıdır. Ortağınız D.01B beklerken D.96A gönderirseniz mesaj çoğu zaman yine de işlenir — ta ki yalnızca yeni sürümde bulunan bir segment kullanana kadar.</p>
-<p>Bu yüzden şartnamedeki sürüm bilgisi, göz gezdirilecek değil, birebir uyulacak bir alandır.</p>
+<p>D.96A, EDIFACT&#x27;in en yaygın kullanılan yayınıdır. Daha yeni yayınlar var — D.01B, D.07A ve sonrası — ama perakende dünyası büyük ölçüde 96A&#x27;da kaldı.</p>
+<p>Sebep atalet değil, ekonomi. Bir yayın yükseltmesi zincirin bütün tedarikçilerini aynı anda etkiler. Kazanç sınırlıysa kimse binlerce iş ortağını yeni bir sürüme taşımak istemez. Çalışan bir standardı değiştirmenin maliyeti, yeni alanların faydasından büyüktür.</p>
+<p>Bu yüzden &quot;eski sürüm kullanıyoruz&quot; cümlesi EDI&#x27;de bir kusur değil, çoğu zaman bilinçli bir tercihtir.</p>
+<h2>Asıl belirleyici: atama kodu</h2>
+<p>Şartnameyi okurken en çok gözden kaçan parça sonuncusudur. <code>EAN008</code>, <code>EAN009</code>, <code>ETEB01</code> gibi kodlar, standardın hangi <strong>sektörel alt kümesinin</strong> geçerli olduğunu söyler.</p>
+<p>Alt küme şunları belirler:</p>
+<ul>
+<li>Hangi segmentlerin kullanıldığı — standarttaki her segment kullanılmaz</li>
+<li>Hangi alanların zorunlu olduğu</li>
+<li>Kod listelerinin hangi değerlerle sınırlandığı</li>
+</ul>
+<p>Yani <code>ORDERS D.96A</code> iki farklı ortakta farklı görünebilir. Standart aynıdır, alt küme farklıdır. Şartname olmadan yalnızca sürüme bakarak entegrasyon yazmak, işin en sık tekrarlanan hatasıdır.</p>
+<h2>Sürüm uyuşmazlığı nasıl fark edilir?</h2>
+<p>Genellikle dosya reddedilmez, <strong>yanlış yorumlanır</strong>. Belirtiler:</p>
+<ul>
+<li>Beklediğiniz bir alan boş geliyor — o alan sizin sürümünüzde başka bir konumda</li>
+<li>Bir kod listesi değeri tanınmıyor — yeni yayında eklenmiş bir kod</li>
+<li>Segment sırası şartnameyle uyuşmuyor — gruplama kuralları yayınlar arasında</li>
+</ul>
+<p>değişebilir</p>
+<p>Gelen dosyanın <code>UNH</code> satırına bakmak bu soruların çoğunu bir bakışta cevaplar.</p>
+<h2>Hangi sürümü kullanmalısınız?</h2>
+<p>Bu size ait bir karar değil. <strong>Ticari ortağınız ne diyorsa o.</strong> Sipariş gönderen taraf sürümü belirler; siz uyarsınız.</p>
+<p>İki ortak farklı sürüm istiyorsa iki ayrı eşleme (mapping) yazmanız gerekir. Bu normaldir; EDI entegrasyonlarının çoğu ortak başına ayrı yapılandırma taşır.</p>
+<h2>Pratikte ne yapmalı</h2>
+<p>1. Gelen dosyanın <code>UNH</code> satırındaki dört parçayı not edin 2. Şartnamedeki değerle karşılaştırın — özellikle atama kodunu 3. Uyuşmazlık varsa kod yazmadan önce ortağınıza sorun</p>
+<p>Elinizdeki dosyanın hangi sürümü kullandığını görmek için dosyayı bir görüntüleyicide açmak yeterli; <code>UNH</code> genellikle ikinci satırdır.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/unh.html"><code>UNH</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>

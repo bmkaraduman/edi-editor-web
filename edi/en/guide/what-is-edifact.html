@@ -60,7 +60,7 @@ UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042&#x27;
 <tr><td><code>&#x27;</code></td><td>Segment terminator</td></tr>
 <tr><td><code>+</code></td><td>Element separator</td></tr>
 <tr><td><code>:</code></td><td>Component separator</td></tr>
-<table class="doc-table"><thead><tr><th><code>?</code></th><th>Release (escape) character</th></tr></thead><tbody>
+<tr><td><code>?</code></td><td>Release (escape) character</td></tr>
 </tbody></table>
 <p>If one of these characters appears inside a value, it is preceded by <code>?</code>. For example <code>ACME?+PARTNERS</code> reads the <code>+</code> as a letter rather than a separator. Ignoring this escape rule is where parsers most often break.</p>
 <p>The delimiters are not fixed: if the file opens with a <code>UNA</code> segment, they are read from there.</p>

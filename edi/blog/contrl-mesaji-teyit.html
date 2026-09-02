@@ -33,45 +33,54 @@
 <main class="doc">
 <h1>CONTRL: gönderdiğim dosya ulaştı mı?</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; EDI&#x27;de &quot;okundu bilgisi&quot; CONTRL mesajıdır. Gelmiyorsa ya da hata içeriyorsa ne anlama gelir.</div>
-<p>Bir EDI dosyası gönderdiniz. Ulaştı mı? İşlendi mi? Bunu söyleyen ayrı bir mesaj vardır: <strong>CONTRL</strong>.</p>
-<h2>Ne işe yarar?</h2>
-<p>CONTRL, içerikle ilgilenmez. &quot;Siparişini kabul ettim&quot; demez; &quot;dosyanı aldım ve sözdizimi geçerli&quot; der. Yani teknik bir teyittir, ticari değil.</p>
+<p>Bir EDI dosyası gönderdiniz. Ulaştı mı? İşlendi mi? Bunu ayrı bir mesaj cevaplar: <strong>CONTRL</strong>. Okundu bilgisinin EDI karşılığıdır.</p>
+<h2>Ne yapar, ne yapmaz</h2>
+<p>CONTRL içerikle ilgilenmez. &quot;Siparişini kabul ettim&quot; demez; &quot;dosyanı aldım ve sözdizimi geçerli&quot; der. Yani teknik bir teyittir, ticari değil.</p>
 <p>İki farklı şey karıştırılmamalıdır:</p>
 <ul>
 <li><strong>CONTRL</strong> — dosya ulaştı, sözdizimi doğru</li>
 <li><strong>ORDRSP</strong> — siparişi kabul ediyorum / etmiyorum</li>
 </ul>
-<p>CONTRL almanız siparişinizin kabul edildiği anlamına gelmez.</p>
+<p>CONTRL almanız siparişinizin kabul edildiği anlamına gelmez. Sözdizimi kusursuz ama ticari olarak reddedilecek bir sipariş de olumlu CONTRL alır.</p>
 <h2>Yapısı</h2>
 <p>CONTRL mesajı, hata varsa nerede olduğunu gösterir:</p>
 <table class="doc-table"><thead><tr><th>Segment</th><th>Görevi</th></tr></thead><tbody>
 <tr><td><code>UCI</code></td><td>Zarf düzeyinde durum</td></tr>
 <tr><td><code>UCM</code></td><td>Mesaj düzeyinde durum</td></tr>
 <tr><td><code>UCS</code></td><td>Hatalı segmentin sırası</td></tr>
-<table class="doc-table"><thead><tr><th><code>UCD</code></th><th>Hatanın nedeni ve hangi eleman</th></tr></thead><tbody>
+<tr><td><code>UCD</code></td><td>Hatanın nedeni ve hangi eleman</td></tr>
 </tbody></table>
 <p>Durum kodları kısadır: <code>7</code> kabul, <code>4</code> reddedildi, <code>8</code> hata var ama işlendi.</p>
 <pre class="doc-code"><code>
 UCI+REF00042+8712345678901:14+8798765432109:14+7&#x27;
 </code></pre>
-<p>Sondaki <code>7</code>, zarfın sorunsuz kabul edildiğini söyler.</p>
+<p>Sondaki <code>7</code>, zarfın sorunsuz kabul edildiğini söyler. Bu satırdaki referans numarası (<code>REF00042</code>) gönderdiğiniz dosyanın <code>UNB</code> satırındaki numarayla eşleşir — hangi teyidin hangi dosyaya ait olduğunu böyle bulursunuz.</p>
 <h2>Hata geldiğinde</h2>
-<p>Reddedilme durumunda <code>UCS</code> size satır numarasını verir, <code>UCD</code> ise nedeni:</p>
+<p>Reddedilme durumunda <code>UCS</code> size segment sırasını verir, <code>UCD</code> ise nedeni:</p>
 <pre class="doc-code"><code>
 UCS+12&#x27;
 UCD+13+QTY+2&#x27;
 </code></pre>
-<p>Bu, 12. segmentteki <code>QTY</code>&#x27;nin 2. veri elemanında hata olduğunu söyler. Elinizdeki dosyayı açıp 12. segmente bakmak, sorunu doğrudan gösterir.</p>
+<p>Bu, 12. segmentteki <code>QTY</code>&#x27;nin 2. veri elemanında hata olduğunu söyler. Elinizdeki dosyayı açıp 12. segmente bakmak sorunu doğrudan gösterir.</p>
+<p>Sık görülen hata kodları:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>12</code></td><td>Geçersiz değer</td></tr>
+<tr><td><code>13</code></td><td>Zorunlu alan eksik</td></tr>
+<tr><td><code>15</code></td><td>Kod listesinde olmayan değer</td></tr>
+<tr><td><code>35</code></td><td>Segment fazla tekrarlanmış</td></tr>
+<tr><td><code>36</code></td><td>Segment eksik</td></tr>
+</tbody></table>
+<p>Bu kodlar sorunun <strong>türünü</strong> söyler, çözümünü değil. &quot;Zorunlu alan eksik&quot; uyarısı aldığınızda hangi alanın zorunlu olduğunu şartnameniz söyler.</p>
 <h2>Hiç CONTRL gelmiyorsa</h2>
-<p>Bu genellikle içerik hatası değil, <strong>aktarım</strong> sorunudur:</p>
-<ul>
-<li>Dosya karşı tarafa hiç ulaşmamıştır (SFTP dizini, AS2 sertifikası)</li>
-<li>Ortağınız CONTRL göndermiyordur — her ortak göndermez, şartnamede yazar</li>
-<li>Dosya ulaşmış ama işlenmeden kuyrukta beklemektedir</li>
-</ul>
-<p>Sırasıyla bakılacak yer budur: önce aktarım kanalı, sonra şartname.</p>
+<p>Bu genellikle içerik hatası değil, <strong>aktarım</strong> sorunudur. Sırayla bakılacak yerler:</p>
+<p>1. <strong>Dosya karşı tarafa ulaştı mı?</strong> SFTP dizinini, AS2 sertifikasının süresini, bağlantı günlüklerini kontrol edin. 2. <strong>Ortağınız CONTRL gönderiyor mu?</strong> Her ortak göndermez. Bu şartnamede yazar; gönderilmiyorsa beklemek boşunadır. 3. <strong>Dosya ulaşmış ama kuyrukta mı bekliyor?</strong> Bazı sistemler toplu işler, teyit saatler sonra gelebilir.</p>
+<p>Beklenen süre de şartnamede tanımlıdır; genellikle birkaç dakika ile birkaç saat arasında değişir.</p>
+<h2>Siz CONTRL göndermeli misiniz?</h2>
+<p>Gelen dosyaları işliyorsanız, ortağınız büyük ihtimalle sizden de teyit bekleyecektir. Bu tek yönlü bir mekanizma değildir.</p>
+<p>Kendi CONTRL&#x27;ünüzü üretirken en sık yapılan hata, her dosyaya koşulsuz <code>7</code> (kabul) yollamaktır. Bu, sözdizimi hatalı bir dosyayı da &quot;kabul edildi&quot; diye işaretler ve karşı taraf sorunu ancak fatura ödenmediğinde fark eder.</p>
 <h2>Pratik öneri</h2>
-<p>CONTRL mesajlarını saklayın. Bir fatura &quot;gelmedi&quot; tartışmasında, tarihli bir kabul teyidi en hızlı çözen belgedir.</p>
+<p>CONTRL mesajlarını saklayın. Bir fatura &quot;gelmedi&quot; tartışmasında, tarihli bir kabul teyidi meseleyi en hızlı çözen belgedir. Sözdizimi geçerliliğini kanıtlamak, ticari anlaşmazlığı çözmez ama tartışmayı doğru yere taşır: dosya ulaştıysa sorun aktarımda değil, iş kuralındadır.</p>
+<p>Elinize bir CONTRL geçtiğinde, <code>UCS</code> ve <code>UCD</code> satırlarındaki numaraları gönderdiğiniz dosyayla yan yana okumak en hızlı teşhis yoludur.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/uci.html"><code>UCI</code></a> <a href="../segment/ucm.html"><code>UCM</code></a> <a href="../segment/ucs.html"><code>UCS</code></a> <a href="../segment/ucd.html"><code>UCD</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>

@@ -33,40 +33,54 @@
 <main class="doc">
 <h1>The UNA segment: delimiters are not always the same</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; If a file opens with UNA, forget the defaults — that line says which character does what.</div>
-<p>The first assumption every EDIFACT parser makes is that the segment terminator is <code>&#x27;</code>, the element separator <code>+</code> and the component separator <code>:</code>. True for most files — but not guaranteed.</p>
-<h2>What UNA does</h2>
-<p>If a file opens with <code>UNA</code>, that line <strong>defines</strong> the delimiters:</p>
+<p>Most EDIFACT files separate elements with <code>+</code>, components with <code>:</code> and segments with <code>&#x27;</code>. But that is only the default, not a rule. The <code>UNA</code> segment at the start of a file can change those characters.</p>
+<h2>What does UNA look like?</h2>
+<p>In its default form:</p>
 <pre class="doc-code"><code>
 UNA:+.? &#x27;
 </code></pre>
-<p>Each of the six characters sets one role:</p>
-<table class="doc-table"><thead><tr><th>Position</th><th>Character</th><th>Role</th></tr></thead><tbody>
-<tr><td>1</td><td><code>:</code></td><td>Component separator</td></tr>
-<tr><td>2</td><td><code>+</code></td><td>Element separator</td></tr>
+<p>The <strong>six characters</strong> after <code>UNA</code> define, in order:</p>
+<table class="doc-table"><thead><tr><th>Position</th><th>Default</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>1</td><td><code>:</code></td><td>Component (sub-element) separator</td></tr>
+<tr><td>2</td><td><code>+</code></td><td>Data element separator</td></tr>
 <tr><td>3</td><td><code>.</code></td><td>Decimal mark</td></tr>
 <tr><td>4</td><td><code>?</code></td><td>Release (escape) character</td></tr>
-<tr><td>5</td><td>(space)</td><td>Reserved, unused</td></tr>
-<table class="doc-table"><thead><tr><th>6</th><th><code>&#x27;</code></th><th>Segment terminator</th></tr></thead><tbody>
+<tr><td>5</td><td>space</td><td>Reserved / repetition separator</td></tr>
+<tr><td>6</td><td><code>&#x27;</code></td><td>Segment terminator</td></tr>
 </tbody></table>
-<p>The example above restates the defaults, so it changes nothing visually. But this is equally valid:</p>
+<p>Note that the sixth character is not a space — it is <code>&#x27;</code>, and the first real segment follows immediately after it.</p>
+<h2>Why would anyone change them?</h2>
+<p>Because the data contains that character. If a product description contains a <code>+</code>, then in a file using <code>+</code> as a separator that character splits the line in the wrong place. There are two ways out: escape it, or change the separator.</p>
+<p>A file with different separators looks like this:</p>
 <pre class="doc-code"><code>
-UNA|*.? ~
+UNA|^.! ~UNB^UNOC|3^A|14^B|14^260117|1030^R1~
 </code></pre>
-<p>Here the element separator is <code>*</code> and the terminator <code>~</code>. A parser written to the defaults reads that file as one enormous segment.</p>
-<h2>The decimal mark</h2>
-<p>The third character is often overlooked. In some countries the decimal separator is a comma:</p>
+<p>Here <code>^</code> separates elements, <code>|</code> components and <code>~</code> segments. It reads oddly, but the structure is identical.</p>
+<h2>How does the release character work?</h2>
+<p>Instead of changing the separator you can escape occurrences one by one. The default release character <code>?</code> makes the character that follows it <strong>data</strong>.</p>
 <pre class="doc-code"><code>
-UNA:+,? &#x27;
+FTX+AAI+++ACME?+SONS ?: 50?? discount&#x27;
 </code></pre>
-<p>In that file, the value in <code>PRI+AAA:1,85&#x27;</code> is one point eight five, not one and a half. Mistaking the comma for a thousands separator and reading <code>185</code> inflates the invoice a hundredfold.</p>
-<h2>What to do in practice</h2>
+<p>Decoded, that line reads:</p>
 <ul>
-<li>If the file starts with <code>UNA</code>, <strong>read</strong> the delimiters from it; do not assume</li>
-<li>With no <code>UNA</code>, the defaults apply</li>
-<li>The <code>UNA</code> line never ends with a segment terminator; it is exactly six</li>
+<li><code>?+</code> → <code>+</code> (data, not a separator)</li>
+<li><code>?:</code> → <code>:</code> (data, not a separator)</li>
+<li><code>??</code> → <code>?</code> (the release character itself)</li>
 </ul>
-<p>characters long</p>
-<p>When the first three letters of a file are <code>UNA</code>, that is where to look before your parsing logic runs at all.</p>
+<p>So the text is actually <code>ACME+SONS : 50? discount</code>. A parser that ignores the release character splits this line incorrectly and usually notices only much later, when the field count does not add up.</p>
+<h2>What if there is no UNA?</h2>
+<p>The defaults apply. <code>UNA</code> is optional; a file may start directly with <code>UNB</code>, and that is perfectly valid.</p>
+<p>So a parser should do this: if the file starts with <code>UNA</code>, read the separators from it; otherwise use the defaults.</p>
+<h2>The common mistake</h2>
+<p>Hard-coding the separators. Code that calls <code>split(&#x27;+&#x27;)</code> will quietly produce wrong results on a file that uses <code>UNA</code> — it does not crash, it just misreads. Faults of this kind can live in production unnoticed for a long time.</p>
+<p>The same concern applies to ANSI X12, but the mechanism differs: there the separators are not in a segment like <code>UNA</code> but at <strong>fixed positions</strong> in the <code>ISA</code> line. The element separator is character 4, the component separator 105 and the segment terminator 106. This is why the space padding in an <code>ISA</code> line is not decoration; shorten it and the file can no longer be parsed.</p>
+<h2>Checklist</h2>
+<ul>
+<li>Does the file start with <code>UNA</code>? If so, take the separators from it</li>
+<li>Does your parser understand the release character?</li>
+<li>On the X12 side, is the <code>ISA</code> line exactly 106 characters?</li>
+</ul>
+<p>The quickest way to find out which separators a file uses is to look at its first line.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

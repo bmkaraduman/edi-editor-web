@@ -195,9 +195,14 @@ def md(text):
     para = []
 
     def flush_para():
-        """Ardışık satırlar tek paragrafta birleşir; satır sonu boşluk demektir."""
+        """Ardışık satırlar tek paragrafta birleşir; satır sonu boşluk demektir.
+
+        Satır içi biçimlendirme (kalın, kod) BİRLEŞTİRDİKTEN sonra uygulanır:
+        satır satır uygulanırsa `**iki satıra bölünmüş**` bir vurgu eşleşmez ve
+        yıldızlar metne sızar.
+        """
         if para:
-            out.append(f'<p>{" ".join(para)}</p>')
+            out.append(f'<p>{inline(" ".join(para))}</p>')
             para.clear()
 
     def close_list():
@@ -240,7 +245,12 @@ def md(text):
         elif ln.startswith('|'):
             flush_para(); close_list()
             cells = [c.strip() for c in ln.strip('|').split('|')]
-            if i + 1 < len(lines) and set(lines[i + 1].replace('|', '').strip()) <= set('-: '):
+            # Ayırıcı satır (|---|---|) bu satırı başlık yapar. Boş satır da
+            # sınavı geçerdi — boş küme her kümenin alt kümesidir — ve tablonun
+            # SON satırı kendi başına ikinci bir tabloya dönüşürdü. En az bir
+            # tire aramak bunu engeller.
+            nxt = lines[i + 1] if i + 1 < len(lines) else ''
+            if '-' in nxt and set(nxt.replace('|', '').strip()) <= set('-: '):
                 out.append('<table class="doc-table"><thead><tr>'
                            + ''.join(f'<th>{inline(c)}</th>' for c in cells)
                            + '</tr></thead><tbody>')
@@ -252,7 +262,7 @@ def md(text):
             flush_para(); close_list(); close_table()
         else:
             close_list(); close_table()
-            para.append(inline(ln.strip()))
+            para.append(ln.strip())
         i += 1
 
     flush_para(); close_list(); close_table()

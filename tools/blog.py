@@ -42,41 +42,106 @@ Sipariş, irsaliye, fatura; hepsi standart bir yapıda, doğrudan sistemden sist
 
 ## "JSON dursun, bu ne?"
 
-EDI'yi ilk gören her yazılımcı aynı soruyu sorar: bugün REST API yazmak
-varken neden 1980'lerden kalma bir metin formatı kullanılıyor?
+EDI'yi ilk gören her yazılımcı aynı soruyu sorar: bugün REST API yazmak varken
+neden 1980'lerden kalma bir metin formatı kullanılıyor?
 
-Cevap teknik değil. Bir perakendeci binlerce tedarikçiyle çalışır. Her biriyle
-ayrı API konuşmak yerine tek bir standart dayatır: "bize EDIFACT ORDERS
-gönderin". Standart, taraflardan birinin diğerine uyum sağlama maliyetini
-sıfırlar.
+Cevap teknik değil, ticari. Bir perakende zinciri binlerce tedarikçiyle çalışır.
+Her biriyle ayrı bir API konuşmak yerine tek bir standart dayatır: "bize EDIFACT
+ORDERS gönderin". Standart, uyum sağlama maliyetini zincirin kendisinden
+tedarikçiye kaydırır — ve tedarikçi için de bu maliyet, her müşteriye ayrı
+entegrasyon yazmaktan ucuzdur.
 
-Üstelik bu standart onlarca yıldır aynı. 2005'te yazılmış bir entegrasyon bugün
-hâlâ çalışıyor. API dünyasında bu cümle nadiren kurulur.
+## Asıl mesele: N×M problemi
+
+Diyelim 500 tedarikçi ve 20 zincir var. Herkes kendi API'siyle konuşsaydı
+teorik olarak 10.000 ayrı entegrasyon gerekirdi. Ortak bir standart bunu
+520 entegrasyona indirir: herkes yalnızca standardı bir kez öğrenir.
+
+Bu, EDI'nin çözdüğü asıl problemdir ve teknolojiyle ilgisi yoktur. Format
+değişse de problem aynı kalır; nitekim Peppol gibi modern ağlar da aynı mantıkla
+çalışır, yalnızca sözdizimi farklıdır.
 
 ## Kim kullanıyor?
 
-- **Perakende zincirleri** — sipariş ve fatura akışının neredeyse tamamı
-- **Otomotiv** — üretim hattı beslemesi, JIT çağrıları
-- **Lojistik** — sevkiyat talimatları ve durum bildirimleri
-- **Sağlık ve kamu** — özellikle Avrupa'da
+- **Perakende zincirleri** — sipariş ve fatura akışının neredeyse tamamı. Bir
+  markete tedarikçi olmak istiyorsanız EDI genellikle sözleşme şartıdır.
+- **Otomotiv** — üretim hattı beslemesi ve tam zamanında (JIT) teslimat
+  çağrıları. Burada gecikme doğrudan bandın durması demektir.
+- **Lojistik** — sevkiyat talimatları, taşıma durum bildirimleri, gümrük
+  belgeleri.
+- **Sağlık ve kamu** — özellikle Avrupa'da ihale ve fatura süreçleri.
 
 Türkiye'de de büyük zincir marketlerin tedarikçilerinden EDI beklemesi
-yaygınlaşıyor.
+yaygınlaşıyor; çoğu zaman ilk karşılaşma da böyle oluyor: müşteriden gelen bir
+şartname ve ekinde örnek bir dosya.
+
+## Bir EDI mesajı neye benzer?
+
+Aşağıdaki dört satır bir siparişin başlangıcıdır:
+
+```
+UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042'
+UNH+ME000001+ORDERS:D:96A:UN:EAN008'
+BGM+220+PO-2026-0042+9'
+NAD+BY+8798765432109::9++MEGA RETAIL AS+Barbaros Bulvari 12+ISTANBUL+34353+TR'
+```
+
+Okunması zor görünse de mantığı basittir. Her satır bir **segment**, satır
+başındaki üç harf ise o segmentin ne anlattığını söyler:
+
+| Segment | Anlamı |
+|---|---|
+| `UNB` | Zarf başlığı: kimden kime, ne zaman |
+| `UNH` | Mesaj başlığı: bu bir ORDERS, D.96A sürümü |
+| `BGM` | Belge numarası: PO-2026-0042 |
+| `NAD` | Taraf bilgisi: `BY` alıcı demek |
+
+Segmentlerin içi `+` ile veri elemanlarına, elemanlar da gerektiğinde `:` ile
+alt parçalara bölünür. Yapının tamamı budur; geri kalanı hangi kodun ne
+anlama geldiğini bilmekten ibarettir.
 
 ## Peki gerçekten eski mi?
 
 Format eski, mantık değil. EDI'nin çözdüğü problem — iki bağımsız sistemin
-ortak bir sözlükle anlaşması — bugün de aynı. Modern alternatifler (API'ler,
-Peppol gibi ağlar) aynı problemi farklı sözdizimiyle çözüyor.
+ortak bir sözlükle anlaşması — bugün de aynı.
 
-Pratikte ikisi bir arada yaşıyor: pek çok firma iç sistemlerinde JSON kullanıp
-dış dünyaya EDIFACT çeviriyor.
+Üstelik bu standart onlarca yıldır kararlı. 2005'te yazılmış bir entegrasyon
+bugün hâlâ çalışıyor olabilir. API dünyasında bu cümle nadiren kurulur; sürüm
+yükseltmeleri, kaldırılan uç noktalar ve değişen kimlik doğrulama şemaları
+gündelik iştir. EDI'de "çalışıyorsa dokunma" gerçekten mümkündür.
+
+Formatın maliyeti ise okunabilirlik. Sıkıştırılmış, insana göre tasarlanmamış
+bir sözdizimi bu; hata ayıklarken doğru araca ihtiyaç duymanızın nedeni de bu.
+
+## EDI ile API birlikte nasıl yaşıyor?
+
+Pratikte ikisi bir arada bulunur. Yaygın kurulum şöyledir:
+
+- İç sistemler kendi aralarında JSON konuşur
+- Dış dünyaya açılan sınırda bir dönüştürücü katman durur
+- Bu katman giden veriyi EDIFACT'e, gelen EDIFACT'i JSON'a çevirir
+
+Yani EDI çoğu zaman uygulamanın içine değil, kenarına yerleşir. Bu ayrım
+önemlidir: iş mantığınızı EDI segmentleri üzerine kurmak yerine, kendi veri
+modelinizi koruyup sınırda çeviri yapmak uzun vadede daha az acı verir.
 
 ## Nereden başlamalı
 
-Karşınıza bir EDI dosyası geldiyse önce **okuyabilmek** gerekir. Dosyayı
-açıp segmentlerin ne anlama geldiğini görmek, entegrasyona girişmeden önceki
-doğal ilk adımdır.
+Karşınıza bir EDI dosyası geldiyse sıra şudur:
+
+1. **Dosyayı okuyabilir hale getirin.** Hangi mesaj tipi, hangi taraflar, hangi
+   kalemler? Bu adım entegrasyona girişmeden önce yapılmalıdır.
+2. **Ortağınızın şartnamesini isteyin.** EDIFACT geniştir; her ortak alt kümesini
+   ve zorunlu alanlarını kendi belgesinde tanımlar. Standart tek başına yeterli
+   değildir.
+3. **Örnek dosyayla şartnameyi karşılaştırın.** Şartnamede zorunlu denen bir alan
+   örnekte boşsa, bu genellikle sizin değil şartnamenin eskimiş olduğunun
+   işaretidir; sormak zaman kazandırır.
+4. **Sonra kod yazın.** Ayrıştırıcıyı kendiniz yazmadan önce, elinizdeki
+   dosyanın gerçekten ne içerdiğini görmüş olun.
+
+İlk adım için tarayıcıda çalışan bir görüntüleyici yeterlidir; dosyayı hiçbir
+yere yüklemeden segmentlerin ne anlama geldiğini görebilirsiniz.
 """,
         },
         'en': {
@@ -84,45 +149,113 @@ doğal ilk adımdır.
             'summary': 'Why does a 40-year-old format survive alongside REST APIs? The answer '
                        'is commercial, not technical.',
             'body': """
-EDI is how two companies exchange trade documents without human hands touching
-them. Orders, despatch notes, invoices — all in a standard structure, straight
-from one system to another.
+EDI is the exchange of commercial documents between two companies without human
+hands in the middle. Orders, despatch notes, invoices — all in a standard
+structure, straight from one system to another.
 
-## "Why not JSON?"
+## "We have JSON. What is this?"
 
-Every developer meeting EDI asks the same thing: with REST APIs available, why
-use a text format from the 1980s?
+Every developer who meets EDI for the first time asks the same question: why use
+a text format from the 1980s when you could write a REST API today?
 
-The answer is not technical. A retailer works with thousands of suppliers.
-Rather than negotiating a separate API with each one, it imposes a single
-standard: "send us an EDIFACT ORDERS". The standard removes the cost of one
-party adapting to the other.
+The answer is commercial, not technical. A retail chain works with thousands of
+suppliers. Rather than negotiating a separate API with each one, it imposes a
+single standard: "send us an EDIFACT ORDERS". The standard shifts the cost of
+adapting from the chain to the supplier — and for the supplier it is still
+cheaper than writing a bespoke integration per customer.
 
-And that standard has barely changed in decades. An integration written in 2005
-still runs today. That sentence is rarely spoken in the API world.
+## The real issue: the N×M problem
+
+Say there are 500 suppliers and 20 chains. If everyone spoke their own API, you
+would in theory need 10,000 separate integrations. A shared standard reduces
+that to 520: each party learns the standard once.
+
+That is the problem EDI actually solves, and it has nothing to do with
+technology. Change the format and the problem remains; modern networks such as
+Peppol work on the same logic, only with a different syntax.
 
 ## Who uses it?
 
-- **Retail chains** — nearly all order and invoice flow
-- **Automotive** — production line supply, just-in-time calls
-- **Logistics** — transport instructions and status reports
-- **Healthcare and public sector** — especially in Europe
+- **Retail chains** — almost the entire order and invoice flow. If you want to
+  supply a supermarket, EDI is often a contractual requirement.
+- **Automotive** — feeding the production line and just-in-time delivery calls.
+  Here a delay means the line stops.
+- **Logistics** — shipping instructions, transport status reports, customs
+  documents.
+- **Healthcare and the public sector** — particularly tendering and invoicing in
+  Europe.
 
-## Is it really outdated?
+For most people the first encounter looks the same: a specification from a
+customer with a sample file attached.
 
-The syntax is old; the logic is not. The problem EDI solves — two independent
-systems agreeing on a shared vocabulary — has not changed. Modern alternatives
-such as APIs and networks like Peppol solve the same problem with different
-syntax.
+## What does an EDI message look like?
 
-In practice both coexist: many companies use JSON internally and translate to
-EDIFACT at the boundary.
+These four lines are the beginning of a purchase order:
+
+```
+UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042'
+UNH+ME000001+ORDERS:D:96A:UN:EAN008'
+BGM+220+PO-2026-0042+9'
+NAD+BY+8798765432109::9++MEGA RETAIL AS+Barbaros Bulvari 12+ISTANBUL+34353+TR'
+```
+
+It looks impenetrable, but the logic is simple. Each line is a **segment**, and
+the three letters at the start say what that segment is about:
+
+| Segment | Meaning |
+|---|---|
+| `UNB` | Interchange header: from whom, to whom, when |
+| `UNH` | Message header: this is an ORDERS, version D.96A |
+| `BGM` | Document number: PO-2026-0042 |
+| `NAD` | Party details: `BY` means buyer |
+
+Inside a segment, `+` separates data elements, and `:` splits an element into
+components where needed. That is the whole structure; the rest is knowing what
+each code means.
+
+## So is it really outdated?
+
+The format is old; the logic is not. The problem EDI solves — two independent
+systems agreeing on a shared vocabulary — is the same today.
+
+The standard is also remarkably stable. An integration written in 2005 may still
+run unchanged. That sentence is rarely spoken in the API world, where version
+bumps, removed endpoints and changing authentication schemes are routine work.
+In EDI, "if it works, leave it alone" is genuinely possible.
+
+What the format costs you is readability. It is a compact syntax that was never
+designed for humans, which is exactly why you need the right tool when
+debugging.
+
+## How do EDI and APIs coexist?
+
+In practice they sit side by side. The common arrangement is:
+
+- Internal systems speak JSON among themselves
+- A translation layer sits at the boundary to the outside world
+- That layer converts outgoing data to EDIFACT and incoming EDIFACT to JSON
+
+EDI usually lives at the edge of the application rather than inside it. This
+distinction matters: modelling your business logic on EDI segments hurts in the
+long run. Keep your own data model and translate at the boundary.
 
 ## Where to start
 
-If an EDI file has landed on your desk, the first thing you need is to be able
-to **read** it. Opening the file and seeing what the segments mean is the
-natural first step, long before integration work begins.
+If an EDI file has landed on your desk, the order of work is:
+
+1. **Make the file readable.** Which message type, which parties, which line
+   items? Do this before you touch any integration code.
+2. **Ask your partner for their specification.** EDIFACT is broad; every partner
+   defines its own subset and mandatory fields in a separate document. The
+   standard alone is not enough.
+3. **Compare the sample file against the specification.** If a field the spec
+   calls mandatory is empty in the sample, that usually means the spec is out of
+   date rather than that you are wrong. Asking saves time.
+4. **Then write code.** Before writing a parser, make sure you have actually seen
+   what the file contains.
+
+A browser-based viewer is enough for the first step: you can see what the
+segments mean without uploading the file anywhere.
 """,
         },
     },
@@ -137,103 +270,169 @@ natural first step, long before integration work begins.
             'summary': 'UNH satırındaki "D:96A:UN" ifadesinin her parçası ne anlatır ve '
                        'sürüm farkı neden önemlidir.',
             'body': """
-Her EDIFACT mesajı hangi kural setine göre yazıldığını UNH segmentinde bildirir:
+Bir EDI şartnamesinde `ORDERS D.96A UN EAN008` gibi bir satır görürsünüz. Bu dört
+parça, dosyanın hangi sözlüğe göre okunacağını söyler. Yanlış sürüm, "geçerli ama
+anlaşılmayan" bir dosya demektir.
+
+## Dört parça ne anlatır?
+
+Bilgi `UNH` segmentinin ikinci veri elemanında durur:
 
 ```
 UNH+ME000001+ORDERS:D:96A:UN:EAN008'
 ```
 
-Bu satırdaki her parça bir şey söyler.
+| Parça | Değer | Anlamı |
+|---|---|---|
+| Mesaj tipi | `ORDERS` | Bu bir sipariş |
+| Sürüm | `D` | Taslak (draft) dizin ailesi |
+| Yayın | `96A` | 1996 yılının A yayını |
+| Kuruluş | `UN` | Birleşmiş Milletler (UN/CEFACT) |
+| Atama kodu | `EAN008` | Sektör alt kümesi — burada GS1/EAN |
 
-## Parçalar
-
-| Parça | Anlamı |
-|---|---|
-| `ORDERS` | Mesaj tipi |
-| `D` | Dizin tipi — "Draft", yayımlanmış standart dizin |
-| `96A` | Sürüm: 1996 yılının A yayımı |
-| `UN` | Sorumlu kuruluş: Birleşmiş Milletler |
-| `EAN008` | İlişkili kullanım kılavuzu (varsa) |
-
-Yani `D.96A`, 1996'nın ilk yarısında yayımlanmış standart dizin demektir.
+İlk üçü standardı, sonuncusu ise **kimin alt kümesini** kullandığınızı belirler.
 
 ## Neden hâlâ 1996?
 
-Yeni sürümler var — D.01B, D.07A, D.16A. Ama perakende sektörü büyük ölçüde
-D.96A üzerinde kalmış durumda. Sebep basit: çalışan bir entegrasyonu
-güncellemenin maliyeti, yeni sürümün getirdiği faydadan yüksek.
+D.96A, EDIFACT'in en yaygın kullanılan yayınıdır. Daha yeni yayınlar var —
+D.01B, D.07A ve sonrası — ama perakende dünyası büyük ölçüde 96A'da kaldı.
 
-Sürümler arası fark çoğunlukla yeni segment ve kod eklemeleridir; temel yapı
-(UNB, UNH, BGM, NAD, LIN) sürümler boyunca aynı kalmıştır.
+Sebep atalet değil, ekonomi. Bir yayın yükseltmesi zincirin bütün tedarikçilerini
+aynı anda etkiler. Kazanç sınırlıysa kimse binlerce iş ortağını yeni bir sürüme
+taşımak istemez. Çalışan bir standardı değiştirmenin maliyeti, yeni alanların
+faydasından büyüktür.
 
-## Beşinci parça: kullanım kılavuzu
+Bu yüzden "eski sürüm kullanıyoruz" cümlesi EDI'de bir kusur değil, çoğu zaman
+bilinçli bir tercihtir.
 
-`EAN008` gibi bir değer, standardın kendisini değil, bir sektör kılavuzunu
-işaret eder. EANCOM, GS1'in perakende için hazırladığı EDIFACT alt kümesidir ve
-pratikte Avrupa perakendesinde standardın kendisinden daha belirleyicidir.
+## Asıl belirleyici: atama kodu
 
-Bu alan, ortağınızın şartnamesinde hangi kılavuza uyduğunuzu gösterir.
+Şartnameyi okurken en çok gözden kaçan parça sonuncusudur. `EAN008`, `EAN009`,
+`ETEB01` gibi kodlar, standardın hangi **sektörel alt kümesinin** geçerli
+olduğunu söyler.
 
-## Ne zaman sorun çıkar
+Alt küme şunları belirler:
 
-Sürüm uyuşmazlığı sessiz bir hata kaynağıdır. Ortağınız D.01B beklerken D.96A
-gönderirseniz mesaj çoğu zaman yine de işlenir — ta ki yalnızca yeni sürümde
-bulunan bir segment kullanana kadar.
+- Hangi segmentlerin kullanıldığı — standarttaki her segment kullanılmaz
+- Hangi alanların zorunlu olduğu
+- Kod listelerinin hangi değerlerle sınırlandığı
 
-Bu yüzden şartnamedeki sürüm bilgisi, göz gezdirilecek değil, birebir
-uyulacak bir alandır.
+Yani `ORDERS D.96A` iki farklı ortakta farklı görünebilir. Standart aynıdır, alt
+küme farklıdır. Şartname olmadan yalnızca sürüme bakarak entegrasyon yazmak,
+işin en sık tekrarlanan hatasıdır.
+
+## Sürüm uyuşmazlığı nasıl fark edilir?
+
+Genellikle dosya reddedilmez, **yanlış yorumlanır**. Belirtiler:
+
+- Beklediğiniz bir alan boş geliyor — o alan sizin sürümünüzde başka bir konumda
+- Bir kod listesi değeri tanınmıyor — yeni yayında eklenmiş bir kod
+- Segment sırası şartnameyle uyuşmuyor — gruplama kuralları yayınlar arasında
+  değişebilir
+
+Gelen dosyanın `UNH` satırına bakmak bu soruların çoğunu bir bakışta cevaplar.
+
+## Hangi sürümü kullanmalısınız?
+
+Bu size ait bir karar değil. **Ticari ortağınız ne diyorsa o.** Sipariş
+gönderen taraf sürümü belirler; siz uyarsınız.
+
+İki ortak farklı sürüm istiyorsa iki ayrı eşleme (mapping) yazmanız gerekir. Bu
+normaldir; EDI entegrasyonlarının çoğu ortak başına ayrı yapılandırma taşır.
+
+## Pratikte ne yapmalı
+
+1. Gelen dosyanın `UNH` satırındaki dört parçayı not edin
+2. Şartnamedeki değerle karşılaştırın — özellikle atama kodunu
+3. Uyuşmazlık varsa kod yazmadan önce ortağınıza sorun
+
+Elinizdeki dosyanın hangi sürümü kullandığını görmek için dosyayı bir
+görüntüleyicide açmak yeterli; `UNH` genellikle ikinci satırdır.
 """,
         },
         'en': {
             'title': 'What does D.96A mean? Understanding EDIFACT versions',
             'summary': 'Every part of "D:96A:UN" in the UNH line, and why the version matters.',
             'body': """
-Every EDIFACT message declares which rule set it follows, in the UNH segment:
+An EDI specification will show you a line like `ORDERS D.96A UN EAN008`. Those
+four parts say which dictionary the file should be read against. The wrong
+version means a file that is valid but misunderstood.
+
+## What do the four parts say?
+
+The information sits in the second data element of the `UNH` segment:
 
 ```
 UNH+ME000001+ORDERS:D:96A:UN:EAN008'
 ```
 
-Each part of that line says something.
+| Part | Value | Meaning |
+|---|---|---|
+| Message type | `ORDERS` | This is a purchase order |
+| Version | `D` | The draft directory family |
+| Release | `96A` | Release A of 1996 |
+| Agency | `UN` | The United Nations (UN/CEFACT) |
+| Association code | `EAN008` | An industry subset — here GS1/EAN |
 
-## The parts
+The first three identify the standard; the last identifies **whose subset** you
+are using.
 
-| Part | Meaning |
-|---|---|
-| `ORDERS` | Message type |
-| `D` | Directory type — the published standard directory |
-| `96A` | Version: the A release of 1996 |
-| `UN` | Controlling agency: the United Nations |
-| `EAN008` | Associated usage guideline, where one applies |
+## Why is it still 1996?
 
-So `D.96A` means the standard directory published in the first half of 1996.
+D.96A is the most widely used EDIFACT release. Newer ones exist — D.01B, D.07A
+and later — but the retail world largely stayed on 96A.
 
-## Why still 1996?
+The reason is economics, not inertia. Upgrading a release affects every supplier
+of a chain at once. Where the gain is limited, nobody wants to move thousands of
+trading partners to a new version. The cost of changing a working standard
+outweighs the benefit of the new fields.
 
-Newer versions exist — D.01B, D.07A, D.16A. Yet retail has largely stayed on
-D.96A. The reason is simple: upgrading a working integration costs more than the
-newer version is worth.
+So "we are on an old release" is rarely a defect in EDI; more often it is a
+deliberate choice.
 
-Differences between versions are mostly added segments and codes; the core
-structure (UNB, UNH, BGM, NAD, LIN) has stayed the same throughout.
+## The part that really decides: the association code
 
-## The fifth part: the usage guideline
+The most commonly overlooked part of the line is the last one. Codes such as
+`EAN008`, `EAN009` or `ETEB01` say which **industry subset** of the standard
+applies.
 
-A value such as `EAN008` points not at the standard itself but at an industry
-guideline. EANCOM is GS1's EDIFACT subset for retail, and in European retail it
-is in practice more decisive than the standard it derives from.
+The subset determines:
 
-This field records which guideline you are following, as set out in your
-partner's specification.
+- Which segments are used — not every segment in the standard is
+- Which fields are mandatory
+- Which values the code lists are restricted to
 
-## When it bites
+So `ORDERS D.96A` can look different at two different partners. The standard is
+the same; the subset is not. Writing an integration from the version alone,
+without the specification, is the single most repeated mistake in this work.
 
-A version mismatch is a quiet source of failure. Send D.96A where your partner
-expects D.01B and the message will usually still process — right up until you
-use a segment that exists only in the newer version.
+## How does a version mismatch show up?
 
-That makes the version in the specification a field to match exactly, not one to
-skim past.
+Usually the file is not rejected — it is **misread**. The symptoms:
+
+- A field you expected arrives empty, because in your release it sits elsewhere
+- A code list value is not recognised, because it was added in a later release
+- Segment order does not match the specification, because grouping rules can
+  change between releases
+
+Looking at the `UNH` line of the incoming file answers most of these at a glance.
+
+## Which version should you use?
+
+That is not your decision. **Whatever your trading partner says.** The party
+sending the order sets the version; you follow it.
+
+If two partners want different versions, you need two mappings. This is normal;
+most EDI integrations carry per-partner configuration.
+
+## What to do in practice
+
+1. Note the four parts on the `UNH` line of the incoming file
+2. Compare them with the values in the specification, the association code above all
+3. If they differ, ask your partner before writing any code
+
+To see which version a file uses, opening it in a viewer is enough; `UNH` is
+usually the second line.
 """,
         },
     },
@@ -248,59 +447,94 @@ skim past.
             'summary': 'Dosya UNA ile başlıyorsa varsayılan ayırıcıları unutun — hangi '
                        'karakterin ne olduğu orada yazar.',
             'body': """
-EDIFACT ayrıştırıcı yazanların ilk varsayımı şudur: segment sonu `'`, eleman
-ayracı `+`, alt eleman ayracı `:`. Çoğu dosyada doğrudur — ama garanti değildir.
+EDIFACT dosyalarının çoğu `+` ile eleman, `:` ile alt eleman ve `'` ile satır
+ayırır. Ama bu bir zorunluluk değil, yalnızca varsayılan. Dosyanın başındaki
+`UNA` segmenti bu karakterleri değiştirebilir.
 
-## UNA ne yapar?
+## UNA neye benzer?
 
-Bir dosya `UNA` ile başlıyorsa, o satır ayırıcıların ne olduğunu **tanımlar**:
+Varsayılan hâli şudur:
 
 ```
 UNA:+.? '
 ```
 
-Altı karakterin her biri bir görevi belirler:
+`UNA`'dan sonraki **altı karakter** sırasıyla şunları tanımlar:
 
-| Sıra | Karakter | Görev |
+| Konum | Varsayılan | Görevi |
 |---|---|---|
-| 1 | `:` | Alt eleman ayracı |
-| 2 | `+` | Eleman ayracı |
+| 1 | `:` | Alt eleman (bileşen) ayırıcı |
+| 2 | `+` | Veri elemanı ayırıcı |
 | 3 | `.` | Ondalık işareti |
 | 4 | `?` | Kaçış (release) karakteri |
-| 5 | (boşluk) | Ayrılmış, kullanılmıyor |
-| 6 | `'` | Segment sonu |
+| 5 | boşluk | Ayrılmış / tekrar ayırıcı |
+| 6 | `'` | Segment sonlandırıcı |
 
-Yukarıdaki örnek varsayılan değerleri tekrar ettiği için görsel olarak bir şey
-değiştirmez. Ama şöyle bir UNA da geçerlidir:
+Altıncı karakterin boşluk olmadığına dikkat edin — `'` işaretidir ve hemen
+ardından ilk gerçek segment gelir.
 
-```
-UNA|*.? ~
-```
+## Neden değiştirilir?
 
-Burada eleman ayracı `*`, segment sonu `~` olur. Varsayılanlara göre yazılmış
-bir ayrıştırıcı bu dosyayı tek bir dev segment olarak okur.
+Çünkü veri içinde o karakter geçiyordur. Bir ürün açıklamasında `+` varsa,
+ayırıcı olarak `+` kullanan bir dosyada bu karakter satırı yanlış yerden böler.
+İki çözüm vardır: kaçış karakteri kullanmak ya da ayırıcıyı değiştirmek.
 
-## Ondalık işareti
-
-Üçüncü karakter sık atlanır. Bazı ülkelerde ondalık ayracı virgüldür:
+Farklı ayırıcılı bir dosya şuna benzer:
 
 ```
-UNA:+,? '
+UNA|^.! ~UNB^UNOC|3^A|14^B|14^260117|1030^R1~
 ```
 
-Bu dosyada `PRI+AAA:1,85'` satırındaki değer bir buçuk değil, bir nokta
-seksen beştir. Virgülü binlik ayracı sanıp `185` okumak, faturayı yüz kat
-şişirir.
+Burada `^` eleman, `|` alt eleman, `~` segment sonu. Gözle okunması alışılmadık
+görünür ama yapı birebir aynıdır.
 
-## Pratikte ne yapmalı
+## Kaçış karakteri nasıl çalışır?
 
-- Dosya `UNA` ile başlıyorsa ayırıcıları **oradan okuyun**, varsaymayın
-- `UNA` yoksa varsayılanlar geçerlidir
-- `UNA` satırı hiçbir zaman segment sonu karakteriyle bitmez; sabit altı
-  karakter uzunluğundadır
+Ayırıcıyı değiştirmek yerine tek tek kaçırmak da mümkündür. Varsayılan kaçış
+karakteri `?` şunu yapar: kendisinden sonraki karakteri **veri** hâline getirir.
 
-Karşınıza gelen dosyada ilk üç harf `UNA` ise, ayrıştırma mantığınızı
-çalıştırmadan önce bakılacak yer orasıdır.
+```
+FTX+AAI+++ACME?+SONS ?: 50?? indirim'
+```
+
+Bu satırın çözülmüş hâli şudur:
+
+- `?+` → `+` (ayırıcı değil, veri)
+- `?:` → `:` (ayırıcı değil, veri)
+- `??` → `?` (kaçış karakterinin kendisi)
+
+Yani metin aslında `ACME+SONS : 50? indirim` demektir. Kaçış karakterini
+görmezden gelen bir ayrıştırıcı bu satırı yanlış böler ve genellikle hatayı çok
+sonra, alan sayısı tutmadığında fark eder.
+
+## UNA yoksa ne olur?
+
+Varsayılanlar geçerlidir. `UNA` isteğe bağlıdır; dosya doğrudan `UNB` ile de
+başlayabilir. Bu tamamen geçerli bir dosyadır.
+
+Dolayısıyla bir ayrıştırıcının yapması gereken şudur: dosyanın başında `UNA`
+varsa oradan oku, yoksa varsayılanları kullan.
+
+## Sık yapılan hata
+
+Ayırıcıları koda gömmek. `split('+')` yazan bir kod, `UNA` kullanan bir dosyada
+sessizce yanlış sonuç üretir — çökmez, sadece yanlış okur. Bu tür hatalar
+üretimde uzun süre fark edilmeden yaşayabilir.
+
+Aynı şey ANSI X12 tarafında da geçerlidir, ama orada mekanizma farklıdır:
+ayırıcılar `UNA` gibi bir segmentte değil, `ISA` satırının **sabit
+konumlarında** durur. Eleman ayırıcı 4. karakter, alt eleman ayırıcı 105.,
+segment sonlandırıcı 106. karakterdir. Bu yüzden `ISA` satırındaki boşluk
+dolgusu süs değildir; kısaltılırsa dosya ayrıştırılamaz.
+
+## Kontrol listesi
+
+- Dosya `UNA` ile mi başlıyor? Öyleyse ayırıcıları oradan alın
+- Ayrıştırıcınız kaçış karakterini tanıyor mu?
+- X12 tarafında `ISA` satırı tam 106 karakter mi?
+
+Bir dosyanın hangi ayırıcıları kullandığını anlamanın en hızlı yolu, ilk satıra
+bakmaktır.
 """,
         },
         'en': {
@@ -308,61 +542,94 @@ Karşınıza gelen dosyada ilk üç harf `UNA` ise, ayrıştırma mantığınız
             'summary': 'If a file opens with UNA, forget the defaults — that line says which '
                        'character does what.',
             'body': """
-The first assumption every EDIFACT parser makes is that the segment terminator
-is `'`, the element separator `+` and the component separator `:`. True for most
-files — but not guaranteed.
+Most EDIFACT files separate elements with `+`, components with `:` and segments
+with `'`. But that is only the default, not a rule. The `UNA` segment at the
+start of a file can change those characters.
 
-## What UNA does
+## What does UNA look like?
 
-If a file opens with `UNA`, that line **defines** the delimiters:
+In its default form:
 
 ```
 UNA:+.? '
 ```
 
-Each of the six characters sets one role:
+The **six characters** after `UNA` define, in order:
 
-| Position | Character | Role |
+| Position | Default | Purpose |
 |---|---|---|
-| 1 | `:` | Component separator |
-| 2 | `+` | Element separator |
+| 1 | `:` | Component (sub-element) separator |
+| 2 | `+` | Data element separator |
 | 3 | `.` | Decimal mark |
 | 4 | `?` | Release (escape) character |
-| 5 | (space) | Reserved, unused |
+| 5 | space | Reserved / repetition separator |
 | 6 | `'` | Segment terminator |
 
-The example above restates the defaults, so it changes nothing visually. But
-this is equally valid:
+Note that the sixth character is not a space — it is `'`, and the first real
+segment follows immediately after it.
+
+## Why would anyone change them?
+
+Because the data contains that character. If a product description contains a
+`+`, then in a file using `+` as a separator that character splits the line in
+the wrong place. There are two ways out: escape it, or change the separator.
+
+A file with different separators looks like this:
 
 ```
-UNA|*.? ~
+UNA|^.! ~UNB^UNOC|3^A|14^B|14^260117|1030^R1~
 ```
 
-Here the element separator is `*` and the terminator `~`. A parser written to
-the defaults reads that file as one enormous segment.
+Here `^` separates elements, `|` components and `~` segments. It reads oddly, but
+the structure is identical.
 
-## The decimal mark
+## How does the release character work?
 
-The third character is often overlooked. In some countries the decimal
-separator is a comma:
+Instead of changing the separator you can escape occurrences one by one. The
+default release character `?` makes the character that follows it **data**.
 
 ```
-UNA:+,? '
+FTX+AAI+++ACME?+SONS ?: 50?? discount'
 ```
 
-In that file, the value in `PRI+AAA:1,85'` is one point eight five, not one and
-a half. Mistaking the comma for a thousands separator and reading `185` inflates
-the invoice a hundredfold.
+Decoded, that line reads:
 
-## What to do in practice
+- `?+` → `+` (data, not a separator)
+- `?:` → `:` (data, not a separator)
+- `??` → `?` (the release character itself)
 
-- If the file starts with `UNA`, **read** the delimiters from it; do not assume
-- With no `UNA`, the defaults apply
-- The `UNA` line never ends with a segment terminator; it is exactly six
-  characters long
+So the text is actually `ACME+SONS : 50? discount`. A parser that ignores the
+release character splits this line incorrectly and usually notices only much
+later, when the field count does not add up.
 
-When the first three letters of a file are `UNA`, that is where to look before
-your parsing logic runs at all.
+## What if there is no UNA?
+
+The defaults apply. `UNA` is optional; a file may start directly with `UNB`, and
+that is perfectly valid.
+
+So a parser should do this: if the file starts with `UNA`, read the separators
+from it; otherwise use the defaults.
+
+## The common mistake
+
+Hard-coding the separators. Code that calls `split('+')` will quietly produce
+wrong results on a file that uses `UNA` — it does not crash, it just misreads.
+Faults of this kind can live in production unnoticed for a long time.
+
+The same concern applies to ANSI X12, but the mechanism differs: there the
+separators are not in a segment like `UNA` but at **fixed positions** in the
+`ISA` line. The element separator is character 4, the component separator 105 and
+the segment terminator 106. This is why the space padding in an `ISA` line is not
+decoration; shorten it and the file can no longer be parsed.
+
+## Checklist
+
+- Does the file start with `UNA`? If so, take the separators from it
+- Does your parser understand the release character?
+- On the X12 side, is the `ISA` line exactly 106 characters?
+
+The quickest way to find out which separators a file uses is to look at its
+first line.
 """,
         },
     },
@@ -377,55 +644,105 @@ your parsing logic runs at all.
             'summary': 'Bir mesajda beş farklı DTM olabilir. Hangisinin teslim, hangisinin '
                        'belge tarihi olduğunu nitelikçi söyler.',
             'body': """
-Bir EDI mesajında tek bir "tarih" yoktur. Sipariş tarihi, istenen teslim
-tarihi, fiili teslim tarihi, vade tarihi — hepsi ayrı DTM segmentleriyle
-taşınır ve hepsi aynı görünür.
+Bir EDI dosyasında birden fazla `DTM` satırı görürsünüz ve hepsi tarih taşır.
+Hangisinin belge tarihi, hangisinin teslim tarihi olduğunu söyleyen şey satırın
+kendisi değil, içindeki **nitelikçi koddur**.
 
-Ayıran şey ilk elemandaki **nitelikçidir**.
+## Yapısı
 
-## En sık kullanılan nitelikçiler
+```
+DTM+137:20260117:102'
+```
+
+Üç parça vardır:
+
+| Parça | Değer | Anlamı |
+|---|---|---|
+| Nitelikçi | `137` | Bu bir belge tarihi |
+| Değer | `20260117` | 17 Ocak 2026 |
+| Format | `102` | `YYYYMMDD` biçiminde |
+
+Nitelikçiyi okumadan tarihi kullanmak, EDI'de en sık yapılan hatalardan biridir.
+
+## Sık karşılaşılan nitelikçiler
 
 | Kod | Anlamı |
 |---|---|
 | `137` | Belge / mesaj tarihi |
 | `2` | İstenen teslim tarihi |
 | `35` | Fiili teslim tarihi |
-| `11` | Sevk tarihi |
-| `13` | Vade (ödeme) tarihi |
+| `11` | Sevk (despatch) tarihi |
 | `132` | Tahmini varış |
+| `203` | Ödeme tarihi |
+| `263` | Fatura dönemi |
 | `356` | Dönem başlangıcı |
 | `357` | Dönem bitişi |
 
-`DTM+137:20260117:102'` belge tarihidir; `DTM+2:20260125:102'` ise teslim
-tarihi. İkisini ayırmadan okuyan bir entegrasyon, siparişi yanlış güne planlar.
+`137` neredeyse her mesajda bulunur; diğerleri mesaj tipine göre değişir. Bir
+siparişte `2` (istenen teslim), bir irsaliyede `11` (sevk), bir satış raporunda
+`356`/`357` (dönem) görürsünüz.
 
-## Üçüncü parça: format
+## Format kodu neden önemli?
 
-Değerin nasıl okunacağını üçüncü eleman söyler:
+Üçüncü parça tarihin nasıl yazıldığını söyler. En yaygın ikisi:
 
-| Kod | Format | Örnek |
+| Kod | Biçim | Örnek |
 |---|---|---|
-| `102` | YYYYMMDD | `20260117` |
-| `203` | YYYYMMDDHHMM | `202601171030` |
-| `718` | Tarih aralığı (iki tarih bitişik) | `2026010120260630` |
-| `610` | YYYYMM (ay) | `202601` |
-| `616` | YYYYWW (hafta) | `202603` |
+| `102` | `YYYYMMDD` | `20260117` |
+| `203` | `YYYYMMDDHHMM` | `202601171430` |
 
-Format kodunu okumadan değeri ayrıştırmak yaygın bir hatadır. `202601171030`
-değerini `102` sanıp ilk sekiz haneyi almak size doğru günü verir ama saati
-sessizce düşürür.
+Daha eski dosyalarda `101` (`YYMMDD`) de görülür. İki haneli yıl, 2000 öncesi
+kalıntısıdır ve yüzyılı tahmin etmeyi gerektirir — mümkünse kaçının.
 
-## Hafta formatı
+Format kodunu yok sayıp uzunluğa göre tahmin yürüten kodlar bir süre çalışır,
+sonra saat bilgisi taşıyan bir dosyada bozulur.
 
-`616` özellikle otomotivde görülür: teslimat haftası bildirilir, günü değil.
-`202603` değeri 2026'nın üçüncü haftası demektir. Bunu tarih sanıp
-ayrıştırmaya çalışmak anlamsız sonuç verir.
+## UNB'deki tarih farklıdır
 
-## Pratik kontrol
+Zarf başlığındaki tarih bu kalıba uymaz:
 
-Bir dosyada beklediğiniz tarihi bulamıyorsanız, mesajdaki tüm DTM
-satırlarını yan yana koyup nitelikçilerine bakın. Aradığınız tarih genellikle
-oradadır, sadece farklı bir kodla.
+```
+UNB+UNOC:3+A:14+B:14+260117:1030+REF00042'
+```
+
+Buradaki `260117:1030`, `YYMMDD:HHMM` biçimindedir ve nitelikçisi yoktur — her
+zaman aktarımın gönderilme zamanıdır. Yani `UNB` tarihini `DTM` mantığıyla
+okumaya çalışmak sonuç vermez.
+
+## Zaman dilimi meselesi
+
+EDIFACT tarihleri varsayılan olarak zaman dilimi taşımaz. `202601171430` hangi
+saat diliminde 14:30? Standart bunu söylemez; şartname söyler.
+
+Pratikte iki yaklaşım vardır: ya her iki taraf yerel saati kullanır ve bunu
+sözleşmede sabitler, ya da `DTM` yanında ayrı bir zaman dilimi göstergesi
+taşınır. Uluslararası akışlarda bu ayrımı atlamak, teslim tarihlerinin bir gün
+kaymasına yol açabilir.
+
+## Aynı nitelikçi birden fazla geçerse
+
+Bu geçerlidir ve anlamı konuma bağlıdır. Mesaj başlığında geçen bir `DTM`,
+belgenin tamamı için geçerlidir; bir `LIN` (kalem) segmentinden sonra geçen aynı
+kod yalnızca o kalem için geçerlidir.
+
+```
+DTM+2:20260125:102'      <- tum siparis icin istenen teslim
+LIN+1++5410013101234:EN'
+DTM+2:20260130:102'      <- yalnizca bu kalem icin
+```
+
+Kalem düzeyindeki tarih, başlıktakini o kalem için **ezer**. Bu kuralı atlayan
+eşlemeler, kısmi teslimatlarda yanlış tarih üretir.
+
+## Kontrol listesi
+
+1. Nitelikçiyi okuyun, konumdan tahmin etmeyin
+2. Format kodunu kullanın, uzunluğa bakarak tahmin etmeyin
+3. `UNB` tarihini ayrı ele alın
+4. Kalem düzeyindeki `DTM`'in başlıktakini ezdiğini unutmayın
+
+Bir dosyadaki tarihlerin hangisinin ne olduğunu görmek için, satırı seçtiğinizde
+nitelikçiyi çözen bir görüntüleyici en hızlı yoldur.
 """,
         },
         'en': {
@@ -433,13 +750,28 @@ oradadır, sadece farklı bir kodla.
             'summary': 'A message can hold five different DTMs. The qualifier says which one '
                        'is delivery and which is the document date.',
             'body': """
-There is no single "date" in an EDI message. Order date, requested delivery
-date, actual delivery date, payment due date — each travels in its own DTM
-segment, and they all look alike.
+An EDI file contains several `DTM` lines and all of them carry dates. What tells
+you which is the document date and which is the delivery date is not the line
+itself but the **qualifier** inside it.
 
-What separates them is the **qualifier** in the first element.
+## The structure
 
-## The qualifiers you meet most
+```
+DTM+137:20260117:102'
+```
+
+There are three parts:
+
+| Part | Value | Meaning |
+|---|---|---|
+| Qualifier | `137` | This is a document date |
+| Value | `20260117` | 17 January 2026 |
+| Format | `102` | In `YYYYMMDD` form |
+
+Using a date without reading its qualifier is one of the most common mistakes in
+EDI.
+
+## Qualifiers you will meet
 
 | Code | Meaning |
 |---|---|
@@ -447,42 +779,77 @@ What separates them is the **qualifier** in the first element.
 | `2` | Requested delivery date |
 | `35` | Actual delivery date |
 | `11` | Despatch date |
-| `13` | Payment due date |
 | `132` | Estimated arrival |
+| `203` | Payment date |
+| `263` | Invoicing period |
 | `356` | Period start |
 | `357` | Period end |
 
-`DTM+137:20260117:102'` is the document date; `DTM+2:20260125:102'` is the
-delivery date. An integration that reads them interchangeably schedules the
-order on the wrong day.
+`137` appears in almost every message; the others depend on the message type. An
+order carries `2` (requested delivery), a despatch advice `11` (despatch), a
+sales report `356`/`357` (the period).
 
-## The third part: the format
+## Why the format code matters
 
-The third element says how to read the value:
+The third part says how the date is written. The two most common:
 
 | Code | Format | Example |
 |---|---|---|
-| `102` | YYYYMMDD | `20260117` |
-| `203` | YYYYMMDDHHMM | `202601171030` |
-| `718` | A date range (two dates joined) | `2026010120260630` |
-| `610` | YYYYMM (month) | `202601` |
-| `616` | YYYYWW (week) | `202603` |
+| `102` | `YYYYMMDD` | `20260117` |
+| `203` | `YYYYMMDDHHMM` | `202601171430` |
 
-Parsing the value without reading the format code is a common mistake. Treating
-`202601171030` as `102` and taking the first eight digits gives you the right
-day while silently dropping the time.
+Older files may also use `101` (`YYMMDD`). The two-digit year is a pre-2000
+leftover and forces you to guess the century — avoid it where you can.
 
-## The week format
+Code that ignores the format and guesses from the length works for a while, then
+breaks on the first file that carries a time.
 
-`616` turns up especially in automotive: the delivery week is stated, not the
-day. `202603` means week three of 2026. Trying to parse that as a date produces
-nonsense.
+## The date in UNB is different
 
-## A practical check
+The date in the interchange header does not follow this pattern:
 
-If you cannot find the date you expect in a file, line up every DTM in the
-message and read their qualifiers. The date is usually there — under a different
-code.
+```
+UNB+UNOC:3+A:14+B:14+260117:1030+REF00042'
+```
+
+Here `260117:1030` is in `YYMMDD:HHMM` form and has no qualifier — it is always
+the moment the interchange was sent. Trying to read the `UNB` date with `DTM`
+logic will not work.
+
+## The time zone question
+
+EDIFACT dates carry no time zone by default. In which zone is `202601171430`
+14:30? The standard does not say; the specification does.
+
+In practice there are two approaches: either both sides use local time and fix
+that in the agreement, or a separate time zone indicator travels alongside the
+`DTM`. In cross-border flows, skipping this distinction can shift delivery dates
+by a day.
+
+## When the same qualifier appears twice
+
+That is valid, and the meaning depends on position. A `DTM` in the message header
+applies to the whole document; the same code after a `LIN` (line item) segment
+applies only to that item.
+
+```
+DTM+2:20260125:102'      <- requested delivery for the whole order
+LIN+1++5410013101234:EN'
+DTM+2:20260130:102'      <- for this line item only
+```
+
+The line-level date **overrides** the header for that item. Mappings that skip
+this rule produce wrong dates on partial deliveries.
+
+## Checklist
+
+1. Read the qualifier; do not infer meaning from position
+2. Use the format code; do not guess from the length
+3. Treat the `UNB` date separately
+4. Remember that a line-level `DTM` overrides the header
+
+To see which date is which in a file, the quickest route is a viewer that
+decodes the qualifier when you select the line.
 """,
         },
     },
@@ -497,56 +864,104 @@ code.
             'summary': 'Sipariş edilen mi, sevk edilen mi, teslim alınan mı? Ve PCE ile KGM '
                        'karışırsa ne olur.',
             'body': """
-`QTY+21:480:PCE'` satırı üç şey söyler: hangi miktar, ne kadar, hangi birimde.
-Üçünü de doğru okumak gerekir.
+`QTY` segmenti bir miktar taşır. Ama "480" tek başına bir şey ifade etmez: 480
+adet mi, 480 koli mi, 480 kilogram mı? Cevap segmentin diğer iki parçasındadır.
 
-## Hangi miktar?
+## Yapısı
 
-İlk eleman nitelikçidir ve miktarın anlamını belirler:
+```
+QTY+21:480:PCE'
+```
+
+| Parça | Değer | Anlamı |
+|---|---|---|
+| Nitelikçi | `21` | Bu sipariş edilen miktardır |
+| Değer | `480` | Miktarın kendisi |
+| Birim | `PCE` | Adet (piece) |
+
+Üçünü birlikte okumadan miktarı kullanmak, envanterde ciddi hatalara yol açar.
+
+## Nitelikçi: hangi miktar?
+
+Aynı dosyada birden fazla `QTY` bulunabilir ve her biri farklı bir soruyu
+cevaplar:
 
 | Kod | Anlamı |
 |---|---|
 | `21` | Sipariş edilen miktar |
 | `12` | Sevk edilen miktar |
+| `47` | Faturalanan miktar |
 | `194` | Teslim alınan miktar |
-| `192` | Ücretsiz miktar |
-| `152` | Satılan miktar (satış raporu) |
-| `59` | Paket içi adet |
+| `152` | Satılan miktar (satış raporunda) |
+| `59` | Ambalaj içindeki adet |
 
-Aynı satırda birden fazla QTY bulunabilir. Mal kabul mesajında (RECADV) bu
-zaten kuraldır: `12` sevk edileni, `194` teslim alınanı verir; ikisinin farkı
-eksik teslimattır.
+Bir sipariş zincirinde bu kodlar birbirini takip eder: `21` istenir, `12` sevk
+edilir, `194` kabul edilir, `47` faturalanır. Aralarındaki fark, çoğu ticari
+anlaşmazlığın başladığı yerdir.
 
-## Hangi birim?
+Örneğin bir mal kabul mesajında iki satır yan yana durur:
 
-Üçüncü eleman ölçü birimidir:
+```
+QTY+12:100:PCE'
+QTY+194:96:PCE'
+```
 
-| Kod | Birim |
+Yüz adet sevk edilmiş, doksan altısı kabul edilmiş. Aradaki dört adetlik fark,
+hasar veya eksik gönderim demektir ve genellikle bir `FTX` satırında açıklanır.
+
+## Birim kodları
+
+Birimler UN/ECE Recommendation 20 listesinden gelir. Sık kullanılanlar:
+
+| Kod | Anlamı |
 |---|---|
 | `PCE` | Adet |
 | `KGM` | Kilogram |
 | `LTR` | Litre |
 | `MTR` | Metre |
 | `CT` | Karton / koli |
-| `PF` | Palet |
+| `PA` | Paket |
+| `CS` | Kasa |
 
-Birim atlanırsa çoğu sistem adet varsayar. Kilogramla satılan bir ürün için bu
-varsayım, siparişi bin kat yanlış hesaplatabilir.
+Dikkat edilmesi gereken nokta: aynı ürün farklı satırlarda farklı birimle
+görünebilir. Sipariş `CT` (koli) cinsinden verilip fatura `PCE` (adet) cinsinden
+kesilebilir. Dönüşüm oranı ürün ana verisinde durur, EDI dosyasında değil.
 
-## Fiyatla ilişkisi
+## Ondalık ayırıcı tuzağı
 
-Burada gözden kaçan bir nokta var: `PRI` segmenti **birim fiyattır** ve hangi
-birim başına olduğunu söylemez. Yani `QTY`'deki birimle `PRI`'deki fiyatın aynı
-temele oturduğu varsayılır.
+Miktar ondalıklıysa hangi karakterin ondalık işareti olduğunu `UNA` segmenti
+söyler. Varsayılan `.` işaretidir:
 
-Miktar kilogram, fiyat adet başınaysa hesap tutmaz. Bu tür uyuşmazlıklar
-faturada ortaya çıkar ve genellikle geç fark edilir.
+```
+QTY+21:12.5:KGM'
+```
 
-## Kontrol alışkanlığı
+Ama `UNA` üçüncü karakteri `,` yapmışsa dosyada `12,5` yazar. Ondalık işaretini
+sabit varsayan kod, virgüllü bir dosyada ya çöker ya da sayıyı yanlış okur.
 
-Bir satırın toplamı beklediğinizden farklıysa üç şeye bakın: nitelikçi doğru
-mu, birim yazılmış mı, fiyat aynı birim üzerinden mi. Üçü tutuyorsa hata
-başka yerdedir.
+Ayrıca EDIFACT'te binlik ayırıcı **kullanılmaz**. `1.234` bin iki yüz otuz dört
+değil, bir tam iki yüz otuz dört binde demektir.
+
+## Eksi miktarlar
+
+Bir miktar negatif olabilir; iade ve düzeltme belgelerinde bu normaldir:
+
+```
+QTY+21:-12:PCE'
+```
+
+Eksi işareti değerin başına gelir. Miktarı işaretsiz bir tam sayı olarak
+saklayan sistemler burada sessizce yanlış kayıt üretir.
+
+## Kontrol listesi
+
+1. Nitelikçiyi okuyun — `21` ile `12` çok farklı şeylerdir
+2. Birimi taşıyın; miktarı birimden ayırmayın
+3. Ondalık işaretini `UNA`'dan alın
+4. Negatif değerlere izin verin
+
+Bir dosyadaki miktarların hangisinin ne olduğunu görmek için, nitelikçiyi ve
+birim kodunu açık metne çeviren bir görüntüleyici en hızlı yoldur.
 """,
         },
         'en': {
@@ -554,56 +969,104 @@ başka yerdedir.
             'summary': 'Ordered, despatched or received? And what happens when PCE and KGM get '
                        'mixed up.',
             'body': """
-The line `QTY+21:480:PCE'` says three things: which quantity, how much, and in
-what unit. All three need reading correctly.
+The `QTY` segment carries a quantity. But "480" on its own means nothing: 480
+pieces, 480 cartons, or 480 kilograms? The answer is in the segment's other two
+parts.
 
-## Which quantity?
+## The structure
 
-The first element is the qualifier and sets the meaning:
+```
+QTY+21:480:PCE'
+```
+
+| Part | Value | Meaning |
+|---|---|---|
+| Qualifier | `21` | This is the ordered quantity |
+| Value | `480` | The quantity itself |
+| Unit | `PCE` | Pieces |
+
+Using the quantity without reading all three leads to real inventory errors.
+
+## The qualifier: which quantity?
+
+A file can contain several `QTY` segments, each answering a different question:
 
 | Code | Meaning |
 |---|---|
 | `21` | Ordered quantity |
 | `12` | Despatched quantity |
+| `47` | Invoiced quantity |
 | `194` | Received quantity |
-| `192` | Free-of-charge quantity |
-| `152` | Quantity sold (sales report) |
-| `59` | Number of units in a pack |
+| `152` | Quantity sold (in a sales report) |
+| `59` | Number of units per pack |
 
-A line may carry several QTY segments. In a receiving advice (RECADV) that is
-the rule rather than the exception: `12` gives what was despatched, `194` what
-arrived, and the difference is the shortfall.
+Along an order chain these codes follow one another: `21` is ordered, `12` is
+despatched, `194` is received, `47` is invoiced. The differences between them are
+where most commercial disputes begin.
 
-## Which unit?
+In a receiving advice, for instance, two lines sit side by side:
 
-The third element is the unit of measure:
+```
+QTY+12:100:PCE'
+QTY+194:96:PCE'
+```
 
-| Code | Unit |
+One hundred were despatched, ninety-six accepted. The gap of four means damage or
+a short delivery, and is usually explained in an `FTX` line.
+
+## Unit codes
+
+Units come from UN/ECE Recommendation 20. The common ones:
+
+| Code | Meaning |
 |---|---|
-| `PCE` | Pieces |
-| `KGM` | Kilograms |
-| `LTR` | Litres |
-| `MTR` | Metres |
+| `PCE` | Piece |
+| `KGM` | Kilogram |
+| `LTR` | Litre |
+| `MTR` | Metre |
 | `CT` | Carton |
-| `PF` | Pallet |
+| `PA` | Pack |
+| `CS` | Case |
 
-If the unit is omitted, most systems assume pieces. For a product sold by
-weight, that assumption can be wrong by a factor of a thousand.
+One thing to watch: the same product can appear in different units on different
+lines. An order may be placed in `CT` (cartons) and invoiced in `PCE` (pieces).
+The conversion factor lives in your product master data, not in the EDI file.
 
-## Its relationship with price
+## The decimal separator trap
 
-An easily missed point: the `PRI` segment is a **unit price** and does not say
-which unit it is per. The quantity's unit and the price's basis are assumed to
-match.
+If a quantity has decimals, the `UNA` segment says which character is the decimal
+mark. The default is `.`:
 
-If the quantity is in kilograms while the price is per piece, the arithmetic
-fails. Mismatches like this surface on the invoice, usually late.
+```
+QTY+21:12.5:KGM'
+```
 
-## A habit worth having
+But if `UNA` set the third character to `,`, the file will contain `12,5`. Code
+that assumes a fixed decimal mark will either crash or misread the number.
 
-When a line total differs from what you expect, check three things: is the
-qualifier right, is the unit stated, and is the price on the same basis. If all
-three hold, the error is elsewhere.
+EDIFACT also uses **no thousands separator**. `1.234` is not one thousand two
+hundred and thirty-four; it is one point two three four.
+
+## Negative quantities
+
+A quantity can be negative, which is normal on returns and correction documents:
+
+```
+QTY+21:-12:PCE'
+```
+
+The minus sign precedes the value. Systems that store quantities as unsigned
+integers silently record the wrong figure here.
+
+## Checklist
+
+1. Read the qualifier — `21` and `12` are very different things
+2. Carry the unit with the value; never separate them
+3. Take the decimal mark from `UNA`
+4. Allow negative values
+
+To see what each quantity in a file means, the quickest route is a viewer that
+translates the qualifier and unit code into plain text.
 """,
         },
     },
@@ -618,65 +1081,111 @@ three hold, the error is elsewhere.
             'summary': 'EDI faturaları çoğunlukla içerik yüzünden değil, eşleştirme ve toplam '
                        'hataları yüzünden geri döner.',
             'body': """
-EDI faturası reddedildiğinde ilk düşünülen tutarın yanlış olduğudur. Pratikte
-sebep genellikle daha sıradan bir şeydir.
+INVOIC, EDI mesajları arasında en çok reddedileni. Sebebi genellikle karmaşık
+değil: birkaç alan yanlış, bir toplam tutmuyor ya da bir referans eksik. Aşağıda
+en sık karşılaşılan nedenler sırayla.
 
-## 1. Sipariş referansı eksik
+## 1. Toplamlar tutmuyor
 
-Alıcı sistem faturayı siparişle eşleştiremezse elle işleme düşürür ya da
-reddeder. Bağ şu satırla kurulur:
+En yaygın neden bu. Özet bölümündeki `MOA` nitelikçileri karıştırılır:
+
+| Kod | Anlamı |
+|---|---|
+| `79` | Mal toplamı (vergi hariç) |
+| `124` | Vergi tutarı |
+| `77` | Genel toplam (vergi dahil) |
+| `9` | Ödenecek tutar |
+
+Kural basittir: `79 + 124 = 77` olmalıdır. Alıcı sistem bunu aritmetik olarak
+doğrular ve tutmuyorsa faturayı işleme almaz.
+
+```
+MOA+79:1228.00'
+MOA+124:245.60'
+MOA+77:1473.60'
+```
+
+Ayrıca kalem düzeyindeki `MOA+203` değerlerinin toplamı `79`'a eşit olmalıdır.
+Yuvarlama farkları burada sorun çıkarır: her kalemi ayrı yuvarlayıp topladığınızda
+tek seferde yuvarlamaktan farklı sonuç çıkabilir.
+
+## 2. Sipariş referansı eksik veya yanlış
+
+Alıcı sistem genellikle **üçlü eşleştirme** yapar: sipariş (ORDERS), mal kabul
+(RECADV) ve fatura birbirini tutmalıdır. Bunu yapabilmesi için faturanın sipariş
+numarasını taşıması gerekir:
 
 ```
 RFF+ON:PO-2026-0042'
 ```
 
-Bu satır yoksa fatura "sahipsizdir". EDI faturalarında en sık görülen ret
-sebebi budur.
+`ON` nitelikçisi "order number" demektir. Bu satır yoksa ya da numara alıcının
+sistemindekiyle birebir aynı değilse eşleştirme başarısız olur. Baştaki sıfırlar
+ve boşluklar önemlidir; `PO-42` ile `PO-0042` farklı numaralardır.
 
-## 2. Toplamlar tutmuyor
+## 3. Miktar sevk edilenle uyuşmuyor
 
-Özet bölümünde birden fazla MOA bulunur ve her biri farklı bir toplamdır:
+Fatura, **sevk edilen** miktarı faturalamalıdır, sipariş edileni değil. Kısmi
+teslimat yapıldıysa fark buradan çıkar:
 
-| Kod | Anlamı |
-|---|---|
-| `79` | Mal toplamı (satırların toplamı) |
-| `124` | Vergi tutarı |
-| `77` | Genel toplam |
-| `9` | Ödenecek tutar |
+- Sipariş: 120 adet (`QTY+21`)
+- Sevk edilen: 100 adet (`QTY+12`)
+- Faturalanması gereken: 100 adet (`QTY+47`)
 
-Alıcı sistem `79 + 124 = 77` eşitliğini kontrol eder. Yuvarlama farkı bile
-reddedilmeye yeter. Satır tutarlarını kuruş bazında toplayıp özetle
-karşılaştırmak, göndermeden önce yapılacak en ucuz kontroldür.
+120 üzerinden kesilen bir fatura reddedilir. Bu, otomatik kontrollerin en
+kolay yakaladığı hatadır.
 
-## 3. Vergi oranı belirtilmemiş
+## 4. Vergi bilgisi eksik
 
-`TAX` segmenti yoksa ya da oran boşsa, alıcı KDV'yi kendisi hesaplayamaz ve
-faturayı işleyemez:
+`TAX` segmenti oranı ve türü taşır:
 
 ```
 TAX+7+VAT+++:::20'
 ```
 
-## 4. Miktar sipariştekiyle uyuşmuyor
+Buradaki `7` "vergi" anlamına gelen nitelikçi, `VAT` vergi türü, sondaki `20`
+ise yüzde oranıdır. Oran yazılmazsa ya da kalem düzeyindeki oranlarla özet
+bölümündeki vergi tutarı çelişirse fatura geri döner.
 
-Fatura, teslim edilenden fazlasını içeriyorsa üçlü eşleştirme başarısız olur.
-Kısmi teslimatta fatura da kısmi olmalıdır.
+Farklı vergi oranlı kalemler varsa her oran için ayrı vergi alt toplamı
+gerekebilir; bu, şartnameye göre değişir.
 
-## 5. GLN yanlış
+## 5. GLN eşleşmiyor
 
-Fatura adresi (`NAD+IV`) ile sipariş adresi farklıysa ve bu ortakla mutabık
-değilse, mesaj daha içeriğe bakılmadan reddedilir.
+Taraflar isimle değil, **GLN numarasıyla** tanınır:
 
-## 6. Para birimi yok
+```
+NAD+SE+8712345678901::9++ACME FOODS BV+...'
+```
 
-`CUX` segmenti yoksa tutarların hangi para biriminde olduğu belirsizdir. Bazı
-sistemler varsayar, bazıları reddeder — ikisi de istenmez.
+Alıcının sisteminde kayıtlı olmayan bir GLN, faturanın hangi tedarikçiye ait
+olduğunun anlaşılamaması demektir. Firma adının doğru yazılması bu durumu
+kurtarmaz — eşleştirme numara üzerinden yapılır.
 
-## Göndermeden önce
+Sık karşılaşılan bir varyant: fatura kesen tüzel kişi (`SE`) ile malı gönderen
+depo (`SU`) farklıdır ve şartname hangisinin nerede olacağını belirtir.
 
-Faturayı bir görüntüleyicide açıp şu beş satırın varlığını doğrulamak,
-ret döngüsünün büyük kısmını önler: `RFF+ON`, `CUX`, `TAX`, `MOA+79`,
-`MOA+77`.
+## 6. Para birimi belirtilmemiş
+
+`CUX` segmenti yoksa alıcı sistem tutarları hangi para biriminde okuyacağını
+bilemez:
+
+```
+CUX+2:EUR:9'
+```
+
+Tek para birimiyle çalışan ortaklarda bu bazen atlanır ve varsayılan kabul
+edilir; ama şartname istiyorsa zorunludur.
+
+## Reddedilince ne yapmalı
+
+1. Varsa `CONTRL` mesajına bakın — sözdizimi hatasıysa satır numarasını verir
+2. Sözdizimi geçerliyse hata iş kuralındadır: önce toplamları, sonra
+   referansları kontrol edin
+3. Faturayı ve ilgili siparişi yan yana açıp kalem kalem karşılaştırın
+
+Bu karşılaştırmayı yapmanın en hızlı yolu, iki dosyayı da açıp `MOA`, `QTY` ve
+`RFF` satırlarını okunur biçimde görmektir.
 """,
         },
         'en': {
@@ -684,64 +1193,114 @@ ret döngüsünün büyük kısmını önler: `RFF+ON`, `CUX`, `TAX`, `MOA+79`,
             'summary': 'EDI invoices usually come back for matching and totalling errors, not '
                        'for their content.',
             'body': """
-When an EDI invoice is rejected, the first assumption is that an amount is
-wrong. In practice the cause is usually more mundane.
+INVOIC is the most frequently rejected EDI message. The reason is usually not
+complicated: a few wrong fields, a total that does not add up, or a missing
+reference. Here are the most common causes, in order.
 
-## 1. The order reference is missing
+## 1. The totals do not add up
 
-If the buyer's system cannot match the invoice to an order, it drops to manual
-handling or is rejected outright. The link is made by this line:
+This is the leading cause. The `MOA` qualifiers in the summary section get mixed
+up:
+
+| Code | Meaning |
+|---|---|
+| `79` | Goods total (excluding tax) |
+| `124` | Tax amount |
+| `77` | Grand total (including tax) |
+| `9` | Amount payable |
+
+The rule is simple: `79 + 124 = 77`. The receiving system checks this
+arithmetically and will not process an invoice where it fails.
+
+```
+MOA+79:1228.00'
+MOA+124:245.60'
+MOA+77:1473.60'
+```
+
+The line-level `MOA+203` values must also sum to `79`. Rounding differences bite
+here: rounding each line separately and then adding can give a different result
+from rounding once.
+
+## 2. Missing or wrong order reference
+
+The receiving system usually performs a **three-way match**: the order (ORDERS),
+the goods receipt (RECADV) and the invoice must agree. For that, the invoice has
+to carry the order number:
 
 ```
 RFF+ON:PO-2026-0042'
 ```
 
-Without it the invoice is orphaned. This is the single most common rejection
-reason.
+The `ON` qualifier means "order number". If that line is absent, or the number is
+not character-for-character what the buyer has on file, the match fails. Leading
+zeros and spaces matter; `PO-42` and `PO-0042` are different numbers.
 
-## 2. The totals do not add up
+## 3. Quantity does not match what was despatched
 
-The summary section holds several MOA segments, each a different total:
+An invoice should bill the **despatched** quantity, not the ordered one. On a
+partial delivery the difference shows up here:
 
-| Code | Meaning |
-|---|---|
-| `79` | Goods total (sum of the lines) |
-| `124` | Tax amount |
-| `77` | Grand total |
-| `9` | Amount payable |
+- Ordered: 120 pieces (`QTY+21`)
+- Despatched: 100 pieces (`QTY+12`)
+- To be invoiced: 100 pieces (`QTY+47`)
 
-The buyer's system checks that `79 + 124 = 77`. Even a rounding difference is
-enough to fail. Summing the line amounts to the cent and comparing them against
-the summary is the cheapest check you can run before sending.
+An invoice raised for 120 will be rejected. This is the easiest error for
+automated checks to catch.
 
-## 3. No tax rate
+## 4. Missing tax information
 
-With no `TAX` segment, or an empty rate, the buyer cannot compute VAT and cannot
-process the invoice:
+The `TAX` segment carries the rate and the type:
 
 ```
 TAX+7+VAT+++:::20'
 ```
 
-## 4. Quantities do not match the order
+Here `7` is the qualifier meaning "tax", `VAT` is the tax type, and the trailing
+`20` is the percentage. If the rate is absent, or the line-level rates contradict
+the tax amount in the summary, the invoice comes back.
 
-If the invoice bills more than was delivered, the three-way match fails. A
-partial delivery must produce a partial invoice.
+Where line items carry different rates, a separate tax subtotal per rate may be
+required; this depends on the specification.
 
-## 5. The wrong GLN
+## 5. The GLN does not match
 
-If the invoicee (`NAD+IV`) differs from the one agreed with the partner, the
-message is rejected before its content is even read.
+Parties are identified by **GLN number**, not by name:
 
-## 6. No currency
+```
+NAD+SE+8712345678901::9++ACME FOODS BV+...'
+```
 
-Without a `CUX` segment the currency of the amounts is undefined. Some systems
-assume, others reject — neither is what you want.
+A GLN that is not registered in the buyer's system means the invoice cannot be
+attributed to a supplier. Spelling the company name correctly does not rescue
+this — the match runs on the number.
 
-## Before you send
+A common variant: the legal entity raising the invoice (`SE`) differs from the
+warehouse that shipped the goods (`SU`), and the specification says which belongs
+where.
 
-Opening the invoice in a viewer and confirming five lines exist heads off most
-of the rejection loop: `RFF+ON`, `CUX`, `TAX`, `MOA+79` and `MOA+77`.
+## 6. No currency stated
+
+Without a `CUX` segment the receiving system does not know which currency the
+amounts are in:
+
+```
+CUX+2:EUR:9'
+```
+
+Partners working in a single currency sometimes omit it and assume a default, but
+where the specification requires it, it is mandatory.
+
+## What to do after a rejection
+
+1. Look for a `CONTRL` message — if it is a syntax error, it gives you the
+   segment number
+2. If the syntax is valid, the fault is in a business rule: check the totals
+   first, then the references
+3. Open the invoice and the related order side by side and compare line by line
+
+The quickest way to make that comparison is to open both files and read the
+`MOA`, `QTY` and `RFF` lines in plain language.
 """,
         },
     },
@@ -755,61 +1314,80 @@ of the rejection loop: `RFF+ON`, `CUX`, `TAX`, `MOA+79` and `MOA+77`.
             'title': 'EDI dosyasını Excel\'e aktarmak',
             'summary': 'Segment yapısını satır-sütun düzenine çevirirken nelere dikkat etmeli.',
             'body': """
-EDI dosyasını Excel'de görmek isteyen çoğu kişi aslında tek bir şeyi ister:
-kalemleri bir tabloda yan yana görmek. Ama EDI tablo değil, iç içe geçmiş bir
-ağaçtır; düzleştirmek bilinçli bir karar gerektirir.
+Elinizde bir EDI dosyası var ve içindeki kalemleri tabloya dökmek istiyorsunuz —
+belki muhasebeye göndermek, belki fiyatları kontrol etmek için. EDI satır tabanlı
+bir yapı; tabloya çevirmek göründüğünden biraz daha dikkat ister.
 
-## Sorun: hiyerarşi düzleşmiyor
+## Neden doğrudan açılmıyor?
 
-Bir siparişte yapı şöyledir:
+Bir `.edi` dosyasını Excel'e sürüklerseniz her segment tek bir hücreye düşer.
+Sebep, EDI'nin **hiyerarşik** olması: bir kalemin bilgisi tek satırda değil,
+birbirini takip eden birkaç satırda durur.
 
 ```
-Mesaj
- ├── Başlık (BGM, DTM, NAD)
- └── Kalemler
-      ├── LIN  → IMD, QTY, PRI, MOA
-      └── LIN  → IMD, QTY, PRI, MOA
+LIN+1++5410013101234:EN'
+IMD+F++:::BITTER CIKOLATA 100G'
+QTY+21:480:PCE'
+PRI+AAA:1.85'
+MOA+203:888.00'
 ```
 
-Excel'de bir satır bir kalem olmalıdır. Yani `LIN` satır açar, sonrasında gelen
-`IMD`, `QTY`, `PRI` o satırın sütunlarını doldurur — ta ki bir sonraki `LIN`
-gelene kadar.
+Bu beş satır **tek bir tablo satırıdır**: ürün kodu, açıklama, miktar, fiyat,
+tutar. Tabloya çevirmek, `LIN` gördüğünde yeni satır açıp sonraki segmentleri o
+satırın sütunlarına yazmak demektir.
 
-Bu mantığı kurmadan dosyayı satır satır Excel'e dökerseniz, her segment ayrı bir
-satır olur ve tablo işe yaramaz.
+## Hangi segment hangi sütun?
 
-## Hangi sütunlar?
+Tipik bir sipariş veya fatura için eşleme şudur:
 
-Bir sipariş için pratikte yeterli olan set:
+| Segment | Sütun | Nereden |
+|---|---|---|
+| `LIN` | Ürün kodu (GTIN) | 3. elemanın ilk parçası |
+| `IMD` | Ürün açıklaması | 3. elemanın son parçası |
+| `QTY` | Miktar ve birim | Nitelikçiye göre `21`, `12` veya `47` |
+| `PRI` | Birim fiyat | `AAA` net fiyat |
+| `MOA` | Satır tutarı | `203` nitelikçisi |
 
-| Sütun | Kaynak |
-|---|---|
-| Ürün kodu | `LIN` eleman 3 |
-| Açıklama | `IMD` eleman 3, son parça |
-| Miktar | `QTY` nitelikçi `21` |
-| Birim | `QTY` üçüncü parça |
-| Birim fiyat | `PRI` nitelikçi `AAA` |
-| Satır tutarı | `MOA` nitelikçi `203` |
+Nitelikçileri atlamamak önemli: bir kalemde birden fazla `QTY` olabilir ve
+hangisini istediğinize siz karar vermelisiniz.
 
-Başlık bilgileri (sipariş no, tarih, tedarikçi) tabloya değil, üst kısma ya da
-ayrı bir sayfaya yazılır.
+## Dikkat edilecek noktalar
 
-## Türkçe karakter tuzağı
+**Kalem sınırını doğru belirleyin.** Yeni bir `LIN` gelene kadar okunan her şey
+mevcut kaleme aittir. Özet bölümü (`UNS`'den sonrası) kaleme ait değildir; oradaki
+`MOA+79` satırını kalem tutarı sanmak sık yapılan bir hatadır.
 
-CSV dosyasını Excel doğrudan açtığında Türkçe karakterler bozulabilir. Sebep,
-Excel'in dosyayı UTF-8 sanmamasıdır. Çözüm, dosyanın başına BOM (byte order
-mark) koymaktır — ediviewer'ın Excel çıktısı bunu zaten ekler.
+**Başlık bilgisini ayrı tutun.** Sipariş numarası, tarih ve taraf bilgisi kalem
+düzeyinde değil belge düzeyindedir. Bunları her satıra kopyalamak isterseniz
+tabloyu düzleştirmiş olursunuz — bu genellikle istenen şeydir ama bilinçli bir
+tercih olmalıdır.
 
-## Ayraç seçimi
+**Ondalık işaretini koruyun.** Excel'in bölgesel ayarı virgül bekliyorsa,
+noktayla yazılmış `1.85` metin olarak algılanabilir ve toplama işlemleri
+çalışmaz. CSV oluştururken hedef sistemin ayarını düşünün.
 
-Türkçe Windows kurulumlarında Excel varsayılan olarak **noktalı virgül** bekler.
-Virgülle ayrılmış bir dosya tek sütunda açılır. Bu yüzden CSV çıktılarında
-`;` kullanmak Türkiye'de daha güvenlidir.
+**Baştaki sıfırları kaybetmeyin.** GTIN gibi kodlar sayı değil metindir.
+`05410013101234` Excel'de sayıya dönüşürse baştaki sıfır silinir ve kod artık
+eşleşmez. Sütunu metin olarak biçimlendirmek gerekir.
 
-## Hızlı yol
+## Her dosya tabloya uygun mu?
 
-Dosyayı ediviewer'da açıp **Excel'e Aktar** demek, yukarıdaki eşlemeyi hazır
-yapar: kalemler satır satır, doğru sütunlarda, BOM ve noktalı virgülle.
+Hayır. Kalem listesi taşıyan mesajlar (sipariş, fatura, satış raporu, fiyat
+kataloğu) doğal olarak tabloya oturur. Ama bir `CONTRL` teyit mesajını ya da bir
+nakliye talimatını tabloya çevirmek pek anlamlı olmaz; onların yapısı liste
+değildir.
+
+Satış raporu (SLSRPT) ve fiyat kataloğu (PRICAT) bu iş için en uygun ikisidir:
+ikisi de doğrudan "ürün başına bir satır" mantığıyla çalışır.
+
+## Pratik yol
+
+Kendiniz ayrıştırıcı yazmadan önce, dosyayı bir görüntüleyicide açıp doğrudan
+CSV'ye aktarmayı deneyin. Hangi sütunların çıktığını görmek, kendi eşlemenizi
+yazarken neye ihtiyacınız olduğunu da netleştirir.
+
+Dosyanızı hiçbir yere yüklemeden bunu yapabilirsiniz; dönüşüm tarayıcının içinde
+çalışabilir ve ticari veriniz cihazınızdan çıkmaz.
 """,
         },
         'en': {
@@ -817,61 +1395,79 @@ yapar: kalemler satır satır, doğru sütunlarda, BOM ve noktalı virgülle.
             'summary': 'What to watch for when flattening a segment structure into rows and '
                        'columns.',
             'body': """
-Most people who want to see an EDI file in Excel want one thing: the line items
-side by side in a table. But EDI is not a table — it is a nested tree, and
-flattening it takes a deliberate decision.
+You have an EDI file and you want its line items in a spreadsheet — perhaps to
+send to accounting, perhaps to check prices. EDI is a line-based structure, and
+turning it into a table takes a little more care than it appears.
 
-## The problem: hierarchy does not flatten itself
+## Why does it not just open?
 
-An order is structured like this:
+Drag a `.edi` file into Excel and every segment lands in a single cell. The reason
+is that EDI is **hierarchical**: the information about one item does not sit on
+one line but across several consecutive ones.
 
 ```
-Message
- ├── Header (BGM, DTM, NAD)
- └── Line items
-      ├── LIN  → IMD, QTY, PRI, MOA
-      └── LIN  → IMD, QTY, PRI, MOA
+LIN+1++5410013101234:EN'
+IMD+F++:::DARK CHOCOLATE BAR 100G'
+QTY+21:480:PCE'
+PRI+AAA:1.85'
+MOA+203:888.00'
 ```
 
-In Excel one row should be one line item. So `LIN` opens a row, and the `IMD`,
-`QTY` and `PRI` that follow fill that row's columns — until the next `LIN`
-appears.
+Those five lines are **one row of a table**: product code, description, quantity,
+price, amount. Converting to a table means starting a new row when you see `LIN`
+and writing the following segments into that row's columns.
 
-Dump the file into Excel line by line without that logic and every segment
-becomes its own row, leaving a table nobody can use.
+## Which segment becomes which column?
 
-## Which columns?
+For a typical order or invoice the mapping is:
 
-The set that proves sufficient in practice for an order:
+| Segment | Column | Taken from |
+|---|---|---|
+| `LIN` | Product code (GTIN) | First component of element 3 |
+| `IMD` | Product description | Last component of element 3 |
+| `QTY` | Quantity and unit | `21`, `12` or `47` by qualifier |
+| `PRI` | Unit price | `AAA` net price |
+| `MOA` | Line amount | Qualifier `203` |
 
-| Column | Source |
-|---|---|
-| Product code | `LIN` element 3 |
-| Description | `IMD` element 3, last component |
-| Quantity | `QTY` qualifier `21` |
-| Unit | `QTY` third component |
-| Unit price | `PRI` qualifier `AAA` |
-| Line amount | `MOA` qualifier `203` |
+Do not skip the qualifiers: an item can carry several `QTY` segments and you have
+to decide which one you want.
 
-Header information — order number, date, supplier — belongs above the table or
-on a separate sheet, not in the rows.
+## Things to watch
 
-## The encoding trap
+**Get the item boundary right.** Everything read until the next `LIN` belongs to
+the current item. The summary section (after `UNS`) does not belong to any item;
+mistaking its `MOA+79` line for a line amount is a common error.
 
-Opening a CSV directly in Excel can corrupt accented characters, because Excel
-does not assume UTF-8. The fix is a BOM (byte order mark) at the start of the
-file; ediviewer's Excel export writes one already.
+**Keep header data separate.** The order number, date and party details sit at
+document level, not item level. Copying them onto every row flattens the table —
+usually what you want, but it should be a deliberate choice.
 
-## Choosing a separator
+**Preserve the decimal mark.** If Excel's regional setting expects a comma, a
+value written as `1.85` may be read as text and your sums will not work. Consider
+the target system's settings when you build the CSV.
 
-Excel on many European locales expects a **semicolon**. A comma-separated file
-opens in a single column there. Using `;` is the safer default outside the US.
+**Do not lose leading zeros.** Codes such as GTINs are text, not numbers. If
+`05410013101234` is converted to a number in Excel, the leading zero disappears
+and the code no longer matches. The column needs to be formatted as text.
 
-## The quick route
+## Is every file suited to a table?
 
-Opening the file in ediviewer and choosing **Export to Excel** applies the
-mapping above for you: line items as rows, in the right columns, with the BOM
-and semicolons already handled.
+No. Messages that carry a list of items — orders, invoices, sales reports, price
+catalogues — map naturally onto rows. But turning a `CONTRL` acknowledgement or a
+transport instruction into a table makes little sense; their structure is not a
+list.
+
+Sales reports (SLSRPT) and price catalogues (PRICAT) are the two best suited:
+both work on a "one row per product" basis already.
+
+## A practical route
+
+Before writing your own parser, open the file in a viewer and try exporting it
+straight to CSV. Seeing which columns come out also clarifies what you need when
+you write your own mapping.
+
+You can do this without uploading the file anywhere; the conversion can run
+inside the browser, so your commercial data never leaves your device.
 """,
         },
     },
@@ -886,52 +1482,95 @@ and semicolons already handled.
             'summary': 'Ayda 20 sipariş alan bir firmanın tam otomasyona ihtiyacı var mı? '
                        'Genellikle yok.',
             'body': """
-Büyük bir müşteri "EDI ile çalışıyoruz" dediğinde küçük firmaların ilk refleksi
-pahalı bir entegrasyon paketi aramaktır. Çoğu zaman bu erken bir karardır.
+Bir zincir market "EDI ile çalışıyoruz" dedi ve şimdi ne kadar tutacağını
+bilmiyorsunuz. Rakam vermek zor, ama maliyetin **nereden** çıktığını bilmek
+teklifleri karşılaştırmayı kolaylaştırır.
 
-## Önce hacme bakın
+## Maliyet nerede birikiyor?
 
-Belirleyici soru şu: ayda kaç belge alıp göndereceksiniz?
+Dört kalem var ve sıralamaları çoğu zaman şaşırtıcıdır:
 
-| Hacim | Makul yaklaşım |
+| Kalem | Ağırlık |
 |---|---|
-| Ayda 50'den az | Dosyayı görüntüleyip elle işleyin |
-| Ayda 50-500 | Yarı otomatik: dosyadan tabloya, tablodan sisteme |
-| Ayda 500+ | Tam entegrasyon yatırımı mantıklı |
+| Yazılım / abonelik | Genellikle en küçük kalem |
+| İlk kurulum ve eşleme | Tek seferlik, ama en büyük kalemlerden |
+| Ortak başına ek entegrasyon | Yeni müşteri = yeni iş |
+| Bakım ve destek | Sürekli, çoğu zaman hafife alınır |
 
-Ayda 20 sipariş alan bir tedarikçi için tam otomasyon, kurulum ve bakım
-maliyetiyle birlikte yıllarca kendini amorti etmez.
+Asıl para yazılımda değil, **eşlemede** (mapping) durur. Yani gelen EDI
+alanlarının sizin sisteminizdeki alanlara nasıl karşılık geldiğini tanımlama
+işinde. Bu iş her ortak için kısmen tekrarlanır çünkü her ortağın şartnamesi
+farklıdır.
 
-## Maliyet kalemleri
+## Üç yaklaşım
 
-Bir EDI kurulumunda para üç yere gider:
+**1. EDI servis sağlayıcısı (VAN veya bulut)**
 
-- **Aktarım** — VAN kullanıyorsanız işlem başına ücret; SFTP/AS2'de sabit
-  altyapı maliyeti
-- **Yazılım** — çevirici (translator) lisansı ya da SaaS aboneliği
-- **Kurulum ve bakım** — asıl gizli maliyet burada; ortak sürüm değiştirdiğinde
-  ya da yeni alan eklediğinde tekrar iş çıkar
+Aylık abonelik ödersiniz, sağlayıcı dönüşümü ve iletimi üstlenir. Genellikle
+aktarım hacmine veya ortak sayısına göre fiyatlanır.
 
-Üçüncüsü genellikle hafife alınır. Entegrasyon bir kez kurulup unutulan bir şey
+- Artısı: hızlı başlarsınız, teknik yük sizde değil
+- Eksisi: sürekli gider, hacim arttıkça artar; sağlayıcıya bağımlılık
+
+**2. Kendi entegrasyonunuzu yazmak**
+
+ERP'nize doğrudan bir EDI modülü eklersiniz veya kendiniz geliştirirsiniz.
+
+- Artısı: aylık gider yok, tam kontrol
+- Eksisi: geliştirme süresi, ve asıl önemlisi **bakım**. Ortak şartnamesini
+  değiştirdiğinde güncellemesi gereken sizsiniz.
+
+**3. Elle işlemek**
+
+Dosyayı açıp bakmak, veriyi elle sisteme girmek. Kulağa ilkel gelir ama ayda
+birkaç sipariş alan bir tedarikçi için gerçekten mantıklı olabilir.
+
+- Artısı: sıfır kurulum maliyeti
+- Eksisi: hacim arttığında hata oranı ve zaman maliyeti hızla büyür
+
+## Hangi eşik nerede?
+
+Kaba bir sağduyu ölçüsü:
+
+- **Ayda 10'un altında belge** — elle işlemek çoğu zaman en ucuzu. Otomasyonun
+  kurulum maliyetini çıkarmaz.
+- **Ayda 10–100 arası** — yarı otomatik çözümler mantıklı: dosyayı okuyup
+  tabloya çevirip sisteme aktarmak.
+- **Ayda 100'ün üstü veya birden fazla ortak** — tam otomasyon kendini öder.
+
+Bu eşikler sektöre göre kayar. Otomotivde tek bir gecikmiş teslimat bandı
+durdurabileceği için hacim düşük olsa da otomasyon zorunlu olabilir.
+
+## Sık yapılan hata: erken taahhüt
+
+En pahalı senaryo, tek bir müşteri için pahalı bir altyapı kurup o müşteriyi
+kaybetmektir. İlk EDI talebiniz geldiğinde şunu sorun: bu ortak hacminizin ne
+kadarını oluşturuyor ve önümüzdeki bir yılda kaç ortak daha EDI isteyecek?
+
+Cevap "bir ortak, düşük hacim" ise, önce elle veya yarı otomatik başlamak
+savunulabilir bir karardır. Otomasyona geçiş kapısı açık kalır; tersi doğru
 değildir.
 
-## Kademeli ilerlemek
+## Görünmeyen maliyetler
 
-Pratik bir yol şudur:
+Teklifleri karşılaştırırken sorulacak sorular:
 
-1. **Okuyun** — gelen dosyayı açıp anlayın, elle işleyin
-2. **Dışa aktarın** — kalemleri tabloya dökün, kendi sisteminize toplu girin
-3. **Otomatikleştirin** — hacim gerektirdiğinde entegrasyona geçin
+- Yeni bir ticari ortak eklemek ne kadar? (Çoğu zaman ayrı ücretlendirilir)
+- Şartname değişikliğinde eşleme güncellemesi dahil mi?
+- Test ortamı var mı? Üretimde deneme yapmak istemezsiniz
+- Aktarım kanalı (AS2, SFTP) ayrı mı ücretlendiriliyor?
+- Sözleşme bitince eşlemeleriniz size ait mi?
 
-İlk iki adım ücretsiz araçlarla yapılabilir ve pek çok firma yıllarca bu
-seviyede kalır. Müşteriniz dosyayı nasıl işlediğinizle değil, doğru yanıt
-verip vermediğinizle ilgilenir.
+Son madde özellikle önemli: bazı sağlayıcılarda yıllarca biriken eşleme
+mantığı sağlayıcının mülkiyetinde kalır ve taşınması yeniden yazmak anlamına
+gelir.
 
-## Ne zaman otomasyona geçmeli
+## Nereden başlamalı
 
-İşaret basittir: elle işleme süresi, hata maliyeti ya da gecikme müşteri
-şikâyetine dönüşmeye başladığında. O noktaya kadar harcanmayan para,
-işletmede kalır.
+Karar vermeden önce elinizdeki örnek dosyaya bakın. Kaç kalem var, hangi
+segmentler kullanılıyor, şartname ne kadar karmaşık? Bu, alacağınız tekliflerin
+gerçekçi olup olmadığını anlamanın en ucuz yoludur — ve bunun için henüz bir
+şey satın almanız gerekmez.
 """,
         },
         'en': {
@@ -939,54 +1578,96 @@ işletmede kalır.
             'summary': 'Does a company receiving 20 orders a month need full automation? '
                        'Usually not.',
             'body': """
-When a large customer says "we work over EDI", a small supplier's first instinct
-is to shop for an expensive integration package. That is usually a premature
-decision.
+A retail chain has told you they "work with EDI", and you have no idea what it
+will cost. Naming a figure is hard, but knowing **where** the cost comes from
+makes quotes much easier to compare.
 
-## Start with volume
+## Where does the money go?
 
-The question that decides it: how many documents will you send and receive per
-month?
+There are four items, and their order often surprises people:
 
-| Volume | A sensible approach |
+| Item | Weight |
 |---|---|
-| Under 50 a month | View the file and process it by hand |
-| 50-500 a month | Semi-automatic: file to spreadsheet, spreadsheet to system |
-| 500+ a month | Full integration starts to pay for itself |
+| Software / subscription | Usually the smallest item |
+| Initial setup and mapping | One-off, but among the largest |
+| Extra integration per partner | A new customer means new work |
+| Maintenance and support | Ongoing, and routinely underestimated |
 
-For a supplier receiving twenty orders a month, full automation will not repay
-its setup and maintenance cost for years.
+The real money is not in the software but in the **mapping** — defining how
+incoming EDI fields correspond to fields in your own system. That work partly
+repeats for every partner, because every partner's specification differs.
 
-## Where the money goes
+## Three approaches
 
-An EDI setup spends in three places:
+**1. An EDI service provider (VAN or cloud)**
 
-- **Transport** — per-transaction fees with a VAN; fixed infrastructure cost
-  with SFTP or AS2
-- **Software** — a translator licence or a SaaS subscription
-- **Setup and maintenance** — the hidden one; every time the partner changes
-  version or adds a field, there is work to do
+You pay a monthly subscription and the provider handles translation and
+transmission. Pricing is usually by volume or by number of partners.
 
-The third is routinely underestimated. An integration is not something you build
-once and forget.
+- Upside: you start quickly and carry no technical load
+- Downside: a permanent cost that grows with volume, plus dependence on the
+  provider
 
-## Moving in stages
+**2. Building your own integration**
 
-A practical path:
+You add an EDI module to your ERP, or develop one yourself.
 
-1. **Read** — open the incoming file, understand it, process it by hand
-2. **Export** — pull the line items into a spreadsheet and load them in bulk
-3. **Automate** — move to integration when volume demands it
+- Upside: no monthly fee, full control
+- Downside: development time and, more importantly, **maintenance**. When a
+  partner changes its specification, you are the one who updates it.
 
-The first two steps can be done with free tools, and plenty of companies stay at
-that level for years. Your customer cares whether you respond correctly, not how
-you processed the file.
+**3. Handling it manually**
 
-## When to automate
+Open the file, read it, key the data in. It sounds primitive, but for a supplier
+receiving a few orders a month it can genuinely be the right answer.
 
-The signal is simple: when the time spent handling files by hand, the cost of
-mistakes, or the delays start turning into customer complaints. Until then, the
-money you do not spend stays in the business.
+- Upside: zero setup cost
+- Downside: error rate and time cost grow quickly with volume
+
+## Where are the thresholds?
+
+As a rough rule of thumb:
+
+- **Under 10 documents a month** — manual handling is usually cheapest. Automation
+  will not earn back its setup cost.
+- **Between 10 and 100** — semi-automatic approaches make sense: read the file,
+  convert it to a table, import it.
+- **Over 100, or several partners** — full automation pays for itself.
+
+These thresholds shift by industry. In automotive, where one late delivery can
+stop a production line, automation may be mandatory even at low volume.
+
+## The common mistake: committing too early
+
+The most expensive outcome is building costly infrastructure for a single
+customer and then losing that customer. When your first EDI request arrives, ask:
+what share of my volume is this partner, and how many more partners will ask for
+EDI within a year?
+
+If the answer is "one partner, low volume", starting manually or semi-manually is
+a defensible decision. The door to automation stays open; the reverse is not
+true.
+
+## The costs you do not see
+
+Questions worth asking when comparing quotes:
+
+- What does adding a new trading partner cost? (It is often billed separately)
+- Are mapping updates included when a specification changes?
+- Is there a test environment? You do not want to experiment in production
+- Is the transport channel (AS2, SFTP) charged separately?
+- When the contract ends, do your mappings belong to you?
+
+That last point matters more than it looks: with some providers, mapping logic
+built up over years remains the provider's property, and moving means rewriting
+it.
+
+## Where to start
+
+Before deciding anything, look at the sample file you were sent. How many line
+items, which segments, how complex is the specification? That is the cheapest way
+to judge whether the quotes you receive are realistic — and it does not require
+buying anything yet.
 """,
         },
     },
@@ -1001,52 +1682,89 @@ money you do not spend stays in the business.
             'summary': 'İkisi de elektronik fatura taşır ama amaçları, muhatapları ve zorunluluk '
                        'durumları farklıdır.',
             'body': """
-Türkiye'de "elektronik fatura" denince akla e-Fatura ve e-Arşiv gelir. EDI de
-fatura taşır. Aynı şey değildirler ve birbirinin yerine geçmezler.
+İkisi de elektronik, ikisi de fatura taşıyor, ama aynı şey değiller. Türkiye'de
+çalışan bir firma çoğu zaman **ikisini birden** kullanır ve karıştırmak
+entegrasyon planını baştan yanlış kurmaya yol açar.
 
-## Muhatap kim?
+## Temel fark: kim için zorunlu?
 
-Temel fark burada:
+**e-Fatura** yasal bir yükümlülüktür. Devletin belirlediği formatta (Türkiye'de
+UBL-TR), devletin belirlediği kanaldan (GİB) geçer. Amacı vergi denetimidir.
 
-- **e-Fatura**, devlete karşı yükümlülüktür. Gelir İdaresi'nin belirlediği
-  formatta (UBL-TR), onun altyapısı üzerinden gönderilir. Amaç vergi denetimidir.
-- **EDI**, ticari ortağınıza karşı bir anlaşmadır. Formatı ve içeriği taraflar
-  belirler. Amaç iş süreçlerini otomatikleştirmektir.
+**EDI** ticari bir anlaşmadır. Formatı ve kanalı taraflar belirler. Amacı
+operasyonu otomatikleştirmektir.
 
-Biri yasal, diğeri ticari bir gerekliliktir.
-
-## Kapsam farkı
-
-e-Fatura yalnızca faturayı kapsar. EDI ise sipariş, sipariş yanıtı, sevk
-ihbarı, mal kabul ve ödeme bildirimini de taşır. Fatura, EDI'nin ilgilendiği
-zincirin yalnızca bir halkasıdır.
-
-Bu yüzden EDI kullanan bir firma e-Fatura yükümlülüğünden kurtulmaz; ikisini
-birlikte yürütür.
-
-## Format farkı
-
-| | e-Fatura | EDI (EDIFACT) |
+| | e-Fatura | EDI |
 |---|---|---|
-| Format | UBL-TR (XML) | EDIFACT (metin) |
-| Belirleyen | Gelir İdaresi | Ticaret ortakları |
-| Zorunluluk | Yasal eşik üstü firmalar | Ortağın talebi |
-| Kapsam | Yalnızca fatura | Tüm ticari zincir |
+| Zorunluluk | Yasal | Sözleşmeye bağlı |
+| Format | UBL-TR (XML) | EDIFACT, X12 |
+| Kanal | GİB üzerinden | Taraflar arası (AS2, SFTP, VAN) |
+| Kapsam | Yalnızca fatura | Sipariş, irsaliye, fatura, ödeme… |
+| Doğrulayan | Devlet | Ticari ortak |
 
-## Pratikte nasıl yürür?
+## Asıl ayrım: kapsam
 
-Yaygın kurgu şudur: sipariş ve sevkiyat EDI ile akar, fatura hem EDI ile
-ticari ortağa hem UBL-TR ile devlete gider. Aynı ticari olayın iki farklı
-muhataba, iki farklı formatta bildirilmesi söz konusudur.
+En önemli fark tabloda görünen son satır. e-Fatura yalnızca faturayı ilgilendirir.
+EDI ise ticari sürecin tamamını taşır:
 
-Bu ikilik gereksiz görünse de mantığı vardır: ortağınızın istediği alanlarla
-devletin istediği alanlar örtüşmez.
+```
+ORDERS  -> siparis
+ORDRSP  -> siparis yaniti
+DESADV  -> sevk ihbari
+RECADV  -> mal kabul
+INVOIC  -> fatura
+REMADV  -> odeme bildirimi
+```
+
+Yani "EDI'ye geçtik" cümlesi genellikle "artık siparişleri de elektronik
+alıyoruz" demektir; e-Fatura ise sürecin yalnızca son adımını kapsar.
+
+## Neden ikisi birden gerekiyor?
+
+Çünkü farklı taraflara hesap veriyorlar.
+
+Bir zincir markete tedarikçiyseniz, market sizden EDIFACT INVOIC isteyebilir —
+kendi sistemine otomatik girmesi için. Aynı faturayı ayrıca e-Fatura olarak GİB
+üzerinden de kesmeniz gerekir, çünkü yasal geçerlilik oradan gelir.
+
+Aynı ticari olay, iki farklı formatta, iki farklı yere gider. Bu tekrar tuhaf
+görünür ama sistemlerin amaçları farklıdır.
+
+## Pratik sonuçları
+
+**Numaralar tutmalı.** EDI faturasındaki belge numarası ile e-Faturadaki numara
+aynı olmalıdır. Aksi hâlde mutabakatta iki ayrı fatura görünür ve kimse hangisinin
+gerçek olduğunu bilemez.
+
+**Tutarlar tutmalı.** İki formata farklı yuvarlama uygulayan sistemler, kuruş
+farkları üretir. Bu farklar denetimde soru işareti yaratır.
+
+**Zamanlama önemlidir.** EDI faturası ortağınıza ulaşıp e-Fatura henüz
+kesilmemişse, ortak ödeme yapamayabilir. Sıralamayı süreçte netleştirmek gerekir.
+
+## Avrupa'daki durum
+
+Avrupa'da benzer bir ayrım **Peppol** ile kurulmuştur. Peppol, e-Faturanın
+sınır ötesi karşılığı gibi çalışır: standart bir ağ ve format (Peppol BIS,
+yine UBL tabanlı). EDIFACT ise ticari akışta varlığını sürdürür.
+
+Yani Avrupa'da da tablo benzerdir: yasal katman UBL tabanlı bir ağa, operasyonel
+katman EDIFACT'e dayanır.
 
 ## Karıştırılmaması gereken nokta
 
-EDI faturası gönderdiğiniz için e-Fatura kesmediyseniz, vergi açısından fatura
-kesilmemiş sayılır. Tersi de geçerlidir: e-Fatura kestiğiniz hâlde ortağınıza
-EDI INVOIC göndermediyseniz, onun sistemi ödemeyi tetiklemez.
+"e-Fatura kesiyoruz, EDI'ye gerek yok" cümlesi yanlıştır. e-Fatura siparişinizi
+almaz, sevkiyatınızı bildirmez, mal kabulünüzü kaydetmez. Ticari ortağınız EDI
+istiyorsa, bunun sebebi faturayı almak değil, **süreci** otomatikleştirmektir.
+
+Tersi de doğrudur: EDI kullanmak yasal yükümlülüğünüzü ortadan kaldırmaz.
+
+## Nereden başlamalı
+
+Elinizde her iki formattan örnek varsa, ikisini yan yana koyup aynı faturanın
+nasıl göründüğünü karşılaştırmak öğretici olur. EDIFACT tarafındaki dosyayı
+okunur hâle getirmek, hangi alanın hangi UBL alanına karşılık geldiğini
+görmenin ilk adımıdır.
 """,
         },
         'en': {
@@ -1054,51 +1772,92 @@ EDI INVOIC göndermediyseniz, onun sistemi ödemeyi tetiklemez.
             'summary': 'Both carry electronic invoices, but they differ in purpose, audience '
                        'and whether they are compulsory.',
             'body': """
-Government e-invoicing schemes and EDI both move invoices electronically. They
-are not the same thing, and one does not replace the other.
+Both are electronic and both carry invoices, but they are not the same thing. A
+company often needs **both**, and confusing them leads to an integration plan
+that is wrong from the start.
 
-## Who is the counterparty?
+## The basic difference: mandatory for whom?
 
-That is the core difference:
+**E-invoicing** is a legal obligation. It uses a format the state defines (UBL in
+most European schemes, UBL-TR in Türkiye) and a channel the state defines. Its
+purpose is tax oversight.
 
-- **E-invoicing** is an obligation towards the state. It uses a format the tax
-  authority defines, sent over its infrastructure. The purpose is tax oversight.
-- **EDI** is an agreement with your trading partner. The parties decide the
-  format and content. The purpose is automating business processes.
+**EDI** is a commercial agreement. The parties choose the format and the channel.
+Its purpose is to automate operations.
 
-One is a legal requirement, the other a commercial one.
-
-## Different scope
-
-E-invoicing covers the invoice alone. EDI also carries the order, the order
-response, the despatch advice, the receiving advice and the remittance advice.
-The invoice is one link in the chain EDI concerns itself with.
-
-A company using EDI is therefore not exempt from e-invoicing; it runs both.
-
-## Different formats
-
-| | E-invoicing | EDI (EDIFACT) |
+| | E-invoicing | EDI |
 |---|---|---|
-| Format | XML (UBL or similar) | EDIFACT (text) |
-| Defined by | The tax authority | Trading partners |
-| Compulsory | Above a legal threshold | When a partner requires it |
-| Scope | The invoice only | The whole trade chain |
+| Obligation | Legal | Contractual |
+| Format | UBL (XML) | EDIFACT, X12 |
+| Channel | Via the tax authority or a certified network | Between the parties (AS2, SFTP, VAN) |
+| Scope | Invoices only | Orders, despatch, invoices, payment… |
+| Validated by | The state | Your trading partner |
 
-## How it works in practice
+## The real distinction: scope
 
-The common arrangement: orders and shipments flow over EDI, while the invoice
-goes both to the trading partner as EDI and to the state in the mandated XML.
-The same commercial event is reported to two audiences in two formats.
+The most important difference is the second-to-last row. E-invoicing concerns
+only the invoice. EDI carries the whole commercial process:
 
-The duplication looks wasteful but has a logic to it: the fields your partner
-needs and the fields the tax authority needs do not overlap.
+```
+ORDERS  -> purchase order
+ORDRSP  -> order response
+DESADV  -> despatch advice
+RECADV  -> receiving advice
+INVOIC  -> invoice
+REMADV  -> remittance advice
+```
+
+So "we moved to EDI" usually means "we now receive orders electronically too",
+whereas e-invoicing covers only the last step of the process.
+
+## Why do you need both?
+
+Because they answer to different parties.
+
+If you supply a retail chain, the chain may require an EDIFACT INVOIC so that it
+can post the invoice automatically. You will still have to issue the same invoice
+through the legal e-invoicing channel, because that is where legal validity comes
+from.
+
+The same commercial event goes to two places in two formats. The duplication
+looks odd, but the systems exist for different reasons.
+
+## Practical consequences
+
+**The numbers must agree.** The document number on the EDI invoice and on the
+e-invoice must be identical. Otherwise reconciliation shows two invoices and
+nobody knows which is real.
+
+**The amounts must agree.** Systems that round differently in the two formats
+produce penny differences, and those differences raise questions in an audit.
+
+**Timing matters.** If the EDI invoice reaches your partner before the e-invoice
+has been issued, they may be unable to pay. The order of the two steps needs to be
+explicit in your process.
+
+## The European picture
+
+In Europe the same distinction is drawn through **Peppol**. Peppol works as the
+cross-border counterpart of national e-invoicing: a standard network and format
+(Peppol BIS, again UBL-based). EDIFACT continues to carry the commercial flow.
+
+So the table looks similar there too: the legal layer rests on a UBL-based
+network, the operational layer on EDIFACT.
 
 ## The point not to confuse
 
-Sending an EDI invoice does not discharge a legal e-invoicing obligation. And
-the reverse holds too: filing the legal e-invoice without sending your partner
-an EDI INVOIC leaves their system with nothing to trigger payment.
+"We issue e-invoices, so we do not need EDI" is wrong. E-invoicing does not
+receive your orders, announce your shipments or record your goods receipts. If
+your trading partner asks for EDI, the reason is not to receive the invoice but
+to automate the **process**.
+
+The reverse holds as well: using EDI does not remove your legal obligation.
+
+## Where to start
+
+If you have samples of both formats, putting them side by side and comparing how
+the same invoice looks is instructive. Making the EDIFACT file readable is the
+first step towards seeing which field corresponds to which UBL element.
 """,
         },
     },
@@ -1113,12 +1872,12 @@ an EDI INVOIC leaves their system with nothing to trigger payment.
             'summary': 'EDI\'de "okundu bilgisi" CONTRL mesajıdır. Gelmiyorsa ya da hata '
                        'içeriyorsa ne anlama gelir.',
             'body': """
-Bir EDI dosyası gönderdiniz. Ulaştı mı? İşlendi mi? Bunu söyleyen ayrı bir
-mesaj vardır: **CONTRL**.
+Bir EDI dosyası gönderdiniz. Ulaştı mı? İşlendi mi? Bunu ayrı bir mesaj cevaplar:
+**CONTRL**. Okundu bilgisinin EDI karşılığıdır.
 
-## Ne işe yarar?
+## Ne yapar, ne yapmaz
 
-CONTRL, içerikle ilgilenmez. "Siparişini kabul ettim" demez; "dosyanı aldım ve
+CONTRL içerikle ilgilenmez. "Siparişini kabul ettim" demez; "dosyanı aldım ve
 sözdizimi geçerli" der. Yani teknik bir teyittir, ticari değil.
 
 İki farklı şey karıştırılmamalıdır:
@@ -1126,7 +1885,8 @@ sözdizimi geçerli" der. Yani teknik bir teyittir, ticari değil.
 - **CONTRL** — dosya ulaştı, sözdizimi doğru
 - **ORDRSP** — siparişi kabul ediyorum / etmiyorum
 
-CONTRL almanız siparişinizin kabul edildiği anlamına gelmez.
+CONTRL almanız siparişinizin kabul edildiği anlamına gelmez. Sözdizimi kusursuz
+ama ticari olarak reddedilecek bir sipariş de olumlu CONTRL alır.
 
 ## Yapısı
 
@@ -1145,11 +1905,13 @@ Durum kodları kısadır: `7` kabul, `4` reddedildi, `8` hata var ama işlendi.
 UCI+REF00042+8712345678901:14+8798765432109:14+7'
 ```
 
-Sondaki `7`, zarfın sorunsuz kabul edildiğini söyler.
+Sondaki `7`, zarfın sorunsuz kabul edildiğini söyler. Bu satırdaki referans
+numarası (`REF00042`) gönderdiğiniz dosyanın `UNB` satırındaki numarayla
+eşleşir — hangi teyidin hangi dosyaya ait olduğunu böyle bulursunuz.
 
 ## Hata geldiğinde
 
-Reddedilme durumunda `UCS` size satır numarasını verir, `UCD` ise nedeni:
+Reddedilme durumunda `UCS` size segment sırasını verir, `UCD` ise nedeni:
 
 ```
 UCS+12'
@@ -1157,22 +1919,54 @@ UCD+13+QTY+2'
 ```
 
 Bu, 12. segmentteki `QTY`'nin 2. veri elemanında hata olduğunu söyler. Elinizdeki
-dosyayı açıp 12. segmente bakmak, sorunu doğrudan gösterir.
+dosyayı açıp 12. segmente bakmak sorunu doğrudan gösterir.
+
+Sık görülen hata kodları:
+
+| Kod | Anlamı |
+|---|---|
+| `12` | Geçersiz değer |
+| `13` | Zorunlu alan eksik |
+| `15` | Kod listesinde olmayan değer |
+| `35` | Segment fazla tekrarlanmış |
+| `36` | Segment eksik |
+
+Bu kodlar sorunun **türünü** söyler, çözümünü değil. "Zorunlu alan eksik"
+uyarısı aldığınızda hangi alanın zorunlu olduğunu şartnameniz söyler.
 
 ## Hiç CONTRL gelmiyorsa
 
-Bu genellikle içerik hatası değil, **aktarım** sorunudur:
+Bu genellikle içerik hatası değil, **aktarım** sorunudur. Sırayla bakılacak
+yerler:
 
-- Dosya karşı tarafa hiç ulaşmamıştır (SFTP dizini, AS2 sertifikası)
-- Ortağınız CONTRL göndermiyordur — her ortak göndermez, şartnamede yazar
-- Dosya ulaşmış ama işlenmeden kuyrukta beklemektedir
+1. **Dosya karşı tarafa ulaştı mı?** SFTP dizinini, AS2 sertifikasının süresini,
+   bağlantı günlüklerini kontrol edin.
+2. **Ortağınız CONTRL gönderiyor mu?** Her ortak göndermez. Bu şartnamede
+   yazar; gönderilmiyorsa beklemek boşunadır.
+3. **Dosya ulaşmış ama kuyrukta mı bekliyor?** Bazı sistemler toplu işler,
+   teyit saatler sonra gelebilir.
 
-Sırasıyla bakılacak yer budur: önce aktarım kanalı, sonra şartname.
+Beklenen süre de şartnamede tanımlıdır; genellikle birkaç dakika ile birkaç saat
+arasında değişir.
+
+## Siz CONTRL göndermeli misiniz?
+
+Gelen dosyaları işliyorsanız, ortağınız büyük ihtimalle sizden de teyit
+bekleyecektir. Bu tek yönlü bir mekanizma değildir.
+
+Kendi CONTRL'ünüzü üretirken en sık yapılan hata, her dosyaya koşulsuz `7`
+(kabul) yollamaktır. Bu, sözdizimi hatalı bir dosyayı da "kabul edildi" diye
+işaretler ve karşı taraf sorunu ancak fatura ödenmediğinde fark eder.
 
 ## Pratik öneri
 
 CONTRL mesajlarını saklayın. Bir fatura "gelmedi" tartışmasında, tarihli bir
-kabul teyidi en hızlı çözen belgedir.
+kabul teyidi meseleyi en hızlı çözen belgedir. Sözdizimi geçerliliğini
+kanıtlamak, ticari anlaşmazlığı çözmez ama tartışmayı doğru yere taşır:
+dosya ulaştıysa sorun aktarımda değil, iş kuralındadır.
+
+Elinize bir CONTRL geçtiğinde, `UCS` ve `UCD` satırlarındaki numaraları
+gönderdiğiniz dosyayla yan yana okumak en hızlı teşhis yoludur.
 """,
         },
         'en': {
@@ -1180,10 +1974,10 @@ kabul teyidi en hızlı çözen belgedir.
             'summary': 'The EDI equivalent of a read receipt is the CONTRL message. What it '
                        'means when none arrives, or when it carries errors.',
             'body': """
-You sent an EDI file. Did it arrive? Was it processed? A separate message
-answers that: **CONTRL**.
+You sent an EDI file. Did it arrive? Was it processed? A separate message answers
+that: **CONTRL**. It is the EDI equivalent of a read receipt.
 
-## What it does
+## What it does and does not do
 
 CONTRL takes no interest in content. It does not say "I accept your order"; it
 says "I received your file and the syntax is valid". It is a technical
@@ -1194,29 +1988,32 @@ Two things not to confuse:
 - **CONTRL** — the file arrived and parses
 - **ORDRSP** — I do or do not accept the order
 
-Receiving a CONTRL does not mean your order was accepted.
+Receiving a CONTRL does not mean your order was accepted. An order with flawless
+syntax that will be commercially rejected still gets a positive CONTRL.
 
 ## Its structure
 
-A CONTRL message points at where an error sits, if there is one:
+A CONTRL message shows where the error is, if there is one:
 
-| Segment | Role |
+| Segment | Purpose |
 |---|---|
 | `UCI` | Status at interchange level |
 | `UCM` | Status at message level |
-| `UCS` | Position of the offending segment |
+| `UCS` | Position of the segment in error |
 | `UCD` | The reason and which element |
 
-The status codes are terse: `7` accepted, `4` rejected, `8` processed with
-errors.
+The status codes are short: `7` accepted, `4` rejected, `8` errors present but
+processed.
 
 ```
 UCI+REF00042+8712345678901:14+8798765432109:14+7'
 ```
 
-The trailing `7` says the interchange was accepted cleanly.
+The trailing `7` says the interchange was accepted without problems. The reference
+on that line (`REF00042`) matches the number on the `UNB` line of the file you
+sent — that is how you tell which acknowledgement belongs to which file.
 
-## When an error comes back
+## When errors come back
 
 On a rejection, `UCS` gives you the segment position and `UCD` the reason:
 
@@ -1225,23 +2022,57 @@ UCS+12'
 UCD+13+QTY+2'
 ```
 
-That says there is an error in the second data element of the `QTY` at segment
-12. Opening your file and going to segment 12 shows the problem directly.
+That says there is an error in the second data element of the `QTY` at segment 12.
+Opening your file and looking at segment 12 shows the problem directly.
 
-## When no CONTRL arrives at all
+Error codes you will see often:
 
-This is usually a **transport** problem rather than a content one:
+| Code | Meaning |
+|---|---|
+| `12` | Invalid value |
+| `13` | Mandatory field missing |
+| `15` | Value not in the code list |
+| `35` | Segment repeated too many times |
+| `36` | Segment missing |
 
-- The file never reached the other side (SFTP directory, AS2 certificate)
-- Your partner does not send CONTRL — not all do; the specification says so
-- The file arrived but is sitting in a queue unprocessed
+These codes tell you the **kind** of problem, not the fix. When you get "mandatory
+field missing", your specification tells you which field is mandatory.
 
-That is the order to check: the transport channel first, then the specification.
+## If no CONTRL arrives at all
 
-## A practical habit
+That is usually a **transport** problem rather than a content one. Places to look,
+in order:
 
-Keep your CONTRL messages. In an argument about an invoice that "never
-arrived", a timestamped acknowledgement is the fastest way to settle it.
+1. **Did the file reach the other side?** Check the SFTP directory, the expiry of
+   the AS2 certificate, and the connection logs.
+2. **Does your partner send CONTRL at all?** Not everyone does. The specification
+   says so; if they do not, waiting is pointless.
+3. **Did it arrive but sit in a queue?** Some systems process in batches and the
+   acknowledgement can be hours behind.
+
+The expected turnaround is also defined in the specification; it usually ranges
+from a few minutes to a few hours.
+
+## Should you send CONTRL yourself?
+
+If you process incoming files, your partner will most likely expect an
+acknowledgement from you too. This is not a one-way mechanism.
+
+The most common mistake when generating your own CONTRL is returning an
+unconditional `7` (accepted) for every file. That marks a syntactically broken
+file as accepted, and the other side only discovers the problem when an invoice
+goes unpaid.
+
+## A practical suggestion
+
+Keep your CONTRL messages. In an argument about an invoice that "never arrived", a
+dated acknowledgement is the document that settles it fastest. Proving syntactic
+validity does not resolve a commercial dispute, but it moves the discussion to the
+right place: if the file arrived, the problem is not transport but a business
+rule.
+
+When a CONTRL lands on your desk, reading the numbers in its `UCS` and `UCD` lines
+alongside the file you sent is the quickest route to a diagnosis.
 """,
         },
     },

@@ -33,23 +33,63 @@
 <main class="doc">
 <h1>What is EDI, and why is it still used in the API era?</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Why does a 40-year-old format survive alongside REST APIs? The answer is commercial, not technical.</div>
-<p>EDI is how two companies exchange trade documents without human hands touching them. Orders, despatch notes, invoices — all in a standard structure, straight from one system to another.</p>
-<h2>&quot;Why not JSON?&quot;</h2>
-<p>Every developer meeting EDI asks the same thing: with REST APIs available, why use a text format from the 1980s?</p>
-<p>The answer is not technical. A retailer works with thousands of suppliers. Rather than negotiating a separate API with each one, it imposes a single standard: &quot;send us an EDIFACT ORDERS&quot;. The standard removes the cost of one party adapting to the other.</p>
-<p>And that standard has barely changed in decades. An integration written in 2005 still runs today. That sentence is rarely spoken in the API world.</p>
+<p>EDI is the exchange of commercial documents between two companies without human hands in the middle. Orders, despatch notes, invoices — all in a standard structure, straight from one system to another.</p>
+<h2>&quot;We have JSON. What is this?&quot;</h2>
+<p>Every developer who meets EDI for the first time asks the same question: why use a text format from the 1980s when you could write a REST API today?</p>
+<p>The answer is commercial, not technical. A retail chain works with thousands of suppliers. Rather than negotiating a separate API with each one, it imposes a single standard: &quot;send us an EDIFACT ORDERS&quot;. The standard shifts the cost of adapting from the chain to the supplier — and for the supplier it is still cheaper than writing a bespoke integration per customer.</p>
+<h2>The real issue: the N×M problem</h2>
+<p>Say there are 500 suppliers and 20 chains. If everyone spoke their own API, you would in theory need 10,000 separate integrations. A shared standard reduces that to 520: each party learns the standard once.</p>
+<p>That is the problem EDI actually solves, and it has nothing to do with technology. Change the format and the problem remains; modern networks such as Peppol work on the same logic, only with a different syntax.</p>
 <h2>Who uses it?</h2>
 <ul>
-<li><strong>Retail chains</strong> — nearly all order and invoice flow</li>
-<li><strong>Automotive</strong> — production line supply, just-in-time calls</li>
-<li><strong>Logistics</strong> — transport instructions and status reports</li>
-<li><strong>Healthcare and public sector</strong> — especially in Europe</li>
+<li><strong>Retail chains</strong> — almost the entire order and invoice flow. If you want to</li>
 </ul>
-<h2>Is it really outdated?</h2>
-<p>The syntax is old; the logic is not. The problem EDI solves — two independent systems agreeing on a shared vocabulary — has not changed. Modern alternatives such as APIs and networks like Peppol solve the same problem with different syntax.</p>
-<p>In practice both coexist: many companies use JSON internally and translate to EDIFACT at the boundary.</p>
+<p>supply a supermarket, EDI is often a contractual requirement.</p>
+<ul>
+<li><strong>Automotive</strong> — feeding the production line and just-in-time delivery calls.</li>
+</ul>
+<p>Here a delay means the line stops.</p>
+<ul>
+<li><strong>Logistics</strong> — shipping instructions, transport status reports, customs</li>
+</ul>
+<p>documents.</p>
+<ul>
+<li><strong>Healthcare and the public sector</strong> — particularly tendering and invoicing in</li>
+</ul>
+<p>Europe.</p>
+<p>For most people the first encounter looks the same: a specification from a customer with a sample file attached.</p>
+<h2>What does an EDI message look like?</h2>
+<p>These four lines are the beginning of a purchase order:</p>
+<pre class="doc-code"><code>
+UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042&#x27;
+UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;
+BGM+220+PO-2026-0042+9&#x27;
+NAD+BY+8798765432109::9++MEGA RETAIL AS+Barbaros Bulvari 12+ISTANBUL+34353+TR&#x27;
+</code></pre>
+<p>It looks impenetrable, but the logic is simple. Each line is a <strong>segment</strong>, and the three letters at the start say what that segment is about:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>UNB</code></td><td>Interchange header: from whom, to whom, when</td></tr>
+<tr><td><code>UNH</code></td><td>Message header: this is an ORDERS, version D.96A</td></tr>
+<tr><td><code>BGM</code></td><td>Document number: PO-2026-0042</td></tr>
+<tr><td><code>NAD</code></td><td>Party details: <code>BY</code> means buyer</td></tr>
+</tbody></table>
+<p>Inside a segment, <code>+</code> separates data elements, and <code>:</code> splits an element into components where needed. That is the whole structure; the rest is knowing what each code means.</p>
+<h2>So is it really outdated?</h2>
+<p>The format is old; the logic is not. The problem EDI solves — two independent systems agreeing on a shared vocabulary — is the same today.</p>
+<p>The standard is also remarkably stable. An integration written in 2005 may still run unchanged. That sentence is rarely spoken in the API world, where version bumps, removed endpoints and changing authentication schemes are routine work. In EDI, &quot;if it works, leave it alone&quot; is genuinely possible.</p>
+<p>What the format costs you is readability. It is a compact syntax that was never designed for humans, which is exactly why you need the right tool when debugging.</p>
+<h2>How do EDI and APIs coexist?</h2>
+<p>In practice they sit side by side. The common arrangement is:</p>
+<ul>
+<li>Internal systems speak JSON among themselves</li>
+<li>A translation layer sits at the boundary to the outside world</li>
+<li>That layer converts outgoing data to EDIFACT and incoming EDIFACT to JSON</li>
+</ul>
+<p>EDI usually lives at the edge of the application rather than inside it. This distinction matters: modelling your business logic on EDI segments hurts in the long run. Keep your own data model and translate at the boundary.</p>
 <h2>Where to start</h2>
-<p>If an EDI file has landed on your desk, the first thing you need is to be able to <strong>read</strong> it. Opening the file and seeing what the segments mean is the natural first step, long before integration work begins.</p>
+<p>If an EDI file has landed on your desk, the order of work is:</p>
+<p>1. <strong>Make the file readable.</strong> Which message type, which parties, which line items? Do this before you touch any integration code. 2. <strong>Ask your partner for their specification.</strong> EDIFACT is broad; every partner defines its own subset and mandatory fields in a separate document. The standard alone is not enough. 3. <strong>Compare the sample file against the specification.</strong> If a field the spec calls mandatory is empty in the sample, that usually means the spec is out of date rather than that you are wrong. Asking saves time. 4. <strong>Then write code.</strong> Before writing a parser, make sure you have actually seen what the file contains.</p>
+<p>A browser-based viewer is enough for the first step: you can see what the segments mean without uploading the file anywhere.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a> <a href="../segment/unh.html"><code>UNH</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

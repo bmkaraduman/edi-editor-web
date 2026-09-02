@@ -33,34 +33,59 @@
 <main class="doc">
 <h1>DTM: which date is which?</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; A message can hold five different DTMs. The qualifier says which one is delivery and which is the document date.</div>
-<p>There is no single &quot;date&quot; in an EDI message. Order date, requested delivery date, actual delivery date, payment due date — each travels in its own DTM segment, and they all look alike.</p>
-<p>What separates them is the <strong>qualifier</strong> in the first element.</p>
-<h2>The qualifiers you meet most</h2>
+<p>An EDI file contains several <code>DTM</code> lines and all of them carry dates. What tells you which is the document date and which is the delivery date is not the line itself but the <strong>qualifier</strong> inside it.</p>
+<h2>The structure</h2>
+<pre class="doc-code"><code>
+DTM+137:20260117:102&#x27;
+</code></pre>
+<p>There are three parts:</p>
+<table class="doc-table"><thead><tr><th>Part</th><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Qualifier</td><td><code>137</code></td><td>This is a document date</td></tr>
+<tr><td>Value</td><td><code>20260117</code></td><td>17 January 2026</td></tr>
+<tr><td>Format</td><td><code>102</code></td><td>In <code>YYYYMMDD</code> form</td></tr>
+</tbody></table>
+<p>Using a date without reading its qualifier is one of the most common mistakes in EDI.</p>
+<h2>Qualifiers you will meet</h2>
 <table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
 <tr><td><code>137</code></td><td>Document / message date</td></tr>
 <tr><td><code>2</code></td><td>Requested delivery date</td></tr>
 <tr><td><code>35</code></td><td>Actual delivery date</td></tr>
 <tr><td><code>11</code></td><td>Despatch date</td></tr>
-<tr><td><code>13</code></td><td>Payment due date</td></tr>
 <tr><td><code>132</code></td><td>Estimated arrival</td></tr>
+<tr><td><code>203</code></td><td>Payment date</td></tr>
+<tr><td><code>263</code></td><td>Invoicing period</td></tr>
 <tr><td><code>356</code></td><td>Period start</td></tr>
-<table class="doc-table"><thead><tr><th><code>357</code></th><th>Period end</th></tr></thead><tbody>
+<tr><td><code>357</code></td><td>Period end</td></tr>
 </tbody></table>
-<p><code>DTM+137:20260117:102&#x27;</code> is the document date; <code>DTM+2:20260125:102&#x27;</code> is the delivery date. An integration that reads them interchangeably schedules the order on the wrong day.</p>
-<h2>The third part: the format</h2>
-<p>The third element says how to read the value:</p>
+<p><code>137</code> appears in almost every message; the others depend on the message type. An order carries <code>2</code> (requested delivery), a despatch advice <code>11</code> (despatch), a sales report <code>356</code>/<code>357</code> (the period).</p>
+<h2>Why the format code matters</h2>
+<p>The third part says how the date is written. The two most common:</p>
 <table class="doc-table"><thead><tr><th>Code</th><th>Format</th><th>Example</th></tr></thead><tbody>
-<tr><td><code>102</code></td><td>YYYYMMDD</td><td><code>20260117</code></td></tr>
-<tr><td><code>203</code></td><td>YYYYMMDDHHMM</td><td><code>202601171030</code></td></tr>
-<tr><td><code>718</code></td><td>A date range (two dates joined)</td><td><code>2026010120260630</code></td></tr>
-<tr><td><code>610</code></td><td>YYYYMM (month)</td><td><code>202601</code></td></tr>
-<table class="doc-table"><thead><tr><th><code>616</code></th><th>YYYYWW (week)</th><th><code>202603</code></th></tr></thead><tbody>
+<tr><td><code>102</code></td><td><code>YYYYMMDD</code></td><td><code>20260117</code></td></tr>
+<tr><td><code>203</code></td><td><code>YYYYMMDDHHMM</code></td><td><code>202601171430</code></td></tr>
 </tbody></table>
-<p>Parsing the value without reading the format code is a common mistake. Treating <code>202601171030</code> as <code>102</code> and taking the first eight digits gives you the right day while silently dropping the time.</p>
-<h2>The week format</h2>
-<p><code>616</code> turns up especially in automotive: the delivery week is stated, not the day. <code>202603</code> means week three of 2026. Trying to parse that as a date produces nonsense.</p>
-<h2>A practical check</h2>
-<p>If you cannot find the date you expect in a file, line up every DTM in the message and read their qualifiers. The date is usually there — under a different code.</p>
+<p>Older files may also use <code>101</code> (<code>YYMMDD</code>). The two-digit year is a pre-2000 leftover and forces you to guess the century — avoid it where you can.</p>
+<p>Code that ignores the format and guesses from the length works for a while, then breaks on the first file that carries a time.</p>
+<h2>The date in UNB is different</h2>
+<p>The date in the interchange header does not follow this pattern:</p>
+<pre class="doc-code"><code>
+UNB+UNOC:3+A:14+B:14+260117:1030+REF00042&#x27;
+</code></pre>
+<p>Here <code>260117:1030</code> is in <code>YYMMDD:HHMM</code> form and has no qualifier — it is always the moment the interchange was sent. Trying to read the <code>UNB</code> date with <code>DTM</code> logic will not work.</p>
+<h2>The time zone question</h2>
+<p>EDIFACT dates carry no time zone by default. In which zone is <code>202601171430</code> 14:30? The standard does not say; the specification does.</p>
+<p>In practice there are two approaches: either both sides use local time and fix that in the agreement, or a separate time zone indicator travels alongside the <code>DTM</code>. In cross-border flows, skipping this distinction can shift delivery dates by a day.</p>
+<h2>When the same qualifier appears twice</h2>
+<p>That is valid, and the meaning depends on position. A <code>DTM</code> in the message header applies to the whole document; the same code after a <code>LIN</code> (line item) segment applies only to that item.</p>
+<pre class="doc-code"><code>
+DTM+2:20260125:102&#x27;      &lt;- requested delivery for the whole order
+LIN+1++5410013101234:EN&#x27;
+DTM+2:20260130:102&#x27;      &lt;- for this line item only
+</code></pre>
+<p>The line-level date <strong>overrides</strong> the header for that item. Mappings that skip this rule produce wrong dates on partial deliveries.</p>
+<h2>Checklist</h2>
+<p>1. Read the qualifier; do not infer meaning from position 2. Use the format code; do not guess from the length 3. Treat the <code>UNB</code> date separately 4. Remember that a line-level <code>DTM</code> overrides the header</p>
+<p>To see which date is which in a file, the quickest route is a viewer that decodes the qualifier when you select the line.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/dtm.html"><code>DTM</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>
