@@ -33,35 +33,59 @@
 <main class="doc">
 <h1>Faturam neden reddedildi? INVOIC kontrol listesi</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; EDI faturaları çoğunlukla içerik yüzünden değil, eşleştirme ve toplam hataları yüzünden geri döner.</div>
-<p>EDI faturası reddedildiğinde ilk düşünülen tutarın yanlış olduğudur. Pratikte sebep genellikle daha sıradan bir şeydir.</p>
-<h2>1. Sipariş referansı eksik</h2>
-<p>Alıcı sistem faturayı siparişle eşleştiremezse elle işleme düşürür ya da reddeder. Bağ şu satırla kurulur:</p>
+<p>INVOIC, EDI mesajları arasında en çok reddedileni. Sebebi genellikle karmaşık değil: birkaç alan yanlış, bir toplam tutmuyor ya da bir referans eksik. Aşağıda en sık karşılaşılan nedenler sırayla.</p>
+<h2>1. Toplamlar tutmuyor</h2>
+<p>En yaygın neden bu. Özet bölümündeki <code>MOA</code> nitelikçileri karıştırılır:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>79</code></td><td>Mal toplamı (vergi hariç)</td></tr>
+<tr><td><code>124</code></td><td>Vergi tutarı</td></tr>
+<tr><td><code>77</code></td><td>Genel toplam (vergi dahil)</td></tr>
+<tr><td><code>9</code></td><td>Ödenecek tutar</td></tr>
+</tbody></table>
+<p>Kural basittir: <code>79 + 124 = 77</code> olmalıdır. Alıcı sistem bunu aritmetik olarak doğrular ve tutmuyorsa faturayı işleme almaz.</p>
+<pre class="doc-code"><code>
+MOA+79:1228.00&#x27;
+MOA+124:245.60&#x27;
+MOA+77:1473.60&#x27;
+</code></pre>
+<p>Ayrıca kalem düzeyindeki <code>MOA+203</code> değerlerinin toplamı <code>79</code>&#x27;a eşit olmalıdır. Yuvarlama farkları burada sorun çıkarır: her kalemi ayrı yuvarlayıp topladığınızda tek seferde yuvarlamaktan farklı sonuç çıkabilir.</p>
+<h2>2. Sipariş referansı eksik veya yanlış</h2>
+<p>Alıcı sistem genellikle <strong>üçlü eşleştirme</strong> yapar: sipariş (ORDERS), mal kabul (RECADV) ve fatura birbirini tutmalıdır. Bunu yapabilmesi için faturanın sipariş numarasını taşıması gerekir:</p>
 <pre class="doc-code"><code>
 RFF+ON:PO-2026-0042&#x27;
 </code></pre>
-<p>Bu satır yoksa fatura &quot;sahipsizdir&quot;. EDI faturalarında en sık görülen ret sebebi budur.</p>
-<h2>2. Toplamlar tutmuyor</h2>
-<p>Özet bölümünde birden fazla MOA bulunur ve her biri farklı bir toplamdır:</p>
-<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
-<tr><td><code>79</code></td><td>Mal toplamı (satırların toplamı)</td></tr>
-<tr><td><code>124</code></td><td>Vergi tutarı</td></tr>
-<tr><td><code>77</code></td><td>Genel toplam</td></tr>
-<table class="doc-table"><thead><tr><th><code>9</code></th><th>Ödenecek tutar</th></tr></thead><tbody>
-</tbody></table>
-<p>Alıcı sistem <code>79 + 124 = 77</code> eşitliğini kontrol eder. Yuvarlama farkı bile reddedilmeye yeter. Satır tutarlarını kuruş bazında toplayıp özetle karşılaştırmak, göndermeden önce yapılacak en ucuz kontroldür.</p>
-<h2>3. Vergi oranı belirtilmemiş</h2>
-<p><code>TAX</code> segmenti yoksa ya da oran boşsa, alıcı KDV&#x27;yi kendisi hesaplayamaz ve faturayı işleyemez:</p>
+<p><code>ON</code> nitelikçisi &quot;order number&quot; demektir. Bu satır yoksa ya da numara alıcının sistemindekiyle birebir aynı değilse eşleştirme başarısız olur. Baştaki sıfırlar ve boşluklar önemlidir; <code>PO-42</code> ile <code>PO-0042</code> farklı numaralardır.</p>
+<h2>3. Miktar sevk edilenle uyuşmuyor</h2>
+<p>Fatura, <strong>sevk edilen</strong> miktarı faturalamalıdır, sipariş edileni değil. Kısmi teslimat yapıldıysa fark buradan çıkar:</p>
+<ul>
+<li>Sipariş: 120 adet (<code>QTY+21</code>)</li>
+<li>Sevk edilen: 100 adet (<code>QTY+12</code>)</li>
+<li>Faturalanması gereken: 100 adet (<code>QTY+47</code>)</li>
+</ul>
+<p>120 üzerinden kesilen bir fatura reddedilir. Bu, otomatik kontrollerin en kolay yakaladığı hatadır.</p>
+<h2>4. Vergi bilgisi eksik</h2>
+<p><code>TAX</code> segmenti oranı ve türü taşır:</p>
 <pre class="doc-code"><code>
 TAX+7+VAT+++:::20&#x27;
 </code></pre>
-<h2>4. Miktar sipariştekiyle uyuşmuyor</h2>
-<p>Fatura, teslim edilenden fazlasını içeriyorsa üçlü eşleştirme başarısız olur. Kısmi teslimatta fatura da kısmi olmalıdır.</p>
-<h2>5. GLN yanlış</h2>
-<p>Fatura adresi (<code>NAD+IV</code>) ile sipariş adresi farklıysa ve bu ortakla mutabık değilse, mesaj daha içeriğe bakılmadan reddedilir.</p>
-<h2>6. Para birimi yok</h2>
-<p><code>CUX</code> segmenti yoksa tutarların hangi para biriminde olduğu belirsizdir. Bazı sistemler varsayar, bazıları reddeder — ikisi de istenmez.</p>
-<h2>Göndermeden önce</h2>
-<p>Faturayı bir görüntüleyicide açıp şu beş satırın varlığını doğrulamak, ret döngüsünün büyük kısmını önler: <code>RFF+ON</code>, <code>CUX</code>, <code>TAX</code>, <code>MOA+79</code>, <code>MOA+77</code>.</p>
+<p>Buradaki <code>7</code> &quot;vergi&quot; anlamına gelen nitelikçi, <code>VAT</code> vergi türü, sondaki <code>20</code> ise yüzde oranıdır. Oran yazılmazsa ya da kalem düzeyindeki oranlarla özet bölümündeki vergi tutarı çelişirse fatura geri döner.</p>
+<p>Farklı vergi oranlı kalemler varsa her oran için ayrı vergi alt toplamı gerekebilir; bu, şartnameye göre değişir.</p>
+<h2>5. GLN eşleşmiyor</h2>
+<p>Taraflar isimle değil, <strong>GLN numarasıyla</strong> tanınır:</p>
+<pre class="doc-code"><code>
+NAD+SE+8712345678901::9++ACME FOODS BV+...&#x27;
+</code></pre>
+<p>Alıcının sisteminde kayıtlı olmayan bir GLN, faturanın hangi tedarikçiye ait olduğunun anlaşılamaması demektir. Firma adının doğru yazılması bu durumu kurtarmaz — eşleştirme numara üzerinden yapılır.</p>
+<p>Sık karşılaşılan bir varyant: fatura kesen tüzel kişi (<code>SE</code>) ile malı gönderen depo (<code>SU</code>) farklıdır ve şartname hangisinin nerede olacağını belirtir.</p>
+<h2>6. Para birimi belirtilmemiş</h2>
+<p><code>CUX</code> segmenti yoksa alıcı sistem tutarları hangi para biriminde okuyacağını bilemez:</p>
+<pre class="doc-code"><code>
+CUX+2:EUR:9&#x27;
+</code></pre>
+<p>Tek para birimiyle çalışan ortaklarda bu bazen atlanır ve varsayılan kabul edilir; ama şartname istiyorsa zorunludur.</p>
+<h2>Reddedilince ne yapmalı</h2>
+<p>1. Varsa <code>CONTRL</code> mesajına bakın — sözdizimi hatasıysa satır numarasını verir 2. Sözdizimi geçerliyse hata iş kuralındadır: önce toplamları, sonra referansları kontrol edin 3. Faturayı ve ilgili siparişi yan yana açıp kalem kalem karşılaştırın</p>
+<p>Bu karşılaştırmayı yapmanın en hızlı yolu, iki dosyayı da açıp <code>MOA</code>, <code>QTY</code> ve <code>RFF</code> satırlarını okunur biçimde görmektir.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/moa.html"><code>MOA</code></a> <a href="../segment/tax.html"><code>TAX</code></a></p>
 <p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>

@@ -33,34 +33,62 @@
 <main class="doc">
 <h1>Miktar ve birim: QTY segmentinde ne yazar?</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Sipariş edilen mi, sevk edilen mi, teslim alınan mı? Ve PCE ile KGM karışırsa ne olur.</div>
-<p><code>QTY+21:480:PCE&#x27;</code> satırı üç şey söyler: hangi miktar, ne kadar, hangi birimde. Üçünü de doğru okumak gerekir.</p>
-<h2>Hangi miktar?</h2>
-<p>İlk eleman nitelikçidir ve miktarın anlamını belirler:</p>
+<p><code>QTY</code> segmenti bir miktar taşır. Ama &quot;480&quot; tek başına bir şey ifade etmez: 480 adet mi, 480 koli mi, 480 kilogram mı? Cevap segmentin diğer iki parçasındadır.</p>
+<h2>Yapısı</h2>
+<pre class="doc-code"><code>
+QTY+21:480:PCE&#x27;
+</code></pre>
+<table class="doc-table"><thead><tr><th>Parça</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td>Nitelikçi</td><td><code>21</code></td><td>Bu sipariş edilen miktardır</td></tr>
+<tr><td>Değer</td><td><code>480</code></td><td>Miktarın kendisi</td></tr>
+<tr><td>Birim</td><td><code>PCE</code></td><td>Adet (piece)</td></tr>
+</tbody></table>
+<p>Üçünü birlikte okumadan miktarı kullanmak, envanterde ciddi hatalara yol açar.</p>
+<h2>Nitelikçi: hangi miktar?</h2>
+<p>Aynı dosyada birden fazla <code>QTY</code> bulunabilir ve her biri farklı bir soruyu cevaplar:</p>
 <table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
 <tr><td><code>21</code></td><td>Sipariş edilen miktar</td></tr>
 <tr><td><code>12</code></td><td>Sevk edilen miktar</td></tr>
+<tr><td><code>47</code></td><td>Faturalanan miktar</td></tr>
 <tr><td><code>194</code></td><td>Teslim alınan miktar</td></tr>
-<tr><td><code>192</code></td><td>Ücretsiz miktar</td></tr>
-<tr><td><code>152</code></td><td>Satılan miktar (satış raporu)</td></tr>
-<table class="doc-table"><thead><tr><th><code>59</code></th><th>Paket içi adet</th></tr></thead><tbody>
+<tr><td><code>152</code></td><td>Satılan miktar (satış raporunda)</td></tr>
+<tr><td><code>59</code></td><td>Ambalaj içindeki adet</td></tr>
 </tbody></table>
-<p>Aynı satırda birden fazla QTY bulunabilir. Mal kabul mesajında (RECADV) bu zaten kuraldır: <code>12</code> sevk edileni, <code>194</code> teslim alınanı verir; ikisinin farkı eksik teslimattır.</p>
-<h2>Hangi birim?</h2>
-<p>Üçüncü eleman ölçü birimidir:</p>
-<table class="doc-table"><thead><tr><th>Kod</th><th>Birim</th></tr></thead><tbody>
+<p>Bir sipariş zincirinde bu kodlar birbirini takip eder: <code>21</code> istenir, <code>12</code> sevk edilir, <code>194</code> kabul edilir, <code>47</code> faturalanır. Aralarındaki fark, çoğu ticari anlaşmazlığın başladığı yerdir.</p>
+<p>Örneğin bir mal kabul mesajında iki satır yan yana durur:</p>
+<pre class="doc-code"><code>
+QTY+12:100:PCE&#x27;
+QTY+194:96:PCE&#x27;
+</code></pre>
+<p>Yüz adet sevk edilmiş, doksan altısı kabul edilmiş. Aradaki dört adetlik fark, hasar veya eksik gönderim demektir ve genellikle bir <code>FTX</code> satırında açıklanır.</p>
+<h2>Birim kodları</h2>
+<p>Birimler UN/ECE Recommendation 20 listesinden gelir. Sık kullanılanlar:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
 <tr><td><code>PCE</code></td><td>Adet</td></tr>
 <tr><td><code>KGM</code></td><td>Kilogram</td></tr>
 <tr><td><code>LTR</code></td><td>Litre</td></tr>
 <tr><td><code>MTR</code></td><td>Metre</td></tr>
 <tr><td><code>CT</code></td><td>Karton / koli</td></tr>
-<table class="doc-table"><thead><tr><th><code>PF</code></th><th>Palet</th></tr></thead><tbody>
+<tr><td><code>PA</code></td><td>Paket</td></tr>
+<tr><td><code>CS</code></td><td>Kasa</td></tr>
 </tbody></table>
-<p>Birim atlanırsa çoğu sistem adet varsayar. Kilogramla satılan bir ürün için bu varsayım, siparişi bin kat yanlış hesaplatabilir.</p>
-<h2>Fiyatla ilişkisi</h2>
-<p>Burada gözden kaçan bir nokta var: <code>PRI</code> segmenti <strong>birim fiyattır</strong> ve hangi birim başına olduğunu söylemez. Yani <code>QTY</code>&#x27;deki birimle <code>PRI</code>&#x27;deki fiyatın aynı temele oturduğu varsayılır.</p>
-<p>Miktar kilogram, fiyat adet başınaysa hesap tutmaz. Bu tür uyuşmazlıklar faturada ortaya çıkar ve genellikle geç fark edilir.</p>
-<h2>Kontrol alışkanlığı</h2>
-<p>Bir satırın toplamı beklediğinizden farklıysa üç şeye bakın: nitelikçi doğru mu, birim yazılmış mı, fiyat aynı birim üzerinden mi. Üçü tutuyorsa hata başka yerdedir.</p>
+<p>Dikkat edilmesi gereken nokta: aynı ürün farklı satırlarda farklı birimle görünebilir. Sipariş <code>CT</code> (koli) cinsinden verilip fatura <code>PCE</code> (adet) cinsinden kesilebilir. Dönüşüm oranı ürün ana verisinde durur, EDI dosyasında değil.</p>
+<h2>Ondalık ayırıcı tuzağı</h2>
+<p>Miktar ondalıklıysa hangi karakterin ondalık işareti olduğunu <code>UNA</code> segmenti söyler. Varsayılan <code>.</code> işaretidir:</p>
+<pre class="doc-code"><code>
+QTY+21:12.5:KGM&#x27;
+</code></pre>
+<p>Ama <code>UNA</code> üçüncü karakteri <code>,</code> yapmışsa dosyada <code>12,5</code> yazar. Ondalık işaretini sabit varsayan kod, virgüllü bir dosyada ya çöker ya da sayıyı yanlış okur.</p>
+<p>Ayrıca EDIFACT&#x27;te binlik ayırıcı <strong>kullanılmaz</strong>. <code>1.234</code> bin iki yüz otuz dört değil, bir tam iki yüz otuz dört binde demektir.</p>
+<h2>Eksi miktarlar</h2>
+<p>Bir miktar negatif olabilir; iade ve düzeltme belgelerinde bu normaldir:</p>
+<pre class="doc-code"><code>
+QTY+21:-12:PCE&#x27;
+</code></pre>
+<p>Eksi işareti değerin başına gelir. Miktarı işaretsiz bir tam sayı olarak saklayan sistemler burada sessizce yanlış kayıt üretir.</p>
+<h2>Kontrol listesi</h2>
+<p>1. Nitelikçiyi okuyun — <code>21</code> ile <code>12</code> çok farklı şeylerdir 2. Birimi taşıyın; miktarı birimden ayırmayın 3. Ondalık işaretini <code>UNA</code>&#x27;dan alın 4. Negatif değerlere izin verin</p>
+<p>Bir dosyadaki miktarların hangisinin ne olduğunu görmek için, nitelikçiyi ve birim kodunu açık metne çeviren bir görüntüleyici en hızlı yoldur.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/qty.html"><code>QTY</code></a> <a href="../segment/pri.html"><code>PRI</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>

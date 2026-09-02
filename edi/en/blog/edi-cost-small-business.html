@@ -33,33 +33,66 @@
 <main class="doc">
 <h1>How much should a small business spend on EDI?</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Does a company receiving 20 orders a month need full automation? Usually not.</div>
-<p>When a large customer says &quot;we work over EDI&quot;, a small supplier&#x27;s first instinct is to shop for an expensive integration package. That is usually a premature decision.</p>
-<h2>Start with volume</h2>
-<p>The question that decides it: how many documents will you send and receive per month?</p>
-<table class="doc-table"><thead><tr><th>Volume</th><th>A sensible approach</th></tr></thead><tbody>
-<tr><td>Under 50 a month</td><td>View the file and process it by hand</td></tr>
-<tr><td>50-500 a month</td><td>Semi-automatic: file to spreadsheet, spreadsheet to system</td></tr>
-<table class="doc-table"><thead><tr><th>500+ a month</th><th>Full integration starts to pay for itself</th></tr></thead><tbody>
+<p>A retail chain has told you they &quot;work with EDI&quot;, and you have no idea what it will cost. Naming a figure is hard, but knowing <strong>where</strong> the cost comes from makes quotes much easier to compare.</p>
+<h2>Where does the money go?</h2>
+<p>There are four items, and their order often surprises people:</p>
+<table class="doc-table"><thead><tr><th>Item</th><th>Weight</th></tr></thead><tbody>
+<tr><td>Software / subscription</td><td>Usually the smallest item</td></tr>
+<tr><td>Initial setup and mapping</td><td>One-off, but among the largest</td></tr>
+<tr><td>Extra integration per partner</td><td>A new customer means new work</td></tr>
+<tr><td>Maintenance and support</td><td>Ongoing, and routinely underestimated</td></tr>
 </tbody></table>
-<p>For a supplier receiving twenty orders a month, full automation will not repay its setup and maintenance cost for years.</p>
-<h2>Where the money goes</h2>
-<p>An EDI setup spends in three places:</p>
+<p>The real money is not in the software but in the <strong>mapping</strong> — defining how incoming EDI fields correspond to fields in your own system. That work partly repeats for every partner, because every partner&#x27;s specification differs.</p>
+<h2>Three approaches</h2>
+<p><strong>1. An EDI service provider (VAN or cloud)</strong></p>
+<p>You pay a monthly subscription and the provider handles translation and transmission. Pricing is usually by volume or by number of partners.</p>
 <ul>
-<li><strong>Transport</strong> — per-transaction fees with a VAN; fixed infrastructure cost</li>
+<li>Upside: you start quickly and carry no technical load</li>
+<li>Downside: a permanent cost that grows with volume, plus dependence on the</li>
 </ul>
-<p>with SFTP or AS2</p>
+<p>provider</p>
+<p><strong>2. Building your own integration</strong></p>
+<p>You add an EDI module to your ERP, or develop one yourself.</p>
 <ul>
-<li><strong>Software</strong> — a translator licence or a SaaS subscription</li>
-<li><strong>Setup and maintenance</strong> — the hidden one; every time the partner changes</li>
+<li>Upside: no monthly fee, full control</li>
+<li>Downside: development time and, more importantly, <strong>maintenance</strong>. When a</li>
 </ul>
-<p>version or adds a field, there is work to do</p>
-<p>The third is routinely underestimated. An integration is not something you build once and forget.</p>
-<h2>Moving in stages</h2>
-<p>A practical path:</p>
-<p>1. <strong>Read</strong> — open the incoming file, understand it, process it by hand 2. <strong>Export</strong> — pull the line items into a spreadsheet and load them in bulk 3. <strong>Automate</strong> — move to integration when volume demands it</p>
-<p>The first two steps can be done with free tools, and plenty of companies stay at that level for years. Your customer cares whether you respond correctly, not how you processed the file.</p>
-<h2>When to automate</h2>
-<p>The signal is simple: when the time spent handling files by hand, the cost of mistakes, or the delays start turning into customer complaints. Until then, the money you do not spend stays in the business.</p>
+<p>partner changes its specification, you are the one who updates it.</p>
+<p><strong>3. Handling it manually</strong></p>
+<p>Open the file, read it, key the data in. It sounds primitive, but for a supplier receiving a few orders a month it can genuinely be the right answer.</p>
+<ul>
+<li>Upside: zero setup cost</li>
+<li>Downside: error rate and time cost grow quickly with volume</li>
+</ul>
+<h2>Where are the thresholds?</h2>
+<p>As a rough rule of thumb:</p>
+<ul>
+<li><strong>Under 10 documents a month</strong> — manual handling is usually cheapest. Automation</li>
+</ul>
+<p>will not earn back its setup cost.</p>
+<ul>
+<li><strong>Between 10 and 100</strong> — semi-automatic approaches make sense: read the file,</li>
+</ul>
+<p>convert it to a table, import it.</p>
+<ul>
+<li><strong>Over 100, or several partners</strong> — full automation pays for itself.</li>
+</ul>
+<p>These thresholds shift by industry. In automotive, where one late delivery can stop a production line, automation may be mandatory even at low volume.</p>
+<h2>The common mistake: committing too early</h2>
+<p>The most expensive outcome is building costly infrastructure for a single customer and then losing that customer. When your first EDI request arrives, ask: what share of my volume is this partner, and how many more partners will ask for EDI within a year?</p>
+<p>If the answer is &quot;one partner, low volume&quot;, starting manually or semi-manually is a defensible decision. The door to automation stays open; the reverse is not true.</p>
+<h2>The costs you do not see</h2>
+<p>Questions worth asking when comparing quotes:</p>
+<ul>
+<li>What does adding a new trading partner cost? (It is often billed separately)</li>
+<li>Are mapping updates included when a specification changes?</li>
+<li>Is there a test environment? You do not want to experiment in production</li>
+<li>Is the transport channel (AS2, SFTP) charged separately?</li>
+<li>When the contract ends, do your mappings belong to you?</li>
+</ul>
+<p>That last point matters more than it looks: with some providers, mapping logic built up over years remains the provider&#x27;s property, and moving means rewriting it.</p>
+<h2>Where to start</h2>
+<p>Before deciding anything, look at the sample file you were sent. How many line items, which segments, how complex is the specification? That is the cheapest way to judge whether the quotes you receive are realistic — and it does not require buying anything yet.</p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>
 

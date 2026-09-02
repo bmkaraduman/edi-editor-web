@@ -33,29 +33,48 @@
 <main class="doc">
 <h1>What does D.96A mean? Understanding EDIFACT versions</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Every part of &quot;D:96A:UN&quot; in the UNH line, and why the version matters.</div>
-<p>Every EDIFACT message declares which rule set it follows, in the UNH segment:</p>
+<p>An EDI specification will show you a line like <code>ORDERS D.96A UN EAN008</code>. Those four parts say which dictionary the file should be read against. The wrong version means a file that is valid but misunderstood.</p>
+<h2>What do the four parts say?</h2>
+<p>The information sits in the second data element of the <code>UNH</code> segment:</p>
 <pre class="doc-code"><code>
 UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;
 </code></pre>
-<p>Each part of that line says something.</p>
-<h2>The parts</h2>
-<table class="doc-table"><thead><tr><th>Part</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>ORDERS</code></td><td>Message type</td></tr>
-<tr><td><code>D</code></td><td>Directory type — the published standard directory</td></tr>
-<tr><td><code>96A</code></td><td>Version: the A release of 1996</td></tr>
-<tr><td><code>UN</code></td><td>Controlling agency: the United Nations</td></tr>
-<table class="doc-table"><thead><tr><th><code>EAN008</code></th><th>Associated usage guideline, where one applies</th></tr></thead><tbody>
+<table class="doc-table"><thead><tr><th>Part</th><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Message type</td><td><code>ORDERS</code></td><td>This is a purchase order</td></tr>
+<tr><td>Version</td><td><code>D</code></td><td>The draft directory family</td></tr>
+<tr><td>Release</td><td><code>96A</code></td><td>Release A of 1996</td></tr>
+<tr><td>Agency</td><td><code>UN</code></td><td>The United Nations (UN/CEFACT)</td></tr>
+<tr><td>Association code</td><td><code>EAN008</code></td><td>An industry subset — here GS1/EAN</td></tr>
 </tbody></table>
-<p>So <code>D.96A</code> means the standard directory published in the first half of 1996.</p>
-<h2>Why still 1996?</h2>
-<p>Newer versions exist — D.01B, D.07A, D.16A. Yet retail has largely stayed on D.96A. The reason is simple: upgrading a working integration costs more than the newer version is worth.</p>
-<p>Differences between versions are mostly added segments and codes; the core structure (UNB, UNH, BGM, NAD, LIN) has stayed the same throughout.</p>
-<h2>The fifth part: the usage guideline</h2>
-<p>A value such as <code>EAN008</code> points not at the standard itself but at an industry guideline. EANCOM is GS1&#x27;s EDIFACT subset for retail, and in European retail it is in practice more decisive than the standard it derives from.</p>
-<p>This field records which guideline you are following, as set out in your partner&#x27;s specification.</p>
-<h2>When it bites</h2>
-<p>A version mismatch is a quiet source of failure. Send D.96A where your partner expects D.01B and the message will usually still process — right up until you use a segment that exists only in the newer version.</p>
-<p>That makes the version in the specification a field to match exactly, not one to skim past.</p>
+<p>The first three identify the standard; the last identifies <strong>whose subset</strong> you are using.</p>
+<h2>Why is it still 1996?</h2>
+<p>D.96A is the most widely used EDIFACT release. Newer ones exist — D.01B, D.07A and later — but the retail world largely stayed on 96A.</p>
+<p>The reason is economics, not inertia. Upgrading a release affects every supplier of a chain at once. Where the gain is limited, nobody wants to move thousands of trading partners to a new version. The cost of changing a working standard outweighs the benefit of the new fields.</p>
+<p>So &quot;we are on an old release&quot; is rarely a defect in EDI; more often it is a deliberate choice.</p>
+<h2>The part that really decides: the association code</h2>
+<p>The most commonly overlooked part of the line is the last one. Codes such as <code>EAN008</code>, <code>EAN009</code> or <code>ETEB01</code> say which <strong>industry subset</strong> of the standard applies.</p>
+<p>The subset determines:</p>
+<ul>
+<li>Which segments are used — not every segment in the standard is</li>
+<li>Which fields are mandatory</li>
+<li>Which values the code lists are restricted to</li>
+</ul>
+<p>So <code>ORDERS D.96A</code> can look different at two different partners. The standard is the same; the subset is not. Writing an integration from the version alone, without the specification, is the single most repeated mistake in this work.</p>
+<h2>How does a version mismatch show up?</h2>
+<p>Usually the file is not rejected — it is <strong>misread</strong>. The symptoms:</p>
+<ul>
+<li>A field you expected arrives empty, because in your release it sits elsewhere</li>
+<li>A code list value is not recognised, because it was added in a later release</li>
+<li>Segment order does not match the specification, because grouping rules can</li>
+</ul>
+<p>change between releases</p>
+<p>Looking at the <code>UNH</code> line of the incoming file answers most of these at a glance.</p>
+<h2>Which version should you use?</h2>
+<p>That is not your decision. <strong>Whatever your trading partner says.</strong> The party sending the order sets the version; you follow it.</p>
+<p>If two partners want different versions, you need two mappings. This is normal; most EDI integrations carry per-partner configuration.</p>
+<h2>What to do in practice</h2>
+<p>1. Note the four parts on the <code>UNH</code> line of the incoming file 2. Compare them with the values in the specification, the association code above all 3. If they differ, ask your partner before writing any code</p>
+<p>To see which version a file uses, opening it in a viewer is enough; <code>UNH</code> is usually the second line.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/unh.html"><code>UNH</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

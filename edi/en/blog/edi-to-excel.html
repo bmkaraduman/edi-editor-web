@@ -33,35 +33,38 @@
 <main class="doc">
 <h1>Exporting an EDI file to Excel</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; What to watch for when flattening a segment structure into rows and columns.</div>
-<p>Most people who want to see an EDI file in Excel want one thing: the line items side by side in a table. But EDI is not a table — it is a nested tree, and flattening it takes a deliberate decision.</p>
-<h2>The problem: hierarchy does not flatten itself</h2>
-<p>An order is structured like this:</p>
+<p>You have an EDI file and you want its line items in a spreadsheet — perhaps to send to accounting, perhaps to check prices. EDI is a line-based structure, and turning it into a table takes a little more care than it appears.</p>
+<h2>Why does it not just open?</h2>
+<p>Drag a <code>.edi</code> file into Excel and every segment lands in a single cell. The reason is that EDI is <strong>hierarchical</strong>: the information about one item does not sit on one line but across several consecutive ones.</p>
 <pre class="doc-code"><code>
-Message
- ├── Header (BGM, DTM, NAD)
- └── Line items
-      ├── LIN  → IMD, QTY, PRI, MOA
-      └── LIN  → IMD, QTY, PRI, MOA
+LIN+1++5410013101234:EN&#x27;
+IMD+F++:::DARK CHOCOLATE BAR 100G&#x27;
+QTY+21:480:PCE&#x27;
+PRI+AAA:1.85&#x27;
+MOA+203:888.00&#x27;
 </code></pre>
-<p>In Excel one row should be one line item. So <code>LIN</code> opens a row, and the <code>IMD</code>, <code>QTY</code> and <code>PRI</code> that follow fill that row&#x27;s columns — until the next <code>LIN</code> appears.</p>
-<p>Dump the file into Excel line by line without that logic and every segment becomes its own row, leaving a table nobody can use.</p>
-<h2>Which columns?</h2>
-<p>The set that proves sufficient in practice for an order:</p>
-<table class="doc-table"><thead><tr><th>Column</th><th>Source</th></tr></thead><tbody>
-<tr><td>Product code</td><td><code>LIN</code> element 3</td></tr>
-<tr><td>Description</td><td><code>IMD</code> element 3, last component</td></tr>
-<tr><td>Quantity</td><td><code>QTY</code> qualifier <code>21</code></td></tr>
-<tr><td>Unit</td><td><code>QTY</code> third component</td></tr>
-<tr><td>Unit price</td><td><code>PRI</code> qualifier <code>AAA</code></td></tr>
-<table class="doc-table"><thead><tr><th>Line amount</th><th><code>MOA</code> qualifier <code>203</code></th></tr></thead><tbody>
+<p>Those five lines are <strong>one row of a table</strong>: product code, description, quantity, price, amount. Converting to a table means starting a new row when you see <code>LIN</code> and writing the following segments into that row&#x27;s columns.</p>
+<h2>Which segment becomes which column?</h2>
+<p>For a typical order or invoice the mapping is:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Column</th><th>Taken from</th></tr></thead><tbody>
+<tr><td><code>LIN</code></td><td>Product code (GTIN)</td><td>First component of element 3</td></tr>
+<tr><td><code>IMD</code></td><td>Product description</td><td>Last component of element 3</td></tr>
+<tr><td><code>QTY</code></td><td>Quantity and unit</td><td><code>21</code>, <code>12</code> or <code>47</code> by qualifier</td></tr>
+<tr><td><code>PRI</code></td><td>Unit price</td><td><code>AAA</code> net price</td></tr>
+<tr><td><code>MOA</code></td><td>Line amount</td><td>Qualifier <code>203</code></td></tr>
 </tbody></table>
-<p>Header information — order number, date, supplier — belongs above the table or on a separate sheet, not in the rows.</p>
-<h2>The encoding trap</h2>
-<p>Opening a CSV directly in Excel can corrupt accented characters, because Excel does not assume UTF-8. The fix is a BOM (byte order mark) at the start of the file; ediviewer&#x27;s Excel export writes one already.</p>
-<h2>Choosing a separator</h2>
-<p>Excel on many European locales expects a <strong>semicolon</strong>. A comma-separated file opens in a single column there. Using <code>;</code> is the safer default outside the US.</p>
-<h2>The quick route</h2>
-<p>Opening the file in ediviewer and choosing <strong>Export to Excel</strong> applies the mapping above for you: line items as rows, in the right columns, with the BOM and semicolons already handled.</p>
+<p>Do not skip the qualifiers: an item can carry several <code>QTY</code> segments and you have to decide which one you want.</p>
+<h2>Things to watch</h2>
+<p><strong>Get the item boundary right.</strong> Everything read until the next <code>LIN</code> belongs to the current item. The summary section (after <code>UNS</code>) does not belong to any item; mistaking its <code>MOA+79</code> line for a line amount is a common error.</p>
+<p><strong>Keep header data separate.</strong> The order number, date and party details sit at document level, not item level. Copying them onto every row flattens the table — usually what you want, but it should be a deliberate choice.</p>
+<p><strong>Preserve the decimal mark.</strong> If Excel&#x27;s regional setting expects a comma, a value written as <code>1.85</code> may be read as text and your sums will not work. Consider the target system&#x27;s settings when you build the CSV.</p>
+<p><strong>Do not lose leading zeros.</strong> Codes such as GTINs are text, not numbers. If <code>05410013101234</code> is converted to a number in Excel, the leading zero disappears and the code no longer matches. The column needs to be formatted as text.</p>
+<h2>Is every file suited to a table?</h2>
+<p>No. Messages that carry a list of items — orders, invoices, sales reports, price catalogues — map naturally onto rows. But turning a <code>CONTRL</code> acknowledgement or a transport instruction into a table makes little sense; their structure is not a list.</p>
+<p>Sales reports (SLSRPT) and price catalogues (PRICAT) are the two best suited: both work on a &quot;one row per product&quot; basis already.</p>
+<h2>A practical route</h2>
+<p>Before writing your own parser, open the file in a viewer and try exporting it straight to CSV. Seeing which columns come out also clarifies what you need when you write your own mapping.</p>
+<p>You can do this without uploading the file anywhere; the conversion can run inside the browser, so your commercial data never leaves your device.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/lin.html"><code>LIN</code></a> <a href="../segment/qty.html"><code>QTY</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

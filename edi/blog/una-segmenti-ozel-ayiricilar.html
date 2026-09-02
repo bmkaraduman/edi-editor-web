@@ -33,40 +33,54 @@
 <main class="doc">
 <h1>UNA segmenti: ayırıcılar her zaman aynı değildir</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Dosya UNA ile başlıyorsa varsayılan ayırıcıları unutun — hangi karakterin ne olduğu orada yazar.</div>
-<p>EDIFACT ayrıştırıcı yazanların ilk varsayımı şudur: segment sonu <code>&#x27;</code>, eleman ayracı <code>+</code>, alt eleman ayracı <code>:</code>. Çoğu dosyada doğrudur — ama garanti değildir.</p>
-<h2>UNA ne yapar?</h2>
-<p>Bir dosya <code>UNA</code> ile başlıyorsa, o satır ayırıcıların ne olduğunu <strong>tanımlar</strong>:</p>
+<p>EDIFACT dosyalarının çoğu <code>+</code> ile eleman, <code>:</code> ile alt eleman ve <code>&#x27;</code> ile satır ayırır. Ama bu bir zorunluluk değil, yalnızca varsayılan. Dosyanın başındaki <code>UNA</code> segmenti bu karakterleri değiştirebilir.</p>
+<h2>UNA neye benzer?</h2>
+<p>Varsayılan hâli şudur:</p>
 <pre class="doc-code"><code>
 UNA:+.? &#x27;
 </code></pre>
-<p>Altı karakterin her biri bir görevi belirler:</p>
-<table class="doc-table"><thead><tr><th>Sıra</th><th>Karakter</th><th>Görev</th></tr></thead><tbody>
-<tr><td>1</td><td><code>:</code></td><td>Alt eleman ayracı</td></tr>
-<tr><td>2</td><td><code>+</code></td><td>Eleman ayracı</td></tr>
+<p><code>UNA</code>&#x27;dan sonraki <strong>altı karakter</strong> sırasıyla şunları tanımlar:</p>
+<table class="doc-table"><thead><tr><th>Konum</th><th>Varsayılan</th><th>Görevi</th></tr></thead><tbody>
+<tr><td>1</td><td><code>:</code></td><td>Alt eleman (bileşen) ayırıcı</td></tr>
+<tr><td>2</td><td><code>+</code></td><td>Veri elemanı ayırıcı</td></tr>
 <tr><td>3</td><td><code>.</code></td><td>Ondalık işareti</td></tr>
 <tr><td>4</td><td><code>?</code></td><td>Kaçış (release) karakteri</td></tr>
-<tr><td>5</td><td>(boşluk)</td><td>Ayrılmış, kullanılmıyor</td></tr>
-<table class="doc-table"><thead><tr><th>6</th><th><code>&#x27;</code></th><th>Segment sonu</th></tr></thead><tbody>
+<tr><td>5</td><td>boşluk</td><td>Ayrılmış / tekrar ayırıcı</td></tr>
+<tr><td>6</td><td><code>&#x27;</code></td><td>Segment sonlandırıcı</td></tr>
 </tbody></table>
-<p>Yukarıdaki örnek varsayılan değerleri tekrar ettiği için görsel olarak bir şey değiştirmez. Ama şöyle bir UNA da geçerlidir:</p>
+<p>Altıncı karakterin boşluk olmadığına dikkat edin — <code>&#x27;</code> işaretidir ve hemen ardından ilk gerçek segment gelir.</p>
+<h2>Neden değiştirilir?</h2>
+<p>Çünkü veri içinde o karakter geçiyordur. Bir ürün açıklamasında <code>+</code> varsa, ayırıcı olarak <code>+</code> kullanan bir dosyada bu karakter satırı yanlış yerden böler. İki çözüm vardır: kaçış karakteri kullanmak ya da ayırıcıyı değiştirmek.</p>
+<p>Farklı ayırıcılı bir dosya şuna benzer:</p>
 <pre class="doc-code"><code>
-UNA|*.? ~
+UNA|^.! ~UNB^UNOC|3^A|14^B|14^260117|1030^R1~
 </code></pre>
-<p>Burada eleman ayracı <code>*</code>, segment sonu <code>~</code> olur. Varsayılanlara göre yazılmış bir ayrıştırıcı bu dosyayı tek bir dev segment olarak okur.</p>
-<h2>Ondalık işareti</h2>
-<p>Üçüncü karakter sık atlanır. Bazı ülkelerde ondalık ayracı virgüldür:</p>
+<p>Burada <code>^</code> eleman, <code>|</code> alt eleman, <code>~</code> segment sonu. Gözle okunması alışılmadık görünür ama yapı birebir aynıdır.</p>
+<h2>Kaçış karakteri nasıl çalışır?</h2>
+<p>Ayırıcıyı değiştirmek yerine tek tek kaçırmak da mümkündür. Varsayılan kaçış karakteri <code>?</code> şunu yapar: kendisinden sonraki karakteri <strong>veri</strong> hâline getirir.</p>
 <pre class="doc-code"><code>
-UNA:+,? &#x27;
+FTX+AAI+++ACME?+SONS ?: 50?? indirim&#x27;
 </code></pre>
-<p>Bu dosyada <code>PRI+AAA:1,85&#x27;</code> satırındaki değer bir buçuk değil, bir nokta seksen beştir. Virgülü binlik ayracı sanıp <code>185</code> okumak, faturayı yüz kat şişirir.</p>
-<h2>Pratikte ne yapmalı</h2>
+<p>Bu satırın çözülmüş hâli şudur:</p>
 <ul>
-<li>Dosya <code>UNA</code> ile başlıyorsa ayırıcıları <strong>oradan okuyun</strong>, varsaymayın</li>
-<li><code>UNA</code> yoksa varsayılanlar geçerlidir</li>
-<li><code>UNA</code> satırı hiçbir zaman segment sonu karakteriyle bitmez; sabit altı</li>
+<li><code>?+</code> → <code>+</code> (ayırıcı değil, veri)</li>
+<li><code>?:</code> → <code>:</code> (ayırıcı değil, veri)</li>
+<li><code>??</code> → <code>?</code> (kaçış karakterinin kendisi)</li>
 </ul>
-<p>karakter uzunluğundadır</p>
-<p>Karşınıza gelen dosyada ilk üç harf <code>UNA</code> ise, ayrıştırma mantığınızı çalıştırmadan önce bakılacak yer orasıdır.</p>
+<p>Yani metin aslında <code>ACME+SONS : 50? indirim</code> demektir. Kaçış karakterini görmezden gelen bir ayrıştırıcı bu satırı yanlış böler ve genellikle hatayı çok sonra, alan sayısı tutmadığında fark eder.</p>
+<h2>UNA yoksa ne olur?</h2>
+<p>Varsayılanlar geçerlidir. <code>UNA</code> isteğe bağlıdır; dosya doğrudan <code>UNB</code> ile de başlayabilir. Bu tamamen geçerli bir dosyadır.</p>
+<p>Dolayısıyla bir ayrıştırıcının yapması gereken şudur: dosyanın başında <code>UNA</code> varsa oradan oku, yoksa varsayılanları kullan.</p>
+<h2>Sık yapılan hata</h2>
+<p>Ayırıcıları koda gömmek. <code>split(&#x27;+&#x27;)</code> yazan bir kod, <code>UNA</code> kullanan bir dosyada sessizce yanlış sonuç üretir — çökmez, sadece yanlış okur. Bu tür hatalar üretimde uzun süre fark edilmeden yaşayabilir.</p>
+<p>Aynı şey ANSI X12 tarafında da geçerlidir, ama orada mekanizma farklıdır: ayırıcılar <code>UNA</code> gibi bir segmentte değil, <code>ISA</code> satırının <strong>sabit konumlarında</strong> durur. Eleman ayırıcı 4. karakter, alt eleman ayırıcı 105., segment sonlandırıcı 106. karakterdir. Bu yüzden <code>ISA</code> satırındaki boşluk dolgusu süs değildir; kısaltılırsa dosya ayrıştırılamaz.</p>
+<h2>Kontrol listesi</h2>
+<ul>
+<li>Dosya <code>UNA</code> ile mi başlıyor? Öyleyse ayırıcıları oradan alın</li>
+<li>Ayrıştırıcınız kaçış karakterini tanıyor mu?</li>
+<li>X12 tarafında <code>ISA</code> satırı tam 106 karakter mi?</li>
+</ul>
+<p>Bir dosyanın hangi ayırıcıları kullandığını anlamanın en hızlı yolu, ilk satıra bakmaktır.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>

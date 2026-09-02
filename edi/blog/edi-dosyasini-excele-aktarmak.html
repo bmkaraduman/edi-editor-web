@@ -33,35 +33,38 @@
 <main class="doc">
 <h1>EDI dosyasını Excel&#x27;e aktarmak</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Segment yapısını satır-sütun düzenine çevirirken nelere dikkat etmeli.</div>
-<p>EDI dosyasını Excel&#x27;de görmek isteyen çoğu kişi aslında tek bir şeyi ister: kalemleri bir tabloda yan yana görmek. Ama EDI tablo değil, iç içe geçmiş bir ağaçtır; düzleştirmek bilinçli bir karar gerektirir.</p>
-<h2>Sorun: hiyerarşi düzleşmiyor</h2>
-<p>Bir siparişte yapı şöyledir:</p>
+<p>Elinizde bir EDI dosyası var ve içindeki kalemleri tabloya dökmek istiyorsunuz — belki muhasebeye göndermek, belki fiyatları kontrol etmek için. EDI satır tabanlı bir yapı; tabloya çevirmek göründüğünden biraz daha dikkat ister.</p>
+<h2>Neden doğrudan açılmıyor?</h2>
+<p>Bir <code>.edi</code> dosyasını Excel&#x27;e sürüklerseniz her segment tek bir hücreye düşer. Sebep, EDI&#x27;nin <strong>hiyerarşik</strong> olması: bir kalemin bilgisi tek satırda değil, birbirini takip eden birkaç satırda durur.</p>
 <pre class="doc-code"><code>
-Mesaj
- ├── Başlık (BGM, DTM, NAD)
- └── Kalemler
-      ├── LIN  → IMD, QTY, PRI, MOA
-      └── LIN  → IMD, QTY, PRI, MOA
+LIN+1++5410013101234:EN&#x27;
+IMD+F++:::BITTER CIKOLATA 100G&#x27;
+QTY+21:480:PCE&#x27;
+PRI+AAA:1.85&#x27;
+MOA+203:888.00&#x27;
 </code></pre>
-<p>Excel&#x27;de bir satır bir kalem olmalıdır. Yani <code>LIN</code> satır açar, sonrasında gelen <code>IMD</code>, <code>QTY</code>, <code>PRI</code> o satırın sütunlarını doldurur — ta ki bir sonraki <code>LIN</code> gelene kadar.</p>
-<p>Bu mantığı kurmadan dosyayı satır satır Excel&#x27;e dökerseniz, her segment ayrı bir satır olur ve tablo işe yaramaz.</p>
-<h2>Hangi sütunlar?</h2>
-<p>Bir sipariş için pratikte yeterli olan set:</p>
-<table class="doc-table"><thead><tr><th>Sütun</th><th>Kaynak</th></tr></thead><tbody>
-<tr><td>Ürün kodu</td><td><code>LIN</code> eleman 3</td></tr>
-<tr><td>Açıklama</td><td><code>IMD</code> eleman 3, son parça</td></tr>
-<tr><td>Miktar</td><td><code>QTY</code> nitelikçi <code>21</code></td></tr>
-<tr><td>Birim</td><td><code>QTY</code> üçüncü parça</td></tr>
-<tr><td>Birim fiyat</td><td><code>PRI</code> nitelikçi <code>AAA</code></td></tr>
-<table class="doc-table"><thead><tr><th>Satır tutarı</th><th><code>MOA</code> nitelikçi <code>203</code></th></tr></thead><tbody>
+<p>Bu beş satır <strong>tek bir tablo satırıdır</strong>: ürün kodu, açıklama, miktar, fiyat, tutar. Tabloya çevirmek, <code>LIN</code> gördüğünde yeni satır açıp sonraki segmentleri o satırın sütunlarına yazmak demektir.</p>
+<h2>Hangi segment hangi sütun?</h2>
+<p>Tipik bir sipariş veya fatura için eşleme şudur:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Sütun</th><th>Nereden</th></tr></thead><tbody>
+<tr><td><code>LIN</code></td><td>Ürün kodu (GTIN)</td><td>3. elemanın ilk parçası</td></tr>
+<tr><td><code>IMD</code></td><td>Ürün açıklaması</td><td>3. elemanın son parçası</td></tr>
+<tr><td><code>QTY</code></td><td>Miktar ve birim</td><td>Nitelikçiye göre <code>21</code>, <code>12</code> veya <code>47</code></td></tr>
+<tr><td><code>PRI</code></td><td>Birim fiyat</td><td><code>AAA</code> net fiyat</td></tr>
+<tr><td><code>MOA</code></td><td>Satır tutarı</td><td><code>203</code> nitelikçisi</td></tr>
 </tbody></table>
-<p>Başlık bilgileri (sipariş no, tarih, tedarikçi) tabloya değil, üst kısma ya da ayrı bir sayfaya yazılır.</p>
-<h2>Türkçe karakter tuzağı</h2>
-<p>CSV dosyasını Excel doğrudan açtığında Türkçe karakterler bozulabilir. Sebep, Excel&#x27;in dosyayı UTF-8 sanmamasıdır. Çözüm, dosyanın başına BOM (byte order mark) koymaktır — ediviewer&#x27;ın Excel çıktısı bunu zaten ekler.</p>
-<h2>Ayraç seçimi</h2>
-<p>Türkçe Windows kurulumlarında Excel varsayılan olarak <strong>noktalı virgül</strong> bekler. Virgülle ayrılmış bir dosya tek sütunda açılır. Bu yüzden CSV çıktılarında <code>;</code> kullanmak Türkiye&#x27;de daha güvenlidir.</p>
-<h2>Hızlı yol</h2>
-<p>Dosyayı ediviewer&#x27;da açıp <strong>Excel&#x27;e Aktar</strong> demek, yukarıdaki eşlemeyi hazır yapar: kalemler satır satır, doğru sütunlarda, BOM ve noktalı virgülle.</p>
+<p>Nitelikçileri atlamamak önemli: bir kalemde birden fazla <code>QTY</code> olabilir ve hangisini istediğinize siz karar vermelisiniz.</p>
+<h2>Dikkat edilecek noktalar</h2>
+<p><strong>Kalem sınırını doğru belirleyin.</strong> Yeni bir <code>LIN</code> gelene kadar okunan her şey mevcut kaleme aittir. Özet bölümü (<code>UNS</code>&#x27;den sonrası) kaleme ait değildir; oradaki <code>MOA+79</code> satırını kalem tutarı sanmak sık yapılan bir hatadır.</p>
+<p><strong>Başlık bilgisini ayrı tutun.</strong> Sipariş numarası, tarih ve taraf bilgisi kalem düzeyinde değil belge düzeyindedir. Bunları her satıra kopyalamak isterseniz tabloyu düzleştirmiş olursunuz — bu genellikle istenen şeydir ama bilinçli bir tercih olmalıdır.</p>
+<p><strong>Ondalık işaretini koruyun.</strong> Excel&#x27;in bölgesel ayarı virgül bekliyorsa, noktayla yazılmış <code>1.85</code> metin olarak algılanabilir ve toplama işlemleri çalışmaz. CSV oluştururken hedef sistemin ayarını düşünün.</p>
+<p><strong>Baştaki sıfırları kaybetmeyin.</strong> GTIN gibi kodlar sayı değil metindir. <code>05410013101234</code> Excel&#x27;de sayıya dönüşürse baştaki sıfır silinir ve kod artık eşleşmez. Sütunu metin olarak biçimlendirmek gerekir.</p>
+<h2>Her dosya tabloya uygun mu?</h2>
+<p>Hayır. Kalem listesi taşıyan mesajlar (sipariş, fatura, satış raporu, fiyat kataloğu) doğal olarak tabloya oturur. Ama bir <code>CONTRL</code> teyit mesajını ya da bir nakliye talimatını tabloya çevirmek pek anlamlı olmaz; onların yapısı liste değildir.</p>
+<p>Satış raporu (SLSRPT) ve fiyat kataloğu (PRICAT) bu iş için en uygun ikisidir: ikisi de doğrudan &quot;ürün başına bir satır&quot; mantığıyla çalışır.</p>
+<h2>Pratik yol</h2>
+<p>Kendiniz ayrıştırıcı yazmadan önce, dosyayı bir görüntüleyicide açıp doğrudan CSV&#x27;ye aktarmayı deneyin. Hangi sütunların çıktığını görmek, kendi eşlemenizi yazarken neye ihtiyacınız olduğunu da netleştirir.</p>
+<p>Dosyanızı hiçbir yere yüklemeden bunu yapabilirsiniz; dönüşüm tarayıcının içinde çalışabilir ve ticari veriniz cihazınızdan çıkmaz.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/lin.html"><code>LIN</code></a> <a href="../segment/qty.html"><code>QTY</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>

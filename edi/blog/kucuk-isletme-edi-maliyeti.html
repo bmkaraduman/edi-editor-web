@@ -33,33 +33,65 @@
 <main class="doc">
 <h1>Küçük bir işletme EDI&#x27;ye ne kadar harcamalı?</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Ayda 20 sipariş alan bir firmanın tam otomasyona ihtiyacı var mı? Genellikle yok.</div>
-<p>Büyük bir müşteri &quot;EDI ile çalışıyoruz&quot; dediğinde küçük firmaların ilk refleksi pahalı bir entegrasyon paketi aramaktır. Çoğu zaman bu erken bir karardır.</p>
-<h2>Önce hacme bakın</h2>
-<p>Belirleyici soru şu: ayda kaç belge alıp göndereceksiniz?</p>
-<table class="doc-table"><thead><tr><th>Hacim</th><th>Makul yaklaşım</th></tr></thead><tbody>
-<tr><td>Ayda 50&#x27;den az</td><td>Dosyayı görüntüleyip elle işleyin</td></tr>
-<tr><td>Ayda 50-500</td><td>Yarı otomatik: dosyadan tabloya, tablodan sisteme</td></tr>
-<table class="doc-table"><thead><tr><th>Ayda 500+</th><th>Tam entegrasyon yatırımı mantıklı</th></tr></thead><tbody>
+<p>Bir zincir market &quot;EDI ile çalışıyoruz&quot; dedi ve şimdi ne kadar tutacağını bilmiyorsunuz. Rakam vermek zor, ama maliyetin <strong>nereden</strong> çıktığını bilmek teklifleri karşılaştırmayı kolaylaştırır.</p>
+<h2>Maliyet nerede birikiyor?</h2>
+<p>Dört kalem var ve sıralamaları çoğu zaman şaşırtıcıdır:</p>
+<table class="doc-table"><thead><tr><th>Kalem</th><th>Ağırlık</th></tr></thead><tbody>
+<tr><td>Yazılım / abonelik</td><td>Genellikle en küçük kalem</td></tr>
+<tr><td>İlk kurulum ve eşleme</td><td>Tek seferlik, ama en büyük kalemlerden</td></tr>
+<tr><td>Ortak başına ek entegrasyon</td><td>Yeni müşteri = yeni iş</td></tr>
+<tr><td>Bakım ve destek</td><td>Sürekli, çoğu zaman hafife alınır</td></tr>
 </tbody></table>
-<p>Ayda 20 sipariş alan bir tedarikçi için tam otomasyon, kurulum ve bakım maliyetiyle birlikte yıllarca kendini amorti etmez.</p>
-<h2>Maliyet kalemleri</h2>
-<p>Bir EDI kurulumunda para üç yere gider:</p>
+<p>Asıl para yazılımda değil, <strong>eşlemede</strong> (mapping) durur. Yani gelen EDI alanlarının sizin sisteminizdeki alanlara nasıl karşılık geldiğini tanımlama işinde. Bu iş her ortak için kısmen tekrarlanır çünkü her ortağın şartnamesi farklıdır.</p>
+<h2>Üç yaklaşım</h2>
+<p><strong>1. EDI servis sağlayıcısı (VAN veya bulut)</strong></p>
+<p>Aylık abonelik ödersiniz, sağlayıcı dönüşümü ve iletimi üstlenir. Genellikle aktarım hacmine veya ortak sayısına göre fiyatlanır.</p>
 <ul>
-<li><strong>Aktarım</strong> — VAN kullanıyorsanız işlem başına ücret; SFTP/AS2&#x27;de sabit</li>
+<li>Artısı: hızlı başlarsınız, teknik yük sizde değil</li>
+<li>Eksisi: sürekli gider, hacim arttıkça artar; sağlayıcıya bağımlılık</li>
 </ul>
-<p>altyapı maliyeti</p>
+<p><strong>2. Kendi entegrasyonunuzu yazmak</strong></p>
+<p>ERP&#x27;nize doğrudan bir EDI modülü eklersiniz veya kendiniz geliştirirsiniz.</p>
 <ul>
-<li><strong>Yazılım</strong> — çevirici (translator) lisansı ya da SaaS aboneliği</li>
-<li><strong>Kurulum ve bakım</strong> — asıl gizli maliyet burada; ortak sürüm değiştirdiğinde</li>
+<li>Artısı: aylık gider yok, tam kontrol</li>
+<li>Eksisi: geliştirme süresi, ve asıl önemlisi <strong>bakım</strong>. Ortak şartnamesini</li>
 </ul>
-<p>ya da yeni alan eklediğinde tekrar iş çıkar</p>
-<p>Üçüncüsü genellikle hafife alınır. Entegrasyon bir kez kurulup unutulan bir şey değildir.</p>
-<h2>Kademeli ilerlemek</h2>
-<p>Pratik bir yol şudur:</p>
-<p>1. <strong>Okuyun</strong> — gelen dosyayı açıp anlayın, elle işleyin 2. <strong>Dışa aktarın</strong> — kalemleri tabloya dökün, kendi sisteminize toplu girin 3. <strong>Otomatikleştirin</strong> — hacim gerektirdiğinde entegrasyona geçin</p>
-<p>İlk iki adım ücretsiz araçlarla yapılabilir ve pek çok firma yıllarca bu seviyede kalır. Müşteriniz dosyayı nasıl işlediğinizle değil, doğru yanıt verip vermediğinizle ilgilenir.</p>
-<h2>Ne zaman otomasyona geçmeli</h2>
-<p>İşaret basittir: elle işleme süresi, hata maliyeti ya da gecikme müşteri şikâyetine dönüşmeye başladığında. O noktaya kadar harcanmayan para, işletmede kalır.</p>
+<p>değiştirdiğinde güncellemesi gereken sizsiniz.</p>
+<p><strong>3. Elle işlemek</strong></p>
+<p>Dosyayı açıp bakmak, veriyi elle sisteme girmek. Kulağa ilkel gelir ama ayda birkaç sipariş alan bir tedarikçi için gerçekten mantıklı olabilir.</p>
+<ul>
+<li>Artısı: sıfır kurulum maliyeti</li>
+<li>Eksisi: hacim arttığında hata oranı ve zaman maliyeti hızla büyür</li>
+</ul>
+<h2>Hangi eşik nerede?</h2>
+<p>Kaba bir sağduyu ölçüsü:</p>
+<ul>
+<li><strong>Ayda 10&#x27;un altında belge</strong> — elle işlemek çoğu zaman en ucuzu. Otomasyonun</li>
+</ul>
+<p>kurulum maliyetini çıkarmaz.</p>
+<ul>
+<li><strong>Ayda 10–100 arası</strong> — yarı otomatik çözümler mantıklı: dosyayı okuyup</li>
+</ul>
+<p>tabloya çevirip sisteme aktarmak.</p>
+<ul>
+<li><strong>Ayda 100&#x27;ün üstü veya birden fazla ortak</strong> — tam otomasyon kendini öder.</li>
+</ul>
+<p>Bu eşikler sektöre göre kayar. Otomotivde tek bir gecikmiş teslimat bandı durdurabileceği için hacim düşük olsa da otomasyon zorunlu olabilir.</p>
+<h2>Sık yapılan hata: erken taahhüt</h2>
+<p>En pahalı senaryo, tek bir müşteri için pahalı bir altyapı kurup o müşteriyi kaybetmektir. İlk EDI talebiniz geldiğinde şunu sorun: bu ortak hacminizin ne kadarını oluşturuyor ve önümüzdeki bir yılda kaç ortak daha EDI isteyecek?</p>
+<p>Cevap &quot;bir ortak, düşük hacim&quot; ise, önce elle veya yarı otomatik başlamak savunulabilir bir karardır. Otomasyona geçiş kapısı açık kalır; tersi doğru değildir.</p>
+<h2>Görünmeyen maliyetler</h2>
+<p>Teklifleri karşılaştırırken sorulacak sorular:</p>
+<ul>
+<li>Yeni bir ticari ortak eklemek ne kadar? (Çoğu zaman ayrı ücretlendirilir)</li>
+<li>Şartname değişikliğinde eşleme güncellemesi dahil mi?</li>
+<li>Test ortamı var mı? Üretimde deneme yapmak istemezsiniz</li>
+<li>Aktarım kanalı (AS2, SFTP) ayrı mı ücretlendiriliyor?</li>
+<li>Sözleşme bitince eşlemeleriniz size ait mi?</li>
+</ul>
+<p>Son madde özellikle önemli: bazı sağlayıcılarda yıllarca biriken eşleme mantığı sağlayıcının mülkiyetinde kalır ve taşınması yeniden yazmak anlamına gelir.</p>
+<h2>Nereden başlamalı</h2>
+<p>Karar vermeden önce elinizdeki örnek dosyaya bakın. Kaç kalem var, hangi segmentler kullanılıyor, şartname ne kadar karmaşık? Bu, alacağınız tekliflerin gerçekçi olup olmadığını anlamanın en ucuz yoludur — ve bunun için henüz bir şey satın almanız gerekmez.</p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>
 

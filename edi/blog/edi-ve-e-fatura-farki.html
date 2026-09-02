@@ -33,33 +33,44 @@
 <main class="doc">
 <h1>EDI ile e-fatura aynı şey mi?</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; İkisi de elektronik fatura taşır ama amaçları, muhatapları ve zorunluluk durumları farklıdır.</div>
-<p>Türkiye&#x27;de &quot;elektronik fatura&quot; denince akla e-Fatura ve e-Arşiv gelir. EDI de fatura taşır. Aynı şey değildirler ve birbirinin yerine geçmezler.</p>
-<h2>Muhatap kim?</h2>
-<p>Temel fark burada:</p>
-<ul>
-<li><strong>e-Fatura</strong>, devlete karşı yükümlülüktür. Gelir İdaresi&#x27;nin belirlediği</li>
-</ul>
-<p>formatta (UBL-TR), onun altyapısı üzerinden gönderilir. Amaç vergi denetimidir.</p>
-<ul>
-<li><strong>EDI</strong>, ticari ortağınıza karşı bir anlaşmadır. Formatı ve içeriği taraflar</li>
-</ul>
-<p>belirler. Amaç iş süreçlerini otomatikleştirmektir.</p>
-<p>Biri yasal, diğeri ticari bir gerekliliktir.</p>
-<h2>Kapsam farkı</h2>
-<p>e-Fatura yalnızca faturayı kapsar. EDI ise sipariş, sipariş yanıtı, sevk ihbarı, mal kabul ve ödeme bildirimini de taşır. Fatura, EDI&#x27;nin ilgilendiği zincirin yalnızca bir halkasıdır.</p>
-<p>Bu yüzden EDI kullanan bir firma e-Fatura yükümlülüğünden kurtulmaz; ikisini birlikte yürütür.</p>
-<h2>Format farkı</h2>
-<table class="doc-table"><thead><tr><th></th><th>e-Fatura</th><th>EDI (EDIFACT)</th></tr></thead><tbody>
-<tr><td>Format</td><td>UBL-TR (XML)</td><td>EDIFACT (metin)</td></tr>
-<tr><td>Belirleyen</td><td>Gelir İdaresi</td><td>Ticaret ortakları</td></tr>
-<tr><td>Zorunluluk</td><td>Yasal eşik üstü firmalar</td><td>Ortağın talebi</td></tr>
-<table class="doc-table"><thead><tr><th>Kapsam</th><th>Yalnızca fatura</th><th>Tüm ticari zincir</th></tr></thead><tbody>
+<p>İkisi de elektronik, ikisi de fatura taşıyor, ama aynı şey değiller. Türkiye&#x27;de çalışan bir firma çoğu zaman <strong>ikisini birden</strong> kullanır ve karıştırmak entegrasyon planını baştan yanlış kurmaya yol açar.</p>
+<h2>Temel fark: kim için zorunlu?</h2>
+<p><strong>e-Fatura</strong> yasal bir yükümlülüktür. Devletin belirlediği formatta (Türkiye&#x27;de UBL-TR), devletin belirlediği kanaldan (GİB) geçer. Amacı vergi denetimidir.</p>
+<p><strong>EDI</strong> ticari bir anlaşmadır. Formatı ve kanalı taraflar belirler. Amacı operasyonu otomatikleştirmektir.</p>
+<table class="doc-table"><thead><tr><th></th><th>e-Fatura</th><th>EDI</th></tr></thead><tbody>
+<tr><td>Zorunluluk</td><td>Yasal</td><td>Sözleşmeye bağlı</td></tr>
+<tr><td>Format</td><td>UBL-TR (XML)</td><td>EDIFACT, X12</td></tr>
+<tr><td>Kanal</td><td>GİB üzerinden</td><td>Taraflar arası (AS2, SFTP, VAN)</td></tr>
+<tr><td>Kapsam</td><td>Yalnızca fatura</td><td>Sipariş, irsaliye, fatura, ödeme…</td></tr>
+<tr><td>Doğrulayan</td><td>Devlet</td><td>Ticari ortak</td></tr>
 </tbody></table>
-<h2>Pratikte nasıl yürür?</h2>
-<p>Yaygın kurgu şudur: sipariş ve sevkiyat EDI ile akar, fatura hem EDI ile ticari ortağa hem UBL-TR ile devlete gider. Aynı ticari olayın iki farklı muhataba, iki farklı formatta bildirilmesi söz konusudur.</p>
-<p>Bu ikilik gereksiz görünse de mantığı vardır: ortağınızın istediği alanlarla devletin istediği alanlar örtüşmez.</p>
+<h2>Asıl ayrım: kapsam</h2>
+<p>En önemli fark tabloda görünen son satır. e-Fatura yalnızca faturayı ilgilendirir. EDI ise ticari sürecin tamamını taşır:</p>
+<pre class="doc-code"><code>
+ORDERS  -&gt; siparis
+ORDRSP  -&gt; siparis yaniti
+DESADV  -&gt; sevk ihbari
+RECADV  -&gt; mal kabul
+INVOIC  -&gt; fatura
+REMADV  -&gt; odeme bildirimi
+</code></pre>
+<p>Yani &quot;EDI&#x27;ye geçtik&quot; cümlesi genellikle &quot;artık siparişleri de elektronik alıyoruz&quot; demektir; e-Fatura ise sürecin yalnızca son adımını kapsar.</p>
+<h2>Neden ikisi birden gerekiyor?</h2>
+<p>Çünkü farklı taraflara hesap veriyorlar.</p>
+<p>Bir zincir markete tedarikçiyseniz, market sizden EDIFACT INVOIC isteyebilir — kendi sistemine otomatik girmesi için. Aynı faturayı ayrıca e-Fatura olarak GİB üzerinden de kesmeniz gerekir, çünkü yasal geçerlilik oradan gelir.</p>
+<p>Aynı ticari olay, iki farklı formatta, iki farklı yere gider. Bu tekrar tuhaf görünür ama sistemlerin amaçları farklıdır.</p>
+<h2>Pratik sonuçları</h2>
+<p><strong>Numaralar tutmalı.</strong> EDI faturasındaki belge numarası ile e-Faturadaki numara aynı olmalıdır. Aksi hâlde mutabakatta iki ayrı fatura görünür ve kimse hangisinin gerçek olduğunu bilemez.</p>
+<p><strong>Tutarlar tutmalı.</strong> İki formata farklı yuvarlama uygulayan sistemler, kuruş farkları üretir. Bu farklar denetimde soru işareti yaratır.</p>
+<p><strong>Zamanlama önemlidir.</strong> EDI faturası ortağınıza ulaşıp e-Fatura henüz kesilmemişse, ortak ödeme yapamayabilir. Sıralamayı süreçte netleştirmek gerekir.</p>
+<h2>Avrupa&#x27;daki durum</h2>
+<p>Avrupa&#x27;da benzer bir ayrım <strong>Peppol</strong> ile kurulmuştur. Peppol, e-Faturanın sınır ötesi karşılığı gibi çalışır: standart bir ağ ve format (Peppol BIS, yine UBL tabanlı). EDIFACT ise ticari akışta varlığını sürdürür.</p>
+<p>Yani Avrupa&#x27;da da tablo benzerdir: yasal katman UBL tabanlı bir ağa, operasyonel katman EDIFACT&#x27;e dayanır.</p>
 <h2>Karıştırılmaması gereken nokta</h2>
-<p>EDI faturası gönderdiğiniz için e-Fatura kesmediyseniz, vergi açısından fatura kesilmemiş sayılır. Tersi de geçerlidir: e-Fatura kestiğiniz hâlde ortağınıza EDI INVOIC göndermediyseniz, onun sistemi ödemeyi tetiklemez.</p>
+<p>&quot;e-Fatura kesiyoruz, EDI&#x27;ye gerek yok&quot; cümlesi yanlıştır. e-Fatura siparişinizi almaz, sevkiyatınızı bildirmez, mal kabulünüzü kaydetmez. Ticari ortağınız EDI istiyorsa, bunun sebebi faturayı almak değil, <strong>süreci</strong> otomatikleştirmektir.</p>
+<p>Tersi de doğrudur: EDI kullanmak yasal yükümlülüğünüzü ortadan kaldırmaz.</p>
+<h2>Nereden başlamalı</h2>
+<p>Elinizde her iki formattan örnek varsa, ikisini yan yana koyup aynı faturanın nasıl göründüğünü karşılaştırmak öğretici olur. EDIFACT tarafındaki dosyayı okunur hâle getirmek, hangi alanın hangi UBL alanına karşılık geldiğini görmenin ilk adımıdır.</p>
 <p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>
