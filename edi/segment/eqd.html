@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EQD — Eki̇pman / Araç Detayi — ediviewer</title>
-<meta name="description" content="EQD segmenti: Eki̇pman / Araç Detayi">
+<meta name="description" content="Taşımada kullanılan ekipmanı tanımlar: konteyner, römork, vagon. Ekipman türünü, numarasını ve boyut kodunu taşır.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/eqd.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/eqd.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>EQD — Eki̇pman / Araç Detayi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Taşımada kullanılan ekipmanı tanımlar: konteyner, römork, vagon. Ekipman türünü, numarasını ve boyut kodunu taşır.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>EQD+CN+ACLU1234567+42G1++2&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -48,6 +51,8 @@
 <tr><td><code>TYPE_T</code></td><td>Tank Konteyner</td></tr>
 <tr><td><code>TYPE_U</code></td><td>Open Top (Üstü Açık)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Dördüncü elemandaki ISO boyut kodu dört karakterdir ve okunabilir bilgi içerir: 42G1’deki 4 kırk footluk, G genel amaçlı kuru yük demektir. Bu kodu düz metin sanmak, ekipman planlamasında yanlış kapasite hesabına yol açar.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

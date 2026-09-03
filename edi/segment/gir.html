@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GIR — Bağlantılı Kimlikler — ediviewer</title>
-<meta name="description" content="GIR segmenti: Bağlantılı Kimlikler">
+<meta name="description" content="İlgili tanımlayıcıları bir arada taşır. Tam zamanında teslimatta çağrı numarasını, seri numarasını veya parti numarasını kaleme bağlamak için kullanılır.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/gir.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/gir.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>GIR — Bağlantılı Kimlikler</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>İlgili tanımlayıcıları bir arada taşır. Tam zamanında teslimatta çağrı numarasını, seri numarasını veya parti numarasını kaleme bağlamak için kullanılır.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>GIR+1+CALL-2026-0451:AAN&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Set Numarası</td></tr>
@@ -42,6 +45,8 @@
 <tr><td><code>AL</code></td><td>Kanban Kart No</td></tr>
 <tr><td><code>VN</code></td><td>Araç Şasi No (VIN)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Numaranın türünü ikinci bileşendeki nitelikçi söyler. Nitelikçiyi okumadan değeri almak, çağrı numarası yerine parti numarasını kaydetmenize yol açabilir; ikisi de aynı segmentte geçebilir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

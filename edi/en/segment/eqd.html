@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EQD — Equipment Details — ediviewer</title>
-<meta name="description" content="EQD segment: Equipment Details">
+<meta name="description" content="Identifies the equipment used in transport: container, trailer or wagon. It carries the equipment type, its number and a size code.">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/eqd.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/eqd.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>EQD — Equipment Details</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Identifies the equipment used in transport: container, trailer or wagon. It carries the equipment type, its number and a size code.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>EQD+CN+ACLU1234567+42G1++2&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -48,6 +51,8 @@
 <tr><td><code>TYPE_T</code></td><td>Tank Container</td></tr>
 <tr><td><code>TYPE_U</code></td><td>Open Top</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The ISO size code in the fourth element is four characters and is readable: in 42G1 the 4 means forty foot and the G general-purpose dry cargo. Treating it as opaque text leads to wrong capacity assumptions in equipment planning.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

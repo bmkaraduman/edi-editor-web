@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GIS — Processing Indicator — ediviewer</title>
-<meta name="description" content="GIS segment: Processing Indicator">
+<meta name="description" content="Carries a processing indicator. It is a short instruction about how the message should be handled, usually placed at the start of a section whose interpret">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/gis.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/gis.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>GIS — Processing Indicator</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries a processing indicator. It is a short instruction about how the message should be handled, usually placed at the start of a section whose interpretation it changes.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>GIS+37&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -42,6 +45,8 @@
 <tr><td><code>37</code></td><td>Complete Replacement</td></tr>
 <tr><td><code>4</code></td><td>Change</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>It has no meaning on its own; that depends on the section it appears in. The same code can mean different things in different message types, so it should never be read out of position.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

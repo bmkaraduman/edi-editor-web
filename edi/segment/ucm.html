@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UCM — Mesaj Cevabı — ediviewer</title>
-<meta name="description" content="UCM segmenti: Mesaj Cevabı">
+<meta name="description" content="Zarf içindeki tek bir mesajın sonucunu bildirir. Bir aktarım birden fazla mesaj taşıyabildiği için, UCI zarfın tamamını, UCM ise her mesajı ayrı ayrı değer">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/ucm.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/ucm.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>UCM — Mesaj Cevabı</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Zarf içindeki tek bir mesajın sonucunu bildirir. Bir aktarım birden fazla mesaj taşıyabildiği için, UCI zarfın tamamını, UCM ise her mesajı ayrı ayrı değerlendirir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>UCM+1+ORDERS:D:96A:UN+7&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Mesaj Referans No</td></tr>
@@ -44,6 +47,8 @@
 <tr><td><code>7</code></td><td>Kabul Edildi</td></tr>
 <tr><td><code>8</code></td><td>Hatalı Bulundu</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Zarf kabul edilmişken içindeki bir mesaj reddedilmiş olabilir. Bu yüzden yalnızca UCI koduna bakmak yanıltıcıdır; mesaj başına sonucu UCM satırlarından okumak gerekir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

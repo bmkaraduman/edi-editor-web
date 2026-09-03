@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DGS — Dangerous Goods Information — ediviewer</title>
-<meta name="description" content="DGS segment: Dangerous Goods Information">
+<meta name="description" content="Carries dangerous goods information: which regulation applies, the hazard class and the substance’s UN number. It is a legal requirement on transport docum">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/dgs.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/dgs.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>DGS — Dangerous Goods Information</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries dangerous goods information: which regulation applies, the hazard class and the substance’s UN number. It is a legal requirement on transport documents.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>DGS+IMD+3:1203+UN1203&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -50,6 +53,8 @@
 <tr><td><code>REG_IATA</code></td><td>Air (IATA)</td></tr>
 <tr><td><code>REG_IMD</code></td><td>IMDG (Maritime)</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>This field is a legal declaration, not an explanatory note. A missing or wrong UN number can have a shipment stopped at customs and attract a penalty; the value must come from the safety data sheet rather than be guessed.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

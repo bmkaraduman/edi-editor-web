@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FII — Banka Hesap Bilgileri — ediviewer</title>
-<meta name="description" content="FII segmenti: Banka Hesap Bilgileri">
+<meta name="description" content="Bir tarafın banka hesap bilgilerini taşır. Faturada ödemenin hangi hesaba yapılacağını, ödeme bildiriminde ise hangi hesaptan çıktığını bildirir.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/fii.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/fii.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>FII — Banka Hesap Bilgileri</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir tarafın banka hesap bilgilerini taşır. Faturada ödemenin hangi hesaba yapılacağını, ödeme bildiriminde ise hangi hesaptan çıktığını bildirir.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>FII+RB+NL91ABNA0417164300:ACME FOODS BV:::ABN AMRO&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -42,6 +45,8 @@
 <tr><td><code>PB</code></td><td>Ödeyen Banka</td></tr>
 <tr><td><code>RB</code></td><td>Alıcı Banka (Hesabına Giren)</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>İlk elemandaki rol kodu hesabın kime ait olduğunu söyler: RB parayı alan banka, PB ödemeyi yapan banka, BF ise hesap sahibi demektir. Rolü okumadan IBAN’ı almak, ödemeyi yanlış tarafa yönlendirebilir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

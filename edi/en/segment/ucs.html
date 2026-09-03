@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UCS — Faulty Segment Information — ediviewer</title>
-<meta name="description" content="UCS segment: Faulty Segment Information">
+<meta name="description" content="Identifies the segment in which the error was found. The value is the segment position counted from the start of the message, so you can go straight to tha">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/ucs.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/ucs.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,11 +33,16 @@
 <main class="doc">
 <h1>UCS — Faulty Segment Information</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Identifies the segment in which the error was found. The value is the segment position counted from the start of the message, so you can go straight to that line in the file you sent.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>UCS+12&#x27;</code></pre>
 <h2>Data Elements</h2>
 <table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Segment Position</td></tr>
 <tr><td><code>02</code></td><td>Segment Tag</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The count starts at the UNH segment and belongs to the message, not to the whole file. In an interchange carrying several messages, confusing this position with a line number in the file sends you to the wrong place.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

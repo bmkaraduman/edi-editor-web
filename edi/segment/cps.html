@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CPS — Paketleme Hiyerarşisi — ediviewer</title>
-<meta name="description" content="CPS segmenti: Paketleme Hiyerarşisi">
+<meta name="description" content="Sevkiyattaki paketleme hiyerarşisini kurar. Palet, koli ve ürün ilişkisini seviyelerle anlatır: her CPS bir seviye açar, ikinci elemanı ise bir üst seviyey">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/cps.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/cps.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>CPS — Paketleme Hiyerarşisi</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Sevkiyattaki paketleme hiyerarşisini kurar. Palet, koli ve ürün ilişkisini seviyelerle anlatır: her CPS bir seviye açar, ikinci elemanı ise bir üst seviyeye işaret eder.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>CPS+1&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Hiyerarşi Kimlik No (ID)</td></tr>
@@ -45,6 +48,8 @@
 <tr><td><code>LEVEL_2</code></td><td>İç Katman (Inner)</td></tr>
 <tr><td><code>LEVEL_3</code></td><td>Ürün Seviyesi</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>CPS+2+1 ifadesi, ikinci seviyenin birinci seviyenin altında olduğunu söyler. Bu bağı kurmayan bir okuma, hangi kolinin hangi palette olduğunu kaybeder; mal kabulde palet bazlı sayım yapılamaz.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

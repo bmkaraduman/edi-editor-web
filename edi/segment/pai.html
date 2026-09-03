@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PAI — Ödeme Talimatı — ediviewer</title>
-<meta name="description" content="PAI segmenti: Ödeme Talimatı">
+<meta name="description" content="Ödemenin nasıl yapılacağını bildirir: havale, çek, akreditif gibi. Faturada ödeme koşullarını tamamlayan segmenttir; PAT vadeyi, PAI ise yöntemi söyler.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/pai.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/pai.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PAI — Ödeme Talimatı</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Ödemenin nasıl yapılacağını bildirir: havale, çek, akreditif gibi. Faturada ödeme koşullarını tamamlayan segmenttir; PAT vadeyi, PAI ise yöntemi söyler.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>PAI+::42&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <p>Bu segment için eleman açıklaması tanımlı değil.</p>
 <h2>Kod Listesi</h2>
@@ -44,6 +47,8 @@
 <tr><td><code>42</code></td><td>Banka Hesabına</td></tr>
 <tr><td><code>60</code></td><td>Senet / Bono</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Kod üçüncü bileşende durur, bu yüzden segment PAI+::42 gibi iki boş bileşenle başlar görünür. 42 banka hesabına ödeme, 30 EFT, 1 çek anlamına gelir. Boş bileşenleri atlayan bir ayrıştırıcı kodu bulamaz.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

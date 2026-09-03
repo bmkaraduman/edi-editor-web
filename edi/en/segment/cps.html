@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CPS — Packaging Hierarchy — ediviewer</title>
-<meta name="description" content="CPS segment: Packaging Hierarchy">
+<meta name="description" content="Establishes the packing hierarchy of a shipment. It expresses the relationship between pallet, carton and product as levels: each CPS opens a level, and it">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/cps.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/cps.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>CPS — Packaging Hierarchy</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Establishes the packing hierarchy of a shipment. It expresses the relationship between pallet, carton and product as levels: each CPS opens a level, and its second element points at the level above.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>CPS+1&#x27;</code></pre>
 <h2>Data Elements</h2>
 <table class="doc-table"><thead><tr><th>Pos.</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Hierarchical ID No</td></tr>
@@ -45,6 +48,8 @@
 <tr><td><code>LEVEL_2</code></td><td>Inner Layer</td></tr>
 <tr><td><code>LEVEL_3</code></td><td>Item Level</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>CPS+2+1 says that level two sits beneath level one. A reading that ignores this link loses which carton is on which pallet, and pallet-level counting at goods receipt becomes impossible.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

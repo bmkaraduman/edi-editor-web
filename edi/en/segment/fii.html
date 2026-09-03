@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FII — Bank Account Details — ediviewer</title>
-<meta name="description" content="FII segment: Bank Account Details">
+<meta name="description" content="Carries a party’s bank account details. On an invoice it states which account the payment should reach; on a remittance advice, which account it came from.">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/fii.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/fii.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>FII — Bank Account Details</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries a party’s bank account details. On an invoice it states which account the payment should reach; on a remittance advice, which account it came from.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>FII+RB+NL91ABNA0417164300:ACME FOODS BV:::ABN AMRO&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -42,6 +45,8 @@
 <tr><td><code>PB</code></td><td>Paying Bank</td></tr>
 <tr><td><code>RB</code></td><td>Receiving Bank</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The role code in the first element says whose account it is: RB is the receiving bank, PB the paying bank and BF the account holder. Taking the IBAN without reading the role can route a payment to the wrong party.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MEA — Ölçümler (Ağırlık/Hacim) — ediviewer</title>
-<meta name="description" content="MEA segmenti: Ölçümler (Ağırlık/Hacim)">
+<meta name="description" content="Bir ölçüyü taşır: ağırlık, hacim, uzunluk. Sevkiyat ve nakliye mesajlarında paletin veya yük kaleminin brüt ağırlığını bildirmek için kullanılır.">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/mea.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/mea.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>MEA — Ölçümler (Ağırlık/Hacim)</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Bir ölçüyü taşır: ağırlık, hacim, uzunluk. Sevkiyat ve nakliye mesajlarında paletin veya yük kaleminin brüt ağırlığını bildirmek için kullanılır.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>MEA+AAE++KGM:480&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Ölçüm Özelliği</td></tr>
@@ -54,6 +57,8 @@
 <tr><td><code>WD</code></td><td>Genişlik / En</td></tr>
 <tr><td><code>WT</code></td><td>Ağırlık Bilgisi</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>Birim ve değer aynı bileşende, birim önce gelir: KGM:480 dört yüz seksen kilogram demektir. Sıralamayı ters okuyan bir eşleme, ağırlığı birim koduna atar ve hata çoğu zaman ancak taşıma faturasında fark edilir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 

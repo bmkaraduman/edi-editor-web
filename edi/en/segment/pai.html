@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PAI — Payment Instruction — ediviewer</title>
-<meta name="description" content="PAI segment: Payment Instruction">
+<meta name="description" content="States how payment is to be made: transfer, cheque, letter of credit and so on. It complements the payment terms on an invoice, where PAT gives the timing ">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/pai.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/pai.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PAI — Payment Instruction</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>States how payment is to be made: transfer, cheque, letter of credit and so on. It complements the payment terms on an invoice, where PAT gives the timing and PAI the method.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>PAI+::42&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -44,6 +47,8 @@
 <tr><td><code>42</code></td><td>To Bank Account</td></tr>
 <tr><td><code>60</code></td><td>Promissory Note / Bill of Exchange</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>The code sits in the third component, which is why the segment appears as PAI+::42 with two empty components first. 42 means payment to a bank account, 30 an electronic transfer and 1 a cheque. A parser that skips empty components will not find the code.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PCD — Percentage Information — ediviewer</title>
-<meta name="description" content="PCD segment: Percentage Information">
+<meta name="description" content="Carries a percentage value. It almost always appears inside an allowance or charge group (ALC) and gives the rate of that allowance.">
 <link rel="canonical" href="https://ediviewer.net/edi/en/segment/pcd.html">
 <link rel="alternate" hreflang="tr" href="https://ediviewer.net/edi/segment/pcd.html">
 <link rel="stylesheet" href="../../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>PCD — Percentage Information</h1>
 <div class="updated">EDIFACT segment</div>
+<div class="doc-callout"><span class="ico">📘</span><p>Carries a percentage value. It almost always appears inside an allowance or charge group (ALC) and gives the rate of that allowance.</p></div>
+<h2>Example</h2>
+<pre class="doc-code"><code>PCD+3:5&#x27;</code></pre>
 <h2>Data Elements</h2>
 <p>No element descriptions are defined for this segment.</p>
 <h2>Code List</h2>
@@ -40,6 +43,8 @@
 <tr><td><code>1</code></td><td>Allowance / Charge Rate (%)</td></tr>
 <tr><td><code>3</code></td><td>Penalty Rate (%)</td></tr>
 </tbody></table>
+<h2>Watch out</h2>
+<p>PCD does not say what the percentage applies to; the enclosing ALC segment does. Reading a PCD line on its own will not tell you whether the discount belongs to a line item or to the whole document.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; All segments</a></p>
 </main>
 

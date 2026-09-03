@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UCI — Zarf (Interchange) Cevabı — ediviewer</title>
-<meta name="description" content="UCI segmenti: Zarf (Interchange) Cevabı">
+<meta name="description" content="CONTRL mesajında zarf düzeyindeki sonucu bildirir. Hangi aktarımın değerlendirildiğini, gönderen ve alıcıyı, sonucun kabul mü ret mi olduğunu taşır. Bir CO">
 <link rel="canonical" href="https://ediviewer.net/edi/segment/uci.html">
 <link rel="alternate" hreflang="en" href="https://ediviewer.net/edi/en/segment/uci.html">
 <link rel="stylesheet" href="../../css/styles.css?v=89da52df">
@@ -33,6 +33,9 @@
 <main class="doc">
 <h1>UCI — Zarf (Interchange) Cevabı</h1>
 <div class="updated">EDIFACT segmenti</div>
+<div class="doc-callout"><span class="ico">📘</span><p>CONTRL mesajında zarf düzeyindeki sonucu bildirir. Hangi aktarımın değerlendirildiğini, gönderen ve alıcıyı, sonucun kabul mü ret mi olduğunu taşır. Bir CONTRL mesajında tam olarak bir tane bulunur.</p></div>
+<h2>Örnek</h2>
+<pre class="doc-code"><code>UCI+REF00042+8712345678901:14+8798765432109:14+7&#x27;</code></pre>
 <h2>Veri Elemanları</h2>
 <table class="doc-table"><thead><tr><th>Sıra</th><th>Açıklama</th></tr></thead><tbody>
 <tr><td><code>01</code></td><td>Zarf Referans No</td></tr>
@@ -43,6 +46,8 @@
 <tr><td><code>7</code></td><td>Kabul Edildi</td></tr>
 <tr><td><code>8</code></td><td>Reddedildi</td></tr>
 </tbody></table>
+<h2>Dikkat</h2>
+<p>İkinci elemandaki referans, gönderdiğiniz dosyanın UNB satırındaki numarayla eşleşir; hangi teyidin hangi dosyaya ait olduğunu böyle bulursunuz. Sondaki kod 7 ise zarf kabul edilmiştir, 8 ise reddedilmiştir; 4 kısmen kabul anlamına gelir.</p>
 <p style="margin-top:30px"><a href="../index.html">&larr; Tüm segmentler</a></p>
 </main>
 
