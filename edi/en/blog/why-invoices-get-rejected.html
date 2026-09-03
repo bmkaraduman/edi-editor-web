@@ -33,35 +33,59 @@
 <main class="doc">
 <h1>Why was my invoice rejected? An INVOIC checklist</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; EDI invoices usually come back for matching and totalling errors, not for their content.</div>
-<p>When an EDI invoice is rejected, the first assumption is that an amount is wrong. In practice the cause is usually more mundane.</p>
-<h2>1. The order reference is missing</h2>
-<p>If the buyer&#x27;s system cannot match the invoice to an order, it drops to manual handling or is rejected outright. The link is made by this line:</p>
+<p>INVOIC is the most frequently rejected EDI message. The reason is usually not complicated: a few wrong fields, a total that does not add up, or a missing reference. Here are the most common causes, in order.</p>
+<h2>1. The totals do not add up</h2>
+<p>This is the leading cause. The <code>MOA</code> qualifiers in the summary section get mixed up:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>79</code></td><td>Goods total (excluding tax)</td></tr>
+<tr><td><code>124</code></td><td>Tax amount</td></tr>
+<tr><td><code>77</code></td><td>Grand total (including tax)</td></tr>
+<tr><td><code>9</code></td><td>Amount payable</td></tr>
+</tbody></table>
+<p>The rule is simple: <code>79 + 124 = 77</code>. The receiving system checks this arithmetically and will not process an invoice where it fails.</p>
+<pre class="doc-code"><code>
+MOA+79:1228.00&#x27;
+MOA+124:245.60&#x27;
+MOA+77:1473.60&#x27;
+</code></pre>
+<p>The line-level <code>MOA+203</code> values must also sum to <code>79</code>. Rounding differences bite here: rounding each line separately and then adding can give a different result from rounding once.</p>
+<h2>2. Missing or wrong order reference</h2>
+<p>The receiving system usually performs a <strong>three-way match</strong>: the order (ORDERS), the goods receipt (RECADV) and the invoice must agree. For that, the invoice has to carry the order number:</p>
 <pre class="doc-code"><code>
 RFF+ON:PO-2026-0042&#x27;
 </code></pre>
-<p>Without it the invoice is orphaned. This is the single most common rejection reason.</p>
-<h2>2. The totals do not add up</h2>
-<p>The summary section holds several MOA segments, each a different total:</p>
-<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>79</code></td><td>Goods total (sum of the lines)</td></tr>
-<tr><td><code>124</code></td><td>Tax amount</td></tr>
-<tr><td><code>77</code></td><td>Grand total</td></tr>
-<table class="doc-table"><thead><tr><th><code>9</code></th><th>Amount payable</th></tr></thead><tbody>
-</tbody></table>
-<p>The buyer&#x27;s system checks that <code>79 + 124 = 77</code>. Even a rounding difference is enough to fail. Summing the line amounts to the cent and comparing them against the summary is the cheapest check you can run before sending.</p>
-<h2>3. No tax rate</h2>
-<p>With no <code>TAX</code> segment, or an empty rate, the buyer cannot compute VAT and cannot process the invoice:</p>
+<p>The <code>ON</code> qualifier means &quot;order number&quot;. If that line is absent, or the number is not character-for-character what the buyer has on file, the match fails. Leading zeros and spaces matter; <code>PO-42</code> and <code>PO-0042</code> are different numbers.</p>
+<h2>3. Quantity does not match what was despatched</h2>
+<p>An invoice should bill the <strong>despatched</strong> quantity, not the ordered one. On a partial delivery the difference shows up here:</p>
+<ul>
+<li>Ordered: 120 pieces (<code>QTY+21</code>)</li>
+<li>Despatched: 100 pieces (<code>QTY+12</code>)</li>
+<li>To be invoiced: 100 pieces (<code>QTY+47</code>)</li>
+</ul>
+<p>An invoice raised for 120 will be rejected. This is the easiest error for automated checks to catch.</p>
+<h2>4. Missing tax information</h2>
+<p>The <code>TAX</code> segment carries the rate and the type:</p>
 <pre class="doc-code"><code>
 TAX+7+VAT+++:::20&#x27;
 </code></pre>
-<h2>4. Quantities do not match the order</h2>
-<p>If the invoice bills more than was delivered, the three-way match fails. A partial delivery must produce a partial invoice.</p>
-<h2>5. The wrong GLN</h2>
-<p>If the invoicee (<code>NAD+IV</code>) differs from the one agreed with the partner, the message is rejected before its content is even read.</p>
-<h2>6. No currency</h2>
-<p>Without a <code>CUX</code> segment the currency of the amounts is undefined. Some systems assume, others reject — neither is what you want.</p>
-<h2>Before you send</h2>
-<p>Opening the invoice in a viewer and confirming five lines exist heads off most of the rejection loop: <code>RFF+ON</code>, <code>CUX</code>, <code>TAX</code>, <code>MOA+79</code> and <code>MOA+77</code>.</p>
+<p>Here <code>7</code> is the qualifier meaning &quot;tax&quot;, <code>VAT</code> is the tax type, and the trailing <code>20</code> is the percentage. If the rate is absent, or the line-level rates contradict the tax amount in the summary, the invoice comes back.</p>
+<p>Where line items carry different rates, a separate tax subtotal per rate may be required; this depends on the specification.</p>
+<h2>5. The GLN does not match</h2>
+<p>Parties are identified by <strong>GLN number</strong>, not by name:</p>
+<pre class="doc-code"><code>
+NAD+SE+8712345678901::9++ACME FOODS BV+...&#x27;
+</code></pre>
+<p>A GLN that is not registered in the buyer&#x27;s system means the invoice cannot be attributed to a supplier. Spelling the company name correctly does not rescue this — the match runs on the number.</p>
+<p>A common variant: the legal entity raising the invoice (<code>SE</code>) differs from the warehouse that shipped the goods (<code>SU</code>), and the specification says which belongs where.</p>
+<h2>6. No currency stated</h2>
+<p>Without a <code>CUX</code> segment the receiving system does not know which currency the amounts are in:</p>
+<pre class="doc-code"><code>
+CUX+2:EUR:9&#x27;
+</code></pre>
+<p>Partners working in a single currency sometimes omit it and assume a default, but where the specification requires it, it is mandatory.</p>
+<h2>What to do after a rejection</h2>
+<p>1. Look for a <code>CONTRL</code> message — if it is a syntax error, it gives you the segment number 2. If the syntax is valid, the fault is in a business rule: check the totals first, then the references 3. Open the invoice and the related order side by side and compare line by line</p>
+<p>The quickest way to make that comparison is to open both files and read the <code>MOA</code>, <code>QTY</code> and <code>RFF</code> lines in plain language.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/moa.html"><code>MOA</code></a> <a href="../segment/tax.html"><code>TAX</code></a></p>
 <p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>

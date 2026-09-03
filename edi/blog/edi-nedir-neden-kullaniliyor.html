@@ -36,21 +36,59 @@
 <p>EDI, iki şirketin ticari belgeleri insan eli değmeden değiş tokuş etmesidir. Sipariş, irsaliye, fatura; hepsi standart bir yapıda, doğrudan sistemden sisteme.</p>
 <h2>&quot;JSON dursun, bu ne?&quot;</h2>
 <p>EDI&#x27;yi ilk gören her yazılımcı aynı soruyu sorar: bugün REST API yazmak varken neden 1980&#x27;lerden kalma bir metin formatı kullanılıyor?</p>
-<p>Cevap teknik değil. Bir perakendeci binlerce tedarikçiyle çalışır. Her biriyle ayrı API konuşmak yerine tek bir standart dayatır: &quot;bize EDIFACT ORDERS gönderin&quot;. Standart, taraflardan birinin diğerine uyum sağlama maliyetini sıfırlar.</p>
-<p>Üstelik bu standart onlarca yıldır aynı. 2005&#x27;te yazılmış bir entegrasyon bugün hâlâ çalışıyor. API dünyasında bu cümle nadiren kurulur.</p>
+<p>Cevap teknik değil, ticari. Bir perakende zinciri binlerce tedarikçiyle çalışır. Her biriyle ayrı bir API konuşmak yerine tek bir standart dayatır: &quot;bize EDIFACT ORDERS gönderin&quot;. Standart, uyum sağlama maliyetini zincirin kendisinden tedarikçiye kaydırır — ve tedarikçi için de bu maliyet, her müşteriye ayrı entegrasyon yazmaktan ucuzdur.</p>
+<h2>Asıl mesele: N×M problemi</h2>
+<p>Diyelim 500 tedarikçi ve 20 zincir var. Herkes kendi API&#x27;siyle konuşsaydı teorik olarak 10.000 ayrı entegrasyon gerekirdi. Ortak bir standart bunu 520 entegrasyona indirir: herkes yalnızca standardı bir kez öğrenir.</p>
+<p>Bu, EDI&#x27;nin çözdüğü asıl problemdir ve teknolojiyle ilgisi yoktur. Format değişse de problem aynı kalır; nitekim Peppol gibi modern ağlar da aynı mantıkla çalışır, yalnızca sözdizimi farklıdır.</p>
 <h2>Kim kullanıyor?</h2>
 <ul>
-<li><strong>Perakende zincirleri</strong> — sipariş ve fatura akışının neredeyse tamamı</li>
-<li><strong>Otomotiv</strong> — üretim hattı beslemesi, JIT çağrıları</li>
-<li><strong>Lojistik</strong> — sevkiyat talimatları ve durum bildirimleri</li>
-<li><strong>Sağlık ve kamu</strong> — özellikle Avrupa&#x27;da</li>
+<li><strong>Perakende zincirleri</strong> — sipariş ve fatura akışının neredeyse tamamı. Bir</li>
 </ul>
-<p>Türkiye&#x27;de de büyük zincir marketlerin tedarikçilerinden EDI beklemesi yaygınlaşıyor.</p>
+<p>markete tedarikçi olmak istiyorsanız EDI genellikle sözleşme şartıdır.</p>
+<ul>
+<li><strong>Otomotiv</strong> — üretim hattı beslemesi ve tam zamanında (JIT) teslimat</li>
+</ul>
+<p>çağrıları. Burada gecikme doğrudan bandın durması demektir.</p>
+<ul>
+<li><strong>Lojistik</strong> — sevkiyat talimatları, taşıma durum bildirimleri, gümrük</li>
+</ul>
+<p>belgeleri.</p>
+<ul>
+<li><strong>Sağlık ve kamu</strong> — özellikle Avrupa&#x27;da ihale ve fatura süreçleri.</li>
+</ul>
+<p>Türkiye&#x27;de de büyük zincir marketlerin tedarikçilerinden EDI beklemesi yaygınlaşıyor; çoğu zaman ilk karşılaşma da böyle oluyor: müşteriden gelen bir şartname ve ekinde örnek bir dosya.</p>
+<h2>Bir EDI mesajı neye benzer?</h2>
+<p>Aşağıdaki dört satır bir siparişin başlangıcıdır:</p>
+<pre class="doc-code"><code>
+UNB+UNOC:3+8712345678901:14+8798765432109:14+260117:1030+REF00042&#x27;
+UNH+ME000001+ORDERS:D:96A:UN:EAN008&#x27;
+BGM+220+PO-2026-0042+9&#x27;
+NAD+BY+8798765432109::9++MEGA RETAIL AS+Barbaros Bulvari 12+ISTANBUL+34353+TR&#x27;
+</code></pre>
+<p>Okunması zor görünse de mantığı basittir. Her satır bir <strong>segment</strong>, satır başındaki üç harf ise o segmentin ne anlattığını söyler:</p>
+<table class="doc-table"><thead><tr><th>Segment</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td><code>UNB</code></td><td>Zarf başlığı: kimden kime, ne zaman</td></tr>
+<tr><td><code>UNH</code></td><td>Mesaj başlığı: bu bir ORDERS, D.96A sürümü</td></tr>
+<tr><td><code>BGM</code></td><td>Belge numarası: PO-2026-0042</td></tr>
+<tr><td><code>NAD</code></td><td>Taraf bilgisi: <code>BY</code> alıcı demek</td></tr>
+</tbody></table>
+<p>Segmentlerin içi <code>+</code> ile veri elemanlarına, elemanlar da gerektiğinde <code>:</code> ile alt parçalara bölünür. Yapının tamamı budur; geri kalanı hangi kodun ne anlama geldiğini bilmekten ibarettir.</p>
 <h2>Peki gerçekten eski mi?</h2>
-<p>Format eski, mantık değil. EDI&#x27;nin çözdüğü problem — iki bağımsız sistemin ortak bir sözlükle anlaşması — bugün de aynı. Modern alternatifler (API&#x27;ler, Peppol gibi ağlar) aynı problemi farklı sözdizimiyle çözüyor.</p>
-<p>Pratikte ikisi bir arada yaşıyor: pek çok firma iç sistemlerinde JSON kullanıp dış dünyaya EDIFACT çeviriyor.</p>
+<p>Format eski, mantık değil. EDI&#x27;nin çözdüğü problem — iki bağımsız sistemin ortak bir sözlükle anlaşması — bugün de aynı.</p>
+<p>Üstelik bu standart onlarca yıldır kararlı. 2005&#x27;te yazılmış bir entegrasyon bugün hâlâ çalışıyor olabilir. API dünyasında bu cümle nadiren kurulur; sürüm yükseltmeleri, kaldırılan uç noktalar ve değişen kimlik doğrulama şemaları gündelik iştir. EDI&#x27;de &quot;çalışıyorsa dokunma&quot; gerçekten mümkündür.</p>
+<p>Formatın maliyeti ise okunabilirlik. Sıkıştırılmış, insana göre tasarlanmamış bir sözdizimi bu; hata ayıklarken doğru araca ihtiyaç duymanızın nedeni de bu.</p>
+<h2>EDI ile API birlikte nasıl yaşıyor?</h2>
+<p>Pratikte ikisi bir arada bulunur. Yaygın kurulum şöyledir:</p>
+<ul>
+<li>İç sistemler kendi aralarında JSON konuşur</li>
+<li>Dış dünyaya açılan sınırda bir dönüştürücü katman durur</li>
+<li>Bu katman giden veriyi EDIFACT&#x27;e, gelen EDIFACT&#x27;i JSON&#x27;a çevirir</li>
+</ul>
+<p>Yani EDI çoğu zaman uygulamanın içine değil, kenarına yerleşir. Bu ayrım önemlidir: iş mantığınızı EDI segmentleri üzerine kurmak yerine, kendi veri modelinizi koruyup sınırda çeviri yapmak uzun vadede daha az acı verir.</p>
 <h2>Nereden başlamalı</h2>
-<p>Karşınıza bir EDI dosyası geldiyse önce <strong>okuyabilmek</strong> gerekir. Dosyayı açıp segmentlerin ne anlama geldiğini görmek, entegrasyona girişmeden önceki doğal ilk adımdır.</p>
+<p>Karşınıza bir EDI dosyası geldiyse sıra şudur:</p>
+<p>1. <strong>Dosyayı okuyabilir hale getirin.</strong> Hangi mesaj tipi, hangi taraflar, hangi kalemler? Bu adım entegrasyona girişmeden önce yapılmalıdır. 2. <strong>Ortağınızın şartnamesini isteyin.</strong> EDIFACT geniştir; her ortak alt kümesini ve zorunlu alanlarını kendi belgesinde tanımlar. Standart tek başına yeterli değildir. 3. <strong>Örnek dosyayla şartnameyi karşılaştırın.</strong> Şartnamede zorunlu denen bir alan örnekte boşsa, bu genellikle sizin değil şartnamenin eskimiş olduğunun işaretidir; sormak zaman kazandırır. 4. <strong>Sonra kod yazın.</strong> Ayrıştırıcıyı kendiniz yazmadan önce, elinizdeki dosyanın gerçekten ne içerdiğini görmüş olun.</p>
+<p>İlk adım için tarayıcıda çalışan bir görüntüleyici yeterlidir; dosyayı hiçbir yere yüklemeden segmentlerin ne anlama geldiğini görebilirsiniz.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/unb.html"><code>UNB</code></a> <a href="../segment/unh.html"><code>UNH</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>

@@ -38,7 +38,7 @@
 <table class="doc-table"><thead><tr><th></th><th>EDIFACT</th><th>X12</th></tr></thead><tbody>
 <tr><td>Segment sonu</td><td><code>&#x27;</code></td><td><code>~</code></td></tr>
 <tr><td>Eleman ayracı</td><td><code>+</code></td><td><code>*</code></td></tr>
-<table class="doc-table"><thead><tr><th>Alt eleman ayracı</th><th><code>:</code></th><th><code>&gt;</code></th></tr></thead><tbody>
+<tr><td>Alt eleman ayracı</td><td><code>:</code></td><td><code>&gt;</code></td></tr>
 </tbody></table>
 <p>Bir dosyanın hangi standarda ait olduğunu anlamanın en hızlı yolu ilk satıra bakmaktır: <code>UNB</code> ile başlıyorsa EDIFACT, <code>ISA</code> ile başlıyorsa X12&#x27;dir.</p>
 <h2>Segment ve belge isimleri</h2>
@@ -50,7 +50,7 @@
 <tr><td>Sevk ihbarı</td><td>DESADV</td><td>856</td></tr>
 <tr><td>Fatura</td><td>INVOIC</td><td>810</td></tr>
 <tr><td>Stok raporu</td><td>INVRPT</td><td>846</td></tr>
-<table class="doc-table"><thead><tr><th>Ödeme bildirimi</th><th>REMADV</th><th>820</th></tr></thead><tbody>
+<tr><td>Ödeme bildirimi</td><td>REMADV</td><td>820</td></tr>
 </tbody></table>
 <p>Segment isimleri de ayrışır: EDIFACT&#x27;te adres <code>NAD</code>, X12&#x27;de <code>N1</code>; miktar EDIFACT&#x27;te <code>QTY</code>, X12&#x27;de genellikle satır segmentinin (<code>PO1</code>, <code>IT1</code>) içindedir.</p>
 <h2>Yapısal fark</h2>

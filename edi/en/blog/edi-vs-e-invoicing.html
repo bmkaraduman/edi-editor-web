@@ -33,33 +33,44 @@
 <main class="doc">
 <h1>Is EDI the same as e-invoicing?</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Both carry electronic invoices, but they differ in purpose, audience and whether they are compulsory.</div>
-<p>Government e-invoicing schemes and EDI both move invoices electronically. They are not the same thing, and one does not replace the other.</p>
-<h2>Who is the counterparty?</h2>
-<p>That is the core difference:</p>
-<ul>
-<li><strong>E-invoicing</strong> is an obligation towards the state. It uses a format the tax</li>
-</ul>
-<p>authority defines, sent over its infrastructure. The purpose is tax oversight.</p>
-<ul>
-<li><strong>EDI</strong> is an agreement with your trading partner. The parties decide the</li>
-</ul>
-<p>format and content. The purpose is automating business processes.</p>
-<p>One is a legal requirement, the other a commercial one.</p>
-<h2>Different scope</h2>
-<p>E-invoicing covers the invoice alone. EDI also carries the order, the order response, the despatch advice, the receiving advice and the remittance advice. The invoice is one link in the chain EDI concerns itself with.</p>
-<p>A company using EDI is therefore not exempt from e-invoicing; it runs both.</p>
-<h2>Different formats</h2>
-<table class="doc-table"><thead><tr><th></th><th>E-invoicing</th><th>EDI (EDIFACT)</th></tr></thead><tbody>
-<tr><td>Format</td><td>XML (UBL or similar)</td><td>EDIFACT (text)</td></tr>
-<tr><td>Defined by</td><td>The tax authority</td><td>Trading partners</td></tr>
-<tr><td>Compulsory</td><td>Above a legal threshold</td><td>When a partner requires it</td></tr>
-<table class="doc-table"><thead><tr><th>Scope</th><th>The invoice only</th><th>The whole trade chain</th></tr></thead><tbody>
+<p>Both are electronic and both carry invoices, but they are not the same thing. A company often needs <strong>both</strong>, and confusing them leads to an integration plan that is wrong from the start.</p>
+<h2>The basic difference: mandatory for whom?</h2>
+<p><strong>E-invoicing</strong> is a legal obligation. It uses a format the state defines (UBL in most European schemes, UBL-TR in Türkiye) and a channel the state defines. Its purpose is tax oversight.</p>
+<p><strong>EDI</strong> is a commercial agreement. The parties choose the format and the channel. Its purpose is to automate operations.</p>
+<table class="doc-table"><thead><tr><th></th><th>E-invoicing</th><th>EDI</th></tr></thead><tbody>
+<tr><td>Obligation</td><td>Legal</td><td>Contractual</td></tr>
+<tr><td>Format</td><td>UBL (XML)</td><td>EDIFACT, X12</td></tr>
+<tr><td>Channel</td><td>Via the tax authority or a certified network</td><td>Between the parties (AS2, SFTP, VAN)</td></tr>
+<tr><td>Scope</td><td>Invoices only</td><td>Orders, despatch, invoices, payment…</td></tr>
+<tr><td>Validated by</td><td>The state</td><td>Your trading partner</td></tr>
 </tbody></table>
-<h2>How it works in practice</h2>
-<p>The common arrangement: orders and shipments flow over EDI, while the invoice goes both to the trading partner as EDI and to the state in the mandated XML. The same commercial event is reported to two audiences in two formats.</p>
-<p>The duplication looks wasteful but has a logic to it: the fields your partner needs and the fields the tax authority needs do not overlap.</p>
+<h2>The real distinction: scope</h2>
+<p>The most important difference is the second-to-last row. E-invoicing concerns only the invoice. EDI carries the whole commercial process:</p>
+<pre class="doc-code"><code>
+ORDERS  -&gt; purchase order
+ORDRSP  -&gt; order response
+DESADV  -&gt; despatch advice
+RECADV  -&gt; receiving advice
+INVOIC  -&gt; invoice
+REMADV  -&gt; remittance advice
+</code></pre>
+<p>So &quot;we moved to EDI&quot; usually means &quot;we now receive orders electronically too&quot;, whereas e-invoicing covers only the last step of the process.</p>
+<h2>Why do you need both?</h2>
+<p>Because they answer to different parties.</p>
+<p>If you supply a retail chain, the chain may require an EDIFACT INVOIC so that it can post the invoice automatically. You will still have to issue the same invoice through the legal e-invoicing channel, because that is where legal validity comes from.</p>
+<p>The same commercial event goes to two places in two formats. The duplication looks odd, but the systems exist for different reasons.</p>
+<h2>Practical consequences</h2>
+<p><strong>The numbers must agree.</strong> The document number on the EDI invoice and on the e-invoice must be identical. Otherwise reconciliation shows two invoices and nobody knows which is real.</p>
+<p><strong>The amounts must agree.</strong> Systems that round differently in the two formats produce penny differences, and those differences raise questions in an audit.</p>
+<p><strong>Timing matters.</strong> If the EDI invoice reaches your partner before the e-invoice has been issued, they may be unable to pay. The order of the two steps needs to be explicit in your process.</p>
+<h2>The European picture</h2>
+<p>In Europe the same distinction is drawn through <strong>Peppol</strong>. Peppol works as the cross-border counterpart of national e-invoicing: a standard network and format (Peppol BIS, again UBL-based). EDIFACT continues to carry the commercial flow.</p>
+<p>So the table looks similar there too: the legal layer rests on a UBL-based network, the operational layer on EDIFACT.</p>
 <h2>The point not to confuse</h2>
-<p>Sending an EDI invoice does not discharge a legal e-invoicing obligation. And the reverse holds too: filing the legal e-invoice without sending your partner an EDI INVOIC leaves their system with nothing to trigger payment.</p>
+<p>&quot;We issue e-invoices, so we do not need EDI&quot; is wrong. E-invoicing does not receive your orders, announce your shipments or record your goods receipts. If your trading partner asks for EDI, the reason is not to receive the invoice but to automate the <strong>process</strong>.</p>
+<p>The reverse holds as well: using EDI does not remove your legal obligation.</p>
+<h2>Where to start</h2>
+<p>If you have samples of both formats, putting them side by side and comparing how the same invoice looks is instructive. Making the EDIFACT file readable is the first step towards seeing which field corresponds to which UBL element.</p>
 <p class="flow"><a href="../message/invoic.html"><code>INVOIC</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

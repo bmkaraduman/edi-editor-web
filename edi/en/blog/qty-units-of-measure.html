@@ -33,34 +33,62 @@
 <main class="doc">
 <h1>Quantity and unit: what a QTY segment says</h1>
 <div class="updated"><time datetime="2026-08-26">26 August 2026</time> &middot; Ordered, despatched or received? And what happens when PCE and KGM get mixed up.</div>
-<p>The line <code>QTY+21:480:PCE&#x27;</code> says three things: which quantity, how much, and in what unit. All three need reading correctly.</p>
-<h2>Which quantity?</h2>
-<p>The first element is the qualifier and sets the meaning:</p>
+<p>The <code>QTY</code> segment carries a quantity. But &quot;480&quot; on its own means nothing: 480 pieces, 480 cartons, or 480 kilograms? The answer is in the segment&#x27;s other two parts.</p>
+<h2>The structure</h2>
+<pre class="doc-code"><code>
+QTY+21:480:PCE&#x27;
+</code></pre>
+<table class="doc-table"><thead><tr><th>Part</th><th>Value</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Qualifier</td><td><code>21</code></td><td>This is the ordered quantity</td></tr>
+<tr><td>Value</td><td><code>480</code></td><td>The quantity itself</td></tr>
+<tr><td>Unit</td><td><code>PCE</code></td><td>Pieces</td></tr>
+</tbody></table>
+<p>Using the quantity without reading all three leads to real inventory errors.</p>
+<h2>The qualifier: which quantity?</h2>
+<p>A file can contain several <code>QTY</code> segments, each answering a different question:</p>
 <table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
 <tr><td><code>21</code></td><td>Ordered quantity</td></tr>
 <tr><td><code>12</code></td><td>Despatched quantity</td></tr>
+<tr><td><code>47</code></td><td>Invoiced quantity</td></tr>
 <tr><td><code>194</code></td><td>Received quantity</td></tr>
-<tr><td><code>192</code></td><td>Free-of-charge quantity</td></tr>
-<tr><td><code>152</code></td><td>Quantity sold (sales report)</td></tr>
-<table class="doc-table"><thead><tr><th><code>59</code></th><th>Number of units in a pack</th></tr></thead><tbody>
+<tr><td><code>152</code></td><td>Quantity sold (in a sales report)</td></tr>
+<tr><td><code>59</code></td><td>Number of units per pack</td></tr>
 </tbody></table>
-<p>A line may carry several QTY segments. In a receiving advice (RECADV) that is the rule rather than the exception: <code>12</code> gives what was despatched, <code>194</code> what arrived, and the difference is the shortfall.</p>
-<h2>Which unit?</h2>
-<p>The third element is the unit of measure:</p>
-<table class="doc-table"><thead><tr><th>Code</th><th>Unit</th></tr></thead><tbody>
-<tr><td><code>PCE</code></td><td>Pieces</td></tr>
-<tr><td><code>KGM</code></td><td>Kilograms</td></tr>
-<tr><td><code>LTR</code></td><td>Litres</td></tr>
-<tr><td><code>MTR</code></td><td>Metres</td></tr>
+<p>Along an order chain these codes follow one another: <code>21</code> is ordered, <code>12</code> is despatched, <code>194</code> is received, <code>47</code> is invoiced. The differences between them are where most commercial disputes begin.</p>
+<p>In a receiving advice, for instance, two lines sit side by side:</p>
+<pre class="doc-code"><code>
+QTY+12:100:PCE&#x27;
+QTY+194:96:PCE&#x27;
+</code></pre>
+<p>One hundred were despatched, ninety-six accepted. The gap of four means damage or a short delivery, and is usually explained in an <code>FTX</code> line.</p>
+<h2>Unit codes</h2>
+<p>Units come from UN/ECE Recommendation 20. The common ones:</p>
+<table class="doc-table"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>PCE</code></td><td>Piece</td></tr>
+<tr><td><code>KGM</code></td><td>Kilogram</td></tr>
+<tr><td><code>LTR</code></td><td>Litre</td></tr>
+<tr><td><code>MTR</code></td><td>Metre</td></tr>
 <tr><td><code>CT</code></td><td>Carton</td></tr>
-<table class="doc-table"><thead><tr><th><code>PF</code></th><th>Pallet</th></tr></thead><tbody>
+<tr><td><code>PA</code></td><td>Pack</td></tr>
+<tr><td><code>CS</code></td><td>Case</td></tr>
 </tbody></table>
-<p>If the unit is omitted, most systems assume pieces. For a product sold by weight, that assumption can be wrong by a factor of a thousand.</p>
-<h2>Its relationship with price</h2>
-<p>An easily missed point: the <code>PRI</code> segment is a <strong>unit price</strong> and does not say which unit it is per. The quantity&#x27;s unit and the price&#x27;s basis are assumed to match.</p>
-<p>If the quantity is in kilograms while the price is per piece, the arithmetic fails. Mismatches like this surface on the invoice, usually late.</p>
-<h2>A habit worth having</h2>
-<p>When a line total differs from what you expect, check three things: is the qualifier right, is the unit stated, and is the price on the same basis. If all three hold, the error is elsewhere.</p>
+<p>One thing to watch: the same product can appear in different units on different lines. An order may be placed in <code>CT</code> (cartons) and invoiced in <code>PCE</code> (pieces). The conversion factor lives in your product master data, not in the EDI file.</p>
+<h2>The decimal separator trap</h2>
+<p>If a quantity has decimals, the <code>UNA</code> segment says which character is the decimal mark. The default is <code>.</code>:</p>
+<pre class="doc-code"><code>
+QTY+21:12.5:KGM&#x27;
+</code></pre>
+<p>But if <code>UNA</code> set the third character to <code>,</code>, the file will contain <code>12,5</code>. Code that assumes a fixed decimal mark will either crash or misread the number.</p>
+<p>EDIFACT also uses <strong>no thousands separator</strong>. <code>1.234</code> is not one thousand two hundred and thirty-four; it is one point two three four.</p>
+<h2>Negative quantities</h2>
+<p>A quantity can be negative, which is normal on returns and correction documents:</p>
+<pre class="doc-code"><code>
+QTY+21:-12:PCE&#x27;
+</code></pre>
+<p>The minus sign precedes the value. Systems that store quantities as unsigned integers silently record the wrong figure here.</p>
+<h2>Checklist</h2>
+<p>1. Read the qualifier — <code>21</code> and <code>12</code> are very different things 2. Carry the unit with the value; never separate them 3. Take the decimal mark from <code>UNA</code> 4. Allow negative values</p>
+<p>To see what each quantity in a file means, the quickest route is a viewer that translates the qualifier and unit code into plain text.</p>
 <h2>Related reference</h2><p class="flow"><a href="../segment/qty.html"><code>QTY</code></a> <a href="../segment/pri.html"><code>PRI</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; All posts</a></p>
 </main>

@@ -38,7 +38,7 @@
 <table class="doc-table"><thead><tr><th></th><th>EDIFACT</th><th>X12</th></tr></thead><tbody>
 <tr><td>Segment terminator</td><td><code>&#x27;</code></td><td><code>~</code></td></tr>
 <tr><td>Element separator</td><td><code>+</code></td><td><code>*</code></td></tr>
-<table class="doc-table"><thead><tr><th>Component separator</th><th><code>:</code></th><th><code>&gt;</code></th></tr></thead><tbody>
+<tr><td>Component separator</td><td><code>:</code></td><td><code>&gt;</code></td></tr>
 </tbody></table>
 <p>The quickest way to tell which standard a file follows is to look at the first line: <code>UNB</code> means EDIFACT, <code>ISA</code> means X12.</p>
 <h2>Segment and document names</h2>
@@ -50,7 +50,7 @@
 <tr><td>Despatch advice</td><td>DESADV</td><td>856</td></tr>
 <tr><td>Invoice</td><td>INVOIC</td><td>810</td></tr>
 <tr><td>Inventory report</td><td>INVRPT</td><td>846</td></tr>
-<table class="doc-table"><thead><tr><th>Remittance advice</th><th>REMADV</th><th>820</th></tr></thead><tbody>
+<tr><td>Remittance advice</td><td>REMADV</td><td>820</td></tr>
 </tbody></table>
 <p>Segment names diverge too: an address is <code>NAD</code> in EDIFACT and <code>N1</code> in X12; quantity is <code>QTY</code> in EDIFACT but usually sits inside the line segment (<code>PO1</code>, <code>IT1</code>) in X12.</p>
 <h2>Structural difference</h2>

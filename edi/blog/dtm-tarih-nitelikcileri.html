@@ -33,34 +33,59 @@
 <main class="doc">
 <h1>DTM: hangi tarih hangisi?</h1>
 <div class="updated"><time datetime="2026-08-26">26 Ağustos 2026</time> &middot; Bir mesajda beş farklı DTM olabilir. Hangisinin teslim, hangisinin belge tarihi olduğunu nitelikçi söyler.</div>
-<p>Bir EDI mesajında tek bir &quot;tarih&quot; yoktur. Sipariş tarihi, istenen teslim tarihi, fiili teslim tarihi, vade tarihi — hepsi ayrı DTM segmentleriyle taşınır ve hepsi aynı görünür.</p>
-<p>Ayıran şey ilk elemandaki <strong>nitelikçidir</strong>.</p>
-<h2>En sık kullanılan nitelikçiler</h2>
+<p>Bir EDI dosyasında birden fazla <code>DTM</code> satırı görürsünüz ve hepsi tarih taşır. Hangisinin belge tarihi, hangisinin teslim tarihi olduğunu söyleyen şey satırın kendisi değil, içindeki <strong>nitelikçi koddur</strong>.</p>
+<h2>Yapısı</h2>
+<pre class="doc-code"><code>
+DTM+137:20260117:102&#x27;
+</code></pre>
+<p>Üç parça vardır:</p>
+<table class="doc-table"><thead><tr><th>Parça</th><th>Değer</th><th>Anlamı</th></tr></thead><tbody>
+<tr><td>Nitelikçi</td><td><code>137</code></td><td>Bu bir belge tarihi</td></tr>
+<tr><td>Değer</td><td><code>20260117</code></td><td>17 Ocak 2026</td></tr>
+<tr><td>Format</td><td><code>102</code></td><td><code>YYYYMMDD</code> biçiminde</td></tr>
+</tbody></table>
+<p>Nitelikçiyi okumadan tarihi kullanmak, EDI&#x27;de en sık yapılan hatalardan biridir.</p>
+<h2>Sık karşılaşılan nitelikçiler</h2>
 <table class="doc-table"><thead><tr><th>Kod</th><th>Anlamı</th></tr></thead><tbody>
 <tr><td><code>137</code></td><td>Belge / mesaj tarihi</td></tr>
 <tr><td><code>2</code></td><td>İstenen teslim tarihi</td></tr>
 <tr><td><code>35</code></td><td>Fiili teslim tarihi</td></tr>
-<tr><td><code>11</code></td><td>Sevk tarihi</td></tr>
-<tr><td><code>13</code></td><td>Vade (ödeme) tarihi</td></tr>
+<tr><td><code>11</code></td><td>Sevk (despatch) tarihi</td></tr>
 <tr><td><code>132</code></td><td>Tahmini varış</td></tr>
+<tr><td><code>203</code></td><td>Ödeme tarihi</td></tr>
+<tr><td><code>263</code></td><td>Fatura dönemi</td></tr>
 <tr><td><code>356</code></td><td>Dönem başlangıcı</td></tr>
-<table class="doc-table"><thead><tr><th><code>357</code></th><th>Dönem bitişi</th></tr></thead><tbody>
+<tr><td><code>357</code></td><td>Dönem bitişi</td></tr>
 </tbody></table>
-<p><code>DTM+137:20260117:102&#x27;</code> belge tarihidir; <code>DTM+2:20260125:102&#x27;</code> ise teslim tarihi. İkisini ayırmadan okuyan bir entegrasyon, siparişi yanlış güne planlar.</p>
-<h2>Üçüncü parça: format</h2>
-<p>Değerin nasıl okunacağını üçüncü eleman söyler:</p>
-<table class="doc-table"><thead><tr><th>Kod</th><th>Format</th><th>Örnek</th></tr></thead><tbody>
-<tr><td><code>102</code></td><td>YYYYMMDD</td><td><code>20260117</code></td></tr>
-<tr><td><code>203</code></td><td>YYYYMMDDHHMM</td><td><code>202601171030</code></td></tr>
-<tr><td><code>718</code></td><td>Tarih aralığı (iki tarih bitişik)</td><td><code>2026010120260630</code></td></tr>
-<tr><td><code>610</code></td><td>YYYYMM (ay)</td><td><code>202601</code></td></tr>
-<table class="doc-table"><thead><tr><th><code>616</code></th><th>YYYYWW (hafta)</th><th><code>202603</code></th></tr></thead><tbody>
+<p><code>137</code> neredeyse her mesajda bulunur; diğerleri mesaj tipine göre değişir. Bir siparişte <code>2</code> (istenen teslim), bir irsaliyede <code>11</code> (sevk), bir satış raporunda <code>356</code>/<code>357</code> (dönem) görürsünüz.</p>
+<h2>Format kodu neden önemli?</h2>
+<p>Üçüncü parça tarihin nasıl yazıldığını söyler. En yaygın ikisi:</p>
+<table class="doc-table"><thead><tr><th>Kod</th><th>Biçim</th><th>Örnek</th></tr></thead><tbody>
+<tr><td><code>102</code></td><td><code>YYYYMMDD</code></td><td><code>20260117</code></td></tr>
+<tr><td><code>203</code></td><td><code>YYYYMMDDHHMM</code></td><td><code>202601171430</code></td></tr>
 </tbody></table>
-<p>Format kodunu okumadan değeri ayrıştırmak yaygın bir hatadır. <code>202601171030</code> değerini <code>102</code> sanıp ilk sekiz haneyi almak size doğru günü verir ama saati sessizce düşürür.</p>
-<h2>Hafta formatı</h2>
-<p><code>616</code> özellikle otomotivde görülür: teslimat haftası bildirilir, günü değil. <code>202603</code> değeri 2026&#x27;nın üçüncü haftası demektir. Bunu tarih sanıp ayrıştırmaya çalışmak anlamsız sonuç verir.</p>
-<h2>Pratik kontrol</h2>
-<p>Bir dosyada beklediğiniz tarihi bulamıyorsanız, mesajdaki tüm DTM satırlarını yan yana koyup nitelikçilerine bakın. Aradığınız tarih genellikle oradadır, sadece farklı bir kodla.</p>
+<p>Daha eski dosyalarda <code>101</code> (<code>YYMMDD</code>) de görülür. İki haneli yıl, 2000 öncesi kalıntısıdır ve yüzyılı tahmin etmeyi gerektirir — mümkünse kaçının.</p>
+<p>Format kodunu yok sayıp uzunluğa göre tahmin yürüten kodlar bir süre çalışır, sonra saat bilgisi taşıyan bir dosyada bozulur.</p>
+<h2>UNB&#x27;deki tarih farklıdır</h2>
+<p>Zarf başlığındaki tarih bu kalıba uymaz:</p>
+<pre class="doc-code"><code>
+UNB+UNOC:3+A:14+B:14+260117:1030+REF00042&#x27;
+</code></pre>
+<p>Buradaki <code>260117:1030</code>, <code>YYMMDD:HHMM</code> biçimindedir ve nitelikçisi yoktur — her zaman aktarımın gönderilme zamanıdır. Yani <code>UNB</code> tarihini <code>DTM</code> mantığıyla okumaya çalışmak sonuç vermez.</p>
+<h2>Zaman dilimi meselesi</h2>
+<p>EDIFACT tarihleri varsayılan olarak zaman dilimi taşımaz. <code>202601171430</code> hangi saat diliminde 14:30? Standart bunu söylemez; şartname söyler.</p>
+<p>Pratikte iki yaklaşım vardır: ya her iki taraf yerel saati kullanır ve bunu sözleşmede sabitler, ya da <code>DTM</code> yanında ayrı bir zaman dilimi göstergesi taşınır. Uluslararası akışlarda bu ayrımı atlamak, teslim tarihlerinin bir gün kaymasına yol açabilir.</p>
+<h2>Aynı nitelikçi birden fazla geçerse</h2>
+<p>Bu geçerlidir ve anlamı konuma bağlıdır. Mesaj başlığında geçen bir <code>DTM</code>, belgenin tamamı için geçerlidir; bir <code>LIN</code> (kalem) segmentinden sonra geçen aynı kod yalnızca o kalem için geçerlidir.</p>
+<pre class="doc-code"><code>
+DTM+2:20260125:102&#x27;      &lt;- tum siparis icin istenen teslim
+LIN+1++5410013101234:EN&#x27;
+DTM+2:20260130:102&#x27;      &lt;- yalnizca bu kalem icin
+</code></pre>
+<p>Kalem düzeyindeki tarih, başlıktakini o kalem için <strong>ezer</strong>. Bu kuralı atlayan eşlemeler, kısmi teslimatlarda yanlış tarih üretir.</p>
+<h2>Kontrol listesi</h2>
+<p>1. Nitelikçiyi okuyun, konumdan tahmin etmeyin 2. Format kodunu kullanın, uzunluğa bakarak tahmin etmeyin 3. <code>UNB</code> tarihini ayrı ele alın 4. Kalem düzeyindeki <code>DTM</code>&#x27;in başlıktakini ezdiğini unutmayın</p>
+<p>Bir dosyadaki tarihlerin hangisinin ne olduğunu görmek için, satırı seçtiğinizde nitelikçiyi çözen bir görüntüleyici en hızlı yoldur.</p>
 <h2>İlgili referans</h2><p class="flow"><a href="../segment/dtm.html"><code>DTM</code></a></p>
 <p style="margin-top:30px"><a href="index.html">&larr; Tüm yazılar</a></p>
 </main>
