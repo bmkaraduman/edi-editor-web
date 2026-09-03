@@ -7,3 +7,7 @@
 
 # Logs
 *.log
+
+# Python bytecode cache
+__pycache__/
+*.pyc
