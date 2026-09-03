@@ -1014,5 +1014,9 @@
   "seg_GS": "INTESTAZIONE GRUPPO FUNZIONALE (USA)",
   "seg_HL": "LIVELLO GERARCHICO (USA)",
   "seg_N3": "INFORMAZIONI INDIRIZZO (USA)",
-  "seg_N4": "LOCALITÀ GEOGRAFICA (USA)"
+  "seg_N4": "LOCALITÀ GEOGRAFICA (USA)",
+  "//_INFO_PAGES": "--------------------------------",
+  "menu_about_page": "Informazioni",
+  "contact_page": "Contatti",
+  "terms_of_use": "Condizioni d'uso"
 }

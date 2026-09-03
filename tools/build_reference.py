@@ -177,7 +177,10 @@ def page(lang, title, desc, body, depth, canonical, alt_href=None, alt_rel=None)
     <a class="app-cta-btn" href="{up}index.html">{esc(ui['app_cta_btn'])}</a>
   </div>
   <p><a href="{up}edi/index.html">{esc(ui['back_to_ref'])}</a> &middot;
-     <a href="{up}{'gizlilik' if lang == 'tr' else 'privacy'}.html">{'Gizlilik Politikası' if lang == 'tr' else 'Privacy Policy'}</a></p>
+     <a href="{up}{'hakkinda' if lang == 'tr' else 'about'}.html">{'Hakkında' if lang == 'tr' else 'About'}</a> &middot;
+     <a href="{up}{'iletisim' if lang == 'tr' else 'contact'}.html">{'İletişim' if lang == 'tr' else 'Contact'}</a> &middot;
+     <a href="{up}{'gizlilik' if lang == 'tr' else 'privacy'}.html">{'Gizlilik Politikası' if lang == 'tr' else 'Privacy Policy'}</a> &middot;
+     <a href="{up}{'kosullar' if lang == 'tr' else 'terms'}.html">{'Kullanım Koşulları' if lang == 'tr' else 'Terms of Use'}</a></p>
 </section>
 
 </body>
@@ -590,7 +593,9 @@ def build_hub(lang, segs, types, urls):
 
 def stamp_static_pages(version):
     """Jeneratorun uretmedigi sayfalarin CSS baglantilarini da damgalar."""
-    for name in ('index.html', 'gizlilik.html', 'privacy.html'):
+    for name in ('index.html', 'gizlilik.html', 'privacy.html',
+                 'hakkinda.html', 'about.html', 'iletisim.html', 'contact.html',
+                 'kosullar.html', 'terms.html'):
         path = os.path.join(ROOT, name)
         if not os.path.exists(path):
             continue
@@ -656,7 +661,9 @@ def main():
 
     # sitemap + robots
     today = date.today().isoformat()
-    extra = ['/index.html', '/gizlilik.html', '/privacy.html']
+    extra = ['/index.html', '/gizlilik.html', '/privacy.html',
+             '/hakkinda.html', '/about.html', '/iletisim.html', '/contact.html',
+             '/kosullar.html', '/terms.html']
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     rows = [(u, None) for u in extra] + sorted(urls)

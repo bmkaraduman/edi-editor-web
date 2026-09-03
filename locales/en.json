@@ -1014,5 +1014,9 @@
   "seg_GS": "FUNCTIONAL GROUP HEADER (US)",
   "seg_HL": "HIERARCHICAL LEVEL (US)",
   "seg_N3": "ADDRESS INFORMATION (US)",
-  "seg_N4": "GEOGRAPHIC LOCATION (US)"
+  "seg_N4": "GEOGRAPHIC LOCATION (US)",
+  "//_INFO_PAGES": "--------------------------------",
+  "menu_about_page": "About",
+  "contact_page": "Contact",
+  "terms_of_use": "Terms of Use"
 }
