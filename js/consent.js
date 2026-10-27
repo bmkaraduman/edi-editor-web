@@ -59,6 +59,8 @@ function loadGoogleAnalytics() {
 }
 
 function loadAdSense() {
+  // index.html dogrulama icin etiketi statik olarak tasir; ikinci kez ekleme
+  if (document.querySelector('script[src*="pagead/js/adsbygoogle.js"]')) return;
   const s = document.createElement('script');
   s.async = true;
   s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;

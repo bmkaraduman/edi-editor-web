@@ -17,10 +17,14 @@
 <meta name="google-adsense-account" content="ca-pub-7507702503844486">
 
 <!--
-  Reklam ve olcum SCRIPTLERI burada DEGIL, js/consent.js icinde tanimlidir:
-  gtag.js (G-3C1DF6XY4D) ve adsbygoogle.js (ca-pub-7507702503844486)
-  yalnizca kullanici cerez onayi verdikten sonra yuklenir.
+  AdSense dogrulama etiketi: Google'in tarayicisi siteyi dogrularken bu
+  script etiketini ham HTML icinde arar; o yuzden statik olarak burada durur.
+  js/consent.js ayni betigi tekrar eklemez (loadAdSense once var mi diye bakar).
+  gtag.js (G-3C1DF6XY4D) ise js/consent.js icinde, Consent Mode
+  varsayilanlari tanimlandiktan sonra yuklenir.
 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7507702503844486"
+     crossorigin="anonymous"></script>
 </head>
 <body>
 
