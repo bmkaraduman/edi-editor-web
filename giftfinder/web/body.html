@@ -1,0 +1,37 @@
+<header class="top gutter">
+  <div class="top-in">
+    <a class="brand" href="#"><span class="mark">🎁</span>GiftFinder</a>
+    <nav class="countries" id="countries"></nav>
+  </div>
+</header>
+<div class="page gutter">
+  <div>
+    <button type="button" class="filters-toggle" id="filters-toggle">☰ <span id="t-filters"></span></button>
+    <aside class="rail" id="rail">
+      <h2 id="t-rail"></h2>
+      <div id="facets"></div>
+      <div class="group">
+        <h3 id="t-budget"></h3>
+        <div class="budget-row">
+          <input id="pmin" type="number" min="0" step="1" placeholder="min" aria-label="min">
+          <span>–</span>
+          <input id="pmax" type="number" min="0" step="1" placeholder="max" aria-label="max">
+          <span class="cur" id="cur"></span>
+        </div>
+        <div class="quick" id="quick"></div>
+      </div>
+      <button type="button" class="reset" id="reset"></button>
+    </aside>
+  </div>
+  <main class="main">
+    <div class="demo" id="demo" hidden></div>
+    <div class="head">
+      <div><h1 id="title"></h1><div class="count" id="count"></div></div>
+      <label class="sort"><span id="t-sort"></span><select id="sort"></select></label>
+    </div>
+    <div class="active" id="active"></div>
+    <section class="grid" id="results"></section>
+    <div class="more"><button type="button" id="more" hidden></button></div>
+  </main>
+</div>
+<footer class="gutter"><p id="t-disclosure"></p><p id="stats"></p></footer>

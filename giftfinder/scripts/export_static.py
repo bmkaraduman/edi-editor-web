@@ -1,7 +1,7 @@
-"""Export the catalog with precomputed facet scores for the static demo page
-(client-side ranking, no server needed).
+"""Build the self-contained static storefront (client-side ranking, no server):
+the shared UI from web/ plus the catalog with precomputed facet scores.
 
-    python3 scripts/export_static.py > /path/to/data.json
+    python3 scripts/export_static.py /path/to/giftfinder.html
 """
 import json
 import os
@@ -37,7 +37,19 @@ def main():
     out = {"countries": {cc: {k: c[k] for k in ("name", "lang", "currency", "flag")} for cc, c in COUNTRIES.items()},
            "facets": FACETS, "titles": FACET_TITLES, "labels": UI_LABELS, "lexicon": lex, "items": items,
            "report": json.load(open(os.path.join(os.path.dirname(__file__), "..", "app", "data", "models", "report.json")))}
-    json.dump(out, sys.stdout, ensure_ascii=False, separators=(",", ":"))
+    web = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "web")
+    read = lambda name: open(os.path.join(web, name), encoding="utf-8").read()
+    data = json.dumps(out, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    page = (
+        "<title>GiftFinder</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n"
+        "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap\">\n"
+        f"<style>\n{read('style.css')}\n</style>\n{read('body.html')}\n"
+        f"<script>const DATA = {data};</script>\n<script>\n{read('provider_static.js')}\n</script>\n<script>\n{read('ui.js')}\n</script>\n"
+    )
+    dest = sys.argv[1] if len(sys.argv) > 1 else os.path.join(web, "..", "giftfinder-static.html")
+    with open(dest, "w", encoding="utf-8") as f:
+        f.write(page)
+    print(f"wrote {dest} ({os.path.getsize(dest) // 1024} KB, {len(items)} products)")
 
 
 if __name__ == "__main__":

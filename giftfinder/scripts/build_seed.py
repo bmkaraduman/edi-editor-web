@@ -25,7 +25,7 @@ def nice_price(usd, country):
     return float(int(v)) + 0.99
 
 
-def main(variants_per_country=3, seed=1):
+def main(variants_per_country=5, seed=1):
     rng = random.Random(seed)
     products = []
     for concept in CONCEPTS:

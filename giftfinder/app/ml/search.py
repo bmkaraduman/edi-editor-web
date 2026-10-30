@@ -83,7 +83,7 @@ class GiftSearch:
         return out
 
     def search(self, country, q="", gender=None, age=None, occasion=None, personality=None,
-               price_min=None, price_max=None, limit=24, offset=0):
+               price_min=None, price_max=None, limit=24, offset=0, sort="relevance"):
         country = country.upper()
         if country not in COUNTRIES:
             raise ValueError("unknown country")
@@ -102,6 +102,7 @@ class GiftSearch:
 
         score = np.zeros(len(idx))
         why = [[] for _ in idx]
+        match_parts = []   # per selected facet: best affinity, averaged into the match badge
 
         # 1) text channel ------------------------------------------------
         selected = ([gender] if gender and gender != "unisex" else []) + age + occasion + personality
@@ -134,6 +135,7 @@ class GiftSearch:
                         for k in np.where(s >= 0.5)[0]:
                             why[k].append(l)
                 score += weight * best
+                match_parts.append(best)
             for l, w in (soft or {}).items():
                 s = self.S[facet][idx, cols[l]]
                 score += weight * w * s
@@ -147,6 +149,7 @@ class GiftSearch:
             other = "male" if gender == "female" else "female"
             s_oth = self.S["gender"][idx, cols[other]]
             score += WEIGHTS["gender"] * (np.maximum(s_sel, 0.7 * s_uni) - 0.8 * s_oth)
+            match_parts.append(np.maximum(s_sel, 0.7 * s_uni))
             for k in np.where(s_sel >= 0.5)[0]:
                 why[k].append(gender)
         facet_boost("gender", [], WEIGHTS["gender"], hinted.get("gender"))
@@ -159,22 +162,29 @@ class GiftSearch:
             rng = np.random.default_rng(7)
             score = rng.random(len(idx))
 
-        order = np.argsort(-score)
-        # Diversify: do not show the same concept twice in a row of results.
+        match = (np.mean(match_parts, axis=0) * 100).round() if match_parts else None
+        if sort == "price_asc":
+            order = np.lexsort((-score, self.price[idx]))
+        elif sort == "price_desc":
+            order = np.lexsort((-score, -self.price[idx]))
+        else:
+            order = np.argsort(-score)
+        # Diversify: at most three listings of the same concept.
         seen, picked = {}, []
         for k in order:
             p = self.products[idx[k]]
             cid = p.get("concept_id", p["id"])
-            if seen.get(cid, 0) >= 2:
+            if seen.get(cid, 0) >= 3:
                 continue
             seen[cid] = seen.get(cid, 0) + 1
             picked.append(k)
         total = len(picked)
         picked = picked[offset:offset + limit]
-        results = [self._render(self.products[idx[k]], float(score[k]), why[k], lang) for k in picked]
+        results = [self._render(self.products[idx[k]], float(score[k]), why[k], lang,
+                                None if match is None else int(match[k])) for k in picked]
         return {"total": total, "results": results}
 
-    def _render(self, p, score, why, lang):
+    def _render(self, p, score, why, lang, match=None):
         m = MERCHANT_BY_ID[p["merchant_id"]]
         seen = []
         for w in why:
@@ -192,6 +202,7 @@ class GiftSearch:
             "image": p.get("image", ""),
             "emoji": p.get("emoji", "🎁"),
             "score": round(score, 3),
+            "match": match,
             "why": [UI_LABELS.get(w, {}).get(lang, w) for w in seen[:4]],
             "link": f"/go/{p['id']}",
         }

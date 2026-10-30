@@ -42,7 +42,8 @@ app/sources/           Amazon PA-API 5 (SigV4 imzalı), Awin ürün feed'i, gene
                        CSV / Google Shopping feed (Trendyol, Hepsiburada, bol.com…)
 scripts/ingest.py      yapılandırılmış kaynaklardan çek -> etiketle -> kataloğa ekle
 app/main.py            FastAPI: /api/search, /api/options, /go/{id} (affiliate yönlendirme)
-web/                   5 dilli tek sayfa arayüz
+web/                   5 dilli vitrin (body.html + style.css + ui.js); provider_api.js sunucu,
+                       provider_static.js tarayıcı içi sıralama (statik demo)
 ```
 
 ### Eğitim sonuçları (konsept bazlı %20 hold-out, görülmemiş ürün tipleri)
@@ -83,9 +84,12 @@ böylece feed bağlanmadan da tıklamalar para kazandırır.
 
 ```
 GET /api/search?country=TR&gender=female&age=adult&occasion=mothers_day
-               &personality=wellness&personality=coffee_tea&q=...&price_min=&price_max=
+               &personality=wellness&personality=coffee_tea&price_min=&price_max=
+               &sort=relevance|price_asc|price_desc&limit=36&offset=0
 GET /api/options?lang=tr      facet etiketleri
 GET /api/countries            ülkeler ve mağazalar
 GET /go/{id}                  affiliate yönlendirme (tıklama app/data/clicks.jsonl'a yazılır)
 GET /api/stats                katalog boyutu + model raporu
+
+Statik demo (sunucusuz, tarayıcı içi sıralama): `python3 scripts/export_static.py giftfinder-static.html`
 ```
