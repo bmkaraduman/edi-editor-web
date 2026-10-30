@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GiftFinder</title>
+<meta name="description" content="Find the right gift by who it is for, their age, the occasion and their personality. Local shops in the US, Germany, Türkiye, the Netherlands and France.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">🎁 <span>GiftFinder</span></a>
+  <nav class="countries" id="countries"></nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1 id="t-hero">Find a gift they will actually love</h1>
+    <p id="t-sub">Pick who it is for and the occasion. Our text-mining engine reads thousands of product descriptions from local shops and ranks the best matches.</p>
+    <form id="form" class="search" autocomplete="off">
+      <input id="q" type="search" placeholder="e.g. my dad who loves fishing" />
+      <button type="submit" id="t-go">Find gifts</button>
+    </form>
+  </section>
+
+  <section class="facets" id="facets"></section>
+
+  <section class="budget">
+    <label id="t-budget">Budget</label>
+    <div class="budget-row">
+      <input id="pmin" type="number" min="0" step="1" placeholder="min">
+      <span>–</span>
+      <input id="pmax" type="number" min="0" step="1" placeholder="max">
+      <span class="cur" id="cur">$</span>
+      <button type="button" class="link" id="reset">↺ <span id="t-reset">Reset</span></button>
+    </div>
+  </section>
+
+  <section class="results-head">
+    <h2 id="t-results">Suggestions</h2>
+    <span class="count" id="count"></span>
+  </section>
+  <section class="grid" id="results"></section>
+  <div class="more"><button id="more" class="secondary" hidden>…</button></div>
+</main>
+
+<footer>
+  <p id="t-disclosure">Links on this site are affiliate links: if you buy something we may earn a small commission at no extra cost to you. Prices and availability are those of the shop at the time of your visit.</p>
+  <p class="muted" id="stats"></p>
+</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
