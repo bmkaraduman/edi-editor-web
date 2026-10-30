@@ -1,37 +1,39 @@
-<header class="top gutter">
+<header class="top gutter" id="top">
   <div class="top-in">
-    <a class="brand" href="#"><span class="mark">🎁</span>GiftFinder</a>
+    <a class="brand" href="#" id="home"><span class="mark">🎁</span>GiftFinder</a>
     <nav class="countries" id="countries"></nav>
   </div>
 </header>
-<div class="page gutter">
-  <div>
-    <button type="button" class="filters-toggle" id="filters-toggle">☰ <span id="t-filters"></span></button>
-    <aside class="rail" id="rail">
-      <h2 id="t-rail"></h2>
-      <div id="facets"></div>
-      <div class="group">
-        <h3 id="t-budget"></h3>
-        <div class="budget-row">
-          <input id="pmin" type="number" min="0" step="1" placeholder="min" aria-label="min">
-          <span>–</span>
-          <input id="pmax" type="number" min="0" step="1" placeholder="max" aria-label="max">
-          <span class="cur" id="cur"></span>
-        </div>
-        <div class="quick" id="quick"></div>
-      </div>
-      <button type="button" class="reset" id="reset"></button>
-    </aside>
+<div class="hero gutter" id="hero">
+  <div class="hero-in">
+    <h1 id="t-hero"></h1>
+    <p id="t-sub"></p>
   </div>
-  <main class="main">
+</div>
+<div class="bar-wrap gutter" id="bar-wrap">
+  <form class="bar" id="bar" autocomplete="off">
+    <label class="field"><span id="l-gender"></span><select id="f-gender"></select></label>
+    <label class="field"><span id="l-age"></span><select id="f-age"></select></label>
+    <label class="field"><span id="l-occasion"></span><select id="f-occasion"></select></label>
+    <div class="field multi" id="f-personality-wrap">
+      <span id="l-personality"></span>
+      <button type="button" class="multi-btn" id="f-personality-btn" aria-haspopup="listbox" aria-expanded="false"></button>
+      <div class="menu" id="f-personality-menu" role="listbox" hidden></div>
+    </div>
+    <label class="field"><span id="l-budget"></span><select id="f-budget"></select></label>
+    <button type="submit" class="go" id="go"></button>
+  </form>
+  <div class="examples" id="examples"></div>
+</div>
+<main class="results gutter" id="results-wrap" hidden>
+  <div class="results-in">
     <div class="demo" id="demo" hidden></div>
     <div class="head">
-      <div><h1 id="title"></h1><div class="count" id="count"></div></div>
+      <div><h2 id="title"></h2><div class="count" id="count"></div></div>
       <label class="sort"><span id="t-sort"></span><select id="sort"></select></label>
     </div>
-    <div class="active" id="active"></div>
     <section class="grid" id="results"></section>
     <div class="more"><button type="button" id="more" hidden></button></div>
-  </main>
-</div>
+  </div>
+</main>
 <footer class="gutter"><p id="t-disclosure"></p><p id="stats"></p></footer>
