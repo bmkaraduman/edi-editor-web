@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ediviewer</title>
+<meta name="description" content="ediviewer — EDIFACT ve ANSI X12 dosyalarini tarayicida goruntuleyin, duzenleyin, PDF ve Excel'e aktarin.">
+<link rel="stylesheet" href="css/styles.css?v=89da52df">
+<!-- Favicon: wordmark ile ayni gradyan, kare monogram -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!--
+  AdSense site dogrulamasi: bu meta etiket yalnizca site sahipligini kanitlar.
+  Cerez birakmaz, istek yapmaz; bu yuzden onaydan bagimsiz olarak durabilir ve
+  Google'in tarayicisi sayfayi cektiginde bulabilir.
+-->
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+
+<!--
+  Reklam ve olcum SCRIPTLERI burada DEGIL, js/consent.js icinde tanimlidir:
+  gtag.js (G-3C1DF6XY4D) ve adsbygoogle.js (ca-pub-7507702503844486)
+  yalnizca kullanici cerez onayi verdikten sonra yuklenir.
+-->
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ================= TOOLBAR ================= -->
+  <header class="toolbar">
+    <div class="toolbar-left">
+      <!-- LOGO (wordmark) -->
+      <div class="brand" title="ediviewer">
+        <span class="brand-mark" aria-hidden="true">e</span>
+        <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+      </div>
+      <span class="brand-sep" id="brand-sep" aria-hidden="true" hidden></span>
+      <span class="title-group" id="title-group" hidden>
+        <span id="win-title" class="win-title"></span>
+        <span id="win-sub" class="win-sub"></span>
+      </span>
+    </div>
+
+    <div class="toolbar-right">
+
+      <!-- 1. TEMA MENÜSÜ -->
+      <div class="menu" id="menu-theme">
+        <button class="tb-btn icon-only" data-menu-trigger title="">
+          <span id="theme-icon"></span>
+        </button>
+        <div class="menu-popup" role="menu" id="theme-popup"></div>
+      </div>
+
+      <div class="tb-divider"></div>
+
+      <!-- 2. DİL MENÜSÜ -->
+      <div class="menu" id="menu-lang">
+        <button class="tb-btn icon-only" data-menu-trigger title="Language">
+          <svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9h17M3.5 15h17" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+        </button>
+        <div class="menu-popup" role="menu" id="lang-popup"></div>
+      </div>
+
+      <div class="tb-divider"></div>
+
+      <!-- 3. LOGO -->
+      <button class="tb-btn icon-only" id="btn-logo">
+        <span id="logo-slot"></span>
+      </button>
+
+      <div class="tb-divider"></div>
+
+      <!-- 4. DOSYA İŞLEMLERİ -->
+      <button class="tb-btn" id="btn-open">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span data-i18n="open_file"></span>
+      </button>
+
+      <button class="tb-btn primary" id="btn-save">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M12 3v11m0 0 4-4m-4 4-4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span data-i18n="save"></span>
+      </button>
+
+      <div class="tb-divider"></div>
+
+      <!-- 5. DIŞA AKTARMA -->
+      <button class="tb-btn" id="btn-pdf">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M6 3h8l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13h8M8 16.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span data-i18n="pdf_export"></span>
+      </button>
+
+      <button class="tb-btn" id="btn-excel">
+        <svg viewBox="0 0 24 24" class="ic"><rect x="3.5" y="4.5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15M15 4.5v15" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span data-i18n="btn_excel"></span>
+      </button>
+
+      <!-- 5b. DÖNÜŞTÜR (EDI <-> JSON <-> XML) -->
+      <div class="menu" id="menu-convert">
+        <button class="tb-btn" id="btn-convert" data-menu-trigger>
+          <svg viewBox="0 0 24 24" class="ic"><path d="M4 8h13m0 0-3.2-3.2M17 8l-3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 16H7m0 0 3.2-3.2M7 16l3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="conv_title"></span>
+        </button>
+        <div class="menu-popup wide" role="menu" id="convert-popup"></div>
+      </div>
+
+      <!-- 6. HAKKINDA -->
+      <button class="tb-btn icon-only" id="btn-about">
+        <svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= TAB BAR ================= -->
+  <div class="tabbar-wrap" id="tabbar-wrap" hidden>
+    <div class="tabbar" id="tabbar"></div>
+  </div>
+
+  <!-- ================= ANA İÇERİK ================= -->
+  <main class="content" id="content"></main>
+</div>
+
+<!-- ================= DİYALOGLAR ================= -->
+<div class="backdrop" id="backdrop" hidden>
+  <div class="dialog" role="dialog" aria-modal="true">
+    <div class="dialog-icon" id="dlg-icon">⚠️</div>
+    <div class="dialog-title" id="dlg-title"></div>
+    <div class="dialog-msg" id="dlg-msg"></div>
+    <div class="dialog-buttons" id="dlg-buttons"></div>
+  </div>
+</div>
+
+<!-- ================= ÖRNEK DOSYA SEÇİMİ ================= -->
+<div class="backdrop" id="sample-backdrop" hidden>
+  <div class="picker" role="dialog" aria-modal="true">
+    <div class="picker-head">
+      <div class="picker-title" id="sample-picker-title"></div>
+      <div class="picker-desc" id="sample-picker-desc"></div>
+    </div>
+    <div class="picker-body" id="sample-picker-body"></div>
+    <div class="picker-foot">
+      <button class="dlg-btn" id="sample-picker-cancel"></button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
