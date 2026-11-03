@@ -44,7 +44,14 @@ def tokens(text, drop_stopwords=True):
     return toks
 
 
-def doc_text(title, description, brand="", category=""):
-    """Title is repeated so that it weighs more than the description."""
-    return " ".join([normalize(title), normalize(title), normalize(description),
-                     normalize(brand), normalize(category)]).strip()
+def doc_text(title, description, brand="", category="", keywords="", category_path="", product_type=""):
+    """Title and keywords are repeated so that they weigh more than the description."""
+    return " ".join([normalize(title), normalize(title), normalize(keywords), normalize(keywords),
+                     normalize(description), normalize(brand), normalize(category),
+                     normalize(category_path), normalize(product_type)]).strip()
+
+
+def product_doc(p):
+    """doc_text for a catalog dict."""
+    return doc_text(p["title"], p.get("description", ""), p.get("brand", ""), p.get("category", ""),
+                    p.get("keywords", ""), p.get("category_path", ""), p.get("product_type", ""))

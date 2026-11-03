@@ -14,12 +14,20 @@ class Product:
     price: float            # in the country's currency
     currency: str
     url: str = ""           # deep product URL (empty -> merchant search page)
-    image: str = ""
+    image: str = ""         # main image; products without one are never shown
     brand: str = ""
-    category: str = ""
+    category: str = ""      # merchant's own category (leaf)
     labels: dict = field(default_factory=dict)   # facet -> [label, ...]
-    source: str = "feed"    # seed | amazon | awin | csv | ...
+    source: str = "feed"    # seed | amazon | awin | csv | manual
     merchant_name: str = ""  # display name when merchant_id is not in config (combined feeds)
+    images: list = field(default_factory=list)   # further images for the detail page
+    keywords: str = ""      # feed keywords / tags, weighted like the title in the text index
+    category_path: str = "" # "Kinder > Kinderstrumpfhosen"
+    product_type: str = ""
+    rrp: float = 0.0        # recommended retail price (0 = unknown); shown struck through
+    details: dict = field(default_factory=dict)  # colour, condition, model, dimensions, specs, delivery, promo
+    rules: list = field(default_factory=list)    # ids of the labelling rules that matched (see app/data/rules.py)
+    gift: float = 0.5       # giftability prior 0..1 from the rules (1 = classic gift, ~0 = office supply)
 
     @staticmethod
     def make_id(merchant_id, external_id):

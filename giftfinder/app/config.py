@@ -14,6 +14,30 @@ Link templates understand these placeholders:
 import os
 from urllib.parse import quote_plus
 
+
+def _load_dotenv():
+    """Read giftfinder/.env (KEY=value lines) without overriding the real environment."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+_load_dotenv()
+
+# "gift" in every site language; used to prefer gift-like rows when sampling feeds and mixing the home page
+GIFT_WORDS = {"en": ["gift"], "de": ["geschenk"], "tr": ["hediye"], "nl": ["cadeau", "geschenk"], "fr": ["cadeau"]}
+
+# Countries shown on the site. The others keep their config (merchants, lexicon, seeds)
+# and come back by listing them here or in ACTIVE_COUNTRIES=US,DE,TR.
+ACTIVE_COUNTRIES = [c.strip().upper() for c in os.environ.get("ACTIVE_COUNTRIES", "DE").split(",") if c.strip()]
+
 COUNTRIES = {
     "US": {"name": "United States", "lang": "en", "currency": "USD", "symbol": "$", "flag": "🇺🇸", "usd_rate": 1.0},
     "DE": {"name": "Deutschland", "lang": "de", "currency": "EUR", "symbol": "€", "flag": "🇩🇪", "usd_rate": 0.92},

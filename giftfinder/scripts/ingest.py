@@ -3,6 +3,7 @@ trained text-mining model and merge them into the catalog.
 
     python3 scripts/ingest.py            # all countries
     python3 scripts/ingest.py DE TR      # some countries
+    INGEST_LIMIT=1000 python3 scripts/ingest.py DE   # products per source (per advertiser for Awin feeds)
 
 Sources without credentials/files are skipped, so the command is safe to run
 at any time (e.g. nightly from cron). Re-train afterwards if you hand-label
@@ -19,6 +20,7 @@ from app.ml.search import GiftSearch  # noqa: E402
 from app.ml.labeling import label_product  # noqa: E402
 from app.ml.weak_labels import expand_query  # noqa: E402
 from app.sources import SOURCES  # noqa: E402
+from app.sources.images import verify_images  # noqa: E402
 from app.taxonomy import FACETS  # noqa: E402
 
 CATALOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "app", "data", "catalog.json")
@@ -48,8 +50,9 @@ def main(countries):
                 print(f"[{cc}] {src.name}: not configured, skipped")
                 continue
             print(f"[{cc}] {src.name}: fetching {len(queries)} queries")
-            for product in src.fetch(queries, limit=int(os.environ.get("INGEST_LIMIT", "200"))):
-                product.labels = label_product(engine, product.title, product.description)
+            fetched = list(src.fetch(queries, limit=int(os.environ.get("INGEST_LIMIT", "500"))))
+            for product in verify_images(fetched):
+                product.labels = label_product(engine, product.title, product.description, product)
                 d = product.to_dict()
                 if d["id"] not in by_id:
                     added += 1

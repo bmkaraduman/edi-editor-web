@@ -28,7 +28,7 @@ from ..config import COUNTRIES
 from ..data.concepts import CONCEPTS
 from ..taxonomy import FACETS, all_labels
 from .augment import augment
-from .preprocess import doc_text
+from .preprocess import doc_text, product_doc
 from .weak_labels import lexicon_scores
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -87,7 +87,7 @@ def synthetic_docs(n_per_lang=6, seed=3):
     return docs
 
 
-def train(catalog_path=None, out_dir=MODELS, test_size=0.2, seed=42):
+def train(catalog_path=None, out_dir=MODELS, test_size=0.2, seed=42, max_feed_docs=1500):
     catalog_path = catalog_path or os.path.join(DATA, "catalog.json")
     with open(catalog_path, encoding="utf-8") as f:
         products = json.load(f)
@@ -95,8 +95,17 @@ def train(catalog_path=None, out_dir=MODELS, test_size=0.2, seed=42):
     print(f"{len(labelled)} labelled products of {len(products)} total")
     labelled += synthetic_docs()
     print(f"{len(labelled)} docs after synthetic augmentation")
+    # Real feed rows whose labels came from a category rule (app/data/rules.py) teach the
+    # classifier the vocabulary of actual shop listings. Capped so they cannot swamp the
+    # hand-labelled concepts; each row is its own "concept" for the hold-out split.
+    rule_docs = [p for p in products if p.get("rules") and p.get("labels") and p.get("source") not in ("seed", "manual")]
+    rng = random.Random(seed)
+    rng.shuffle(rule_docs)
+    rule_docs = rule_docs[:max_feed_docs]
+    labelled += rule_docs
+    print(f"{len(labelled)} docs after adding {len(rule_docs)} rule-labelled feed products")
 
-    texts = [doc_text(p["title"], p["description"], p.get("brand", ""), p.get("category", "")) for p in labelled]
+    texts = [product_doc(p) for p in labelled]
     concept = [p.get("concept_id") or p["id"] for p in labelled]
 
     # Split by concept so that augmentations of one concept never leak into test.

@@ -1,30 +1,37 @@
 <header class="top gutter" id="top">
   <div class="top-in">
-    <a class="brand" href="#" id="home"><span class="mark">🎁</span>idea<span class="tld">.gift</span></a>
+    <a class="brand" href="/" id="home"><span class="mark">🎁</span>gift<span class="tld">detect</span><span class="dot">.com</span></a>
     <nav class="countries" id="countries"></nav>
   </div>
 </header>
 <div class="hero gutter" id="hero">
   <div class="hero-in">
+    <div class="confetti" aria-hidden="true"><span>🎀</span><span>🎈</span><span>✨</span><span>🎂</span><span>💝</span><span>🎉</span></div>
     <h1 id="t-hero"></h1>
     <p id="t-sub"></p>
   </div>
 </div>
 <div class="bar-wrap gutter" id="bar-wrap">
   <form class="bar" id="bar" autocomplete="off">
-    <label class="field"><span id="l-gender"></span><select id="f-gender"></select></label>
-    <label class="field"><span id="l-age"></span><select id="f-age"></select></label>
-    <label class="field"><span id="l-occasion"></span><select id="f-occasion"></select></label>
-    <div class="field multi" id="f-personality-wrap">
+    <label class="field f-gender"><span id="l-gender"></span><select id="f-gender"></select></label>
+    <label class="field f-age"><span id="l-age"></span><select id="f-age"></select></label>
+    <label class="field f-occasion"><span id="l-occasion"></span><select id="f-occasion"></select></label>
+    <div class="field multi f-personality" id="f-personality-wrap">
       <span id="l-personality"></span>
       <button type="button" class="multi-btn" id="f-personality-btn" aria-haspopup="listbox" aria-expanded="false"></button>
       <div class="menu" id="f-personality-menu" role="listbox" hidden></div>
     </div>
-    <label class="field"><span id="l-budget"></span><select id="f-budget"></select></label>
+    <label class="field f-budget"><span id="l-budget"></span><select id="f-budget"></select></label>
     <button type="submit" class="go" id="go"></button>
   </form>
   <div class="examples" id="examples"></div>
 </div>
+<section class="upcoming gutter" id="upcoming-wrap" hidden>
+  <div class="upcoming-in">
+    <div class="head"><div><h2 id="up-title"></h2><div class="count" id="up-sub"></div></div><button type="button" class="up-all" id="up-all"></button></div>
+    <section class="grid" id="upcoming"></section>
+  </div>
+</section>
 <main class="results gutter" id="results-wrap" hidden>
   <div class="results-in">
     <div class="demo" id="demo" hidden></div>
@@ -36,4 +43,12 @@
     <div class="more"><button type="button" id="more" hidden></button></div>
   </div>
 </main>
+<section class="product-page gutter" id="product-wrap" hidden>
+  <div class="product-in">
+    <a class="back" href="/" id="back"></a>
+    <div class="product" id="product"></div>
+    <h3 class="similar-title" id="t-similar"></h3>
+    <section class="grid" id="similar"></section>
+  </div>
+</section>
 <footer class="gutter"><p id="t-disclosure"></p><p id="stats"></p></footer>
