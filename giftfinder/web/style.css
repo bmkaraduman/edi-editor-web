@@ -18,6 +18,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .top { background: var(--surface); border-bottom: 1px solid var(--line) }
 .top-in { max-width: 1320px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding-block: 10px; flex-wrap: wrap }
 .brand { font: 700 1.25rem/1 var(--display); letter-spacing: -.02em; display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit }
+.brand .tld { color: var(--accent) }
 .brand .mark { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 17px }
 .countries { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto }
 .countries button { border: 1px solid transparent; background: transparent; border-radius: 999px; padding: 6px 10px; cursor: pointer; font-size: .88rem; font-weight: 600; color: var(--muted) }

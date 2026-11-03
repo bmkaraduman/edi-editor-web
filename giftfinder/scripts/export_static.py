@@ -41,7 +41,7 @@ def main():
     read = lambda name: open(os.path.join(web, name), encoding="utf-8").read()
     data = json.dumps(out, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     page = (
-        "<title>GiftFinder</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n"
+        "<title>idea.gift</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n"
         "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap\">\n"
         f"<style>\n{read('style.css')}\n</style>\n{read('body.html')}\n"
         f"<script>const DATA = {data};</script>\n<script>\n{read('provider_static.js')}\n</script>\n<script>\n{read('ui.js')}\n</script>\n"

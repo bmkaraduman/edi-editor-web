@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 WEB = os.path.join(HERE, "..", "web")
 CLICK_LOG = os.path.join(HERE, "data", "clicks.jsonl")
 
-app = FastAPI(title="GiftFinder", version="1.0")
+app = FastAPI(title="idea.gift", version="1.0")
 engine = GiftSearch()
 
 
@@ -76,8 +76,9 @@ def _page():
     body = open(os.path.join(WEB, "body.html"), encoding="utf-8").read()
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GiftFinder</title>
-<meta name="description" content="Gift ideas ranked by who it is for, their age, the occasion and their personality. Local shops in the US, Germany, Türkiye, the Netherlands and France.">
+<title>idea.gift</title>
+<meta name="description" content="idea.gift: a gift search engine. Pick who it is for, the occasion and their personality and get ranked gift ideas from shops in the US, Germany, Türkiye, the Netherlands and France.">
+<link rel="canonical" href="https://idea.gift/">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="/static/style.css"></head><body>{body}
 <script src="/static/provider_api.js"></script><script src="/static/ui.js"></script></body></html>"""

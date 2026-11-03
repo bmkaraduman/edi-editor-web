@@ -1,4 +1,6 @@
-# GiftFinder – text-mining tabanlı hediye arama platformu
+# idea.gift – text-mining tabanlı hediye arama motoru
+
+Canlı alan adı: **idea.gift** (kod adı GiftFinder).
 
 Cinsiyet, yaş, özel gün ve karakter seçimine (ya da serbest metne) göre hediye
 öneren çok dilli bir site. Ürünler, her ülkenin **affiliate programı olan yerel
