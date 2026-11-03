@@ -18,6 +18,24 @@ from .base import Product, Source
 FEED_DIR = os.environ.get("FEED_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "feeds"))
 
 
+def parse_price(value, turkish=False):
+    """'79.99', '79,99', '79.99 EUR', '1.299,00 TL' -> float, else None."""
+    if value in (None, ""):
+        return None
+    txt = str(value).strip()
+    txt = "".join(ch for ch in txt if ch.isdigit() or ch in ".,")
+    if not txt:
+        return None
+    if "," in txt and "." in txt:
+        txt = txt.replace(".", "").replace(",", ".") if txt.rfind(",") > txt.rfind(".") else txt.replace(",", "")
+    elif "," in txt:
+        txt = txt.replace(",", ".") if not turkish or len(txt.split(",")[-1]) <= 2 else txt.replace(",", "")
+    try:
+        return float(txt)
+    except ValueError:
+        return None
+
+
 def pick(row, *keys):
     low = {k.lower().strip(): v for k, v in row.items() if k}
     for k in keys:
@@ -55,11 +73,9 @@ class CsvFeedSource(Source):
                     text = f"{title} {desc}".lower()
                     if words and not any(w in text for w in words):
                         continue
-                    price = pick(row, "price", "sale_price", "search_price", "store_price", "fiyat", "satis_fiyati")
-                    try:
-                        price = float(str(price).replace("TL", "").replace("₺", "").replace(".", "").replace(",", ".")
-                                      if cinfo["currency"] == "TRY" else str(price).replace(",", "."))
-                    except (TypeError, ValueError):
+                    price = parse_price(pick(row, "sale_price", "price", "search_price", "store_price", "fiyat", "satis_fiyati"),
+                                        turkish=cinfo["currency"] == "TRY")
+                    if price is None:
                         continue
                     ext = pick(row, "id", "product_id", "aw_product_id", "merchant_product_id", "sku", "urun_kodu", "link", "url")
                     yield Product(

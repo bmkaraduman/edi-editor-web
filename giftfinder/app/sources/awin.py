@@ -15,7 +15,7 @@ import requests
 
 from ..config import COUNTRIES, MERCHANTS
 from .base import Product, Source
-from .csv_feed import pick
+from .csv_feed import parse_price, pick
 
 
 class AwinSource(Source):
@@ -33,7 +33,7 @@ class AwinSource(Source):
     def fetch(self, queries, limit=50):
         cinfo = COUNTRIES[self.country]
         words = {w for q in queries for w in q.lower().split()}
-        for merchant_id, url in self.feeds.items():
+        for feed_merchant, url in self.feeds.items():
             r = requests.get(url, timeout=60)
             r.raise_for_status()
             raw = r.content
@@ -43,21 +43,20 @@ class AwinSource(Source):
             for row in csv.DictReader(io.StringIO(raw.decode("utf-8", "ignore"))):
                 title = pick(row, "product_name", "title")
                 desc = pick(row, "description", "product_short_description")
+                merchant_id = feed_merchant
                 text = f"{title} {desc}".lower()
                 if not any(w in text for w in words):
                     continue
-                price = pick(row, "search_price", "store_price", "price")
-                try:
-                    price = float(str(price).replace(",", "."))
-                except (TypeError, ValueError):
+                price = parse_price(pick(row, "search_price", "store_price", "price", "sale_price"))
+                if price is None:
                     continue
                 yield Product(
-                    id=Product.make_id(merchant_id, pick(row, "aw_product_id", "merchant_product_id")),
+                    id=Product.make_id(merchant_id, pick(row, "aw_product_id", "merchant_product_id", "id")),
                     country=self.country, lang=cinfo["lang"], merchant_id=merchant_id, title=title,
                     description=desc, price=price, currency=pick(row, "currency") or cinfo["currency"],
-                    url=pick(row, "aw_deep_link", "merchant_deep_link"),
-                    image=pick(row, "merchant_image_url", "aw_image_url"),
-                    brand=pick(row, "brand_name"), category=pick(row, "merchant_category", "category_name"),
+                    url=pick(row, "aw_deep_link", "link", "merchant_deep_link"),
+                    image=pick(row, "merchant_image_url", "image_link", "aw_image_url"),
+                    brand=pick(row, "brand_name", "brand"), category=pick(row, "merchant_category", "product_type", "category_name"),
                     source="awin",
                 )
                 n += 1
