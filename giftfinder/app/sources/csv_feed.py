@@ -6,6 +6,7 @@ bol.com's product feed, or a feed you export yourself.
 
 Drop the files in feeds/<CC>/<merchant_id>.csv (or set FEED_DIR). Column
 names are matched loosely: title/name, description, price, link/url, image.
+A CSV downloaded by hand from Awin's Create-a-Feed works as is.
 """
 import csv
 import glob
@@ -50,23 +51,23 @@ class CsvFeedSource(Source):
                 n = 0
                 for row in csv.DictReader(f, dialect=dialect):
                     title = pick(row, "title", "name", "product_name", "urun_adi", "ürün adı")
-                    desc = pick(row, "description", "aciklama", "açıklama", "product_description")
+                    desc = pick(row, "description", "aciklama", "açıklama", "product_description", "product_short_description")
                     text = f"{title} {desc}".lower()
                     if words and not any(w in text for w in words):
                         continue
-                    price = pick(row, "price", "sale_price", "fiyat", "satis_fiyati")
+                    price = pick(row, "price", "sale_price", "search_price", "store_price", "fiyat", "satis_fiyati")
                     try:
                         price = float(str(price).replace("TL", "").replace("₺", "").replace(".", "").replace(",", ".")
                                       if cinfo["currency"] == "TRY" else str(price).replace(",", "."))
                     except (TypeError, ValueError):
                         continue
-                    ext = pick(row, "id", "product_id", "sku", "urun_kodu", "link", "url")
+                    ext = pick(row, "id", "product_id", "aw_product_id", "merchant_product_id", "sku", "urun_kodu", "link", "url")
                     yield Product(
                         id=Product.make_id(merchant_id, ext or title), country=self.country, lang=cinfo["lang"],
                         merchant_id=merchant_id, title=title, description=desc, price=price,
-                        currency=cinfo["currency"], url=pick(row, "link", "url", "product_url", "deeplink"),
-                        image=pick(row, "image_link", "image", "image_url", "gorsel"),
-                        brand=pick(row, "brand", "marka"), category=pick(row, "product_type", "category", "kategori"),
+                        currency=cinfo["currency"], url=pick(row, "aw_deep_link", "link", "url", "product_url", "deeplink", "merchant_deep_link"),
+                        image=pick(row, "image_link", "image", "image_url", "merchant_image_url", "aw_image_url", "gorsel"),
+                        brand=pick(row, "brand", "brand_name", "marka"), category=pick(row, "product_type", "category", "merchant_category", "category_name", "kategori"),
                         source="csv",
                     )
                     n += 1
