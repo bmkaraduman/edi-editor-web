@@ -19,6 +19,7 @@ class Product:
     category: str = ""
     labels: dict = field(default_factory=dict)   # facet -> [label, ...]
     source: str = "feed"    # seed | amazon | awin | csv | ...
+    merchant_name: str = ""  # display name when merchant_id is not in config (combined feeds)
 
     @staticmethod
     def make_id(merchant_id, external_id):

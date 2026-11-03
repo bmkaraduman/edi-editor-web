@@ -68,7 +68,9 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
 2. Kaynaklar:
    * **Amazon**: `AMAZON_ACCESS_KEY`, `AMAZON_SECRET_KEY`, `AMAZON_TAG_<CC>` (PA-API için
      her pazarda onaylı Associates hesabı gerekir).
-   * **Awin**: Create-a-Feed'den CSV URL'si → `AWIN_FEED_<merchant_id>` (ör. `AWIN_FEED_otto`).
+   * **Awin**: Create-a-Feed'den "manual download URL" → ülke başına tek birleşik feed için
+     `AWIN_FEED_ALL_DE` (satırlar feed'deki merchant_id sütunuyla mağazalara ayrılır) ya da
+     mağaza başına `AWIN_FEED_<merchant_id>` (ör. `AWIN_FEED_otto`).
    * **CSV / Google Shopping feed**: `feeds/<CC>/<merchant_id>.csv` (ör.
      `feeds/TR/trendyol.csv`, `feeds/NL/bol.csv`). Sütun adları gevşek eşlenir
      (title/name/ürün adı, description/açıklama, price/fiyat, link, image).

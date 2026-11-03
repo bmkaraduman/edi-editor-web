@@ -111,7 +111,9 @@ def affiliate_link(merchant_id, product_url=None, query=None):
 
     Falls back to the merchant's search page when no product URL exists.
     """
-    m = MERCHANT_BY_ID[merchant_id]
+    m = MERCHANT_BY_ID.get(merchant_id)
+    if m is None:              # merchant known only from a feed: its URL is already tracked
+        return product_url or ""
     raw = product_url or m["search"].format(q=quote_plus(query or ""))
     net = NETWORKS[m["network"]]
     params = net["params"](m["country"])

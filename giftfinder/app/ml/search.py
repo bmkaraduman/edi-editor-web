@@ -185,7 +185,7 @@ class GiftSearch:
         return {"total": total, "results": results}
 
     def _render(self, p, score, why, lang, match=None):
-        m = MERCHANT_BY_ID[p["merchant_id"]]
+        m = MERCHANT_BY_ID.get(p["merchant_id"]) or {"name": p.get("merchant_name") or "Shop", "domain": ""}
         seen = []
         for w in why:
             if w not in seen:

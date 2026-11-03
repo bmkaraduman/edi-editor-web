@@ -25,7 +25,7 @@ def main():
                 s = float(engine.S[facet][i, j])
                 if s >= 0.05:
                     scores[label] = round(s, 2)
-        m = MERCHANT_BY_ID[p["merchant_id"]]
+        m = MERCHANT_BY_ID.get(p["merchant_id"]) or {"name": p.get("merchant_name") or "Shop"}
         items.append({
             "id": p["id"], "c": p["country"], "t": p["title"], "d": p["description"],
             "p": p["price"], "pt": format_price(p["price"], p["country"]), "m": m["name"],
