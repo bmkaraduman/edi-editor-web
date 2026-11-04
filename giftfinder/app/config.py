@@ -34,6 +34,9 @@ _load_dotenv()
 # "gift" in every site language; used to prefer gift-like rows when sampling feeds and mixing the home page
 GIFT_WORDS = {"en": ["gift"], "de": ["geschenk"], "tr": ["hediye"], "nl": ["cadeau", "geschenk"], "fr": ["cadeau"]}
 
+# Google Analytics 4 measurement id of the giftdetect.com web stream (empty disables analytics).
+GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "G-XN9SC9S3K2")
+
 # Countries shown on the site. The others keep their config (merchants, lexicon, seeds)
 # and come back by listing them here or in ACTIVE_COUNTRIES=US,DE,TR.
 ACTIVE_COUNTRIES = [c.strip().upper() for c in os.environ.get("ACTIVE_COUNTRIES", "DE").split(",") if c.strip()]

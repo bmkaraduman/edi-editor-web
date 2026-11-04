@@ -22,6 +22,8 @@ const EXAMPLES = [
 ];
 const PAGE = 36;
 const DETAIL_KEYS = ["colour", "condition", "model", "dimensions", "specifications", "delivery_cost", "promotion"];
+const track = (name, params) => { if (window.track) window.track(name, params || {}); };
+const pageView = (path, title) => track("page_view", { page_path: path, page_title: title || document.title, page_location: location.origin + path, country: state.country });
 const state = { country: null, lang: "en", sel: { gender: "", age: "", occasion: "", personality: [], budget: "" }, sort: "relevance", offset: 0, total: 0, labels: {}, titles: {}, searched: false, view: "home", product: null };
 let COUNTRIES = {};
 const $ = (id) => document.getElementById(id);
@@ -73,7 +75,7 @@ async function loadUpcoming() {
   $("up-title").textContent = `🎁 ${t("up_title", { occ: u.label })}`;
   $("up-sub").textContent = u.days === 0 ? t("up_today", { occ: u.label }) : t("up_days", { occ: u.label, n: u.days, date });
   $("up-all").textContent = t("up_all", { occ: u.label });
-  $("up-all").onclick = () => { state.sel = { gender: "", age: "", occasion: u.occasion, personality: [], budget: "" }; applyI18n(state.opts); search(true); };
+  $("up-all").onclick = () => { track("upcoming_all", { occasion: u.occasion }); state.sel = { gender: "", age: "", occasion: u.occasion, personality: [], budget: "" }; applyI18n(state.opts); search(true); };
   const grid = $("upcoming"); grid.innerHTML = ""; u.results.forEach((r) => grid.appendChild(card(r)));
   wrap.hidden = false;
 }
@@ -88,6 +90,11 @@ async function search(reset) {
   if (reset) { state.offset = 0; $("results").innerHTML = ""; }
   const data = await GF.search(params());
   state.total = data.total;
+  if (reset) {
+    const sel = state.sel;
+    track("search", { search_term: [sel.gender, sel.age, sel.occasion, ...sel.personality, sel.budget].filter(Boolean).join(" "), gender: sel.gender || "any", age: sel.age || "any", occasion: sel.occasion || "any", personality: sel.personality.join(",") || "any", budget: sel.budget || "any", country: state.country, results: data.total });
+    pageView("/search", t("title"));
+  }
   $("demo").hidden = !data.demo;
   if (!data.results.length && state.offset === 0) $("results").innerHTML = `<div class="empty">${t("empty")}</div>`;
   data.results.forEach((r) => $("results").appendChild(card(r)));
@@ -109,6 +116,7 @@ function card(r) {
     <div class="why">${r.why.map((w) => `<span>${esc(w)}</span>`).join("")}</div>
     <div class="foot"><span class="price">${esc(r.price_text)} ${was}</span><a class="buy" href="${esc(r.link)}" target="_blank" rel="nofollow sponsored noopener">${t("view")} →</a></div></div>`;
   el.querySelectorAll("a[data-id]").forEach((a) => { a.onclick = (e) => { e.preventDefault(); openProduct(a.dataset.id, true); }; });
+  el.querySelector(".buy").onclick = () => track("shop_click", { item_id: r.id, item_name: r.title, merchant: r.merchant, price: r.price, currency: r.currency, from: state.view });
   const img = el.querySelector(".thumb img");
   if (img) img.onerror = () => { el.remove(); reportBroken(r.id); };
   return el;
@@ -125,6 +133,8 @@ async function openProduct(id, push) {
   const d = await GF.product(id);
   if (!d) { $("product").innerHTML = `<div class="empty">${t("notfound")}</div>`; return; }
   renderProduct(d);
+  track("view_item", { item_id: d.id, item_name: d.title, merchant: d.merchant, price: d.price, currency: d.currency, country: state.country });
+  pageView(`/p/${id}`, d.title);
 }
 function renderProduct(d) {
   const imgs = d.images && d.images.length ? d.images : [];
@@ -148,6 +158,7 @@ function renderProduct(d) {
       ${kws}
       ${meta || details ? `<dl class="details"><h3>${esc(t("details"))}</h3>${meta}${details}</dl>` : ""}
     </div>`;
+  $("product").querySelector(".cta").onclick = () => track("shop_click", { item_id: d.id, item_name: d.title, merchant: d.merchant, price: d.price, currency: d.currency, from: "product" });
   $("product").querySelectorAll(".thumbs button").forEach((b) => { b.onclick = () => { $("g-main").src = b.dataset.src; $("product").querySelectorAll(".thumbs button").forEach((x) => x.classList.toggle("on", x === b)); }; b.querySelector("img").onerror = () => b.remove(); });
   const main = $("g-main");
   if (main) main.onerror = () => { const left = imgs.filter((u) => u !== main.src && u !== main.getAttribute("src")); if (left.length) { imgs.splice(0, imgs.length, ...left); main.src = left[0]; } else { reportBroken(d.id); $("product").querySelector(".gallery").innerHTML = `<div class="main emoji">🎁</div>`; } };
@@ -177,7 +188,7 @@ async function init() {
     const p = await GF.product(pid);
     if (p) { await setCountry(COUNTRIES[p.country] ? p.country : detect(), { keepProduct: true }); state.view = "product"; state.product = pid; document.body.classList.add("product-mode"); $("hero").hidden = true; $("bar-wrap").hidden = true; $("product-wrap").hidden = false; renderProduct(p); }
     else await setCountry(detect());
-  } else await setCountry(detect());
+  } else { await setCountry(detect()); pageView("/", "giftdetect.com"); }
   GF.stats().then((s) => { const h = s.model && s.model.holdout ? Object.entries(s.model.holdout).map(([k, v]) => `${k} F1 ${v.micro_f1}`).join(" · ") : ""; $("stats").textContent = `${s.products} products · text-mining model: ${h}`; });
 }
 init();

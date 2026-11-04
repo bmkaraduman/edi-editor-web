@@ -13,7 +13,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from .config import ACTIVE_COUNTRIES, COUNTRIES, MERCHANTS, affiliate_link
+from .config import ACTIVE_COUNTRIES, COUNTRIES, GA_MEASUREMENT_ID, MERCHANTS, affiliate_link
 from .occasions import upcoming
 from .taxonomy import UI_LABELS
 from .ml.search import GiftSearch, facet_options
@@ -113,7 +113,8 @@ def _page(title="giftdetect.com", description="giftdetect.com: a gift search eng
 <link rel="canonical" href="{html.escape(canonical)}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="/static/style.css"></head><body>{body}
-<script src="/static/provider_api.js"></script><script src="/static/ui.js"></script></body></html>"""
+<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};</script>
+<script src="/static/provider_api.js"></script><script src="/static/ui.js"></script><script src="/static/analytics.js"></script></body></html>"""
 
 
 PAGE_HTML = _page()

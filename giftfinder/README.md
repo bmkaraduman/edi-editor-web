@@ -156,6 +156,15 @@ npx wrangler@4 pages deploy dist --project-name giftdetect --branch main
 projesine özel alan adı (giftdetect.com, www) ve DNS'te `CNAME @ -> giftdetect.pages.dev`
 (proxy açık). Önizleme adresi: https://giftdetect.pages.dev
 
+## Analytics
+
+Google Analytics 4 (`GA_MEASUREMENT_ID`, varsayılan G-XN9SC9S3K2; boş = kapalı). `web/analytics.js`
+DSGVO için onay bandı gösterir ve gtag'i yalnızca "Erlauben" sonrasında yükler (reklam
+çerezi yok, IP anonim); karar localStorage'da, altbilgideki "Cookie-Einstellungen" ile
+değiştirilir. Olaylar: `page_view` (/, /search, /p/{id}), `search` (facet'ler + sonuç
+sayısı), `view_item`, `shop_click` (affiliate tıklaması; kart ya da ürün sayfasından),
+`upcoming_all`, `consent_granted`.
+
 ## API
 
 ```
