@@ -123,3 +123,10 @@ def test_broken_picture_report_hides_the_product():
         import os; from app.ml.search import HIDDEN_FILE
         if os.path.exists(HIDDEN_FILE):
             os.remove(HIDDEN_FILE)
+
+
+def test_filters_that_never_go_together_are_served_with_the_options():
+    pairs = {tuple(p) for p in client.get("/api/options", params={"lang": "de"}).json()["clashes"]}
+    assert ("fathers_day", "female") in pairs and ("male", "mothers_day") in pairs
+    assert ("baby", "gamer") in pairs and ("baby", "retirement") in pairs
+    assert ("baby", "bookworm") not in pairs and ("adult", "gamer") not in pairs and ("birthday", "female") not in pairs

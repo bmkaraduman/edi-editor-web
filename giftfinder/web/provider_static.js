@@ -84,7 +84,7 @@
   const render = (it, lang, why = [], match = null) => ({ id: it.id, title: it.t, description: it.d, price: it.p, price_text: it.pt, rrp_text: it.rt || null, merchant: it.m, brand: it.b || "", emoji: it.e, image: it.i || "", gallery: it.i ? 1 + (it.imgs || []).length : 0, why: why.map((w) => lab(w, lang)), match, link: it.u, detail: `/p/${it.id}` });
   window.GF = {
     countries: async () => (await ready).countries,
-    options: async (lang) => { await ready; return { facets: Object.fromEntries(Object.entries(DATA.facets).map(([f, ls]) => [f, ls.map((l) => ({ id: l, label: lab(l, lang) }))])), titles: Object.fromEntries(Object.entries(DATA.titles).map(([f, v]) => [f, v[lang]])) }; },
+    options: async (lang) => { await ready; return { facets: Object.fromEntries(Object.entries(DATA.facets).map(([f, ls]) => [f, ls.map((l) => ({ id: l, label: lab(l, lang) }))])), titles: Object.fromEntries(Object.entries(DATA.titles).map(([f, v]) => [f, v[lang]])), clashes: DATA.clashes || [] }; },
     stats: async () => { await ready; return { products: Object.values(DATA.counts).reduce((a, b) => a + b, 0), model: DATA.report }; },
     search: async (p) => {
       await ready; const lang = DATA.countries[p.country].lang; const all = rank(p, await items(p.country));

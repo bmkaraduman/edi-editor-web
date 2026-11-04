@@ -21,7 +21,7 @@ from app.config import ACTIVE_COUNTRIES, COUNTRIES, GA_MEASUREMENT_ID, MERCHANT_
 from app.ml.preprocess import normalize  # noqa: E402
 from app.ml.search import GiftSearch  # noqa: E402
 from app.occasions import upcoming  # noqa: E402
-from app.taxonomy import FACETS, FACET_TITLES, LEXICON, UI_LABELS  # noqa: E402
+from app.taxonomy import FACETS, FACET_TITLES, LEXICON, UI_LABELS, clashes  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WEB = os.path.join(HERE, "..", "web")
@@ -69,7 +69,7 @@ def main(dest):
         "countries": {cc: {k: c[k] for k in ("name", "lang", "currency", "flag")} for cc, c in COUNTRIES.items() if cc in ACTIVE_COUNTRIES},
         "real": sorted(engine.real_countries & set(ACTIVE_COUNTRIES)),
         "upcoming": {cc: dict(upcoming(cc), label=UI_LABELS[upcoming(cc)["occasion"]][COUNTRIES[cc]["lang"]]) for cc in ACTIVE_COUNTRIES},
-        "facets": FACETS, "titles": FACET_TITLES, "labels": UI_LABELS, "lexicon": lex,
+        "facets": FACETS, "titles": FACET_TITLES, "clashes": clashes(), "labels": UI_LABELS, "lexicon": lex,
         "counts": {cc: sum(it["c"] == cc for it in items) for cc in ACTIVE_COUNTRIES},
         "report": json.load(open(report_path)) if os.path.exists(report_path) else {},
     }

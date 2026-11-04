@@ -23,6 +23,33 @@ FACETS = {
     ],
 }
 
+# Filter values that never go together. The search bar hides an option that clashes with
+# what is already picked (a baby has no "Gamer" personality, "Her" has no Father's Day).
+# Per age: the occasions and personalities that fit; ages not listed fit everything.
+AGE_FITS = {
+    "baby": {"occasion": ["birthday", "christmas", "new_baby"],
+             "personality": ["bookworm", "music", "pet_lover"]},
+    "child": {"occasion": ["birthday", "christmas", "get_well", "thank_you"],
+              "personality": ["tech", "gamer", "outdoor", "fitness", "bookworm", "artist", "music", "pet_lover", "maker", "fashion", "gardener", "foodie"]},
+    "teen": {"occasion": ["birthday", "christmas", "valentines", "graduation", "get_well", "thank_you"],
+             "personality": ["tech", "gamer", "outdoor", "fitness", "bookworm", "artist", "music", "traveler", "pet_lover", "maker", "fashion", "foodie", "wellness"]},
+    "young_adult": {"occasion": [o for o in FACETS["occasion"] if o != "retirement"]},
+    "senior": {"occasion": [o for o in FACETS["occasion"] if o != "graduation"]},
+}
+GENDER_CLASHES = {"female": ["fathers_day"], "male": ["mothers_day"]}
+
+
+def clashes():
+    """Sorted [a, b] label pairs that cannot be picked together."""
+    pairs = set()
+    for age, fits in AGE_FITS.items():
+        for facet, ok in fits.items():
+            pairs |= {tuple(sorted((age, l))) for l in FACETS[facet] if l not in ok}
+    for gender, bad in GENDER_CLASHES.items():
+        pairs |= {tuple(sorted((gender, l))) for l in bad}
+    return [list(p) for p in sorted(pairs)]
+
+
 # Facets where exactly one label applies per product.
 SINGLE_LABEL = {"gender"}
 
