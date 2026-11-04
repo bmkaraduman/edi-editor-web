@@ -15,8 +15,10 @@ text mining ile çalışır.
 | 🇳🇱 NL | nl | EUR | bol.com (Partnerprogramma), Amazon.nl, Coolblue / Etsy (Awin), Wehkamp (Daisycon) |
 | 🇫🇷 FR | fr | EUR | Amazon.fr (Partenaires), Fnac, Cdiscount, Etsy, Nature & Découvertes (Awin) |
 
-Sitede şimdilik yalnızca **DE** açık (`ACTIVE_COUNTRIES=DE`); US/TR/NL/FR config'de
-durur, feed geldiğinde listeye eklenir.
+Sitede **DE, NL, FR, US** açık (`ACTIVE_COUNTRIES=DE,NL,FR,US`). Bu ülkelerin ürünleri
+Awin feed'lerinden gelir (Ankashop yayıncı hesabı, tanıtım alanı giftdetect.com; DE 23,
+NL 20, FR 12, US 43 programa katılındı). TR config'de durur: Awin'de Türkiye
+reklamvereni yok, Trendyol/Gelirortakları feed'i gelince açılır.
 
 ## Hızlı başlangıç
 
@@ -25,7 +27,7 @@ cd giftfinder
 python3 -m venv .venv && source .venv/bin/activate   # bağımlılıklar .venv'de; her yeni kabukta activate
 ./setup.sh                      # bağımlılıklar + seed katalog + model eğitimi
 uvicorn app.main:app --reload   # http://127.0.0.1:8000
-python3 -m pytest tests         # 20 test
+python3 -m pytest tests         # 22 test
 ```
 
 `.venv` etkin değilse komutları `.venv/bin/python …` ile çalıştır.
@@ -119,7 +121,10 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
      merchant_category, merchant_product_category_path, product_type, brand_name,
      keywords, colour, condition, product_model, dimensions, specifications,
      delivery_cost, promotional_text, product_short_description. "manual download URL" → ülke başına tek birleşik feed için
-     `AWIN_FEED_ALL_DE` (satırlar feed'deki merchant_id sütunuyla mağazalara ayrılır;
+     `AWIN_FEED_ALL_DE` (boşlukla ayrılmış birden çok URL olabilir: bir Awin formatlı
+     Create-a-Feed URL'si + yalnızca Google formatı sunan mağazaların feed URL'leri;
+     Feed List: Toolbox → Create-a-Feed → "Feed List Download".
+     Satırlar feed'deki merchant_id / advertiser_id sütunuyla mağazalara ayrılır;
      config'de olmayan reklamverenler `awin_<mid>` olarak, feed'deki adıyla gösterilir) ya da
      mağaza başına `AWIN_FEED_<merchant_id>` (ör. `AWIN_FEED_otto`). Feed akışla okunur
      (gzip desteklenir); yüz binlerce satırlık birleşik feed'lerde her reklamverenden en

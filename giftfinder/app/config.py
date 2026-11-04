@@ -39,7 +39,7 @@ GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "G-XN9SC9S3K2")
 
 # Countries shown on the site. The others keep their config (merchants, lexicon, seeds)
 # and come back by listing them here or in ACTIVE_COUNTRIES=US,DE,TR.
-ACTIVE_COUNTRIES = [c.strip().upper() for c in os.environ.get("ACTIVE_COUNTRIES", "DE").split(",") if c.strip()]
+ACTIVE_COUNTRIES = [c.strip().upper() for c in os.environ.get("ACTIVE_COUNTRIES", "DE,NL,FR,US").split(",") if c.strip()]
 
 COUNTRIES = {
     "US": {"name": "United States", "lang": "en", "currency": "USD", "symbol": "$", "flag": "🇺🇸", "usd_rate": 1.0},

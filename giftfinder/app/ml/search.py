@@ -66,13 +66,17 @@ def dedupe_key(p):
 
 def dedupe_keys(p):
     """All keys under which a product counts as "already shown": its variant stem,
-    its picture (variants often share one photo) and its family (shop + first two
-    words: "Chateau Purcari …", "Personalisierte Foto …", "Police Herren …")."""
+    its picture (variants often share one photo), its family (shop + first two
+    words: "Chateau Purcari …", "Personalisierte Foto …", "Police Herren …") and its
+    full stem across shops (resellers listing one article under the same title)."""
     keys = {dedupe_key(p)}
     if p.get("image"):
         keys.add("img:" + p["image"])
     if not p.get("concept_id"):
-        keys.add(f"fam:{p['merchant_id']}:{' '.join(_stem_tokens(p)[:2])}")
+        toks = _stem_tokens(p)
+        keys.add(f"fam:{p['merchant_id']}:{' '.join(toks[:2])}")
+        if len(toks) >= 3:            # the same article sold by two shops under one title
+            keys.add("same:" + " ".join(toks))
     return keys
 
 

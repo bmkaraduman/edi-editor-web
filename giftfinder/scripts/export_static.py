@@ -69,13 +69,23 @@ def main(dest):
         "countries": {cc: {k: c[k] for k in ("name", "lang", "currency", "flag")} for cc, c in COUNTRIES.items() if cc in ACTIVE_COUNTRIES},
         "real": sorted(engine.real_countries & set(ACTIVE_COUNTRIES)),
         "upcoming": {cc: dict(upcoming(cc), label=UI_LABELS[upcoming(cc)["occasion"]][COUNTRIES[cc]["lang"]]) for cc in ACTIVE_COUNTRIES},
-        "facets": FACETS, "titles": FACET_TITLES, "labels": UI_LABELS, "lexicon": lex, "items": items,
+        "facets": FACETS, "titles": FACET_TITLES, "labels": UI_LABELS, "lexicon": lex,
+        "counts": {cc: sum(it["c"] == cc for it in items) for cc in ACTIVE_COUNTRIES},
         "report": json.load(open(report_path)) if os.path.exists(report_path) else {},
     }
     os.makedirs(dest, exist_ok=True)
     read = lambda name: open(os.path.join(WEB, name), encoding="utf-8").read()
-    with open(os.path.join(dest, "data.json"), "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+    # Shared metadata in data.json, each country's products in items-<CC>.json (the browser
+    # loads only the chosen country; one file for all would pass Cloudflare's 25 MB limit),
+    # and where.json (product id -> country) for product links opened from outside.
+    for name in os.listdir(dest) if os.path.isdir(dest) else []:
+        if name.startswith("items-") and name.endswith(".json"):
+            os.remove(os.path.join(dest, name))
+    dump = lambda name, obj: json.dump(obj, open(os.path.join(dest, name), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    dump("data.json", data)
+    for cc in ACTIVE_COUNTRIES:
+        dump(f"items-{cc}.json", [it for it in items if it["c"] == cc])
+    dump("where.json", {cc: "".join(it["id"] for it in items if it["c"] == cc) for cc in ACTIVE_COUNTRIES})
     page = f"""<!doctype html><html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>giftdetect.com</title>
@@ -107,8 +117,9 @@ def main(dest):
         for it in items:
             f.write(f"<url><loc>https://giftdetect.com/p/{it['id']}</loc></url>\n")
         f.write("</urlset>\n")
-    sizes = {n: os.path.getsize(os.path.join(dest, n)) // 1024 for n in ("index.html", "data.json")}
-    print(f"wrote {dest}: index.html {sizes['index.html']} KB, data.json {sizes['data.json']} KB, {len(items)} products")
+    files = ["index.html", "data.json", "where.json"] + [f"items-{cc}.json" for cc in ACTIVE_COUNTRIES]
+    sizes = ", ".join(f"{n} {os.path.getsize(os.path.join(dest, n)) // 1024} KB" for n in files)
+    print(f"wrote {dest}: {sizes}; {len(items)} products")
 
 
 if __name__ == "__main__":

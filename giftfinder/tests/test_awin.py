@@ -54,3 +54,25 @@ def test_combined_feed_samples_per_merchant_and_prefers_gifts(tmp_path, monkeypa
     assert otto.price == 49.9 and otto.url.startswith("https://awin1.com/") and otto.merchant_name == "OTTO"
     assert otto.images == ["https://img/otto-2.jpg"] and otto.brand == "DeLonghi" and otto.rrp == 79.9
     assert all(p.title != "Ohne Preis" for p in products)
+
+
+def test_google_format_feed_next_to_awin_feed(tmp_path, monkeypatch):
+    """A country can list several feeds; Google-format feeds (BOM, advertiser_id, sale_price) parse too."""
+    awin = tmp_path / "nl.csv.gz"
+    write_feed(awin, [{"aw_deep_link": "https://awin1.com/s", "product_name": "Cadeau sokken", "aw_product_id": "s1",
+                       "description": "Leuk cadeau", "search_price": "12.95", "merchant_name": "Sokken-Online",
+                       "merchant_id": "128517", "currency": "EUR", "merchant_image_url": "https://img/s.jpg"}])
+    google = tmp_path / "tulip.csv"
+    google.write_text("﻿advertiser_id,advertiser_name,id,title,description,link,image_link,additional_image_link,"
+                      "aw_deep_link,product_type,brand,price,sale_price\n"
+                      '130659,TulipArt,t1,Tulpen schilderij,"Mooi cadeau voor moeder",https://shop/t1,https://img/t1.jpg,'
+                      '"https://img/t1b.jpg,https://img/t1c.jpg",https://awin1.com/t1,Kunst > Schilderijen,TulipArt,59.00 EUR,39.00 EUR\n',
+                      encoding="utf-8")
+    monkeypatch.setenv("AWIN_FEED_ALL_NL", f"{awin} {google}")
+
+    products = {p.merchant_id: p for p in AwinSource("NL").fetch(["cadeau"], limit=10)}
+    assert set(products) == {"awin_128517", "awin_130659"}
+    tulip = products["awin_130659"]
+    assert tulip.merchant_name == "TulipArt" and tulip.url == "https://awin1.com/t1"
+    assert tulip.price == 39.0 and tulip.rrp == 59.0
+    assert tulip.images == ["https://img/t1b.jpg", "https://img/t1c.jpg"] and tulip.product_type == "Kunst > Schilderijen"

@@ -52,6 +52,11 @@
     const c = read();
     if (c === "granted") load();
     else if (c !== "denied") banner();
+    /* the UI sets <html lang> once the country is known (or switched): relabel banner and link */
+    new MutationObserver(() => {
+      if (document.getElementById("consent")) banner();
+      const a = document.getElementById("consent-link"); if (a) a.textContent = (T[lang()] || T.de)[3];
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

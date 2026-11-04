@@ -3,10 +3,14 @@ Douglas, Nature & Découvertes ...).
 
 Awin's "Create-a-Feed" gives a CSV download URL. Two ways to configure it:
   AWIN_FEED_<merchant_id>=<url>   one feed per merchant, e.g. AWIN_FEED_otto=...
-  AWIN_FEED_ALL_<CC>=<url>        one combined feed with several advertisers for a
-                                  country, e.g. AWIN_FEED_ALL_DE=...; rows are split by
-                                  the feed's merchant_id column (matched to config `mid`,
-                                  unknown advertisers become "awin_<id>" merchants)
+  AWIN_FEED_ALL_<CC>=<url> [<url> ...]
+                                  combined feeds with several advertisers for a country,
+                                  separated by spaces (Create-a-Feed URLs contain commas),
+                                  e.g. one Awin-format Create-a-Feed URL plus the
+                                  Google-format feeds of shops that only offer that format;
+                                  rows are split by the merchant_id / advertiser_id column
+                                  (matched to config `mid`, unknown advertisers become
+                                  "awin_<id>" merchants)
 AWIN_AFFILIATE_ID is used for click tracking of products without a deep link.
 The feed's `aw_deep_link` is already a tracked URL, so it is kept as the product URL.
 
@@ -19,6 +23,7 @@ are preferred.
 """
 import csv
 import gzip
+import html
 import io
 import os
 import random
@@ -41,10 +46,11 @@ def open_feed(url, timeout=120):
         r = requests.get(url, stream=True, timeout=timeout)
         r.raise_for_status()
         r.raw.decode_content = True
+        r.raw.auto_close = False      # gzip peeks past the last member; a closed stream would raise
         buf = io.BufferedReader(r.raw, 1 << 20)
     if buf.peek(2)[:2] == b"\x1f\x8b":
         buf = gzip.GzipFile(fileobj=buf)
-    return io.TextIOWrapper(buf, encoding="utf-8", errors="ignore", newline="")
+    return io.TextIOWrapper(buf, encoding="utf-8-sig", errors="ignore", newline="")   # Google-format feeds start with a BOM
 
 
 class Reservoir:
@@ -72,8 +78,8 @@ class AwinSource(Source):
                       for m in MERCHANTS[country] if m["network"] == "awin"}
         self.feeds = {k: v for k, v in self.feeds.items() if v}
         combined = os.environ.get(f"AWIN_FEED_ALL_{country}")
-        if combined:
-            self.feeds["*"] = combined
+        for i, url in enumerate((combined or "").split()):
+            self.feeds[f"*{i}"] = url
         self.by_mid = {m["mid"]: m["id"] for m in MERCHANTS[country] if m["network"] == "awin"}
 
     def available(self):
@@ -89,13 +95,13 @@ class AwinSource(Source):
             # merchant -> (rows mentioning a gift word, other matching rows)
             pools = {}
             for row in csv.DictReader(open_feed(url)):
-                title = pick(row, "product_name", "title")
-                desc = pick(row, "description", "product_short_description")
+                title = html.unescape(pick(row, "product_name", "title")).strip()
+                desc = html.unescape(pick(row, "description", "product_short_description"))
                 image = pick(row, "merchant_image_url", "image_link", "aw_image_url", "large_image")
                 if not title or not image:          # rule: a product without a picture is never shown
                     continue
-                if feed_merchant == "*":
-                    mid = pick(row, "merchant_id", "merchant_product_id_source")
+                if feed_merchant.startswith("*"):
+                    mid = pick(row, "merchant_id", "advertiser_id", "merchant_product_id_source")
                     merchant_id = self.by_mid.get(str(mid), f"awin_{mid}" if mid else "awin_unknown")
                 else:
                     merchant_id = feed_merchant
@@ -110,11 +116,16 @@ class AwinSource(Source):
                 if price is None:
                     continue
                 rrp = parse_price(pick(row, "rrp_price", "product_price_old")) or 0.0
+                sale = parse_price(pick(row, "sale_price"))
+                if sale and sale < price:          # Google format: price is the list price
+                    rrp, price = price, sale
                 images = []
-                for col in ("large_image", "alternate_image", "alternate_image_two", "alternate_image_three", "alternate_image_four"):
-                    u = pick(row, col)
+                extra = [pick(row, c) for c in ("large_image", "alternate_image", "alternate_image_two", "alternate_image_three", "alternate_image_four")]
+                extra += pick(row, "additional_image_link").split(",")     # Google format: comma-separated list
+                for u in (x.strip() for x in extra):
                     if u and u != image and u not in images:
                         images.append(u)
+                images = images[:6]
                 details = {k: pick(row, c) for k, c in (
                     ("colour", "colour"), ("condition", "condition"), ("model", "product_model"),
                     ("dimensions", "dimensions"), ("specifications", "specifications"),
@@ -127,7 +138,7 @@ class AwinSource(Source):
                     description=desc[:MAX_DESCRIPTION], price=price, currency=pick(row, "currency") or cinfo["currency"],
                     url=pick(row, "aw_deep_link", "link", "merchant_deep_link"), image=image,
                     brand=pick(row, "brand_name", "brand"), category=category,
-                    source="awin", merchant_name=pick(row, "merchant_name"),
+                    source="awin", merchant_name=pick(row, "merchant_name", "advertiser_name"),
                     images=images, keywords=keywords, category_path=category_path, product_type=product_type,
                     rrp=rrp if rrp > price else 0.0, details=details,
                 )

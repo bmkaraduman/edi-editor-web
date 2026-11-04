@@ -71,7 +71,17 @@ def test_upcoming_occasion_and_active_countries():
     assert u["occasion"] == "christmas" and u["date"] == "2026-12-24" and u["days"] == 51
     r = client.get("/api/upcoming", params={"country": "DE"}).json()
     assert r["label"] and r["results"] and all(x["image"] for x in r["results"])
-    assert set(client.get("/api/countries").json()) == {"DE"}
+    assert set(client.get("/api/countries").json()) == {"DE", "NL", "FR", "US"}     # TR waits for a feed
+    nl = upcoming("NL", dt.date(2026, 11, 3))
+    assert nl["date"] == "2026-12-05" and upcoming("NL", dt.date(2026, 12, 6))["date"] == "2026-12-24"   # Sinterklaas, then Kerst
+
+
+def test_same_article_from_two_shops_is_one_listing():
+    from app.ml.search import dedupe_keys
+    a = dedupe_keys({"title": "Holly Jolly Kerstmis Kerstsok met Sneeuw", "merchant_id": "awin_38874", "image": "https://a/1.jpg"})
+    b = dedupe_keys({"title": "Holly Jolly Kerstmis Kerstsok met Sneeuw", "merchant_id": "awin_69308", "image": "https://b/1.jpg"})
+    c = dedupe_keys({"title": "Carolina Herrera 212 Women Eau de Toilette 100 ml", "merchant_id": "awin_69308", "image": "https://b/2.jpg"})
+    assert a & b and not (a & c)
 
 
 def test_same_picture_or_family_is_one_listing_and_shops_are_capped():
