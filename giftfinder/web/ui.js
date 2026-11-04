@@ -221,12 +221,18 @@ function renderProduct(d) {
   document.title = `${d.title} · giftdetect.com`;
   const sims = d.similar || []; $("t-similar").hidden = !sims.length; $("similar").innerHTML = ""; sims.forEach((r) => $("similar").appendChild(card(r)));
 }
-/* Which country to open: the one the visitor picked in the settings menu, else the country
+/* Which country to open: ?country=XX in the link (a partner site such as osegi.com passes the
+   visitor's country), else the one the visitor picked in the settings menu, else the country
    they are visiting from (Cloudflare IP geolocation via /api/geo; neighbours without their
    own catalog map to the closest one), else their browser language, else the first one. */
 const NEAR = { AT: "DE", CH: "DE", LI: "DE", LU: "FR", MC: "FR" };
 function fetchGeo() { return fetch("/api/geo", { cache: "no-store" }).then((r) => (r.ok ? r.json() : {})).then((j) => (j.country || "").toUpperCase()).catch(() => ""); }
+function linkCountry() {
+  const q = (new URLSearchParams(location.search).get("country") || "").toUpperCase();
+  return [q, NEAR[q]].find((c) => c && COUNTRIES[c]) || null;
+}
 async function detect(geoP) {
+  const fromLink = linkCountry(); if (fromLink) return fromLink;
   try { const s = localStorage.getItem(PICKED); if (s && COUNTRIES[s]) return s; } catch (e) {}
   const lang = (navigator.language || "en").slice(0, 2).toLowerCase();
   let geo = await geoP;

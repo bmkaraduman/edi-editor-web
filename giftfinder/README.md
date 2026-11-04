@@ -23,7 +23,9 @@ reklamvereni yok, Trendyol/Gelirortakları feed'i gelince açılır.
 Ziyaretçinin ülkesi otomatik açılır: önce ayarlar menüsünde (sağ üstteki 🌐 düğmesi)
 kendi seçtiği ülke, yoksa girdiği ülke (Cloudflare IP konumu, `GET /api/geo`;
 `functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; AT/CH → DE,
-LU → FR, BE → tarayıcı diline göre NL/FR), yoksa tarayıcı dili, yoksa US.
+LU → FR, BE → tarayıcı diline göre NL/FR), yoksa tarayıcı dili, yoksa US. Bağlantıda
+`?country=DE` varsa (ör. osegi.com tanıtım kartı ziyaretçinin ülkesini geçirir) o ziyaret için o ülke
+açılır; menüdeki seçim değiştirilmez.
 
 ## Hızlı başlangıç
 
