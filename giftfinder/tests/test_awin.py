@@ -89,3 +89,14 @@ def test_non_gifts_never_enter_the_catalog(tmp_path, monkeypatch):
     write_feed(feed, rows)
     monkeypatch.setenv("AWIN_FEED_ALL_NL", str(feed))
     assert [p.title for p in AwinSource("NL").fetch(["cadeau"], limit=10)] == ["Cadeau sokken"]
+
+
+def test_stand_in_pictures_count_as_no_picture(tmp_path, monkeypatch):
+    base = {"search_price": "9.95", "merchant_name": "Shop", "merchant_id": "1", "currency": "EUR", "description": "gift"}
+    rows = [dict(base, aw_deep_link="https://awin1.com/1", product_name="Pipe scented cream", aw_product_id="1", merchant_image_url="https://images2.productserve.com/noimage.gif"),
+            dict(base, aw_deep_link="https://awin1.com/2", product_name="Rose candle", aw_product_id="2", merchant_image_url="https://images2.productserve.com/noimage.gif", alternate_image="https://img/2.jpg")]
+    feed = tmp_path / "us.csv.gz"
+    write_feed(feed, rows)
+    monkeypatch.setenv("AWIN_FEED_ALL_US", str(feed))
+    products = list(AwinSource("US").fetch(["gift"], limit=10))
+    assert [(p.title, p.image) for p in products] == [("Rose candle", "https://img/2.jpg")]

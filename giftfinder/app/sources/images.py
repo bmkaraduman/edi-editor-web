@@ -7,6 +7,7 @@ over when there is one).
 
 Set VERIFY_IMAGES=0 to skip (offline tests / dry runs)."""
 import os
+import re
 from concurrent.futures import ThreadPoolExecutor
 
 import requests
@@ -14,9 +15,19 @@ import requests
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; giftdetect.com feed check)", "Accept": "image/*,*/*;q=0.5"}
 
 
+# Feeds fill a missing photo with a stand-in picture ("No image available"): Awin's
+# images2.productserve.com/noimage.gif and shop placeholders. They load fine, so the
+# URL itself is checked.
+PLACEHOLDER = re.compile(r"no[-_]?image|image[-_]?not[-_]?(found|available)|placeholder|default[-_]?product", re.I)
+
+
+def is_placeholder(url):
+    return bool(url and PLACEHOLDER.search(url.rsplit("/", 1)[-1].split("?")[0]))
+
+
 def image_ok(url, timeout=12):
-    """True when the URL answers 200 with an image content type."""
-    if not url or not url.startswith(("http://", "https://")):
+    """True when the URL answers 200 with an image content type and is not a stand-in picture."""
+    if not url or not url.startswith(("http://", "https://")) or is_placeholder(url):
         return False
     try:
         r = requests.get(url, headers=HEADERS, timeout=timeout, stream=True, allow_redirects=True)
@@ -33,7 +44,13 @@ def image_ok(url, timeout=12):
 def verify_images(products, workers=32, log=print):
     """Filter a list of Product objects to those with a working main image."""
     if os.environ.get("VERIFY_IMAGES", "1") == "0":
-        return products
+        kept = []
+        for p in products:
+            real = [u for u in [p.image] + list(p.images) if u and not is_placeholder(u)]
+            if real:
+                p.image, p.images = real[0], real[1:]
+                kept.append(p)
+        return kept
     urls = {}
     for p in products:
         for u in [p.image] + list(p.images):

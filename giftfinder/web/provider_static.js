@@ -93,7 +93,7 @@
     upcoming: async (cc) => {
       await ready; const u = DATA.upcoming[cc]; if (!u) return null; const lang = DATA.countries[cc].lang;
       const all = rank({ country: cc, age: [], occasion: [u.occasion], personality: [], sort: "relevance" }, await items(cc));
-      return Object.assign({}, u, { total: all.length, results: all.slice(0, 8).map((r) => render(r.it, lang, r.why, r.match)) });
+      return Object.assign({}, u, { total: all.length, results: all.slice(0, 16).map((r) => render(r.it, lang, r.why, r.match)) });
     },
     product: async (id) => {
       await ready; const cc = await countryOf(id); if (!cc) return null;
