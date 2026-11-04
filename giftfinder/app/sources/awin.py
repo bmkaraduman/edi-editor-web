@@ -41,6 +41,7 @@ from ..data.rules import GIFT_FLOOR, match_rules
 from ..ml.labeling import strong_text
 from .base import Product, Source
 from .csv_feed import parse_price, pick
+from .images import is_placeholder
 
 csv.field_size_limit(1 << 30)     # some advertisers ship 25k-character descriptions
 MAX_DESCRIPTION = 2000
@@ -129,7 +130,11 @@ class AwinSource(Source):
             for row in csv.DictReader(open_feed(url)):
                 title = html.unescape(pick(row, "product_name", "title")).strip()
                 desc = html.unescape(pick(row, "description", "product_short_description"))
-                image = pick(row, "merchant_image_url", "image_link", "aw_image_url", "large_image")
+                # main picture: the first real one; a stand-in ("noimage.gif") falls back to the gallery
+                candidates = [pick(row, c) for c in ("merchant_image_url", "image_link", "aw_image_url", "large_image",
+                                                     "alternate_image", "alternate_image_two", "alternate_image_three", "alternate_image_four")]
+                candidates += [u.strip() for u in pick(row, "additional_image_link").split(",")]
+                image = next((u for u in candidates if u and not is_placeholder(u)), "")
                 if not title or not image:          # rule: a product without a picture is never shown
                     continue
                 if pick(row, "category_id").isdigit() and int(pick(row, "category_id")) in NOT_GIFT_CATEGORIES:
@@ -157,7 +162,7 @@ class AwinSource(Source):
                 extra = [pick(row, c) for c in ("large_image", "alternate_image", "alternate_image_two", "alternate_image_three", "alternate_image_four")]
                 extra += pick(row, "additional_image_link").split(",")     # Google format: comma-separated list
                 for u in (x.strip() for x in extra):
-                    if u and u != image and u not in images:
+                    if u and u != image and u not in images and not is_placeholder(u):
                         images.append(u)
                 images = images[:6]
                 details = {k: pick(row, c) for k, c in (

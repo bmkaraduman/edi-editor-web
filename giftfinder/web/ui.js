@@ -121,8 +121,20 @@ async function loadUpcoming() {
   $("up-all").textContent = t("up_all", { occ: u.label });
   $("up-all").onclick = () => { track("upcoming_all", { occasion: u.occasion }); state.sel = { gender: "", age: "", occasion: u.occasion, personality: [], budget: "" }; applyI18n(state.opts); search(true); };
   const grid = $("upcoming"); grid.innerHTML = ""; u.results.forEach((r) => grid.appendChild(card(r)));
-  wrap.hidden = false;
+  wrap.hidden = false; fitStrip();
 }
+/* The strip shows only full rows: as many columns as the screen fits, about 8 cards
+   (4 x 2, 5 x 2, 3 x 3; 2 x 3 on phones). Runs again on resize and when a broken picture removes a card. */
+function fitStrip() {
+  const grid = $("upcoming"), cards = [...grid.children];
+  if (!cards.length || $("upcoming-wrap").hidden) return;
+  const cols = Math.max(1, getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length);
+  const rows = Math.max(1, Math.round((cols <= 2 ? 6 : 8) / cols));
+  const n = Math.max(cols, Math.min(cards.length - (cards.length % cols), cols * rows));
+  cards.forEach((c, i) => { c.hidden = i >= n; });
+}
+window.addEventListener("resize", fitStrip);
+new MutationObserver(() => fitStrip()).observe(document.getElementById("upcoming"), { childList: true });
 /* ---------------------------------------------------------------- views */
 function showSearch() {
   state.view = state.searched ? "results" : "home";

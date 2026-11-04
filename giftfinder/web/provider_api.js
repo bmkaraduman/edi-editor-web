@@ -4,7 +4,7 @@ window.GF = {
   options: async (lang) => (await fetch(`/api/options?lang=${lang}`)).json(),
   stats: async () => (await fetch("/api/stats")).json(),
   broken: async (id) => fetch(`/api/broken/${encodeURIComponent(id)}`, { method: "POST" }),
-  upcoming: async (country) => (await fetch(`/api/upcoming?country=${country}&limit=8`)).json(),
+  upcoming: async (country) => (await fetch(`/api/upcoming?country=${country}&limit=16`)).json(),
   product: async (id) => { const r = await fetch(`/api/product/${encodeURIComponent(id)}`); return r.ok ? r.json() : null; },
   search: async (p) => {
     const u = new URLSearchParams({ country: p.country, sort: p.sort, limit: p.limit, offset: p.offset });

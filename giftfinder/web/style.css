@@ -202,6 +202,8 @@ footer { max-width: 1320px; margin: 0 auto; color: var(--muted); font-size: .82r
   .tile { min-height: 78px }
   #results-wrap { scroll-margin-top: 8px }
   .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px }
+  .upcoming-in { padding: 12px; border-radius: 18px }
+  .upcoming .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) }
   .thumb { font-size: 48px }
   .product { grid-template-columns: 1fr; gap: 18px; padding: 14px; border-radius: 18px }
   .details .row { grid-template-columns: 100px 1fr }
