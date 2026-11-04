@@ -17,7 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
-from app.config import ACTIVE_COUNTRIES, COUNTRIES, MERCHANT_BY_ID, affiliate_link, format_price  # noqa: E402
+from app.config import ACTIVE_COUNTRIES, COUNTRIES, GA_MEASUREMENT_ID, MERCHANT_BY_ID, affiliate_link, format_price  # noqa: E402
 from app.ml.preprocess import normalize  # noqa: E402
 from app.ml.search import GiftSearch  # noqa: E402
 from app.occasions import upcoming  # noqa: E402
@@ -92,6 +92,9 @@ def main(dest):
 </script>
 <script>
 {read('ui.js')}
+</script>
+<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};
+{read('analytics.js')}
 </script></body></html>"""
     with open(os.path.join(dest, "index.html"), "w", encoding="utf-8") as f:
         f.write(page)
