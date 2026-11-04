@@ -32,7 +32,7 @@ cd giftfinder
 python3 -m venv .venv && source .venv/bin/activate   # bağımlılıklar .venv'de; her yeni kabukta activate
 ./setup.sh                      # bağımlılıklar + seed katalog + model eğitimi
 uvicorn app.main:app --reload   # http://127.0.0.1:8000
-python3 -m pytest tests         # 24 test
+python3 -m pytest tests         # 25 test
 ```
 
 `.venv` etkin değilse komutları `.venv/bin/python …` ile çalıştır.

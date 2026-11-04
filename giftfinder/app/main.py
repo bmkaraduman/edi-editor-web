@@ -17,7 +17,7 @@ from .config import ACTIVE_COUNTRIES, COUNTRIES, GA_MEASUREMENT_ID, MERCHANTS, a
 from .occasions import upcoming
 from .taxonomy import UI_LABELS
 from .ml.search import GiftSearch, facet_options
-from .taxonomy import FACET_TITLES
+from .taxonomy import FACET_TITLES, clashes
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WEB = os.path.join(HERE, "..", "web")
@@ -53,7 +53,7 @@ def upcoming_occasion(country: str, limit: int = 8):
 
 @app.get("/api/options")
 def options(lang: str = "en"):
-    return {"facets": facet_options(lang), "titles": {k: v.get(lang, k) for k, v in FACET_TITLES.items()}}
+    return {"facets": facet_options(lang), "titles": {k: v.get(lang, k) for k, v in FACET_TITLES.items()}, "clashes": clashes()}
 
 
 @app.get("/api/search")
