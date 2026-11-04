@@ -10,8 +10,12 @@ and take precedence over the lexicon and the classifier.
 Every rule has
   patterns  normalised phrases (see app/ml/preprocess.normalize). A trailing "*"
             matches a token prefix, which is how German compounds are caught
-            ("herren*" -> Herrensocken, Herrenuhr, Herrenduft).
+            ("herren*" -> Herrensocken, Herrenuhr, Herrenduft); a leading "*" matches
+            a token suffix ("*schrauben" -> Holzschrauben, Spaxschrauben).
   labels    facet -> labels to assign
+  veto      the product itself is never a present (screws, taps, spare parts): its
+            gift prior wins even over a strong gift rule ("Kitchen faucet" is not a
+            kitchen gift). Ingest drops such products.
   gift      giftability prior in 0..1. 1 = classic present, 0.05 = office supply
             or spare part that should only appear when someone searches for it.
             The ranker multiplies by it and hides anything below GIFT_FLOOR
@@ -25,9 +29,9 @@ from ..ml.preprocess import normalize
 GIFT_FLOOR = 0.15
 
 
-def R(rid, patterns, gift=0.8, **labels):
-    return {"id": rid, "patterns": [normalize(p.rstrip("*")) + ("*" if p.endswith("*") else "") for p in patterns],
-            "labels": {k: v for k, v in labels.items()}, "gift": gift}
+def R(rid, patterns, gift=0.8, veto=False, **labels):
+    return {"id": rid, "patterns": [("*" if p.startswith("*") else "") + normalize(p.strip("*")) + ("*" if p.endswith("*") else "") for p in patterns],
+            "labels": {k: v for k, v in labels.items()}, "gift": gift, "veto": veto}
 
 
 RULES = [
@@ -114,11 +118,49 @@ RULES = [
     R("home_kitchen", ["home & garden", "haus & garten", "haushalt*", "household", "bathroom accessor*", "badezimmer*", "seifenspender*", "soap dispenser*", "kuche", "tableware", "geschirr*", "glaser", "glasses", "tasse*", "mug", "mugs", "flasche*", "bottle*", "karaffe*", "decanter*"],
       personality=["homebody", "foodie"], occasion=["housewarming"], gift=0.7),
     R("furniture", ["mobel", "möbel", "furniture", "tisch", "tische", "table", "stuhl*", "chair*", "sofa*", "couch*", "regal*", "shelf", "shelves", "schrank*", "cabinet*", "bett*", "bed", "nachttisch*", "nightstand*", "sideboard*", "kommode*"],
-      personality=["homebody"], occasion=["housewarming"], gift=0.3),
-    R("lighting_parts", ["led streifen*", "led strip*", "led controller*", "dmx*", "netzteil*", "power supply*", "trafo*", "transformer*", "dimmer*", "relais*", "relay*", "repeater*", "zigbee*", "leuchtmittel*", "light bulb*", "led modul*", "led profil*"],
+      personality=["homebody"], occasion=["housewarming"], gift=0.1),
+    R("lighting_parts", ["led streifen*", "led strip*", "led controller*", "dmx*", "netzteil*", "power supply*", "trafo*", "transformer*", "dimmer*", "relais*", "relay*", "repeater*", "zigbee*", "leuchtmittel*", "light bulb*", "led modul*", "led profil*", "aluprofil*", "endkappe*", "einbauprofil*", "aufbauprofil*", "einbaustrahler*", "lichtbron*", "leuchtmittel*"],
       personality=["tech", "maker"], gift=0.1),
 
     # ------------------------------------------------------------- not a present
+    R("hardware", ["schraube*", "schrauben*", "*schraube", "*schrauben", "*dubel", "*scharnier", "*schroeven", "*schroef", "*screws", "*bouten", "dubel*", "unterlegscheibe*", "gewindestange*", "scharnier*", "beschlag*",
+                   "schroef*", "schroeven*", "spaanplaatschroe*", "bouten", "moer", "moeren", "carrosseriering*", "houtverbinder*", "paalhouder*", "paalornament*", "duimheng*",
+                   "screw", "screws", "wood screw*", "bolts", "washers", "wall plug*", "hinges", "fastener*", "rivet*",
+                   "vis a bois", "vis inox", "boulon*", "rondelle*", "charniere*", "quincaillerie*",
+                   "vida", "vidalar", "civata*", "mentese*", "hirdavat*"],
+      gift=0.05, veto=True),
+    R("plumbing", ["wasserhahn*", "*wasserhahn", "armatur", "armaturen", "*armatur", "*armaturen", "*kraan", "*kranen", "*mischbatterie", "waschtischarmatur*", "kuchenarmatur*", "mischbatterie*", "siphon*", "abfluss*", "sanitar*",
+                   "kraan", "kranen", "mengkraan*", "keukenkraan*", "badkamerkraan*", "sifon*", "afvoer*", "loodgieter*",
+                   "faucet*", "mixer tap*", "plumbing", "pipe fitting*", "drain", "drains", "shower valve*",
+                   "robinet*", "mitigeur*", "plomberie*", "evier*",
+                   "musluk*", "muslug*", "batarya", "bataryasi", "lavabo*", "tesisat*", "rakor*"],
+      gift=0.05, veto=True),
+    R("building", ["zaun", "zaune", "zaunelement*", "pflasterstein*", "fliese", "fliesen", "terrassendiele*", "gehwegplatte*", "dachrinne*", "baustoff*",
+                   "tuinafscheiding*", "schutting*", "betonschutting*", "tuinscherm*", "afdeklat*", "paal", "palen", "tuinhout*", "sierbestrating*", "betonklinker*", "tegel", "tegels", "regenton*", "poortframe*", "tuinhuiskap*", "dakgoot*",
+                   "fence panel*", "fencing", "paving", "pavers", "floor tile*", "wall tile*", "lumber", "plywood", "drywall", "doors", "windows", "gutter*",
+                   "carrelage*", "cloture*", "parpaing*", "gouttiere*", "fayans*", "kiremit*"],
+      gift=0.05, veto=True),
+    R("car_parts", ["kfz", "autoteil*", "ersatzteil*", "bremsbelag*", "bremsscheibe*", "olfilter*", "luftfilter*", "wischerblatt*", "zundkerze*", "auto onderdel*", "remblok*",
+                    "spare part*", "replacement part*", "car part*", "brake pad*", "oil filter*", "wiper blade*", "spark plug*", "piece detachee*", "plaquette* de frein", "yedek parca*", "fren balata*"],
+      gift=0.05, veto=True),
+    R("medical", ["blutzucker*", "glukose*", "glucose*", "harnsaure*", "blutdruckmess*", "teststreifen*", "test strip*", "lanzette*", "lancet*", "inkontinenz*", "incontinen*",
+                  "tampon*", "maandverband*", "inlegkruisje*", "sanitary pad*", "menstruat*", "kompressionsstrumpf*", "kompressionsstrumpfe", "compression stocking*", "steunkous*",
+                  "diabetes*", "first aid", "erste hilfe", "verbandkasten*", "zahnbleaching*", "tandenborstel*", "zahnburste*", "toothbrush*", "brosse a dents",
+                  "seker olcum*", "tansiyon aleti*"],
+      gift=0.05, veto=True),
+    R("cleaning", ["reinigungsmittel*", "reiniger", "putzmittel*", "waschmittel*", "spulmittel*", "entkalker*", "staubsauger*", "handspruher*", "ruckenspritze*", "schaumspruher*", "trolleyspritze*",
+                   "reinigingsmiddel*", "schoonmaak*", "wasmiddel*", "afwasmiddel*", "stofzuiger*", "kruimelzuiger*", "luchtverfrisser*",
+                   "detergent*", "dish soap", "vacuum cleaner*", "bleach", "lessive*", "nettoyant menager*", "aspirateur*", "deterjan*", "camasir suyu*", "elektrikli supurge*"],
+      gift=0.05, veto=True),
+    R("office_furniture", ["burostuhl*", "burodrehstuhl*", "schreibtisch", "schreibtische", "stehpult*", "bureaustoel*", "vergadertafel*", "vergaderstoel*", "receptie*", "roldeurkast*", "akoestisch scherm*", "akoestische panel*", "hoekbureau*", "zit sta bureau*", "zit zit bureau*", "duo bureau*",
+                           "office chair*", "office desk*", "standing desk*", "computer desk*", "desks", "conference table*", "chaise de bureau*", "ofis sandalye*", "calisma masasi*"],
+      gift=0.05, veto=True),
+    R("it_parts", ["grafikkarte*", "graphics card*", "carte graphique*", "festplatte*", "hard drive*", "solid state*", "ssd", "arbeitsspeicher*", "ddr4", "ddr5", "memory module*", "mainboard*", "motherboard*",
+                   "lizenz*", "license*", "licence*", "support renewal*", "firewall*", "sfp", "sfp28", "transceiver*", "gateway*", "access point*", "wlan controller*", "dect*",
+                   "fuser*", "versandtasche*", "versandkarton*", "luftpolster*"],
+      gift=0.05, veto=True),
+    R("fishing_tackle", ["terminal tackle", "jig head*", "jigkopf*", "jigkopfe", "vorfach*", "rigzubehor*", "rig accessor*", "crimps", "angelhaken*", "haken", "hooks"],
+      personality=["outdoor"], gift=0.1),
     R("office", ["office supplies", "buro*", "büro*", "burobedarf*", "schreibwaren*", "stationery", "ordner", "folder*", "toner*", "druckerpatrone*", "ink cartridge*", "kopierpapier*", "copy paper*", "etiketten", "labels", "haftnotiz*", "sticky note*", "whiteboard*", "weisswandtafel*", "flipchart*", "aktenvernichter*", "shredder*", "locher", "hefter", "stapler*", "restposten*", "clearance", "postausgangsbuch*", "formular*"],
       gift=0.05),
     R("network", ["netzwerk*", "network*", "patchkabel*", "patch cable*", "ethernet*", "lan-kabel*", "cat5*", "cat6*", "cat7*", "cat8*", "switch", "router*", "adapter*", "konverter*", "converter*", "kabel", "cable", "cables", "usb-c*", "hdmi*", "steckdose*", "stecker*", "plug", "rj45*", "glasfaser*", "fiber*", "server*", "rack*", "patchpanel*"],
@@ -133,7 +175,7 @@ RULES = [
 # gardening, it is where soap dispensers live). Removed from the text before matching.
 NEUTRAL = [normalize(x) for x in ("home & garden", "haus & garten", "home and garden", "home, garden", "garden & outdoor")]
 
-_INDEX = [(r, [(p[:-1], True) if p.endswith("*") else (p, False) for p in r["patterns"]]) for r in RULES]
+_INDEX = [(r, [(p[1:], "suffix") if p.startswith("*") else (p[:-1], "prefix") if p.endswith("*") else (p, "") for p in r["patterns"]]) for r in RULES]
 
 
 def match_rules(strong_text):
@@ -147,12 +189,16 @@ def match_rules(strong_text):
         strong_text = strong_text.replace(phrase, "home")
     padded = f" {strong_text} "
     toks = strong_text.split()
-    labels, hit, gift = {}, [], None
+    labels, hit, gift, veto = {}, [], None, None
     for rule, pats in _INDEX:
         ok = False
-        for pat, prefix in pats:
-            if prefix:
+        for pat, mode in pats:
+            if mode == "prefix":
                 if pat and any(t.startswith(pat) for t in toks):
+                    ok = True
+                    break
+            elif mode == "suffix":
+                if any(t.endswith(pat) for t in toks):
                     ok = True
                     break
             elif f" {pat} " in padded:
@@ -161,6 +207,8 @@ def match_rules(strong_text):
         if not ok:
             continue
         hit.append(rule["id"])
+        if rule["veto"]:
+            veto = rule["gift"] if veto is None else min(veto, rule["gift"])
         if rule["gift"] >= 0.9 or (gift is not None and gift >= 0.9):
             gift = max(gift or 0.0, rule["gift"])
         else:
@@ -169,4 +217,5 @@ def match_rules(strong_text):
             for l in ls:
                 if l not in labels.setdefault(facet, []):
                     labels[facet].append(l)
-    return labels, hit, (0.5 if gift is None else gift)
+    gift = 0.5 if gift is None else gift
+    return labels, hit, (gift if veto is None else min(gift, veto))

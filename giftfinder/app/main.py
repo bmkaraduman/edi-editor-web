@@ -9,7 +9,7 @@ from typing import List, Optional
 
 import html
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -31,6 +31,12 @@ engine = GiftSearch()
 def countries():
     return {cc: {"name": c["name"], "lang": c["lang"], "currency": c["currency"], "flag": c["flag"],
                  "merchants": [m["name"] for m in MERCHANTS[cc]]} for cc, c in COUNTRIES.items() if cc in ACTIVE_COUNTRIES}
+
+
+@app.get("/api/geo")
+def geo(request: Request):
+    """The visitor's country when a CDN in front of the app tells us (Cloudflare's CF-IPCountry)."""
+    return {"country": request.headers.get("cf-ipcountry", "")}
 
 
 @app.get("/api/upcoming")

@@ -1,7 +1,13 @@
 <header class="top gutter" id="top">
   <div class="top-in">
     <a class="brand" href="/" id="home"><span class="mark">🎁</span>gift<span class="tld">detect</span><span class="dot">.com</span></a>
-    <nav class="countries" id="countries"></nav>
+    <div class="settings" id="settings">
+      <button type="button" class="settings-btn" id="settings-btn" aria-haspopup="menu" aria-expanded="false">
+        <span class="settings-flag" id="settings-flag"></span>
+        <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9h17M3.5 15h17" stroke="currentColor" stroke-width="1.7" fill="none"/></svg>
+      </button>
+      <div class="settings-pop" id="settings-pop" role="menu" hidden></div>
+    </div>
   </div>
 </header>
 <div class="hero gutter" id="hero">

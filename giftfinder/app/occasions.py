@@ -50,7 +50,9 @@ def fathers_day(year, cc):
 
 
 def christmas(year, cc):
-    return dt.date(year, 12, 24) if cc in ("DE", "NL", "FR", "TR") else dt.date(year, 12, 25)
+    if cc == "NL":                                # Sinterklaas (5 Dec) is the big gift day, Kerst follows
+        return [dt.date(year, 12, 5), dt.date(year, 12, 24)]
+    return dt.date(year, 12, 24) if cc in ("DE", "FR", "TR") else dt.date(year, 12, 25)
 
 
 def valentines(year, cc):
@@ -69,9 +71,10 @@ def upcoming(cc, today=None, horizon_days=75):
     best = None
     for occ, fn in DATED.items():
         for year in (today.year, today.year + 1):
-            d = fn(year, cc)
-            if d >= today and (best is None or d < best[1]):
-                best = (occ, d)
+            dates = fn(year, cc)
+            for d in dates if isinstance(dates, list) else [dates]:
+                if d >= today and (best is None or d < best[1]):
+                    best = (occ, d)
     occ, d = best
     days = (d - today).days
     return {"occasion": occ, "date": d.isoformat(), "days": days, "soon": days <= horizon_days,

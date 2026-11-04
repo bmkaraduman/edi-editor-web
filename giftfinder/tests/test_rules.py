@@ -32,6 +32,15 @@ def test_office_stock_is_not_a_gift_but_a_pen_set_is():
     assert "garden" not in rules
 
 
+def test_screws_and_taps_are_not_gifts_in_any_language():
+    from app.data.rules import GIFT_FLOOR
+    for title in ("Spaxschrauben 4x40 Senkkopf", "Spaanplaatschroeven Dynaplus", "Ahşap vida seti", "Vis à bois inox 5x50",
+                  "Waschtischarmatur Chrom", "Keukenkraan RVS", "Mitigeur de cuisine", "Banyo musluğu krom", "Kitchen faucet pull-down"):
+        assert match_rules(strong_text(title))[2] < GIFT_FLOOR, title
+    for title in ("Akoestische gitaar starterset", "Schreibtischlampe Messing", "Mahjong tiles set", "Wine glasses gift set"):
+        assert match_rules(strong_text(title))[2] >= GIFT_FLOOR, title
+
+
 def test_variants_collapse_to_one_listing():
     a = dedupe_key({"title": "Socken aus Baumwolle – Beige – 43-46", "merchant_id": "m"})
     b = dedupe_key({"title": "Socken aus Baumwolle – Schwarz – 39-42", "merchant_id": "m"})
@@ -46,10 +55,10 @@ def test_results_never_repeat_and_always_have_a_picture_when_real_products_exist
     keys = [dedupe_key(engine.by_id[x["id"]]) for x in r["results"]]
     assert len(keys) == len(set(keys))
     assert all(x["image"] for x in r["results"])
-    # office stock never surfaces through filters alone, only through a typed search
+    # office stock is not in the catalog at all, not even for a typed search
     assert not any("Patchkabel" in x["title"] for x in r["results"])
     typed = client.get("/api/search", params={"country": "DE", "q": "patchkabel cat7", "limit": 5}).json()
-    assert any("Patchkabel" in x["title"] for x in typed["results"])
+    assert not any("Patchkabel" in x["title"] for x in typed["results"])
 
 
 def test_product_page_and_similar():
@@ -71,7 +80,17 @@ def test_upcoming_occasion_and_active_countries():
     assert u["occasion"] == "christmas" and u["date"] == "2026-12-24" and u["days"] == 51
     r = client.get("/api/upcoming", params={"country": "DE"}).json()
     assert r["label"] and r["results"] and all(x["image"] for x in r["results"])
-    assert set(client.get("/api/countries").json()) == {"DE"}
+    assert set(client.get("/api/countries").json()) == {"DE", "NL", "FR", "US"}     # TR waits for a feed
+    nl = upcoming("NL", dt.date(2026, 11, 3))
+    assert nl["date"] == "2026-12-05" and upcoming("NL", dt.date(2026, 12, 6))["date"] == "2026-12-24"   # Sinterklaas, then Kerst
+
+
+def test_same_article_from_two_shops_is_one_listing():
+    from app.ml.search import dedupe_keys
+    a = dedupe_keys({"title": "Holly Jolly Kerstmis Kerstsok met Sneeuw", "merchant_id": "awin_38874", "image": "https://a/1.jpg"})
+    b = dedupe_keys({"title": "Holly Jolly Kerstmis Kerstsok met Sneeuw", "merchant_id": "awin_69308", "image": "https://b/1.jpg"})
+    c = dedupe_keys({"title": "Carolina Herrera 212 Women Eau de Toilette 100 ml", "merchant_id": "awin_69308", "image": "https://b/2.jpg"})
+    assert a & b and not (a & c)
 
 
 def test_same_picture_or_family_is_one_listing_and_shops_are_capped():

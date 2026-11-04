@@ -15,8 +15,15 @@ text mining ile çalışır.
 | 🇳🇱 NL | nl | EUR | bol.com (Partnerprogramma), Amazon.nl, Coolblue / Etsy (Awin), Wehkamp (Daisycon) |
 | 🇫🇷 FR | fr | EUR | Amazon.fr (Partenaires), Fnac, Cdiscount, Etsy, Nature & Découvertes (Awin) |
 
-Sitede şimdilik yalnızca **DE** açık (`ACTIVE_COUNTRIES=DE`); US/TR/NL/FR config'de
-durur, feed geldiğinde listeye eklenir.
+Sitede **DE, NL, FR, US** açık (`ACTIVE_COUNTRIES=DE,NL,FR,US`). Bu ülkelerin ürünleri
+Awin feed'lerinden gelir (Ankashop yayıncı hesabı, tanıtım alanı giftdetect.com; DE 23,
+NL 20, FR 12, US 43 programa katılındı). TR config'de durur: Awin'de Türkiye
+reklamvereni yok, Trendyol/Gelirortakları feed'i gelince açılır.
+
+Ziyaretçinin ülkesi otomatik açılır: önce ayarlar menüsünde (sağ üstteki 🌐 düğmesi)
+kendi seçtiği ülke, yoksa girdiği ülke (Cloudflare IP konumu, `GET /api/geo`;
+`functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; AT/CH → DE,
+LU → FR, BE → tarayıcı diline göre NL/FR), yoksa tarayıcı dili, yoksa US.
 
 ## Hızlı başlangıç
 
@@ -25,7 +32,7 @@ cd giftfinder
 python3 -m venv .venv && source .venv/bin/activate   # bağımlılıklar .venv'de; her yeni kabukta activate
 ./setup.sh                      # bağımlılıklar + seed katalog + model eğitimi
 uvicorn app.main:app --reload   # http://127.0.0.1:8000
-python3 -m pytest tests         # 20 test
+python3 -m pytest tests         # 24 test
 ```
 
 `.venv` etkin değilse komutları `.venv/bin/python …` ile çalıştır.
@@ -95,10 +102,17 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
   Purcari …", "Personalisierte Foto …"). Ayrıca bir mağaza her 12'lik sonuç bloğunda
   en fazla 4 kart alır; fazlası listenin sonuna kayar. Ana sayfadaki yaklaşan gün
   şeridi de aynı aramadan geçer.
+* **Hediye olmayan ürün kataloğa girmez.** Awin satırının kendi kategorisi hiç hediye
+  olmayan bir aralıktaysa (`app/sources/awin.py: NOT_GIFT_CATEGORIES`: ofis malzemesi,
+  kablo, yazıcı, bilgisayar parçası, mobilya, bahçe aleti, vitamin ...) ya da başlık /
+  kategori / anahtar kelimeleri bir "hediye değil" kuralına takılırsa (vida, musluk,
+  inşaat malzemesi, yedek parça, tıbbi ölçüm, temizlik, ofis mobilyası, IT parçası;
+  DE/NL/FR/EN/TR, `app/data/rules.py`) ürün ingest'te atlanır. Create-a-Feed, reklamveren
+  seçilince kategori filtresini yok saydığı için eleme bizde yapılır. `veto` kuralları
+  güçlü hediye kurallarını da ezer ("Kitchen faucet" mutfak hediyesi değildir).
 * **Hediyelik puanı.** Kurallardan gelen 0-1 arası puan sıralamayı çarpar; 0.15 altı
-  (ofis malzemesi, ağ kablosu) yalnızca serbest metin aramasında çıkar, filtresiz ana
-  sayfa karışımına yalnızca 0.5 üstü girer. 0.9+ puanlı bir kural (kalem seti) ofis
-  kuralını ezer.
+  kataloğa girmez, filtresiz ana sayfa karışımına yalnızca 0.5 üstü girer. 0.9+ puanlı
+  bir kural (kalem seti) ofis kuralını ezer.
 * **Etiket güveni.** Elle etiket 1.0, kural etiketi 0.9, sözlük/sınıflandırıcı 0.75;
   "% passend" rozeti buna göre değişir.
 * **Eğitim.** `app/ml/train.py` seed konseptlerin yanına en fazla 1500 kural-etiketli
@@ -119,7 +133,10 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
      merchant_category, merchant_product_category_path, product_type, brand_name,
      keywords, colour, condition, product_model, dimensions, specifications,
      delivery_cost, promotional_text, product_short_description. "manual download URL" → ülke başına tek birleşik feed için
-     `AWIN_FEED_ALL_DE` (satırlar feed'deki merchant_id sütunuyla mağazalara ayrılır;
+     `AWIN_FEED_ALL_DE` (boşlukla ayrılmış birden çok URL olabilir: bir Awin formatlı
+     Create-a-Feed URL'si + yalnızca Google formatı sunan mağazaların feed URL'leri;
+     Feed List: Toolbox → Create-a-Feed → "Feed List Download".
+     Satırlar feed'deki merchant_id / advertiser_id sütunuyla mağazalara ayrılır;
      config'de olmayan reklamverenler `awin_<mid>` olarak, feed'deki adıyla gösterilir) ya da
      mağaza başına `AWIN_FEED_<merchant_id>` (ör. `AWIN_FEED_otto`). Feed akışla okunur
      (gzip desteklenir); yüz binlerce satırlık birleşik feed'lerde her reklamverenden en
@@ -130,7 +147,8 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
      `feeds/TR/trendyol.csv`, `feeds/NL/bol.csv`). Sütun adları gevşek eşlenir
      (title/name/ürün adı, description/açıklama, price/fiyat, link, image).
 3. `python3 scripts/ingest.py TR DE` → ürünler çekilir, text-mining modeliyle
-   etiketlenir, kataloğa eklenir. Sunucuyu yeniden başlat. (Almanya feed'i: 170 bin
+   etiketlenir, kataloğa eklenir. `--fresh` ülkelerin eski feed ürünlerini önce siler
+   (kurallar değişince bugünkü kurallara uymayanlar böyle çıkar; seed/elle etiketli kalır). Sunucuyu yeniden başlat. (Almanya feed'i: 170 bin
    satır, 22 reklamveren → ~50 saniyede ~6.300 ürün.)
 4. Daha iyi model için: ingest edilen ürünlerden bazılarını elle düzeltip
    `"source": "manual"` yap, `python3 -m app.ml.train` ile yeniden eğit.
@@ -148,7 +166,7 @@ puanı, mağaza kotası, yaklaşan gün şeridi, `/p/{id}` ürün sayfaları `_r
 ```bash
 python3 scripts/ingest.py DE && python3 -m app.ml.train   # yeni feed sonrası
 python3 scripts/export_static.py dist                      # dist/: index.html, data.json, _redirects, sitemap.xml
-npx wrangler@4 pages deploy dist --project-name giftdetect --branch main
+npx wrangler@4 pages deploy dist --project-name giftdetect --branch main   # giftfinder/ içinden: functions/ da yüklenir
 ```
 
 İlk kurulum: `npx wrangler@4 login`, `npx wrangler@4 pages project create giftdetect
@@ -173,6 +191,7 @@ GET /api/search?country=TR&gender=female&age=adult&occasion=mothers_day
                &sort=relevance|price_asc|price_desc&limit=36&offset=0
 GET /api/options?lang=tr      facet etiketleri
 GET /api/countries            ülkeler ve mağazalar
+GET /api/geo                  ziyaretçinin ülkesi (Cloudflare CF-IPCountry)
 GET /go/{id}                  affiliate yönlendirme (tıklama app/data/clicks.jsonl'a yazılır)
 GET /api/stats                katalog boyutu + model raporu
 
