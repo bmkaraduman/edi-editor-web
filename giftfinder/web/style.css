@@ -29,9 +29,20 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .brand .tld { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent }
 .brand .dot { color: var(--muted); font-weight: 600; font-size: .8em; margin-left: 1px }
 .brand .mark { width: 32px; height: 32px; border-radius: 10px; background: var(--grad); display: grid; place-items: center; font-size: 18px; box-shadow: 0 4px 12px rgba(232,51,109,.35) }
-.countries { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto }
-.countries button { border: 1px solid transparent; background: transparent; border-radius: 999px; padding: 6px 10px; cursor: pointer; font-size: .88rem; font-weight: 600; color: var(--muted) }
-.countries button.on { background: var(--berry-soft); color: var(--berry); border-color: transparent }
+/* settings menu (country, cookies): one button, a popup like osegi.com's toolbar menus */
+.settings { position: relative; margin-left: auto }
+.settings-btn { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 10px; border: 1px solid var(--line-2); background: var(--surface); border-radius: 999px; cursor: pointer; color: var(--muted) }
+.settings-btn:hover, .settings.open .settings-btn { background: var(--chip); color: var(--ink) }
+.settings-btn .ic { width: 18px; height: 18px }
+.settings-flag { font-size: 1.05rem; line-height: 1 }
+.settings-pop { position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; padding: 6px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: var(--shadow); z-index: 30; animation: pop .12s ease-out }
+@keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(.985) } to { opacity: 1; transform: none } }
+.settings-pop .menu-header { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 6px 10px 4px }
+.settings-pop .menu-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 10px; border: 0; border-radius: 8px; background: transparent; font-size: .9rem; font-weight: 600; text-align: left; cursor: pointer }
+.settings-pop .menu-item:hover { background: var(--berry); color: var(--berry-ink) }
+.settings-pop .menu-check { width: 14px; flex: 0 0 auto; font-size: .75rem; color: var(--berry) }
+.settings-pop .menu-item:hover .menu-check { color: inherit }
+.settings-pop .menu-sep { height: 1px; background: var(--line); margin: 6px 4px }
 
 /* hero (home mode only) */
 .hero { text-align: center; padding-block: 58px 10px; position: relative }

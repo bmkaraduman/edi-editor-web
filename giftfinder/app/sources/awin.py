@@ -20,6 +20,12 @@ and every advertiser gets at most `limit` products, picked by reservoir
 sampling so the catalog gets a spread of each shop's range instead of its first
 rows; rows whose text mentions a gift word ("Geschenk", "gift", "cadeau" ...)
 are preferred.
+
+Non-gifts never enter the catalog: rows in an Awin category that is never a present
+(NOT_GIFT_CATEGORIES) are skipped, and so are rows whose title / category / keywords
+hit a "not a present" rule (screws, taps, cables, spare parts ... see
+app/data/rules.py). Create-a-Feed ignores its category filter once advertisers are
+picked, so both checks run here.
 """
 import csv
 import gzip
@@ -31,11 +37,33 @@ import random
 import requests
 
 from ..config import COUNTRIES, GIFT_WORDS, MERCHANTS
+from ..data.rules import GIFT_FLOOR, match_rules
+from ..ml.labeling import strong_text
 from .base import Product, Source
 from .csv_feed import parse_price, pick
 
 csv.field_size_limit(1 << 30)     # some advertisers ship 25k-character descriptions
 MAX_DESCRIPTION = 2000
+
+# Awin taxonomy ids (category_id column) of ranges that are never a present.
+NOT_GIFT_CATEGORIES = {
+    596: "Office Supplies", 209: "Printer Consumables", 210: "Printers", 211: "Scanners", 68: "Software",
+    130: "Cables", 537: "Cables, Parts & Power Supplies", 62: "Computer Components", 71: "CPUs", 75: "Graphics Cards",
+    603: "RAM", 69: "Storage Media", 220: "Hard Drives", 226: "Networking", 224: "Bluetooth Adapters", 228: "Wireless Adapters",
+    65: "Input Devices", 85: "Monitors", 83: "Computers", 84: "Laptops", 64: "Hardware", 348: "Mobile Phones",
+    349: "Other Telephones", 358: "House Telephones", 360: "Video Conferencing", 86: "Headsets", 475: "Home Security",
+    563: "In-Car Entertainment", 633: "Appliance Spares", 375: "Vacuum Cleaners", 616: "Cleaning",
+    121: "Health", 594: "Oral Health", 123: "Nutrition", 125: "Vitamins & Supplements", 127: "Diet", 255: "Support Aids",
+    422: "Bathrooms & Accessories", 436: "Bespoke Bathrooms", 426: "General Household", 470: "House Accessories",
+    450: "Tables", 448: "Chairs", 449: "Sofas", 424: "Furniture", 452: "Storage", 469: "Furniture Accessories",
+    459: "Garden Tools", 425: "Garden", 457: "Garden & Leisure", 458: "Sheds & Garden Furniture", 428: "DIY",
+}
+
+
+def is_gift(product):
+    """False when a "not a present" rule decides the product (gift prior below GIFT_FLOOR)."""
+    strong = strong_text(product.title, product.keywords, product.category, product.category_path, product.product_type, product.brand)
+    return match_rules(strong)[2] >= GIFT_FLOOR
 
 
 def open_feed(url, timeout=120):
@@ -59,13 +87,17 @@ class Reservoir:
     def __init__(self, cap, rng):
         self.cap, self.rng, self.items, self.seen = cap, rng, [], 0
 
-    def add(self, item):
+    def add(self, item, keep=None):
+        """`keep(item)` is only asked when the item would enter the sample (it can be
+        slow); a rejected item leaves the slot as it was, so the sample stays uniform
+        over the kept items."""
         self.seen += 1
         if len(self.items) < self.cap:
-            self.items.append(item)
+            if keep is None or keep(item):
+                self.items.append(item)
         else:
             j = self.rng.randrange(self.seen)
-            if j < self.cap:
+            if j < self.cap and (keep is None or keep(item)):
                 self.items[j] = item
 
 
@@ -99,6 +131,8 @@ class AwinSource(Source):
                 desc = html.unescape(pick(row, "description", "product_short_description"))
                 image = pick(row, "merchant_image_url", "image_link", "aw_image_url", "large_image")
                 if not title or not image:          # rule: a product without a picture is never shown
+                    continue
+                if pick(row, "category_id").isdigit() and int(pick(row, "category_id")) in NOT_GIFT_CATEGORIES:
                     continue
                 if feed_merchant.startswith("*"):
                     mid = pick(row, "merchant_id", "advertiser_id", "merchant_product_id_source")
@@ -145,7 +179,7 @@ class AwinSource(Source):
                 if merchant_id not in pools:
                     pools[merchant_id] = (Reservoir(limit, rng), Reservoir(limit, rng))
                 tier = 0 if any(g in text for g in gift_words) else 1
-                pools[merchant_id][tier].add(product)
+                pools[merchant_id][tier].add(product, keep=is_gift)
             for merchant_id, (gifts, rest) in pools.items():
                 chosen = gifts.items + rest.items[:max(0, limit - len(gifts.items))]
                 print(f"  awin {merchant_id}: {len(chosen)} of {gifts.seen + rest.seen} matching rows ({gifts.seen} mention a gift word)")

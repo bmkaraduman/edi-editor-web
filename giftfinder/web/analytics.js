@@ -47,6 +47,7 @@
     a.onclick = (e) => { e.preventDefault(); banner(); };
     const p = document.createElement("p"); p.appendChild(a); f.appendChild(p);
   }
+  window.openConsent = banner;      // the settings menu reopens the banner too
   function init() {
     footerLink();
     const c = read();

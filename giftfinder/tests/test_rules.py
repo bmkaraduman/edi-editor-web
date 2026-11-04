@@ -32,6 +32,15 @@ def test_office_stock_is_not_a_gift_but_a_pen_set_is():
     assert "garden" not in rules
 
 
+def test_screws_and_taps_are_not_gifts_in_any_language():
+    from app.data.rules import GIFT_FLOOR
+    for title in ("Spaxschrauben 4x40 Senkkopf", "Spaanplaatschroeven Dynaplus", "Ahşap vida seti", "Vis à bois inox 5x50",
+                  "Waschtischarmatur Chrom", "Keukenkraan RVS", "Mitigeur de cuisine", "Banyo musluğu krom", "Kitchen faucet pull-down"):
+        assert match_rules(strong_text(title))[2] < GIFT_FLOOR, title
+    for title in ("Akoestische gitaar starterset", "Schreibtischlampe Messing", "Mahjong tiles set", "Wine glasses gift set"):
+        assert match_rules(strong_text(title))[2] >= GIFT_FLOOR, title
+
+
 def test_variants_collapse_to_one_listing():
     a = dedupe_key({"title": "Socken aus Baumwolle – Beige – 43-46", "merchant_id": "m"})
     b = dedupe_key({"title": "Socken aus Baumwolle – Schwarz – 39-42", "merchant_id": "m"})
@@ -46,10 +55,10 @@ def test_results_never_repeat_and_always_have_a_picture_when_real_products_exist
     keys = [dedupe_key(engine.by_id[x["id"]]) for x in r["results"]]
     assert len(keys) == len(set(keys))
     assert all(x["image"] for x in r["results"])
-    # office stock never surfaces through filters alone, only through a typed search
+    # office stock is not in the catalog at all, not even for a typed search
     assert not any("Patchkabel" in x["title"] for x in r["results"])
     typed = client.get("/api/search", params={"country": "DE", "q": "patchkabel cat7", "limit": 5}).json()
-    assert any("Patchkabel" in x["title"] for x in typed["results"])
+    assert not any("Patchkabel" in x["title"] for x in typed["results"])
 
 
 def test_product_page_and_similar():
