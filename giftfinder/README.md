@@ -40,7 +40,8 @@ Ziyaretçinin ülkesi otomatik açılır: önce ayarlar menüsünde (sağ üstte
 kendi seçtiği ülke, yoksa girdiği ülke (Cloudflare IP konumu, `GET /api/geo`;
 `functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; katalog
 olmayan komşular en yakına: LI → CH, LU → BE, MC → FR, NZ → AU, PT → ES, NO → SE), yoksa
-tarayıcı dili, yoksa US.
+tarayıcı dili, yoksa US. Bağlantıda `?country=DE` varsa (ör. osegi.com tanıtım kartı
+ziyaretçinin ülkesini geçirir) o ziyaret için o ülke açılır; menüdeki seçim değiştirilmez.
 
 ## Hızlı başlangıç
 

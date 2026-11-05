@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ediviewer — Read EDI files like documents (Mac and Windows)</title>
+<meta name="description" content="Open EDIFACT and ANSI X12 files on Mac and Windows, read every segment with its meaning, convert to JSON/XML, export to PDF and Excel. Your files never leave your computer.">
+<link rel="stylesheet" href="css/styles.css?v=89da52df">
+<link rel="stylesheet" href="css/doc.css?v=89da52df">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://ediviewer.net/en.html">
+<link rel="alternate" hreflang="tr" href="https://ediviewer.net/">
+<link rel="alternate" hreflang="en" href="https://ediviewer.net/en.html">
+<meta property="og:title" content="ediviewer — Read EDI files like documents (Mac and Windows)">
+<meta property="og:description" content="Open EDIFACT and ANSI X12 files on Mac and Windows, read every segment with its meaning, convert to JSON/XML, export to PDF and Excel. Your files never leave your computer.">
+<meta property="og:image" content="https://ediviewer.net/img/screenshot-mac.webp">
+<meta name="google-adsense-account" content="ca-pub-7507702503844486">
+<!-- AdSense dogrulama etiketi: Google'in tarayicisi ham HTML'de arar; js/consent.js ikinci kez eklemez. -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7507702503844486"
+     crossorigin="anonymous"></script>
+<script type="module">
+  import('./js/consent.js').then(m => m.initConsent()).catch(() => {});
+</script>
+<style>
+  .hero { display:grid; gap:28px; align-items:center; padding:36px 0 8px; }
+  @media (min-width: 860px) { .hero { grid-template-columns: 1.05fr 1fr; } }
+  .hero h1 { font-size: clamp(30px, 4.2vw, 46px); line-height:1.1; letter-spacing:-0.02em; margin:0 0 14px; }
+  .hero .lead { font-size:18px; color:var(--secondary-label); margin:0 0 22px; line-height:1.55; }
+  .stores { display:flex; flex-wrap:wrap; gap:12px; }
+  .store-btn { display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:12px; font-weight:600; text-decoration:none; border:1px solid var(--separator-strong); background:var(--control-bg); color:var(--label); box-shadow:var(--shadow-sm); }
+  .store-btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .store-btn small { display:block; font-weight:500; font-size:11px; opacity:.75; }
+  .store-btn svg { width:22px; height:22px; flex:none; }
+  .shot { border-radius:14px; box-shadow:var(--shadow-lg); border:1px solid var(--separator); width:100%; height:auto; }
+  .note { font-size:13px; color:var(--tertiary-label); margin-top:12px; }
+  .features { list-style:none; padding:0; margin:28px 0; display:grid; gap:12px; }
+  @media (min-width: 700px) { .features { grid-template-columns:1fr 1fr; } }
+  .features li { padding:14px 16px; border:1px solid var(--separator); border-radius:12px; background:var(--control-bg); line-height:1.5; }
+  .app-icon { width:64px; height:64px; border-radius:16px; box-shadow:var(--shadow-md); margin-bottom:16px; }
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <a class="brand" href="index.html" title="ediviewer">
+    <span class="brand-mark" aria-hidden="true">e</span>
+    <span class="brand-logo"><span class="lg-a">edi</span><span class="lg-b">viewer</span></span>
+  </a>
+  <nav class="doc-langs">
+    <a class="active" href="en.html">English</a>
+    <a href="index.html">Türkçe</a>
+  </nav>
+</header>
+
+<main class="doc">
+  <section class="hero">
+    <div>
+      <img class="app-icon" src="img/app-icon.png" alt="ediviewer" width="64" height="64">
+      <h1>Read EDI files like documents</h1>
+      <p class="lead">ediviewer opens EDIFACT and ANSI X12 messages and shows what every segment means in plain language. No counting plus signs and colons. A native app for Mac and Windows.</p>
+      <div class="stores">
+        <a class="store-btn primary" href="https://apps.apple.com/app/ediviewer-edi-viewer-editor/id6757971709?mt=12" id="btn-mac" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.8zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.1-.6 2.8-1.5z"/></svg>
+          <span>Download for Mac<small>Mac App Store</small></span>
+        </a>
+        <a class="store-btn" href="https://apps.microsoft.com/detail/9ngfz1dnnzmv" id="btn-win" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 11 4.4v7.1H3zm0 13 8 1.1v-7H3zm9 1.2 9 1.3v-8.4h-9zm0-16.4 9-1.3v8.5h-9z"/></svg>
+          <span>Download for Windows<small>Microsoft Store</small></span>
+        </a>
+      </div>
+      <p class="note">Your files never leave your computer: no account, no upload, no tracking. The browser version has been retired; get the app from the Mac App Store or Microsoft Store.</p>
+    </div>
+    <img class="shot" src="img/screenshot-mac.webp" alt="ediviewer" width="1600" height="1000">
+  </section>
+
+  <ul class="features">
+      <li><strong>Every segment explained.</strong> Parties, dates, quantities, prices, taxes and references; NAD+BY becomes "Buyer", DTM+137 "Document date".</li>
+      <li><strong>Editor.</strong> Syntax highlighting, line numbers, instant re-parsing while you type; multiple documents in tabs.</li>
+      <li><strong>Conversion.</strong> EDI ↔ JSON ↔ XML, lossless: separators, UNA and line breaks are kept, every conversion verified byte by byte.</li>
+      <li><strong>Export.</strong> Printable PDF for ORDERS, INVOIC, DESADV, REMADV and more; Excel (CSV) for SLSRPT and PRICAT.</li>
+      <li><strong>15 sample messages.</strong> A full EDIFACT order-to-payment story plus ANSI X12 850, 810, 856 and 997.</li>
+      <li><strong>7 languages, light/dark.</strong> Deutsch, English, Türkçe, Français, Español, Italiano, 简体中文.</li>
+  </ul>
+
+  <h2>Free reference and guides</h2>
+  <ul>
+      <li><a href="edi/en/">EDI guide (English)</a></li>
+      <li><a href="edi/">EDI rehberi (Türkçe)</a></li>
+      <li><a href="edi/blog/">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="contact.html">Contact</a></li>
+  </ul>
+</main>
+
+<script>
+  // Isletim sistemine gore birincil dugme: Windows'ta Microsoft Store one cikar.
+  (function () {
+    var ua = navigator.userAgent;
+    var mac = document.getElementById('btn-mac'), win = document.getElementById('btn-win');
+    if (/Windows/i.test(ua)) { win.classList.add('primary'); mac.classList.remove('primary'); win.parentNode.insertBefore(win, mac); }
+  })();
+</script>
+</body>
+</html>
