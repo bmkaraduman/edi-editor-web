@@ -35,7 +35,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .settings-btn:hover, .settings.open .settings-btn { background: var(--chip); color: var(--ink) }
 .settings-btn .ic { width: 18px; height: 18px }
 .settings-flag { font-size: 1.05rem; line-height: 1 }
-.settings-pop { position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; padding: 6px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: var(--shadow); z-index: 30; animation: pop .12s ease-out }
+.settings-pop { position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; max-height: min(70vh, 560px); overflow-y: auto; padding: 6px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: var(--shadow); z-index: 30; animation: pop .12s ease-out }
 @keyframes sheet { from { transform: translateY(40px); opacity: .6 } to { transform: none; opacity: 1 } }
 @keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(.985) } to { opacity: 1; transform: none } }
 .settings-pop .menu-header { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 6px 10px 4px }

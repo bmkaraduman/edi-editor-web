@@ -41,6 +41,17 @@ def test_screws_and_taps_are_not_gifts_in_any_language():
         assert match_rules(strong_text(title))[2] >= GIFT_FLOOR, title
 
 
+def test_medicine_and_replacement_parts_are_not_gifts():
+    """Pharmacy stock and spare heads / nozzles, also when the rule word is a phrase with a wildcard."""
+    from app.data.rules import GIFT_FLOOR
+    for title in ("Anti-Hist Allergy Cetirizine 10mg Tablets (30)", "Lansinoh Lanolin Nipple Cream", "Kosttillskott Magnesium",
+                  "Udskiftelige dyser til HIGE", "Inlocuibile pentru irigatorul MIGA PRO", "Oral-B iO Aufsteckbürsten 4 Stück",
+                  "Spax wood screws 4x40", "Armário Aéreo de Cozinha 3 Portas"):
+        assert match_rules(strong_text(title))[2] < GIFT_FLOOR, title
+    for title in ("Samsung Galaxy Tab A9 Android Tablet", "Vitamin C Serum Gift Set", "Personalised Mug with Name"):
+        assert match_rules(strong_text(title))[2] >= GIFT_FLOOR, title
+
+
 def test_variants_collapse_to_one_listing():
     a = dedupe_key({"title": "Socken aus Baumwolle – Beige – 43-46", "merchant_id": "m"})
     b = dedupe_key({"title": "Socken aus Baumwolle – Schwarz – 39-42", "merchant_id": "m"})
@@ -80,7 +91,8 @@ def test_upcoming_occasion_and_active_countries():
     assert u["occasion"] == "christmas" and u["date"] == "2026-12-24" and u["days"] == 51
     r = client.get("/api/upcoming", params={"country": "DE"}).json()
     assert r["label"] and r["results"] and all(x["image"] for x in r["results"])
-    assert set(client.get("/api/countries").json()) == {"DE", "NL", "FR", "US"}     # TR waits for a feed
+    assert {"DE", "NL", "FR", "US", "GB", "PL", "IT", "ES", "SE", "BR"} <= set(client.get("/api/countries").json())
+    assert "TR" not in client.get("/api/countries").json()     # TR waits for a feed
     nl = upcoming("NL", dt.date(2026, 11, 3))
     assert nl["date"] == "2026-12-05" and upcoming("NL", dt.date(2026, 12, 6))["date"] == "2026-12-24"   # Sinterklaas, then Kerst
 
@@ -130,3 +142,14 @@ def test_filters_that_never_go_together_are_served_with_the_options():
     assert ("fathers_day", "female") in pairs and ("male", "mothers_day") in pairs
     assert ("baby", "gamer") in pairs and ("baby", "retirement") in pairs
     assert ("baby", "bookworm") not in pairs and ("adult", "gamer") not in pairs and ("birthday", "female") not in pairs
+
+
+def test_prices_and_gift_days_follow_the_country():
+    import datetime as dt
+    from app.config import format_price
+    from app.occasions import mothers_day, fathers_day, upcoming
+    assert format_price(1234.5, "DE") == "1.234,50 €" and format_price(1234.5, "GB") == "£1,234.50"
+    assert format_price(1234.5, "PL") == "1 234,50 zł" and format_price(12.5, "BR") == "R$ 12,50"
+    assert mothers_day(2027, "GB") == dt.date(2027, 3, 7) and fathers_day(2027, "IT") == dt.date(2027, 3, 19)
+    assert upcoming("ES", dt.date(2026, 12, 26))["date"] == "2027-01-06"          # Reyes Magos
+    assert upcoming("SE", dt.date(2026, 11, 4))["occasion"] == "fathers_day"      # Swedish Father's Day in November

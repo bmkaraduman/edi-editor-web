@@ -31,6 +31,7 @@
     nl: ["We gebruiken Google Analytics om te zien welke cadeau-ideeën aanslaan. Gegevens zijn geanonimiseerd; er zijn geen advertentiecookies.", "Toestaan", "Weigeren", "Cookie-instellingen"],
     fr: ["Nous utilisons Google Analytics pour savoir quelles idées cadeaux plaisent. Les données sont anonymisées ; aucun cookie publicitaire.", "Autoriser", "Refuser", "Paramètres des cookies"],
   };
+  Object.assign(T, window.CONSENT_EXTRA || {});      // languages added from app/i18n/*.json
   const lang = () => (document.documentElement.lang || "de").slice(0, 2);
   function banner() {
     const t = T[lang()] || T.de;

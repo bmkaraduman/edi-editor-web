@@ -117,7 +117,9 @@ RULES = [
       personality=["homebody"], occasion=["housewarming", "christmas"], gift=0.85),
     R("home_kitchen", ["home & garden", "haus & garten", "haushalt*", "household", "bathroom accessor*", "badezimmer*", "seifenspender*", "soap dispenser*", "kuche", "tableware", "geschirr*", "glaser", "glasses", "tasse*", "mug", "mugs", "flasche*", "bottle*", "karaffe*", "decanter*"],
       personality=["homebody", "foodie"], occasion=["housewarming"], gift=0.7),
-    R("furniture", ["mobel", "möbel", "furniture", "tisch", "tische", "table", "stuhl*", "chair*", "sofa*", "couch*", "regal*", "shelf", "shelves", "schrank*", "cabinet*", "bett*", "bed", "nachttisch*", "nightstand*", "sideboard*", "kommode*"],
+    R("furniture", ["mobel", "möbel", "furniture", "tisch", "tische", "table", "stuhl*", "chair*", "sofa*", "couch*", "regal*", "shelf", "shelves", "schrank*", "cabinet*", "bett*", "bed", "nachttisch*", "nightstand*", "sideboard*", "kommode*",
+                      "balcao*", "torre quente", "paneleiro*", "cozinha compacta", "cozinha modulada", "gabinete*", "kitchen cabinet*", "base cabinet*",
+                      "mesa", "painel ripado", "area gourmet", "balcoes", "sapateira*", "conjunto de cozinha"],
       personality=["homebody"], occasion=["housewarming"], gift=0.1),
     R("lighting_parts", ["led streifen*", "led strip*", "led controller*", "dmx*", "netzteil*", "power supply*", "trafo*", "transformer*", "dimmer*", "relais*", "relay*", "repeater*", "zigbee*", "leuchtmittel*", "light bulb*", "led modul*", "led profil*", "aluprofil*", "endkappe*", "einbauprofil*", "aufbauprofil*", "einbaustrahler*", "lichtbron*", "leuchtmittel*"],
       personality=["tech", "maker"], gift=0.1),
@@ -146,7 +148,22 @@ RULES = [
     R("medical", ["blutzucker*", "glukose*", "glucose*", "harnsaure*", "blutdruckmess*", "teststreifen*", "test strip*", "lanzette*", "lancet*", "inkontinenz*", "incontinen*",
                   "tampon*", "maandverband*", "inlegkruisje*", "sanitary pad*", "menstruat*", "kompressionsstrumpf*", "kompressionsstrumpfe", "compression stocking*", "steunkous*",
                   "diabetes*", "first aid", "erste hilfe", "verbandkasten*", "zahnbleaching*", "tandenborstel*", "zahnburste*", "toothbrush*", "brosse a dents",
-                  "seker olcum*", "tansiyon aleti*"],
+                  "seker olcum*", "tansiyon aleti*", "bandage*", "crepe bandage*", "wound dressing*", "verband", "pflaster", "epsom salt*"],
+      gift=0.05, veto=True),
+    R("pharmacy", ["*mg", "antihistamin*", "cetirizin*", "loratadin*", "ibuprofen*", "paracetamol*", "aspirin*", "painkiller*", "pain relief",
+                   "allergy relief", "hay fever", "laxativ*", "cough syrup*", "cold and flu", "nasal spray*", "nipple cream*", "nappy rash",
+                   "food supplement*", "dietary supplement*", "supplements", "multivitamin*", "probiotic*", "vitamin d3", "vitamin b12",
+                   "nahrungserganzung*", "schmerztablette*", "lutschtablette*", "voedingssupplement*", "complement alimentaire", "complements alimentaires",
+                   "integratore alimentare", "integratori", "complemento alimenticio", "suplemento alimentar", "suplementos", "suplement diety",
+                   "kosttillskott*", "kosttilskud*", "ravintolisa*", "supliment alimentar", "gida takviyesi", "tabletki", "comprimidos", "comprimate",
+                   "tabletter", "gelules", "kapseln", "capsulas", "kapsulki", "kapslar", "kapsler"],
+      gift=0.05, veto=True),
+    R("spare_parts", ["replacement head*", "replacement nozzle*", "replacement brush*", "replacement filter*", "replacement blade*", "replacement cartridge*",
+                      "spare nozzle*", "refill cartridge*", "ersatzduse*", "ersatzkopf*", "ersatzburste*", "aufsteckburste*", "ersatzklinge*", "ersatzfilter*",
+                      "opzetborstel*", "vervangende borstel*", "vervangingsfilter*", "tete de rechange", "tetes de rechange", "brossette*", "de rechange",
+                      "testina di ricambio", "testine di ricambio", "di ricambio", "cabezal de recambio", "cabezales de recambio", "de recambio",
+                      "cabeca de reposicao", "refil", "refis", "de reposicao", "ersattningsborst*", "ersattningsmunstyck*", "udskiftelig*", "dyser",
+                      "vaihtoharja*", "vaihtopaa*", "koncowk*", "wymienn*", "inlocuibil*", "rezerve", "capete de schimb", "yedek baslik*"],
       gift=0.05, veto=True),
     R("cleaning", ["reinigungsmittel*", "reiniger", "putzmittel*", "waschmittel*", "spulmittel*", "entkalker*", "staubsauger*", "handspruher*", "ruckenspritze*", "schaumspruher*", "trolleyspritze*",
                    "reinigingsmiddel*", "schoonmaak*", "wasmiddel*", "afwasmiddel*", "stofzuiger*", "kruimelzuiger*", "luchtverfrisser*",
@@ -171,6 +188,16 @@ RULES = [
       personality=["bookworm", "artist"], occasion=["graduation", "retirement", "thank_you"], gift=0.9),
 ]
 
+# Keywords of the languages added from app/i18n/<lang>.json join the rule they name.
+from ..i18n import table as _i18n_table  # noqa: E402
+
+_BY_ID = {r["id"]: r for r in RULES}
+for _lang, _rules in _i18n_table("rules").items():
+    for _rid, _words in _rules.items():
+        if _rid in _BY_ID:
+            _new = R(_rid, [w for w in _words if w and w.strip("*").strip()])["patterns"]
+            _BY_ID[_rid]["patterns"] += [p for p in _new if p.strip("*") and p not in _BY_ID[_rid]["patterns"]]
+
 # Umbrella category names that would trigger the wrong hobby rule ("Home & Garden" is not
 # gardening, it is where soap dispensers live). Removed from the text before matching.
 NEUTRAL = [normalize(x) for x in ("home & garden", "haus & garten", "home and garden", "home, garden", "garden & outdoor")]
@@ -194,11 +221,12 @@ def match_rules(strong_text):
         ok = False
         for pat, mode in pats:
             if mode == "prefix":
-                if pat and any(t.startswith(pat) for t in toks):
+                # "wood screw*": a phrase whose last word may continue
+                if pat and (f" {pat}" in padded if " " in pat else any(t.startswith(pat) for t in toks)):
                     ok = True
                     break
             elif mode == "suffix":
-                if any(t.endswith(pat) for t in toks):
+                if pat and (f"{pat} " in padded if " " in pat else any(t.endswith(pat) for t in toks)):
                     ok = True
                     break
             elif f" {pat} " in padded:

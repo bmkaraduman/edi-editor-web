@@ -40,22 +40,56 @@ def mothers_day(year, cc):
         if d == easter(year) + dt.timedelta(days=49):   # ... unless that is Pentecost
             d += dt.timedelta(days=7)
         return d
-    return _nth_weekday(year, 5, 6, 2)            # US, DE, TR, NL: second Sunday of May
+    if cc in ("GB", "IE"):
+        return easter(year) - dt.timedelta(days=21)   # Mothering Sunday, 4th Sunday of Lent
+    if cc == "PL":
+        return dt.date(year, 5, 26)
+    if cc in ("ES", "RO"):
+        return _nth_weekday(year, 5, 6, 1)        # first Sunday of May
+    if cc == "SE":
+        return _nth_weekday(year, 5, 6, -1)       # last Sunday of May
+    return _nth_weekday(year, 5, 6, 2)            # second Sunday of May (US, DE, NL, IT, AT, CH, BE, FI, DK, CA, AU, BR, TR)
 
 
 def fathers_day(year, cc):
     if cc == "DE":
         return easter(year) + dt.timedelta(days=39)   # Ascension Day (Thursday)
-    return _nth_weekday(year, 6, 6, 3)            # third Sunday of June
+    if cc in ("IT", "ES"):
+        return dt.date(year, 3, 19)               # San Giuseppe / San José
+    if cc == "PL":
+        return dt.date(year, 6, 23)
+    if cc == "DK":
+        return dt.date(year, 6, 5)                # Constitution Day
+    if cc in ("AT", "BE"):
+        return _nth_weekday(year, 6, 6, 2)        # second Sunday of June
+    if cc == "CH":
+        return _nth_weekday(year, 6, 6, 1)        # first Sunday of June
+    if cc in ("SE", "FI"):
+        return _nth_weekday(year, 11, 6, 2)       # second Sunday of November
+    if cc == "BR":
+        return _nth_weekday(year, 8, 6, 2)        # second Sunday of August
+    if cc == "AU":
+        return _nth_weekday(year, 9, 6, 1)        # first Sunday of September
+    if cc == "RO":
+        return _nth_weekday(year, 5, 6, 2)        # second Sunday of May
+    return _nth_weekday(year, 6, 6, 3)            # third Sunday of June (US, GB, IE, CA, NL, FR, TR)
 
 
 def christmas(year, cc):
     if cc == "NL":                                # Sinterklaas (5 Dec) is the big gift day, Kerst follows
         return [dt.date(year, 12, 5), dt.date(year, 12, 24)]
-    return dt.date(year, 12, 24) if cc in ("DE", "FR", "TR") else dt.date(year, 12, 25)
+    if cc == "BE":                                # Sint-Niklaas on 6 Dec
+        return [dt.date(year, 12, 6), dt.date(year, 12, 24)]
+    if cc == "ES":                                # Reyes Magos (6 Jan) after Navidad
+        return [dt.date(year, 1, 6), dt.date(year, 12, 25)]
+    if cc in ("DE", "AT", "CH", "FR", "TR", "PL", "SE", "FI", "DK", "BR"):
+        return dt.date(year, 12, 24)              # gifts on Christmas Eve
+    return dt.date(year, 12, 25)
 
 
 def valentines(year, cc):
+    if cc == "BR":
+        return dt.date(year, 6, 12)               # Dia dos Namorados
     return dt.date(year, 2, 14)
 
 

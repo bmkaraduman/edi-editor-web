@@ -11,7 +11,9 @@ const I18N = {
   nl: { hero: "Voor wie zoek je een cadeau?", sub: "Kies voor wie het is, de gelegenheid en de persoonlijkheid. De text-mining engine leest productbeschrijvingen van Nederlandse winkels en zet wat past bovenaan.", any: "Maakt niet uit", budget: "Budget", go: "Cadeaus zoeken", sort: "Sorteren", relevance: "Beste match", price_asc: "Prijs: laag naar hoog", price_desc: "Prijs: hoog naar laag", title: "Cadeau-ideeën", found: "{n} producten", view: "Bekijk", empty: "Niets past bij deze zoekopdracht. Probeer een ander budget of minder criteria.", more: "Meer producten tonen", match: "{n}% match", pick: "Kies er maximaal 3", over: "{a} en meer", upto: "tot {b}", disclosure: "Links op deze site zijn affiliate links: koop je iets, dan ontvangen wij mogelijk een kleine commissie zonder extra kosten voor jou. Prijzen en voorraad zijn die van de winkel op het moment van je bezoek.", demo: "<b>Demo-catalogus.</b> Voorbeeldproducten totdat de winkelfeeds zijn gekoppeld; links openen de zoekpagina van de winkel.", back: "← Terug naar de cadeauzoeker", shop: "Bekijk bij {shop} →", similar: "Vergelijkbare cadeau-ideeën", fits: "Past bij", details: "Details", keywords: "Trefwoorden", brand: "Merk", category: "Categorie", was: "was {p}", pictures: "{n} foto's", colour: "Kleur", condition: "Staat", model: "Model", dimensions: "Afmetingen", specifications: "Materiaal / specificaties", delivery_cost: "Verzending", promotion: "Actie", notfound: "Dit product staat niet meer in de catalogus.", gender: "Voor", age: "Leeftijd", occasion: "Gelegenheid", personality: "Persoonlijkheid", loading: "Laden…", up_title: "Cadeaus voor {occ}", up_days: "{occ} is over {n} dagen ({date})", up_today: "{occ} is vandaag!", up_all: "Alle cadeaus voor {occ} →", settings: "Instellingen", country: "Land", cookies: "Cookie-instellingen", done: "Klaar" },
   fr: { hero: "Pour qui cherchez-vous un cadeau ?", sub: "Choisissez pour qui, l'occasion et la personnalité. Le moteur de text mining lit les descriptions de produits de boutiques françaises et classe ce qui convient.", any: "Peu importe", budget: "Budget", go: "Trouver des cadeaux", sort: "Trier", relevance: "Pertinence", price_asc: "Prix croissant", price_desc: "Prix décroissant", title: "Idées cadeaux", found: "{n} produits", view: "Voir", empty: "Rien ne correspond à cette recherche. Essayez un autre budget ou moins de critères.", more: "Voir plus de produits", match: "{n} % compatible", pick: "Choisissez-en 3 maximum", over: "{a} et plus", upto: "jusqu'à {b}", disclosure: "Les liens de ce site sont des liens affiliés : si vous achetez, nous pouvons toucher une petite commission sans surcoût pour vous. Prix et disponibilité sont ceux de la boutique au moment de votre visite.", demo: "<b>Catalogue de démonstration.</b> Fiches exemples en attendant les flux des boutiques ; les liens ouvrent la page de recherche de la boutique.", back: "← Retour à la recherche de cadeaux", shop: "Voir chez {shop} →", similar: "Idées cadeaux similaires", fits: "Convient pour", details: "Détails", keywords: "Mots-clés", brand: "Marque", category: "Catégorie", was: "au lieu de {p}", pictures: "{n} photos", colour: "Couleur", condition: "État", model: "Modèle", dimensions: "Dimensions", specifications: "Matière / caractéristiques", delivery_cost: "Livraison", promotion: "Offre", notfound: "Ce produit n'est plus dans le catalogue.", gender: "Pour", age: "Âge", occasion: "Occasion", personality: "Personnalité", loading: "Chargement…", up_title: "Cadeaux pour {occ}", up_days: "{occ} : dans {n} jours ({date})", up_today: "{occ}, c'est aujourd'hui !", up_all: "Tous les cadeaux pour {occ} →", settings: "Paramètres", country: "Pays", cookies: "Paramètres des cookies", done: "OK" },
 };
-const BUDGETS = { USD: [25, 50, 100, 200], EUR: [25, 50, 100, 200], TRY: [500, 1000, 2500, 5000] };
+Object.assign(I18N, window.I18N_EXTRA || {});      // languages added from app/i18n/*.json
+const BUDGETS = { USD: [25, 50, 100, 200], EUR: [25, 50, 100, 200], TRY: [500, 1000, 2500, 5000], GBP: [20, 40, 80, 150], CAD: [30, 60, 120, 250], AUD: [30, 70, 150, 300],
+  CHF: [25, 50, 100, 200], PLN: [100, 200, 400, 800], SEK: [250, 500, 1000, 2000], DKK: [200, 400, 750, 1500], BRL: [100, 200, 500, 1000], RON: [100, 250, 500, 1000] };
 const EXAMPLES = [
   { gender: "female", occasion: "mothers_day", personality: ["wellness"] },
   { gender: "male", occasion: "fathers_day", personality: ["outdoor", "foodie"] },
@@ -29,7 +31,7 @@ let COUNTRIES = {};
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 function t(k, vars = {}) { let s = (I18N[state.lang] || I18N.en)[k] || I18N.en[k] || k; Object.entries(vars).forEach(([a, b]) => { s = s.replace(`{${a}}`, b); }); return s; }
-function money(n) { const c = COUNTRIES[state.country]; if (c.currency === "TRY") return `${n.toLocaleString("tr-TR")} ₺`; if (c.currency === "EUR") return `${n} €`; return `$${n}`; }
+function money(n) { const c = COUNTRIES[state.country]; try { return new Intl.NumberFormat(c.locale || state.lang, { style: "currency", currency: c.currency, maximumFractionDigits: 0 }).format(n); } catch (e) { return `${n} ${c.currency}`; } }
 function budgetRanges() { const b = BUDGETS[COUNTRIES[state.country].currency]; const r = [{ id: `0-${b[0]}`, label: t("upto", { b: money(b[0]) }) }]; for (let i = 0; i < b.length - 1; i++) r.push({ id: `${b[i]}-${b[i + 1]}`, label: `${money(b[i])} – ${money(b[i + 1])}` }); r.push({ id: `${b[b.length - 1]}-`, label: t("over", { a: money(b[b.length - 1]) }) }); return r; }
 
 /* Search bar: every field opens a panel of icon tiles. An option that clashes with what is
@@ -225,20 +227,21 @@ function renderProduct(d) {
    visitor's country), else the one the visitor picked in the settings menu, else the country
    they are visiting from (Cloudflare IP geolocation via /api/geo; neighbours without their
    own catalog map to the closest one), else their browser language, else the first one. */
-const NEAR = { AT: "DE", CH: "DE", LI: "DE", LU: "FR", MC: "FR" };
+// neighbours for visitors whose country has no catalog (yet), in order of preference
+const NEAR = { LI: ["CH", "AT", "DE"], CH: ["DE", "AT"], LU: ["BE", "FR", "DE"], BE: ["NL", "FR"], MC: ["FR"], NZ: ["AU", "GB"], PT: ["ES", "BR"],
+  NO: ["SE", "DK"], AT: ["DE"], IE: ["GB"], CA: ["US"], FI: ["SE"], DK: ["SE", "DE"], PL: ["DE"], RO: ["DE"] };
 function fetchGeo() { return fetch("/api/geo", { cache: "no-store" }).then((r) => (r.ok ? r.json() : {})).then((j) => (j.country || "").toUpperCase()).catch(() => ""); }
 function linkCountry() {
   const q = (new URLSearchParams(location.search).get("country") || "").toUpperCase();
-  return [q, NEAR[q]].find((c) => c && COUNTRIES[c]) || null;
+  return [q, ...(NEAR[q] || [])].find((c) => c && COUNTRIES[c]) || null;
 }
 async function detect(geoP) {
   const fromLink = linkCountry(); if (fromLink) return fromLink;
   try { const s = localStorage.getItem(PICKED); if (s && COUNTRIES[s]) return s; } catch (e) {}
   const lang = (navigator.language || "en").slice(0, 2).toLowerCase();
   let geo = await geoP;
-  if (geo === "BE") geo = lang === "fr" ? "FR" : "NL";
-  const byLang = { de: "DE", nl: "NL", fr: "FR", tr: "TR", en: "US" }[lang];
-  return [geo, NEAR[geo], byLang, "US"].find((c) => c && COUNTRIES[c]) || Object.keys(COUNTRIES)[0];
+  const byLang = { de: "DE", nl: "NL", fr: "FR", tr: "TR", en: "US", pl: "PL", it: "IT", es: "ES", sv: "SE", fi: "FI", pt: "BR", da: "DK", ro: "RO", nb: "SE", no: "SE" }[lang];
+  return [geo, ...(NEAR[geo] || []), byLang, "US"].find((c) => c && COUNTRIES[c]) || Object.keys(COUNTRIES)[0];
 }
 function route() { const m = location.pathname.match(/^\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
 async function init() {
