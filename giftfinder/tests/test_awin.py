@@ -100,3 +100,18 @@ def test_stand_in_pictures_count_as_no_picture(tmp_path, monkeypatch):
     monkeypatch.setenv("AWIN_FEED_ALL_US", str(feed))
     products = list(AwinSource("US").fetch(["gift"], limit=10))
     assert [(p.title, p.image) for p in products] == [("Rose candle", "https://img/2.jpg")]
+
+
+def test_one_shop_in_several_countries_gets_a_product_per_country(tmp_path, monkeypatch):
+    """The same feed row sold in two new countries must not overwrite itself; older countries keep their ids."""
+    row = {"aw_deep_link": "https://awin1.com/w", "product_name": "Cadou set", "aw_product_id": "w1", "description": "gift",
+           "search_price": "30", "merchant_name": "WAU", "merchant_id": "777", "currency": "EUR", "merchant_image_url": "https://img/w.jpg"}
+    feed = tmp_path / "w.csv.gz"
+    write_feed(feed, [row])
+    ids = {}
+    for cc in ("RO", "PL", "NL"):
+        monkeypatch.setenv(f"AWIN_FEED_ALL_{cc}", str(feed))
+        ids[cc] = [p.id for p in AwinSource(cc).fetch(["gift"], limit=5)][0]
+    assert len(set(ids.values())) == 3
+    from app.sources.base import Product
+    assert ids["NL"] == Product.make_id("awin_777", "w1")

@@ -15,15 +15,32 @@ text mining ile çalışır.
 | 🇳🇱 NL | nl | EUR | bol.com (Partnerprogramma), Amazon.nl, Coolblue / Etsy (Awin), Wehkamp (Daisycon) |
 | 🇫🇷 FR | fr | EUR | Amazon.fr (Partenaires), Fnac, Cdiscount, Etsy, Nature & Découvertes (Awin) |
 
-Sitede **DE, NL, FR, US** açık (`ACTIVE_COUNTRIES=DE,NL,FR,US`). Bu ülkelerin ürünleri
-Awin feed'lerinden gelir (Ankashop yayıncı hesabı, tanıtım alanı giftdetect.com; DE 23,
-NL 20, FR 12, US 43 programa katılındı). TR config'de durur: Awin'de Türkiye
-reklamvereni yok, Trendyol/Gelirortakları feed'i gelince açılır.
+Sitede **19 ülke** açık (`ACTIVE_COUNTRIES`): DE, NL, FR, US ile birlikte GB, IE, CA, AU,
+AT, CH, BE, PL, IT, ES, SE, FI, DK, BR, RO. Ürünler Awin feed'lerinden gelir (Ankashop yayıncı
+hesabı, tanıtım alanı giftdetect.com). Awin'de yalnızca tek mağazası olan ülkeler (CZ, BG, UA,
+SA, JP, KR, VN, KG, AD, PT) ve TR açılmadı; mağaza sayısı artınca listeye eklenir.
+
+| Dil | Ülkeler | Para |
+|-----|---------|------|
+| en | US, GB, IE, CA, AU | USD, GBP, EUR, CAD, AUD |
+| de | DE, AT, CH | EUR, CHF |
+| nl / fr | NL, BE / FR | EUR |
+| pl, it, es, sv, fi, da, pt, ro | PL, IT, ES, SE, FI, DK, BR, RO | PLN, EUR, SEK, DKK, BRL, RON |
+
+İlk beş dil (en, de, tr, nl, fr) koddaki tablolarda durur. Sonradan eklenen diller
+`app/i18n/<dil>.json` dosyalarındadır: arayüz metinleri, çerez metni, filtre etiketleri,
+sözlük (lexicon), stopword'ler, "hediye" kelimesi, sentetik eğitim şablonları ve kural
+kelimeleri tek dosyada; yükleyici (`app/i18n/__init__.py`) bunları taxonomy, preprocess,
+augment, rules ve web arayüzüne (export sırasında `window.I18N_EXTRA`) ekler. Yeni dil =
+yeni dosya. Fiyat biçimi ülkeye göre (`config.PRICE_STYLE`, tarayıcıda `Intl.NumberFormat`),
+özel günler ülkeye göre (`app/occasions.py`: Mothering Sunday, San Giuseppe, Reyes Magos,
+Sint-Niklaas, Dia dos Namorados, İsveç/Finlandiya Kasım Babalar Günü ...).
 
 Ziyaretçinin ülkesi otomatik açılır: önce ayarlar menüsünde (sağ üstteki 🌐 düğmesi)
 kendi seçtiği ülke, yoksa girdiği ülke (Cloudflare IP konumu, `GET /api/geo`;
-`functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; AT/CH → DE,
-LU → FR, BE → tarayıcı diline göre NL/FR), yoksa tarayıcı dili, yoksa US.
+`functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; katalog
+olmayan komşular en yakına: LI → CH, LU → BE, MC → FR, NZ → AU, PT → ES, NO → SE), yoksa
+tarayıcı dili, yoksa US.
 
 ## Hızlı başlangıç
 
@@ -32,7 +49,7 @@ cd giftfinder
 python3 -m venv .venv && source .venv/bin/activate   # bağımlılıklar .venv'de; her yeni kabukta activate
 ./setup.sh                      # bağımlılıklar + seed katalog + model eğitimi
 uvicorn app.main:app --reload   # http://127.0.0.1:8000
-python3 -m pytest tests         # 26 test
+python3 -m pytest tests         # 29 test
 ```
 
 `.venv` etkin değilse komutları `.venv/bin/python …` ile çalıştır.
@@ -106,8 +123,10 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
   olmayan bir aralıktaysa (`app/sources/awin.py: NOT_GIFT_CATEGORIES`: ofis malzemesi,
   kablo, yazıcı, bilgisayar parçası, mobilya, bahçe aleti, vitamin ...) ya da başlık /
   kategori / anahtar kelimeleri bir "hediye değil" kuralına takılırsa (vida, musluk,
-  inşaat malzemesi, yedek parça, tıbbi ölçüm, temizlik, ofis mobilyası, IT parçası;
-  DE/NL/FR/EN/TR, `app/data/rules.py`) ürün ingest'te atlanır. Create-a-Feed, reklamveren
+  inşaat malzemesi, yedek parça, yedek başlık / düze, tıbbi ölçüm, eczane ürünü (tablet,
+  takviye), temizlik, ofis mobilyası, IT parçası; tüm site dillerinde, `app/data/rules.py`
+  ve `app/i18n/*.json`) ürün ingest'te atlanır. Kural kelimesi boşluklu ve yıldızlı olabilir
+  ("wood screw*" = "wood screws" da). Create-a-Feed, reklamveren
   seçilince kategori filtresini yok saydığı için eleme bizde yapılır. `veto` kuralları
   güçlü hediye kurallarını da ezer ("Kitchen faucet" mutfak hediyesi değildir).
 * **Hediyelik puanı.** Kurallardan gelen 0-1 arası puan sıralamayı çarpar; 0.15 altı
@@ -142,7 +161,10 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
      (gzip desteklenir); yüz binlerce satırlık birleşik feed'lerde her reklamverenden en
      fazla `INGEST_LIMIT` (varsayılan 500) ürün rastgele örneklenir, metninde
      "Geschenk/gift/cadeau/hediye" geçenler önceliklidir. Böylece katalog tek bir
-     ofis-malzemesi mağazasıyla dolmaz.
+     ofis-malzemesi mağazasıyla dolmaz. Çok mağazalı ülkelerde limit düşürülür (US 60, GB 120,
+     DE 270), çünkü tarayıcı ülkenin `items-<CC>.json` dosyasını bütün olarak indirir.
+     Aynı reklamveren birden çok ülkede satabildiği için yeni ülkelerde ürün kimliğine
+     ülke de girer (`awin.py: external_id`); DE/NL/FR/US/TR eski kimliklerini korur.
    * **CSV / Google Shopping feed**: `feeds/<CC>/<merchant_id>.csv` (ör.
      `feeds/TR/trendyol.csv`, `feeds/NL/bol.csv`). Sütun adları gevşek eşlenir
      (title/name/ürün adı, description/açıklama, price/fiyat, link, image).
@@ -165,7 +187,7 @@ puanı, mağaza kotası, yaklaşan gün şeridi, `/p/{id}` ürün sayfaları `_r
 
 ```bash
 python3 scripts/ingest.py DE && python3 -m app.ml.train   # yeni feed sonrası
-python3 scripts/export_static.py dist                      # dist/: index.html, data.json, _redirects, sitemap.xml
+python3 scripts/export_static.py dist                      # dist/: index.html, data.json, items-<CC>.json, _redirects, sitemap.xml (ülke başına sitemap-<cc>.xml dizini)
 npx wrangler@4 pages deploy dist --project-name giftdetect --branch main   # giftfinder/ içinden: functions/ da yüklenir
 ```
 

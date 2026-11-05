@@ -24,6 +24,11 @@ TITLE_PREFIX = {
 }
 
 
+from ..i18n import table as _i18n_table  # noqa: E402
+
+for _lang, _a in _i18n_table("augment").items():
+    TEMPLATES[_lang], NOISE[_lang], TITLE_PREFIX[_lang] = _a["templates"], _a["noise"], _a["title_prefix"]
+
 def augment(rng, concept, lang, cue_labels=None):
     """Return (title, description) with label-bearing phrases appended.
     `cue_labels` are extra labels (not in the concept) whose phrases are also

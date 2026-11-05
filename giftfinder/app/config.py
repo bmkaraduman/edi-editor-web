@@ -31,22 +31,40 @@ def _load_dotenv():
 
 _load_dotenv()
 
+from .i18n import GIFT_WORDS as _I18N_GIFT_WORDS  # noqa: E402  (languages added from app/i18n/*.json)
+
 # "gift" in every site language; used to prefer gift-like rows when sampling feeds and mixing the home page
 GIFT_WORDS = {"en": ["gift"], "de": ["geschenk"], "tr": ["hediye"], "nl": ["cadeau", "geschenk"], "fr": ["cadeau"]}
+GIFT_WORDS.update(_I18N_GIFT_WORDS)
 
 # Google Analytics 4 measurement id of the giftdetect.com web stream (empty disables analytics).
 GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "G-XN9SC9S3K2")
 
 # Countries shown on the site. The others keep their config (merchants, lexicon, seeds)
 # and come back by listing them here or in ACTIVE_COUNTRIES=US,DE,TR.
-ACTIVE_COUNTRIES = [c.strip().upper() for c in os.environ.get("ACTIVE_COUNTRIES", "DE,NL,FR,US").split(",") if c.strip()]
+ACTIVE_COUNTRIES = [c.strip().upper() for c in os.environ.get("ACTIVE_COUNTRIES", "DE,NL,FR,US,GB,IE,CA,AU,AT,CH,BE,PL,IT,ES,SE,FI,DK,BR,RO").split(",") if c.strip()]
 
 COUNTRIES = {
-    "US": {"name": "United States", "lang": "en", "currency": "USD", "symbol": "$", "flag": "🇺🇸", "usd_rate": 1.0},
-    "DE": {"name": "Deutschland", "lang": "de", "currency": "EUR", "symbol": "€", "flag": "🇩🇪", "usd_rate": 0.92},
-    "TR": {"name": "Türkiye", "lang": "tr", "currency": "TRY", "symbol": "₺", "flag": "🇹🇷", "usd_rate": 41.0},
-    "NL": {"name": "Nederland", "lang": "nl", "currency": "EUR", "symbol": "€", "flag": "🇳🇱", "usd_rate": 0.92},
-    "FR": {"name": "France", "lang": "fr", "currency": "EUR", "symbol": "€", "flag": "🇫🇷", "usd_rate": 0.92},
+    "US": {"name": "United States", "lang": "en", "currency": "USD", "symbol": "$", "flag": "🇺🇸", "usd_rate": 1.0, "locale": "en-US"},
+    "DE": {"name": "Deutschland", "lang": "de", "currency": "EUR", "symbol": "€", "flag": "🇩🇪", "usd_rate": 0.92, "locale": "de-DE"},
+    "TR": {"name": "Türkiye", "lang": "tr", "currency": "TRY", "symbol": "₺", "flag": "🇹🇷", "usd_rate": 41.0, "locale": "tr-TR"},
+    "NL": {"name": "Nederland", "lang": "nl", "currency": "EUR", "symbol": "€", "flag": "🇳🇱", "usd_rate": 0.92, "locale": "nl-NL"},
+    "FR": {"name": "France", "lang": "fr", "currency": "EUR", "symbol": "€", "flag": "🇫🇷", "usd_rate": 0.92, "locale": "fr-FR"},
+    "GB": {"name": "United Kingdom", "lang": "en", "currency": "GBP", "symbol": "£", "flag": "🇬🇧", "usd_rate": 0.79, "locale": "en-GB"},
+    "IE": {"name": "Ireland", "lang": "en", "currency": "EUR", "symbol": "€", "flag": "🇮🇪", "usd_rate": 0.92, "locale": "en-IE"},
+    "CA": {"name": "Canada", "lang": "en", "currency": "CAD", "symbol": "CA$", "flag": "🇨🇦", "usd_rate": 1.37, "locale": "en-CA"},
+    "AU": {"name": "Australia", "lang": "en", "currency": "AUD", "symbol": "A$", "flag": "🇦🇺", "usd_rate": 1.52, "locale": "en-AU"},
+    "AT": {"name": "Österreich", "lang": "de", "currency": "EUR", "symbol": "€", "flag": "🇦🇹", "usd_rate": 0.92, "locale": "de-AT"},
+    "CH": {"name": "Schweiz", "lang": "de", "currency": "CHF", "symbol": "CHF", "flag": "🇨🇭", "usd_rate": 0.88, "locale": "de-CH"},
+    "BE": {"name": "België", "lang": "nl", "currency": "EUR", "symbol": "€", "flag": "🇧🇪", "usd_rate": 0.92, "locale": "nl-BE"},
+    "PL": {"name": "Polska", "lang": "pl", "currency": "PLN", "symbol": "zł", "flag": "🇵🇱", "usd_rate": 3.9, "locale": "pl-PL"},
+    "IT": {"name": "Italia", "lang": "it", "currency": "EUR", "symbol": "€", "flag": "🇮🇹", "usd_rate": 0.92, "locale": "it-IT"},
+    "ES": {"name": "España", "lang": "es", "currency": "EUR", "symbol": "€", "flag": "🇪🇸", "usd_rate": 0.92, "locale": "es-ES"},
+    "SE": {"name": "Sverige", "lang": "sv", "currency": "SEK", "symbol": "kr", "flag": "🇸🇪", "usd_rate": 10.5, "locale": "sv-SE"},
+    "FI": {"name": "Suomi", "lang": "fi", "currency": "EUR", "symbol": "€", "flag": "🇫🇮", "usd_rate": 0.92, "locale": "fi-FI"},
+    "DK": {"name": "Danmark", "lang": "da", "currency": "DKK", "symbol": "kr.", "flag": "🇩🇰", "usd_rate": 6.9, "locale": "da-DK"},
+    "BR": {"name": "Brasil", "lang": "pt", "currency": "BRL", "symbol": "R$", "flag": "🇧🇷", "usd_rate": 5.4, "locale": "pt-BR"},
+    "RO": {"name": "România", "lang": "ro", "currency": "RON", "symbol": "lei", "flag": "🇷🇴", "usd_rate": 4.6, "locale": "ro-RO"},
 }
 
 
@@ -130,6 +148,9 @@ MERCHANTS = {
     ],
 }
 
+# Countries served only by combined feeds have no hand-listed merchants.
+for _cc in COUNTRIES:
+    MERCHANTS.setdefault(_cc, [])
 MERCHANT_BY_ID = {m["id"]: dict(m, country=cc) for cc, ms in MERCHANTS.items() for m in ms}
 
 
@@ -153,10 +174,19 @@ def affiliate_link(merchant_id, product_url=None, query=None):
     return net["click"].format(raw_url=raw, url=quote_plus(raw), sep=sep, **params)
 
 
+# How each country writes a price: (symbol before?, decimal separator, thousands separator, decimals)
+PRICE_STYLE = {"US": (1, ".", ",", 2), "GB": (1, ".", ",", 2), "IE": (1, ".", ",", 2), "CA": (1, ".", ",", 2), "AU": (1, ".", ",", 2),
+               "CH": (1, ".", "'", 2), "BR": (1, ",", ".", 2), "TR": (0, ",", ".", 0)}
+
+
 def format_price(amount, country):
+    """12.5 -> "12,50 €" / "£12.50" / "R$ 12,50" / "CHF 12.50", as the country writes it."""
     c = COUNTRIES[country]
-    if c["currency"] == "TRY":
-        return f"{amount:,.0f} {c['symbol']}".replace(",", ".")
-    if c["currency"] == "EUR":
-        return f"{amount:,.2f} {c['symbol']}".replace(",", "X").replace(".", ",").replace("X", ".")
-    return f"{c['symbol']}{amount:,.2f}"
+    before, dec, thou, digits = PRICE_STYLE.get(country, (0, ",", ".", 2))
+    num = f"{amount:,.{digits}f}".replace(",", "X").replace(".", dec).replace("X", thou)
+    if thou == "." and country in ("PL", "SE", "FI", "DK", "RO", "FR"):   # these group with a space
+        num = num.replace(".", " ") if dec == "," else num
+    sym = c["symbol"]
+    if before:
+        return f"{sym} {num}" if sym.isalpha() or sym == "R$" else f"{sym}{num}"
+    return f"{num} {sym}"

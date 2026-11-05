@@ -61,6 +61,16 @@ NOT_GIFT_CATEGORIES = {
 }
 
 
+# Countries whose product ids (and /p/<id> pages) predate multi-country shops; they keep the
+# plain id. Elsewhere the country is part of the id, because one advertiser can sell the same
+# product in several countries (WAU: CA, PL, FI, RO, DK) and each country needs its own copy.
+PLAIN_ID_COUNTRIES = {"DE", "NL", "FR", "US", "TR"}
+
+
+def external_id(country, row_id):
+    return row_id if country in PLAIN_ID_COUNTRIES else f"{country}:{row_id}"
+
+
 def is_gift(product):
     """False when a "not a present" rule decides the product (gift prior below GIFT_FLOOR)."""
     strong = strong_text(product.title, product.keywords, product.category, product.category_path, product.product_type, product.brand)
@@ -172,7 +182,7 @@ class AwinSource(Source):
                     ("short_description", "product_short_description"))}
                 details = {k: v[:400] for k, v in details.items() if v}
                 product = Product(
-                    id=Product.make_id(merchant_id, pick(row, "aw_product_id", "merchant_product_id", "id")),
+                    id=Product.make_id(merchant_id, external_id(self.country, pick(row, "aw_product_id", "merchant_product_id", "id"))),
                     country=self.country, lang=cinfo["lang"], merchant_id=merchant_id, title=title,
                     description=desc[:MAX_DESCRIPTION], price=price, currency=pick(row, "currency") or cinfo["currency"],
                     url=pick(row, "aw_deep_link", "link", "merchant_deep_link"), image=image,

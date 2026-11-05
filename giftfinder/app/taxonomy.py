@@ -377,6 +377,22 @@ FACET_TITLES = {
 }
 
 
+# Languages added from app/i18n/<lang>.json (pl, it, es, sv, fi, pt, da, ro ...).
+from .i18n import LANGS as _ADDED  # noqa: E402
+
+for _lang, _d in _ADDED.items():
+    if _lang not in LANGS:
+        LANGS.append(_lang)
+    for _l, _ws in _d.get("lexicon", {}).items():
+        if _l in LEXICON:
+            LEXICON[_l][_lang] = [w.strip("*").strip().lower() for w in _ws if w.strip("*").strip()]
+    for _l, _t in _d.get("ui_labels", {}).items():
+        if _l in UI_LABELS:
+            UI_LABELS[_l][_lang] = _t
+    for _f, _t in _d.get("facet_titles", {}).items():
+        if _f in FACET_TITLES:
+            FACET_TITLES[_f][_lang] = _t
+
 def all_labels():
     return [label for labels in FACETS.values() for label in labels]
 

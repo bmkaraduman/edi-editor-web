@@ -70,7 +70,7 @@ def synthetic_docs(n_per_lang=6, seed=3):
     rng = random.Random(seed)
     docs = []
     for concept in CONCEPTS:
-        for cinfo in COUNTRIES.values():
+        for lang in sorted({c["lang"] for c in COUNTRIES.values()} & set(concept["text"])):   # once per language
             for _ in range(n_per_lang):
                 # cue-consistent noise: add a foreign occasion/personality phrase
                 # and its label, so explicit cues override product-type priors
@@ -80,7 +80,7 @@ def synthetic_docs(n_per_lang=6, seed=3):
                     l = rng.choice([x for x in FACETS["occasion"] if x not in occ]); occ.append(l); cues.append(l)
                 if rng.random() < 0.35:
                     l = rng.choice([x for x in FACETS["personality"] if x not in per]); per.append(l); cues.append(l)
-                title, desc = augment(rng, concept, cinfo["lang"], cue_labels=cues)
+                title, desc = augment(rng, concept, lang, cue_labels=cues)
                 docs.append({"concept_id": concept["id"], "title": title, "description": desc,
                              "labels": {"gender": [concept["gender"]], "age": concept["age"],
                                         "occasion": occ, "personality": per}})

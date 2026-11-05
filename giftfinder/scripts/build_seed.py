@@ -32,6 +32,8 @@ def main(variants_per_country=5, seed=1):
         lo, hi = concept["price_usd"]
         for cc, cinfo in COUNTRIES.items():
             lang = cinfo["lang"]
+            if lang not in concept["text"]:          # added languages have no hand-written concept text
+                continue
             pool = [m for m in MERCHANTS[cc] if not m.get("fit") or set(m["fit"]) & set(concept["personality"])]
             merchants = rng.sample(pool, k=min(variants_per_country, len(pool)))
             for m in merchants:
