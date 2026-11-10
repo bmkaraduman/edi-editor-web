@@ -26,8 +26,9 @@ import random
 
 from ..config import COUNTRIES
 from ..data.concepts import CONCEPTS
-from ..taxonomy import FACETS, all_labels
+from ..taxonomy import FACETS, SINGLE_LABEL, all_labels
 from .augment import augment
+from .labeling import rule_category
 from .preprocess import doc_text, product_doc
 from .weak_labels import lexicon_scores
 
@@ -83,7 +84,7 @@ def synthetic_docs(n_per_lang=6, seed=3):
                 title, desc = augment(rng, concept, lang, cue_labels=cues)
                 docs.append({"concept_id": concept["id"], "title": title, "description": desc,
                              "labels": {"gender": [concept["gender"]], "age": concept["age"],
-                                        "occasion": occ, "personality": per}})
+                                        "occasion": occ, "personality": per, "category": [concept["category"]]}})
     return docs
 
 
@@ -102,6 +103,11 @@ def train(catalog_path=None, out_dir=MODELS, test_size=0.2, seed=42, max_feed_do
     rng = random.Random(seed)
     rng.shuffle(rule_docs)
     rule_docs = rule_docs[:max_feed_docs]
+    for p in rule_docs:      # rows ingested before the category facet get it from the rules
+        if not p["labels"].get("category"):
+            cat = rule_category(p)
+            if cat:
+                p["labels"] = dict(p["labels"], category=[cat])
     labelled += rule_docs
     print(f"{len(labelled)} docs after adding {len(rule_docs)} rule-labelled feed products")
 
@@ -126,17 +132,23 @@ def train(catalog_path=None, out_dir=MODELS, test_size=0.2, seed=42, max_feed_do
         Y = mlb.fit_transform([labelled[i]["labels"].get(facet, []) for i in range(len(labelled))])
         clf = OneVsRestClassifier(LogisticRegression(C=8.0, max_iter=3000, class_weight="balanced"), n_jobs=-1)
         t0 = time.time()
-        clf.fit(X_tr, Y[tr_idx])
-        P = clf.predict_proba(X_te)
+        # a single-label facet learns only from rows that carry a label: a feed row without
+        # a category is unknown, not "none of them"
+        known = Y.sum(1) > 0 if facet in SINGLE_LABEL else np.ones(len(Y), dtype=bool)
+        tr_f = [i for i in tr_idx if known[i]]
+        te_f = [i for i in te_idx if known[i]]
+        clf.fit(X_tr[[k for k, i in enumerate(tr_idx) if known[i]]], Y[tr_f])
+        P = clf.predict_proba(X_te[[k for k, i in enumerate(te_idx) if known[i]]])
+        te_idx_f = te_f
         pred = (P >= THRESHOLD).astype(int)
-        if facet == "gender":
+        if facet in SINGLE_LABEL:
             pred = np.zeros_like(P, dtype=int)
             pred[np.arange(len(P)), P.argmax(1)] = 1
         rep = {
-            "micro_f1": round(f1_score(Y[te_idx], pred, average="micro", zero_division=0), 3),
-            "macro_f1": round(f1_score(Y[te_idx], pred, average="macro", zero_division=0), 3),
-            "precision": round(precision_score(Y[te_idx], pred, average="micro", zero_division=0), 3),
-            "recall": round(recall_score(Y[te_idx], pred, average="micro", zero_division=0), 3),
+            "micro_f1": round(f1_score(Y[te_idx_f], pred, average="micro", zero_division=0), 3),
+            "macro_f1": round(f1_score(Y[te_idx_f], pred, average="macro", zero_division=0), 3),
+            "precision": round(precision_score(Y[te_idx_f], pred, average="micro", zero_division=0), 3),
+            "recall": round(recall_score(Y[te_idx_f], pred, average="micro", zero_division=0), 3),
             "seconds": round(time.time() - t0, 1),
         }
         report[facet] = rep
@@ -151,7 +163,8 @@ def train(catalog_path=None, out_dir=MODELS, test_size=0.2, seed=42, max_feed_do
         mlb = MultiLabelBinarizer(classes=labels)
         Y = mlb.fit_transform([p["labels"].get(facet, []) for p in labelled])
         clf = OneVsRestClassifier(LogisticRegression(C=8.0, max_iter=3000, class_weight="balanced"), n_jobs=-1)
-        clf.fit(X_all, Y)
+        known = np.where(Y.sum(1) > 0)[0] if facet in SINGLE_LABEL else np.arange(len(Y))
+        clf.fit(X_all[known], Y[known])
         final[facet] = {"classes": labels, "clf": clf}
 
     os.makedirs(out_dir, exist_ok=True)

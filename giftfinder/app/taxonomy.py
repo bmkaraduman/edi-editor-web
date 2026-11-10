@@ -1,6 +1,6 @@
 """Facet taxonomy and multilingual lexicons.
 
-Every product is described along four facets. The lexicons below serve three
+Every product is described along five facets (the fifth, category, is added below). The lexicons below serve three
 purposes: (1) weak labelling of raw affiliate-feed items that come without
 labels, (2) query expansion when the visitor only picks filters and types no
 free text, and (3) the UI labels for each supported language.
@@ -375,6 +375,156 @@ FACET_TITLES = {
     "occasion": {"en": "Occasion", "de": "Anlass", "tr": "Özel gün", "nl": "Gelegenheid", "fr": "Occasion"},
     "personality": {"en": "Personality", "de": "Persönlichkeit", "tr": "Karakter", "nl": "Persoonlijkheid", "fr": "Personnalité"},
 }
+
+
+# --------------------------------------------------------------------------
+# Product category facet (advanced search). One category per product; in search it is a
+# hard filter ("only furniture"). Feed products get it from the rules in app/data/rules.py,
+# the classifier fills in the rest. The lexicon below feeds the classifier and the
+# synthetic training text only, so it avoids words that mean something else in
+# another language ("thé", "pull", "bank", "pot").
+# --------------------------------------------------------------------------
+FACETS["category"] = [
+    "perfume", "flowers", "clothing", "jewelry", "beauty", "electronics", "games", "toys",
+    "furniture", "home", "kitchen", "food", "books", "hobby", "sports", "travel",
+    "automotive", "garden", "pets", "experience",
+]
+SINGLE_LABEL.add("category")
+FACET_TITLES["category"] = {"en": "Category", "de": "Kategorie", "tr": "Kategori", "nl": "Categorie", "fr": "Catégorie"}
+
+_CAT = {
+    # id: (ui labels en,de,tr,nl,fr), then lexicon per language
+    "perfume": (("Perfume", "Parfum", "Parfüm", "Parfum", "Parfum"),
+        ["perfume", "eau de parfum", "eau de toilette", "fragrance", "cologne", "scent"],
+        ["parfum", "parfüm", "eau de parfum", "eau de toilette", "duft", "herrenduft", "damenduft"],
+        ["parfüm", "edp", "edt", "eau de parfum", "koku", "kolonya", "esans"],
+        ["parfum", "eau de parfum", "eau de toilette", "geur", "herengeur", "damesgeur"],
+        ["parfum", "eau de parfum", "eau de toilette", "fragrance", "senteur", "cologne"]),
+    "flowers": (("Flowers", "Blumen", "Çiçek", "Bloemen", "Fleurs"),
+        ["flowers", "bouquet", "roses", "orchid", "tulips", "florist", "preserved rose"],
+        ["blumen", "blumenstrauß", "rosen", "orchidee", "tulpen", "florist"],
+        ["çiçek", "buket", "gül", "orkide", "lale", "çiçekçi", "solmayan gül", "aranjman"],
+        ["bloemen", "boeket", "rozen", "orchidee", "tulpen", "bloemist"],
+        ["fleurs", "bouquet", "roses", "orchidée", "tulipes", "fleuriste", "rose éternelle"]),
+    "clothing": (("Clothing & accessories", "Kleidung & Accessoires", "Giyim & aksesuar", "Kleding & accessoires", "Vêtements & accessoires"),
+        ["clothing", "sweater", "hoodie", "shirt", "dress", "jacket", "pajamas", "scarf", "wallet", "socks"],
+        ["kleidung", "pullover", "hoodie", "hemd", "kleid", "jacke", "pyjama", "schal", "geldbörse", "socken"],
+        ["giyim", "kazak", "sweatshirt", "gömlek", "elbise", "ceket", "pijama", "atkı", "cüzdan", "çorap"],
+        ["kleding", "trui", "hoodie", "overhemd", "jurk", "jas", "pyjama", "sjaal", "portemonnee", "sokken"],
+        ["vêtements", "chemise", "robe", "veste", "pyjama", "écharpe", "portefeuille", "chaussettes"]),
+    "jewelry": (("Jewellery & watches", "Schmuck & Uhren", "Takı & saat", "Sieraden & horloges", "Bijoux & montres"),
+        ["jewelry", "jewellery", "necklace", "bracelet", "earrings", "watch", "locket"],
+        ["schmuck", "halskette", "armband", "ohrringe", "uhr", "kettenanhänger"],
+        ["takı", "kolye", "bileklik", "küpe", "yüzük", "mücevher", "kol saati"],
+        ["sieraden", "ketting", "armband", "oorbellen", "horloge", "kettinghanger"],
+        ["bijoux", "collier", "bracelet", "boucles d'oreilles", "bague", "montre", "pendentif"]),
+    "beauty": (("Beauty & care", "Beauty & Pflege", "Kozmetik & bakım", "Beauty & verzorging", "Beauté & soins"),
+        ["skincare", "makeup", "cosmetics", "spa", "body lotion", "bath bomb", "face mask", "bath set"],
+        ["hautpflege", "make-up", "kosmetik", "spa", "bodylotion", "badebombe", "gesichtsmaske", "pflegeset"],
+        ["cilt bakımı", "makyaj", "kozmetik", "spa", "vücut losyonu", "banyo bombası", "yüz maskesi", "bakım seti"],
+        ["huidverzorging", "make-up", "cosmetica", "spa", "bodylotion", "bruisbal", "gezichtsmasker", "verzorgingsset"],
+        ["soin de la peau", "maquillage", "cosmétiques", "spa", "lait corporel", "bombe de bain", "masque visage"]),
+    "electronics": (("Electronics", "Elektronik", "Elektronik", "Elektronica", "Électronique"),
+        ["electronics", "headphones", "earbuds", "speaker", "smartwatch", "camera", "charger", "smart home"],
+        ["elektronik", "kopfhörer", "lautsprecher", "smartwatch", "kamera", "ladegerät", "smart home"],
+        ["elektronik", "kulaklık", "hoparlör", "akıllı saat", "kamera", "şarj cihazı", "akıllı ev"],
+        ["elektronica", "koptelefoon", "oordopjes", "speaker", "smartwatch", "camera", "oplader"],
+        ["électronique", "casque", "écouteurs", "enceinte", "montre connectée", "appareil photo", "chargeur"]),
+    "games": (("Games & gaming", "Spiele & Gaming", "Oyun & konsol", "Games & gaming", "Jeux & gaming"),
+        ["video game", "game console", "gamepad", "gaming", "board game", "card game", "puzzle", "playstation", "xbox", "nintendo"],
+        ["videospiel", "spielkonsole", "gamepad", "gaming", "brettspiel", "kartenspiel", "puzzle", "playstation", "xbox", "nintendo"],
+        ["video oyunu", "oyun konsolu", "oyun kolu", "gaming", "kutu oyunu", "kart oyunu", "yapboz", "playstation", "xbox", "nintendo"],
+        ["videogame", "spelcomputer", "gamepad", "gaming", "bordspel", "kaartspel", "puzzel", "playstation", "xbox", "nintendo"],
+        ["jeu vidéo", "console de jeu", "manette", "gaming", "jeu de société", "jeu de cartes", "puzzle", "playstation", "xbox", "nintendo"]),
+    "toys": (("Toys & baby", "Spielzeug & Baby", "Oyuncak & bebek", "Speelgoed & baby", "Jouets & bébé"),
+        ["toy", "toys", "plush", "building bricks", "doll", "rattle", "toy box"],
+        ["spielzeug", "plüsch", "bausteine", "puppe", "rassel", "kuscheltier"],
+        ["oyuncak", "peluş", "yapı taşı", "çıngırak", "oyuncak ayı"],
+        ["speelgoed", "knuffel", "bouwstenen", "rammelaar", "knuffeldier"],
+        ["jouet", "jouets", "peluche", "briques", "poupée", "hochet", "doudou"]),
+    "furniture": (("Furniture", "Möbel", "Mobilya", "Meubels", "Meubles"),
+        ["furniture", "sofa", "couch", "3-seater", "armchair", "coffee table", "bookshelf", "desk", "chair", "dresser"],
+        ["möbel", "sofa", "couch", "3-sitzer", "sessel", "couchtisch", "bücherregal", "schreibtisch", "stuhl", "kommode"],
+        ["mobilya", "koltuk", "kanepe", "3'lü koltuk", "üçlü koltuk", "berjer", "sehpa", "kitaplık", "çalışma masası", "sandalye", "şifonyer"],
+        ["meubels", "3-zits", "fauteuil", "salontafel", "boekenkast", "bureau", "stoel", "dressoir"],
+        ["meubles", "canapé", "3 places", "fauteuil", "table basse", "bibliothèque", "bureau", "chaise", "commode"]),
+    "home": (("Home & decor", "Wohnen & Deko", "Ev & dekorasyon", "Wonen & decoratie", "Maison & déco"),
+        ["home decor", "candle", "blanket", "cushion", "wall art", "vase", "doormat", "lamp"],
+        ["wohndeko", "kerze", "decke", "kissen", "wandbild", "druck", "rahmen", "vase", "fußmatte", "lampe"],
+        ["ev dekorasyonu", "battaniye", "yastık", "tablo", "poster", "çerçeve", "vazo", "paspas", "lamba"],
+        ["woondecoratie", "kaars", "deken", "kussen", "wanddecoratie", "poster", "lijst", "vaas", "deurmat", "lamp"],
+        ["déco maison", "bougie", "plaid", "coussin", "affiche", "cadre", "vase", "paillasson", "lampe"]),
+    "kitchen": (("Kitchen & dining", "Küche & Esszimmer", "Mutfak & sofra", "Keuken & tafelen", "Cuisine & table"),
+        ["kitchen", "cookware", "knife set", "cutting board", "mug", "coffee maker", "grill tools"],
+        ["küche", "kochgeschirr", "messerset", "schneidebrett", "gläser", "tasse", "kaffeebereiter", "grillbesteck"],
+        ["mutfak", "tencere", "bıçak seti", "kesme tahtası", "bardak", "kupa", "kahve makinesi", "mangal seti", "fincan"],
+        ["keuken", "pannen", "messenset", "snijplank", "glazen", "mok", "koffiezetter", "bbq gereedschap"],
+        ["cuisine", "ustensiles", "couteaux", "planche à découper", "mug", "cafetière", "barbecue"]),
+    "food": (("Food & drink", "Essen & Trinken", "Yiyecek & içecek", "Eten & drinken", "Gourmandises"),
+        ["chocolate", "truffles", "tea", "coffee beans", "hot sauce", "sweets", "gift basket", "gourmet"],
+        ["schokolade", "pralinen", "kaffeebohnen", "sauce", "süßigkeiten", "geschenkkorb", "feinkost"],
+        ["çikolata", "trüf", "çay", "kahve çekirdeği", "sos", "lokum", "şekerleme", "hediye sepeti", "gurme"],
+        ["chocolade", "truffels", "thee", "koffiebonen", "saus", "snoep", "cadeaumand", "delicatessen"],
+        ["chocolat", "truffes", "café en grains", "sauce", "confiseries", "panier gourmand", "épicerie fine"]),
+    "books": (("Books & reading", "Bücher & Lesen", "Kitap & okuma", "Boeken & lezen", "Livres & lecture"),
+        ["book", "books", "novel", "e-reader", "bookmark", "reading light", "crossword"],
+        ["buch", "bücher", "roman", "ebook-reader", "lesezeichen", "leselampe", "kreuzworträtsel"],
+        ["kitap", "roman", "e-kitap okuyucu", "kitap ayracı", "okuma lambası", "bulmaca"],
+        ["boek", "boeken", "roman", "e-reader", "boekenlegger", "leeslampje", "kruiswoordpuzzel"],
+        ["livre", "livres", "roman", "liseuse", "marque-page", "mots croisés"]),
+    "hobby": (("Hobby & craft", "Hobby & Basteln", "Hobi & sanat", "Hobby & creatief", "Loisirs créatifs"),
+        ["craft kit", "paint set", "sketching", "ukulele", "model kit", "diy kit", "multi-tool"],
+        ["bastelset", "malset", "zeichnen", "ukulele", "modellbausatz", "diy-set", "multitool"],
+        ["hobi seti", "boya seti", "çizim", "enstrüman", "ukulele", "maket", "kendin yap seti", "çok amaçlı alet"],
+        ["knutselset", "verfset", "tekenen", "ukelele", "modelbouw", "doe-het-zelf set", "multitool"],
+        ["kit créatif", "peinture", "dessin", "ukulélé", "maquette", "kit diy", "outil multifonction"]),
+    "sports": (("Sports & outdoor", "Sport & Outdoor", "Spor & outdoor", "Sport & outdoor", "Sport & plein air"),
+        ["fitness", "yoga mat", "running", "hiking", "camping", "backpack", "water bottle", "fishing", "massage gun"],
+        ["fitness", "yogamatte", "laufen", "wandern", "camping", "rucksack", "trinkflasche", "angeln", "massagepistole"],
+        ["fitness", "yoga matı", "koşu", "trekking", "kamp", "sırt çantası", "matara", "olta", "masaj tabancası"],
+        ["fitness", "yogamat", "hardlopen", "wandelen", "kamperen", "rugzak", "drinkfles", "vissen", "massage gun"],
+        ["fitness", "tapis de yoga", "running", "randonnée", "camping", "sac à dos", "gourde", "pêche", "pistolet de massage"]),
+    "travel": (("Travel & luggage", "Reise & Gepäck", "Seyahat & bavul", "Reizen & bagage", "Voyage & bagages"),
+        ["luggage", "suitcase", "packing cubes", "passport holder", "travel pillow", "carry-on"],
+        ["gepäck", "koffer", "packwürfel", "reisepasshülle", "reisekissen", "handgepäck"],
+        ["valiz", "bavul", "bavul düzenleyici", "pasaport kılıfı", "seyahat yastığı", "kabin boy"],
+        ["bagage", "koffer", "packing cubes", "paspoorthoes", "reiskussen", "handbagage"],
+        ["bagage", "valise", "cubes de rangement", "porte-passeport", "coussin de voyage", "cabine"]),
+    "automotive": (("Car & motor", "Auto & Motorrad", "Otomobil & araç", "Auto & motor", "Auto & moto"),
+        ["car", "car accessories", "dash cam", "car charger", "car care", "car vacuum", "phone mount", "car gift"],
+        ["autozubehör", "dashcam", "kfz-ladegerät", "autopflege", "autostaubsauger", "handyhalterung", "autofahrer"],
+        ["araba", "otomobil", "oto aksesuar", "araç kamerası", "araç şarj", "oto bakım", "oto süpürge", "telefon tutucu", "sürücü"],
+        ["auto-accessoires", "dashcam", "autolader", "autoverzorging", "autostofzuiger", "telefoonhouder", "automobilist"],
+        ["voiture", "accessoires auto", "dashcam", "chargeur voiture", "entretien auto", "aspirateur voiture", "support téléphone", "conducteur"]),
+    "garden": (("Garden & plants", "Garten & Pflanzen", "Bahçe & bitki", "Tuin & planten", "Jardin & plantes"),
+        ["garden", "planter", "seeds", "herb kit", "bonsai", "bird feeder", "garden tools"],
+        ["garten", "pflanze", "blumentopf", "samen", "kräuterset", "bonsai", "vogelhaus", "gartenwerkzeug"],
+        ["bahçe", "bitki", "saksı", "tohum", "bonsai", "kuş yemliği", "bahçe aletleri"],
+        ["tuin", "bloempot", "zaden", "kruidenset", "bonsai", "vogelvoeder", "tuingereedschap"],
+        ["jardin", "plante", "graines", "herbes", "bonsaï", "mangeoire", "outils de jardin"]),
+    "pets": (("Pets", "Haustiere", "Evcil hayvan", "Huisdieren", "Animaux"),
+        ["dog", "cat", "pet", "dog toy", "cat toy", "pet bed", "treats"],
+        ["hund", "katze", "haustier", "hundespielzeug", "katzenspielzeug", "tierbett", "leckerli"],
+        ["köpek", "kedi", "evcil hayvan", "köpek oyuncağı", "kedi oyuncağı", "kedi yatağı", "ödül maması"],
+        ["hond", "kat", "huisdier", "hondenspeelgoed", "kattenspeelgoed", "dierenmand", "snacks"],
+        ["chien", "animal", "jouet pour chien", "jouet pour chat", "panier", "friandises"]),
+    "experience": (("Experiences & gift cards", "Erlebnisse & Gutscheine", "Deneyim & hediye çeki", "Belevenissen & cadeaubonnen", "Expériences & cartes cadeaux"),
+        ["gift card", "voucher", "workshop", "subscription", "tickets"],
+        ["gutschein", "geschenkgutschein", "erlebnis", "workshop", "kurs", "abo", "tickets"],
+        ["hediye kartı", "hediye çeki", "atölye", "kurs", "abonelik", "bilet"],
+        ["cadeaukaart", "cadeaubon", "workshop", "cursus", "abonnement", "tickets"],
+        ["carte cadeau", "bon cadeau", "abonnement", "billets"]),
+}
+for _id, (_ui, _en, _de, _tr, _nl, _fr) in _CAT.items():
+    UI_LABELS[_id] = dict(zip(LANGS, _ui))
+    LEXICON[_id] = {"en": _en, "de": _de, "tr": _tr, "nl": _nl, "fr": _fr}
+
+
+# When several rules name a category, the product type wins over the material or the
+# ingredient: a "coffee table" is furniture, a "garden chair" too, a "perfume gift set
+# with candle" is perfume.
+CATEGORY_PRIORITY = ["furniture", "automotive", "flowers", "perfume", "jewelry", "games", "toys", "electronics", "books",
+                     "pets", "travel", "garden", "sports", "hobby", "kitchen", "clothing", "beauty", "home", "food", "experience"]
 
 
 # Languages added from app/i18n/<lang>.json (pl, it, es, sv, fi, pt, da, ro ...).

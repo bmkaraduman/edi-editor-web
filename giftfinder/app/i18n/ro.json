@@ -51,7 +51,11 @@
   "settings": "Setări",
   "country": "Țară",
   "cookies": "Setări cookie",
-  "done": "Gata"
+  "done": "Gata",
+  "adv": "Căutare avansată",
+  "advTitle": "Caută într-o categorie",
+  "advSub": "Sunt afișate doar cadourile din categoriile alese. Lasă gol pentru a căuta peste tot.",
+  "clear": "Șterge"
  },
  "consent": [
   "Folosim Google Analytics ca să aflăm ce idei de cadouri plac. Datele sunt anonimizate; nu folosim cookie-uri de publicitate.",
@@ -97,13 +101,34 @@
   "gardener": "Grădinar",
   "pet_lover": "Iubitor de animale",
   "wellness": "Wellness",
-  "maker": "Meșter / DIY"
+  "maker": "Meșter / DIY",
+  "perfume": "Parfumuri",
+  "flowers": "Flori",
+  "clothing": "Îmbrăcăminte și accesorii",
+  "jewelry": "Bijuterii și ceasuri",
+  "beauty": "Frumusețe și îngrijire",
+  "electronics": "Electronice",
+  "games": "Jocuri și gaming",
+  "toys": "Jucării și bebeluși",
+  "furniture": "Mobilă",
+  "home": "Casă și decor",
+  "kitchen": "Bucătărie și masă",
+  "food": "Mâncare și băuturi",
+  "books": "Cărți și lectură",
+  "hobby": "Hobby și creație",
+  "sports": "Sport și outdoor",
+  "travel": "Călătorii și bagaje",
+  "automotive": "Auto și moto",
+  "garden": "Grădină și plante",
+  "pets": "Animale de companie",
+  "experience": "Experiențe și carduri cadou"
  },
  "facet_titles": {
   "gender": "Pentru cine?",
   "age": "Vârstă",
   "occasion": "Ocazie",
-  "personality": "Personalitate"
+  "personality": "Personalitate",
+  "category": "Categorie"
  },
  "lexicon": {
   "female": [

@@ -100,6 +100,21 @@ body.results-mode .bar-wrap { position: sticky; top: 52px; background: color-mix
 .pick-foot { display: flex; justify-content: flex-end; padding-top: 10px }
 .pick-done { border: 0; background: var(--grad); color: #fff; font-weight: 700; border-radius: 12px; padding: 9px 20px; cursor: pointer }
 @media (prefers-reduced-motion: reduce) { .tile, .tile:hover { transition: none; transform: none } .pick-pop { animation: none } }
+/* advanced search: category tiles under the bar */
+.adv-row { max-width: 1100px; margin: 10px auto 0; display: flex; justify-content: center }
+.adv-toggle { display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 7px 12px; border-radius: 999px; font-weight: 700; font-size: .88rem; color: var(--violet); cursor: pointer }
+.adv-toggle:hover, .adv-toggle[aria-expanded="true"] { background: var(--violet-soft) }
+.adv-toggle .ic { width: 17px; height: 17px }
+.adv-toggle .chev { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); margin-top: -3px; transition: transform .15s }
+.adv-toggle[aria-expanded="true"] .chev { transform: rotate(225deg); margin-top: 3px }
+.adv-count { background: var(--violet); color: #fff; border-radius: 999px; font-size: .72rem; min-width: 18px; padding: 1px 6px; text-align: center; font-variant-numeric: tabular-nums }
+.adv { max-width: 1100px; margin: 8px auto 0; background: var(--surface); border: 1px solid var(--line-2); border-radius: 20px; box-shadow: var(--shadow); padding: 14px 16px 16px }
+.adv-clear { border: 0; background: none; color: var(--muted); font-weight: 600; font-size: .82rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px }
+.adv-sub { margin: 0 4px 10px; color: var(--muted); font-size: .84rem }
+.cat-tiles { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); max-height: none; overflow: visible }
+.cat-tiles .tile.on { border-color: var(--violet); background: var(--violet-soft); color: var(--violet) }
+body.results-mode .bar-wrap { max-height: calc(100vh - 52px); overflow-y: auto }
+@media (prefers-reduced-motion: reduce) { .adv-toggle .chev { transition: none } }
 .examples { max-width: 1100px; margin: 14px auto 0; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center }
 .examples button { border: 1px solid var(--line-2); background: var(--surface); border-radius: 999px; padding: 7px 13px; font-size: .84rem; font-weight: 600; cursor: pointer; color: var(--muted) }
 .examples button:nth-child(6n+1):hover { background: var(--berry-soft); color: var(--berry) } .examples button:nth-child(6n+2):hover { background: var(--mint-soft); color: var(--mint) } .examples button:nth-child(6n+3):hover { background: var(--violet-soft); color: var(--violet) } .examples button:nth-child(6n+4):hover { background: var(--amber-soft); color: #b8740a } .examples button:nth-child(6n+5):hover { background: var(--mint-soft); color: var(--mint) } .examples button:nth-child(6n+6):hover { background: var(--berry-soft); color: var(--berry) }
@@ -200,6 +215,8 @@ footer { max-width: 1320px; margin: 0 auto; color: var(--muted); font-size: .82r
   .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: 60vh }
   .f-budget .tiles { grid-template-columns: 1fr 1fr }
   .tile { min-height: 78px }
+  .cat-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: none }
+  body.results-mode .bar-wrap { max-height: none; overflow: visible }
   #results-wrap { scroll-margin-top: 8px }
   .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px }
   .upcoming-in { padding: 12px; border-radius: 18px }

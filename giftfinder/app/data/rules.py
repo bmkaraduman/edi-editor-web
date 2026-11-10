@@ -25,6 +25,7 @@ Add a rule when a merchant's category keeps producing odd results; the ids show 
 in the product's "rules" field and on the detail page, so mistakes are traceable.
 """
 from ..ml.preprocess import normalize
+from ..taxonomy import CATEGORY_PRIORITY
 
 GIFT_FLOOR = 0.15
 
@@ -191,6 +192,52 @@ RULES = [
 # Keywords of the languages added from app/i18n/<lang>.json join the rule they name.
 from ..i18n import table as _i18n_table  # noqa: E402
 
+# ------------------------------------------------------------- product categories
+# The category facet (advanced search). Existing rules name their category here; the
+# rules below exist only to recognise a category the hobby rules do not cover.
+RULES += [
+    R("flowers", ["blumenstrauss*", "rosenstrauss*", "schnittblumen", "flowerbox*", "rosenbox*", "ewige rose*", "infinity rose*", "preserved rose*",
+                  "flower bouquet*", "fresh flowers", "flower delivery", "boeket*", "bos bloemen", "bouquet de fleurs", "fleurs fraiches",
+                  "cicek buketi*", "cicek aranjman*", "buket*", "solmayan gul*"],
+      category=["flowers"], occasion=["valentines", "mothers_day", "anniversary", "thank_you", "get_well"], gift=1.0),
+    R("car_accessories", ["autozubehor*", "car accessor*", "dashcam*", "dash cam*", "autopflege*", "car care*", "autoladegerat*", "car charger*",
+                          "handyhalterung auto*", "car phone mount*", "car phone holder*", "auto accessoires", "accessoires auto*", "autolader*",
+                          "telefoonhouder auto*", "support telephone voiture*", "oto aksesuar*", "arac kamerasi*", "arac ici*", "oto bakim*"],
+      category=["automotive"], gift=0.7),
+    R("toys", ["spielzeug*", "toys", "toy", "kuscheltier*", "plusch*", "plush*", "stuffed animal*", "puppe", "puppen", "doll", "dolls", "lego*",
+               "playmobil*", "bauklotz*", "building blocks", "speelgoed*", "knuffel*", "jouet*", "peluche*", "oyuncak*"],
+      category=["toys"], gift=0.95),
+    R("board_games", ["brettspiel*", "gesellschaftsspiel*", "kartenspiel*", "board game*", "card game*", "puzzle*", "bordspel*", "kaartspel*",
+                      "jeu de societe", "jeux de societe", "kutu oyunu*", "yapboz*"],
+      category=["games"], personality=["homebody", "gamer"], gift=0.95),
+    R("kitchenware", ["kochgeschirr*", "pfanne*", "topfset*", "messerset*", "kuchenmesser*", "schneidebrett*", "cookware*", "frying pan*", "knife set*",
+                      "cutting board*", "kitchen gadget*", "kuchenhelfer*", "keukengerei*", "pannenset*", "snijplank*", "ustensiles de cuisine",
+                      "planche a decouper", "tencere*", "kesme tahtasi*", "weinglas*", "wine glass*", "becher", "tasse", "tassen", "mug", "mugs"],
+      category=["kitchen"], personality=["foodie"], gift=0.8),
+    R("vouchers", ["gutschein*", "geschenkgutschein*", "gift card*", "giftcard*", "voucher*", "cadeaubon*", "cadeaukaart*", "carte cadeau*",
+                   "bon cadeau*", "hediye karti*", "hediye ceki*", "erlebnisgeschenk*"],
+      category=["experience"], gift=1.0),
+    # big furniture is one item of its own: like the "furniture" rule it stays out of the
+    # plain gift searches (prior 0.1) and shows when the visitor picks the category
+    R("seating", ["sofa*", "couch*", "3 sitzer*", "2 sitzer*", "3 seater*", "2 seater*", "sessel*", "armchair*", "ohrensessel*", "couchtisch*", "coffee table*",
+                  "bucherregal*", "bookshelf*", "bookcase*", "kommode*", "dresser*", "sideboard*", "koltuk*", "kanepe*", "berjer*", "sehpa*", "kitaplik*",
+                  "3 zits*", "2 zits*", "fauteuil*", "salontafel*", "boekenkast*", "canape*", "table basse*", "bibliotheque*"],
+      category=["furniture"], personality=["homebody"], occasion=["housewarming"], gift=0.1),
+]
+RULE_CATEGORY = {
+    "wine": "food", "gourmet": "food", "coffee_tea": "food", "perfume": "perfume", "skincare": "beauty", "spa": "beauty",
+    "jewellery": "jewelry", "watch": "jewelry", "smartwatch": "electronics", "cufflinks": "clothing", "socks": "clothing",
+    "apparel": "clothing", "bags": "clothing", "fishing": "sports", "fishing_parts": "sports", "fishing_tackle": "sports",
+    "outdoor": "sports", "sports": "sports", "garden": "garden", "model_kit": "hobby", "model_supplies": "hobby", "crafts": "hobby",
+    "writing_set": "hobby", "books": "books", "music": "electronics", "gaming": "games", "tech_gadget": "electronics",
+    "pets": "pets", "travel": "travel", "home_decor": "home", "home_kitchen": "home", "furniture": "furniture",
+}
+for _r in RULES:
+    if _r["id"] in RULE_CATEGORY:
+        _r["labels"]["category"] = [RULE_CATEGORY[_r["id"]]]
+# rules whose category wins outright ("Apple Watch" is electronics, not jewellery)
+CATEGORY_OVERRIDE = ["smartwatch"]
+
 _BY_ID = {r["id"]: r for r in RULES}
 for _lang, _rules in _i18n_table("rules").items():
     for _rid, _words in _rules.items():
@@ -245,5 +292,8 @@ def match_rules(strong_text):
             for l in ls:
                 if l not in labels.setdefault(facet, []):
                     labels[facet].append(l)
+    if labels.get("category"):
+        over = [_BY_ID[r]["labels"]["category"][0] for r in CATEGORY_OVERRIDE if r in hit]
+        labels["category"] = over[:1] or sorted(labels["category"], key=CATEGORY_PRIORITY.index)[:1]
     gift = 0.5 if gift is None else gift
     return labels, hit, (gift if veto is None else min(gift, veto))

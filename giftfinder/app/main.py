@@ -60,13 +60,13 @@ def options(lang: str = "en"):
 @app.get("/api/search")
 def search(country: str, q: str = "", gender: Optional[str] = None,
            age: List[str] = Query(default=[]), occasion: List[str] = Query(default=[]),
-           personality: List[str] = Query(default=[]),
+           personality: List[str] = Query(default=[]), category: List[str] = Query(default=[]),
            price_min: Optional[float] = None, price_max: Optional[float] = None,
            limit: int = 36, offset: int = 0, sort: str = "relevance"):
     try:
         return engine.search(country, q=q, gender=gender, age=age, occasion=occasion,
                              personality=personality, price_min=price_min, price_max=price_max,
-                             limit=min(limit, 60), offset=offset, sort=sort)
+                             limit=min(limit, 60), offset=offset, sort=sort, category=category)
     except ValueError as e:
         raise HTTPException(400, str(e))
 

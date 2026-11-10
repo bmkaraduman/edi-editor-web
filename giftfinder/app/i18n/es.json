@@ -51,7 +51,11 @@
   "settings": "Ajustes",
   "country": "País",
   "cookies": "Configuración de cookies",
-  "done": "Listo"
+  "done": "Listo",
+  "adv": "Búsqueda avanzada",
+  "advTitle": "Buscar en una categoría",
+  "advSub": "Solo se muestran regalos de las categorías elegidas. Déjalo vacío para buscar en todo.",
+  "clear": "Borrar"
  },
  "consent": [
   "Usamos Google Analytics para saber qué ideas de regalo funcionan. Los datos se anonimizan; no usamos cookies publicitarias.",
@@ -97,13 +101,34 @@
   "gardener": "Jardinería",
   "pet_lover": "Mascotas",
   "wellness": "Bienestar",
-  "maker": "Bricolaje / DIY"
+  "maker": "Bricolaje / DIY",
+  "perfume": "Perfume",
+  "flowers": "Flores",
+  "clothing": "Ropa y accesorios",
+  "jewelry": "Joyas y relojes",
+  "beauty": "Belleza y cuidado",
+  "electronics": "Electrónica",
+  "games": "Juegos y gaming",
+  "toys": "Juguetes y bebé",
+  "furniture": "Muebles",
+  "home": "Hogar y decoración",
+  "kitchen": "Cocina y mesa",
+  "food": "Comida y bebida",
+  "books": "Libros y lectura",
+  "hobby": "Hobby y manualidades",
+  "sports": "Deporte y aire libre",
+  "travel": "Viajes y equipaje",
+  "automotive": "Coche y motor",
+  "garden": "Jardín y plantas",
+  "pets": "Mascotas",
+  "experience": "Experiencias y tarjetas regalo"
  },
  "facet_titles": {
   "gender": "¿Para quién?",
   "age": "Edad",
   "occasion": "Ocasión",
-  "personality": "Personalidad"
+  "personality": "Personalidad",
+  "category": "Categoría"
  },
  "lexicon": {
   "female": [

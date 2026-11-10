@@ -51,7 +51,11 @@
   "settings": "Inställningar",
   "country": "Land",
   "cookies": "Cookie-inställningar",
-  "done": "Klar"
+  "done": "Klar",
+  "adv": "Avancerad sökning",
+  "advTitle": "Sök inom en kategori",
+  "advSub": "Bara presenter från de valda kategorierna visas. Lämna tomt för att söka i allt.",
+  "clear": "Rensa"
  },
  "consent": [
   "Vi använder Google Analytics för att se vilka presentidéer som fungerar. Uppgifterna anonymiseras och vi använder inga reklamcookies.",
@@ -97,13 +101,34 @@
   "gardener": "Trädgård",
   "pet_lover": "Djurvän",
   "wellness": "Välmående",
-  "maker": "Händig / DIY"
+  "maker": "Händig / DIY",
+  "perfume": "Parfym",
+  "flowers": "Blommor",
+  "clothing": "Kläder & accessoarer",
+  "jewelry": "Smycken & klockor",
+  "beauty": "Skönhet & vård",
+  "electronics": "Elektronik",
+  "games": "Spel & gaming",
+  "toys": "Leksaker & baby",
+  "furniture": "Möbler",
+  "home": "Hem & inredning",
+  "kitchen": "Kök & dukning",
+  "food": "Mat & dryck",
+  "books": "Böcker & läsning",
+  "hobby": "Hobby & pyssel",
+  "sports": "Sport & outdoor",
+  "travel": "Resor & bagage",
+  "automotive": "Bil & motor",
+  "garden": "Trädgård & växter",
+  "pets": "Husdjur",
+  "experience": "Upplevelser & presentkort"
  },
  "facet_titles": {
   "gender": "Till vem?",
   "age": "Ålder",
   "occasion": "Tillfälle",
-  "personality": "Personlighet"
+  "personality": "Personlighet",
+  "category": "Kategori"
  },
  "lexicon": {
   "female": [

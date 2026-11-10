@@ -153,3 +153,35 @@ def test_prices_and_gift_days_follow_the_country():
     assert mothers_day(2027, "GB") == dt.date(2027, 3, 7) and fathers_day(2027, "IT") == dt.date(2027, 3, 19)
     assert upcoming("ES", dt.date(2026, 12, 26))["date"] == "2027-01-06"          # Reyes Magos
     assert upcoming("SE", dt.date(2026, 11, 4))["occasion"] == "fathers_day"      # Swedish Father's Day in November
+
+
+# ---------------------------------------------------------------- category facet (advanced search)
+def test_rules_give_one_category_and_the_product_type_wins():
+    from app.data.rules import match_rules
+    from app.ml.labeling import strong_text
+    cat = lambda *a, **k: match_rules(strong_text(*a, **k))[0].get("category")
+    assert cat("Dior Sauvage Eau de Parfum 100ml") == ["perfume"]
+    assert cat("3-Sitzer Sofa Stoff grau", category_path="Möbel > Sofas") == ["furniture"]
+    assert cat("Couchtisch Eiche massiv", keywords="kaffee, wohnzimmer") == ["furniture"]      # not food
+    assert cat("Apple Watch Series 9 Smartwatch") == ["electronics"]                           # not jewellery
+    assert cat("Dashcam 4K Front und Heck", category_path="Autozubehör") == ["automotive"]
+    assert cat("Blumenstrauß Rote Rosen") == ["flowers"]
+    assert cat("Holzschrauben 4x40 200 Stück") is None
+
+
+def test_feed_product_gets_a_category_label():
+    labels = label_product(engine, "Ecksofa mit Schlaffunktion", "Großes Sofa mit Bettkasten und Stoffbezug.", {"category_path": "Möbel > Sofas"})
+    assert labels["category"] == ["furniture"]
+    assert len(label_product(engine, "Herren Eau de Toilette 50ml", "Holziger Duft.")["category"]) == 1
+
+
+def test_category_is_a_hard_filter_and_lifts_the_gift_floor():
+    cols = engine.label_cols["category"]
+    for cc in ("DE", "US"):
+        r = engine.search(cc, category=["furniture"], limit=60)
+        assert all(engine.S["category"][engine.pos[x["id"]], cols["furniture"]] >= 0.5 for x in r["results"])
+        both = engine.search(cc, category=["perfume", "automotive"], gender="male", limit=60)
+        assert all(max(engine.S["category"][engine.pos[x["id"]], cols[c]] for c in ("perfume", "automotive")) >= 0.5 for x in both["results"])
+    api = client.get("/api/search", params={"country": "DE", "category": ["furniture"], "limit": 5})
+    assert api.status_code == 200
+    assert "category" in client.get("/api/options", params={"lang": "pl"}).json()["facets"]

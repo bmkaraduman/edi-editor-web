@@ -51,7 +51,11 @@
   "settings": "Asetukset",
   "country": "Maa",
   "cookies": "Evästeasetukset",
-  "done": "Valmis"
+  "done": "Valmis",
+  "adv": "Tarkennettu haku",
+  "advTitle": "Hae kategoriasta",
+  "advSub": "Vain valittujen kategorioiden lahjat näytetään. Jätä tyhjäksi hakeaksesi kaikesta.",
+  "clear": "Tyhjennä"
  },
  "consent": [
   "Käytämme Google Analyticsia selvittääksemme, mitkä lahjaideat toimivat. Tiedot anonymisoidaan, eikä mainosevästeitä käytetä.",
@@ -97,13 +101,34 @@
   "gardener": "Puutarhuri",
   "pet_lover": "Eläinrakas",
   "wellness": "Hyvinvointi",
-  "maker": "Nikkari / DIY"
+  "maker": "Nikkari / DIY",
+  "perfume": "Hajuvedet",
+  "flowers": "Kukat",
+  "clothing": "Vaatteet & asusteet",
+  "jewelry": "Korut & kellot",
+  "beauty": "Kauneus & hoito",
+  "electronics": "Elektroniikka",
+  "games": "Pelit & pelaaminen",
+  "toys": "Lelut & vauvat",
+  "furniture": "Huonekalut",
+  "home": "Koti & sisustus",
+  "kitchen": "Keittiö & kattaus",
+  "food": "Ruoka & juoma",
+  "books": "Kirjat & lukeminen",
+  "hobby": "Harrastukset & askartelu",
+  "sports": "Urheilu & ulkoilu",
+  "travel": "Matkailu & laukut",
+  "automotive": "Auto & moottori",
+  "garden": "Puutarha & kasvit",
+  "pets": "Lemmikit",
+  "experience": "Elämykset & lahjakortit"
  },
  "facet_titles": {
   "gender": "Kenelle?",
   "age": "Ikä",
   "occasion": "Tilaisuus",
-  "personality": "Persoonallisuus"
+  "personality": "Persoonallisuus",
+  "category": "Kategoria"
  },
  "lexicon": {
   "female": [

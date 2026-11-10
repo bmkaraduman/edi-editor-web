@@ -44,7 +44,8 @@ def main(variants_per_country=5, seed=1):
                     price=nice_price(rng.uniform(lo, hi), cc), currency=cinfo["currency"],
                     url="", image="", brand="", category="",
                     labels={"gender": [concept["gender"]], "age": concept["age"],
-                            "occasion": concept["occasion"], "personality": concept["personality"]},
+                            "occasion": concept["occasion"], "personality": concept["personality"],
+                            "category": [concept["category"]]},
                     source="seed",
                 ).to_dict()
                 p["concept_id"] = concept["id"]

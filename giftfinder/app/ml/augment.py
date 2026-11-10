@@ -35,7 +35,7 @@ def augment(rng, concept, lang, cue_labels=None):
     injected, so the model learns that an explicit cue such as "fête des
     pères" implies the label regardless of product type."""
     title, desc = concept["text"][lang]
-    labels = [concept["gender"]] + concept["age"] + concept["occasion"] + concept["personality"]
+    labels = [concept["gender"]] + concept["age"] + concept["occasion"] + concept["personality"] + [concept["category"]]
     labels = [l for l in labels if l != "unisex"] + list(cue_labels or [])
     extra = []
     for label in cue_labels or []:

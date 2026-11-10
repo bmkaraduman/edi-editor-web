@@ -51,7 +51,11 @@
   "settings": "Ustawienia",
   "country": "Kraj",
   "cookies": "Ustawienia cookies",
-  "done": "Gotowe"
+  "done": "Gotowe",
+  "adv": "Wyszukiwanie zaawansowane",
+  "advTitle": "Szukaj w kategorii",
+  "advSub": "Pokazywane są tylko prezenty z wybranych kategorii. Zostaw puste, aby szukać wszędzie.",
+  "clear": "Wyczyść"
  },
  "consent": [
   "Korzystamy z Google Analytics, aby wiedzieć, które pomysły na prezent się sprawdzają. Dane są anonimizowane; nie używamy reklamowych plików cookie.",
@@ -97,13 +101,34 @@
   "gardener": "Ogrodnik",
   "pet_lover": "Miłośnik zwierząt",
   "wellness": "Wellness",
-  "maker": "Majsterkowicz / DIY"
+  "maker": "Majsterkowicz / DIY",
+  "perfume": "Perfumy",
+  "flowers": "Kwiaty",
+  "clothing": "Odzież i dodatki",
+  "jewelry": "Biżuteria i zegarki",
+  "beauty": "Uroda i pielęgnacja",
+  "electronics": "Elektronika",
+  "games": "Gry i gaming",
+  "toys": "Zabawki i niemowlęta",
+  "furniture": "Meble",
+  "home": "Dom i dekoracje",
+  "kitchen": "Kuchnia i stół",
+  "food": "Jedzenie i napoje",
+  "books": "Książki i czytanie",
+  "hobby": "Hobby i rękodzieło",
+  "sports": "Sport i outdoor",
+  "travel": "Podróże i bagaż",
+  "automotive": "Auto i moto",
+  "garden": "Ogród i rośliny",
+  "pets": "Zwierzęta",
+  "experience": "Przeżycia i karty podarunkowe"
  },
  "facet_titles": {
   "gender": "Dla kogo?",
   "age": "Wiek",
   "occasion": "Okazja",
-  "personality": "Osobowość"
+  "personality": "Osobowość",
+  "category": "Kategoria"
  },
  "lexicon": {
   "female": [

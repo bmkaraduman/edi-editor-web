@@ -138,6 +138,24 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
 * **Eğitim.** `app/ml/train.py` seed konseptlerin yanına en fazla 1500 kural-etiketli
   gerçek feed ürünü ekler (gerçek mağaza dili); ingest sonrası `python3 -m app.ml.train`.
 
+### Kategori ve gelişmiş arama
+
+Beşinci facet `category` (20 değer: parfüm, çiçek, giyim, takı, elektronik, oyun, oyuncak,
+mobilya, ev, mutfak, otomobil, bahçe…). Arama çubuğunun altındaki **Gelişmiş arama**
+düğmesi kategori kutucuklarını açar; seçilen kategori **kesin filtredir**
+(`/api/search?category=furniture&category=perfume`).
+
+* Feed ürünleri kategoriyi `app/data/rules.py` kurallarından alır (`RULE_CATEGORY` + flowers,
+  car_accessories, toys, board_games, kitchenware, vouchers, seating kuralları). Birden çok
+  kural eşleşirse ürün tipi kazanır (`taxonomy.CATEGORY_PRIORITY`: "Couchtisch" mobilyadır,
+  kahve değil). Kural yoksa sınıflandırıcı emin olduğunda (≥ 0.5) doldurur.
+* Kategori facet'inden önce ingest edilmiş ürünler için yeniden ingest gerekmez: indeks
+  kurulurken kurallardan hesaplanır. Modelin kategori başlığı için `python3 -m app.ml.train`
+  bir kez çalıştırılmalıdır (eski modelle de çalışır, o zaman yalnızca kurallar kullanılır).
+* Büyük mobilya (3'lü koltuk, sehpa, kitaplık) hediye önceliği düşük olduğu için normal
+  aramalarda çıkmaz; **Mobilya** kategorisi seçilince listelenir (kategori seçimi hediye
+  eşiğini kaldırır). Vetolu ürünler (yedek parça, ofis mobilyası) yine katalogda yoktur.
+
 ## Gerçek ürünleri bağlama
 
 1. `.env.example` → `.env`; affiliate kimliklerini doldur. `.env` uygulama ve

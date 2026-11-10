@@ -1,6 +1,10 @@
 {
  "lang": "da",
  "ui": {
+  "adv": "Avanceret søgning",
+  "advTitle": "Søg inden for en kategori",
+  "advSub": "Kun gaver fra de valgte kategorier vises. Lad feltet stå tomt for at søge i alt.",
+  "clear": "Ryd",
   "hero": "Hvem leder du efter en gave til?",
   "sub": "Vælg, hvem gaven er til, anledningen og personligheden. Text-mining-motoren læser produktbeskrivelser fra danske butikker og sorterer det, der passer.",
   "any": "Lige meget",
@@ -60,6 +64,26 @@
   "Cookie-indstillinger"
  ],
  "ui_labels": {
+  "perfume": "Parfume",
+  "flowers": "Blomster",
+  "clothing": "Tøj & accessories",
+  "jewelry": "Smykker & ure",
+  "beauty": "Skønhed & pleje",
+  "electronics": "Elektronik",
+  "games": "Spil & gaming",
+  "toys": "Legetøj & baby",
+  "furniture": "Møbler",
+  "home": "Bolig & indretning",
+  "kitchen": "Køkken & borddækning",
+  "food": "Mad & drikke",
+  "books": "Bøger & læsning",
+  "hobby": "Hobby & kreativitet",
+  "sports": "Sport & outdoor",
+  "travel": "Rejser & bagage",
+  "automotive": "Bil & motor",
+  "garden": "Have & planter",
+  "pets": "Kæledyr",
+  "experience": "Oplevelser & gavekort",
   "female": "Hende",
   "male": "Ham",
   "unisex": "Alle",
@@ -100,6 +124,7 @@
   "maker": "Gør det selv"
  },
  "facet_titles": {
+  "category": "Kategori",
   "gender": "Hvem er gaven til?",
   "age": "Alder",
   "occasion": "Anledning",

@@ -646,3 +646,178 @@ c("smart_plant_pot", "unisex", ["young_adult", "adult"], ["housewarming", "birth
   ("Kendi Kendini Sulayan Akıllı Saksı", "Su hazneli ve ışık ile nem için uygulama uyarılı seramik saksı. Sulamayı unutanlar için ev bitkilerini hayatta tutar."),
   ("Zelfwaterende slimme bloempot", "Keramische pot met waterreservoir en app-meldingen voor licht en vocht. Houdt kamerplanten in leven voor wie water geven vergeet."),
   ("Pot de fleurs connecté à réserve d'eau", "Pot en céramique avec réservoir et alertes sur l'application pour la lumière et l'humidité. Pour ceux qui oublient d'arroser."))
+
+# ---------------------------------------------------------------- category-led gifts
+c("perfume_women", "female", ["young_adult", "adult", "senior"], ["birthday", "valentines", "mothers_day", "anniversary", "christmas"], ["fashion", "wellness"], (45, 140), "🌸",
+  ("Floral Eau de Parfum for Women 50ml", "Elegant women's perfume with notes of jasmine, peony and white musk. Long-lasting fragrance in a gift-boxed glass bottle."),
+  ("Blumiges Eau de Parfum für Damen 50ml", "Eleganter Damenduft mit Noten von Jasmin, Pfingstrose und weißem Moschus. Langanhaltendes Parfum im Glasflakon mit Geschenkbox."),
+  ("Çiçeksi Kadın Parfümü EDP 50ml", "Yasemin, şakayık ve beyaz misk notalı zarif kadın parfümü. Hediye kutulu cam şişede kalıcı koku."),
+  ("Bloemig eau de parfum voor dames 50ml", "Elegant damesparfum met tonen van jasmijn, pioenroos en witte musk. Langhoudende geur in glazen flacon met geschenkdoos."),
+  ("Eau de parfum florale pour femme 50ml", "Parfum féminin élégant aux notes de jasmin, pivoine et musc blanc. Fragrance longue tenue en flacon de verre avec coffret."))
+
+c("perfume_men", "male", ["young_adult", "adult", "senior"], ["birthday", "fathers_day", "valentines", "anniversary", "christmas"], ["fashion"], (45, 130), "🧴",
+  ("Woody Eau de Toilette for Men 100ml", "Masculine fragrance with cedarwood, bergamot and amber. A fresh everyday cologne for him, presented in a gift box."),
+  ("Holziges Eau de Toilette für Herren 100ml", "Herrenduft mit Zedernholz, Bergamotte und Amber. Ein frisches Parfum für jeden Tag, in Geschenkbox."),
+  ("Odunsu Erkek Parfümü EDT 100ml", "Sedir ağacı, bergamot ve amber notalı erkek parfümü. Hediye kutusunda, her gün için ferah bir koku."),
+  ("Houtig eau de toilette voor heren 100ml", "Herengeur met cederhout, bergamot en amber. Een frisse geur voor elke dag, in geschenkdoos."),
+  ("Eau de toilette boisée pour homme 100ml", "Parfum masculin au cèdre, à la bergamote et à l'ambre. Une fragrance fraîche pour tous les jours, en coffret cadeau."))
+
+c("perfume_discovery_set", "unisex", ["young_adult", "adult"], ["birthday", "christmas", "valentines", "thank_you"], ["fashion", "wellness"], (25, 70), "💐",
+  ("Perfume Discovery Set, 8 Miniatures", "Eight 5ml miniature fragrances from fresh citrus to warm oud, to find a signature scent. A perfume sampler for fragrance lovers."),
+  ("Parfum-Entdeckerset, 8 Miniaturen", "Acht Duftminiaturen à 5 ml von frischer Zitrus bis warmem Oud, um den Lieblingsduft zu finden. Ein Probierset für Parfumliebhaber."),
+  ("Parfüm Keşif Seti, 8 Minyatür", "Ferah narenciyeden sıcak oud'a sekiz adet 5 ml minyatür parfüm. İmza kokusunu arayan parfüm severler için deneme seti."),
+  ("Parfum ontdekset, 8 miniaturen", "Acht miniatuurgeuren van 5 ml, van frisse citrus tot warme oud, om een eigen geur te vinden. Voor parfumliefhebbers."),
+  ("Coffret découverte de parfums, 8 miniatures", "Huit miniatures de 5 ml, des agrumes frais au oud chaleureux, pour trouver sa signature. Pour les amateurs de fragrance."))
+
+c("orchid_plant", "female", ["adult", "senior"], ["mothers_day", "thank_you", "housewarming", "get_well", "birthday"], ["gardener", "homebody"], (25, 60), "🪻",
+  ("White Orchid in Ceramic Pot", "Double-stem white phalaenopsis orchid delivered in a ceramic planter with care card. Flowers for months, an elegant alternative to a bouquet."),
+  ("Weiße Orchidee im Keramiktopf", "Zweitriebige weiße Phalaenopsis-Orchidee im Keramiktopf mit Pflegekarte geliefert. Blüht monatelang, die elegante Alternative zum Blumenstrauß."),
+  ("Seramik Saksıda Beyaz Orkide", "Bakım kartıyla seramik saksıda teslim edilen çift dallı beyaz orkide. Aylarca çiçek açar, bukete şık bir alternatif."),
+  ("Witte orchidee in keramische pot", "Witte phalaenopsis orchidee met twee takken, bezorgd in keramische pot met verzorgingskaart. Bloeit maandenlang."),
+  ("Orchidée blanche en pot céramique", "Orchidée phalaenopsis blanche à deux tiges livrée en pot céramique avec carte d'entretien. Fleurit pendant des mois."))
+
+c("preserved_rose_box", "female", ["young_adult", "adult"], ["valentines", "anniversary", "birthday", "mothers_day"], ["homebody", "fashion"], (35, 120), "🌹",
+  ("Preserved Roses in Round Gift Box", "Real red roses preserved to last over a year, arranged in a velvet hat box. Flowers that never need water, for a romantic gesture."),
+  ("Konservierte Rosen in runder Geschenkbox", "Echte rote Rosen, haltbar über ein Jahr, arrangiert in einer Samt-Hutschachtel. Blumen ohne Gießen für eine romantische Geste."),
+  ("Yuvarlak Kutuda Solmayan Güller", "Bir yıldan uzun dayanan gerçek kırmızı güller, kadife silindir kutuda aranjman. Su istemeyen çiçeklerle romantik bir jest."),
+  ("Geconserveerde rozen in ronde geschenkdoos", "Echte rode rozen die meer dan een jaar mooi blijven, geschikt in een fluwelen hoedendoos. Bloemen zonder water."),
+  ("Roses éternelles en boîte ronde", "Vraies roses rouges stabilisées qui durent plus d'un an, disposées dans une boîte à chapeau en velours. Des fleurs sans arrosage."))
+
+c("wool_sweater_women", "female", ["young_adult", "adult", "senior"], ["christmas", "birthday", "mothers_day"], ["fashion", "homebody"], (50, 150), "🧶",
+  ("Women's Merino Wool Crew Neck Sweater", "Soft merino wool sweater with a relaxed fit, ribbed cuffs and five colours. A timeless clothing staple for autumn and winter."),
+  ("Damen-Pullover aus Merinowolle mit Rundhals", "Weicher Merino-Pullover mit lockerer Passform, Rippbündchen und fünf Farben. Ein zeitloses Kleidungsstück für Herbst und Winter."),
+  ("Kadın Merinos Yün Bisiklet Yaka Kazak", "Rahat kesimli, ribanalı manşetli, beş renk seçenekli yumuşak merinos yün kazak. Sonbahar ve kış için zamansız bir giyim parçası."),
+  ("Dames trui van merinowol met ronde hals", "Zachte merino trui met losse pasvorm, geribde manchetten en vijf kleuren. Een tijdloos kledingstuk voor herfst en winter."),
+  ("Pull col rond en laine mérinos pour femme", "Pull doux en laine mérinos, coupe décontractée, poignets côtelés et cinq coloris. Un vêtement intemporel pour l'automne et l'hiver."))
+
+c("mens_hoodie", "male", ["teen", "young_adult", "adult"], ["birthday", "christmas", "graduation"], ["fashion", "fitness"], (35, 90), "🧥",
+  ("Men's Organic Cotton Hoodie", "Heavyweight organic cotton hoodie with kangaroo pocket and brushed fleece lining. Everyday clothing that fits the gym and the sofa."),
+  ("Herren-Hoodie aus Bio-Baumwolle", "Schwerer Hoodie aus Bio-Baumwolle mit Kängurutasche und angerautem Fleece. Alltagskleidung fürs Gym und fürs Sofa."),
+  ("Erkek Organik Pamuk Kapüşonlu Sweatshirt", "Kanguru cepli, içi şardonlu kalın organik pamuk sweatshirt. Spor salonuna da koltuğa da uyan günlük giyim."),
+  ("Heren hoodie van biologisch katoen", "Zware hoodie van biologisch katoen met kangoeroezak en geborstelde fleece. Kleding voor elke dag, van sportschool tot bank."),
+  ("Sweat à capuche homme en coton bio", "Sweat épais en coton bio avec poche kangourou et intérieur molletonné. Un vêtement du quotidien, de la salle au canapé."))
+
+c("silk_pajama_set", "female", ["young_adult", "adult"], ["valentines", "birthday", "christmas", "anniversary"], ["fashion", "homebody"], (40, 120), "👘",
+  ("Satin Pajama Set for Women", "Two-piece satin pajamas with piped shirt and wide-leg trousers. Luxurious sleepwear clothing that arrives in a gift box."),
+  ("Satin-Pyjama-Set für Damen", "Zweiteiliger Satin-Pyjama mit paspeliertem Hemd und weiter Hose. Luxuriöse Nachtwäsche, geliefert in Geschenkbox."),
+  ("Kadın Saten Pijama Takımı", "Biyeli gömlek ve bol paça pantolondan oluşan iki parça saten pijama. Hediye kutusunda gelen lüks ev giyimi."),
+  ("Satijnen pyjamaset voor dames", "Tweedelige satijnen pyjama met gebiesd shirt en wijde broek. Luxe nachtkleding, geleverd in geschenkdoos."),
+  ("Pyjama en satin pour femme", "Pyjama deux pièces en satin avec chemise passepoilée et pantalon large. Un vêtement de nuit luxueux livré en coffret."))
+
+c("sofa_3seater", "unisex", ["young_adult", "adult", "senior"], ["housewarming", "wedding"], ["homebody"], (450, 1300), "🛋️",
+  ("3-Seater Fabric Sofa", "Modern three-seater sofa with solid wood legs, deep foam cushions and removable covers. Statement living-room furniture for a new home."),
+  ("3-Sitzer-Sofa mit Stoffbezug", "Modernes Dreisitzer-Sofa mit Massivholzfüßen, tiefen Schaumstoffkissen und abnehmbaren Bezügen. Das Möbelstück fürs neue Wohnzimmer."),
+  ("3'lü Kumaş Koltuk", "Masif ahşap ayaklı, derin sünger minderli ve kılıfı çıkarılabilen modern üçlü koltuk. Yeni ev için salonun ana mobilyası."),
+  ("3-zits stoffen bank", "Moderne driezitsbank met massief houten poten, diepe schuimkussens en afneembare hoezen. Het meubelstuk voor een nieuwe woonkamer."),
+  ("Canapé 3 places en tissu", "Canapé trois places moderne avec pieds en bois massif, coussins profonds et housses amovibles. Le meuble phare d'un nouveau salon."))
+
+c("reading_armchair", "unisex", ["adult", "senior"], ["housewarming", "retirement", "birthday", "christmas"], ["bookworm", "homebody"], (180, 520), "💺",
+  ("Wingback Reading Armchair with Footstool", "Upholstered wingback armchair with matching footstool and oak legs. Comfortable furniture for a reading corner."),
+  ("Ohrensessel mit Hocker zum Lesen", "Gepolsterter Ohrensessel mit passendem Hocker und Eichenfüßen. Bequemes Möbelstück für die Leseecke."),
+  ("Puflu Okuma Berjeri", "Uyumlu puflu ve meşe ayaklı döşemeli berjer koltuk. Okuma köşesi için rahat bir mobilya."),
+  ("Oorfauteuil met voetenbank", "Gestoffeerde oorfauteuil met bijpassende voetenbank en eiken poten. Comfortabel meubel voor de leeshoek."),
+  ("Fauteuil à oreilles avec repose-pieds", "Fauteuil bergère rembourré avec repose-pieds assorti et pieds en chêne. Un meuble confortable pour le coin lecture."))
+
+c("coffee_table_oak", "unisex", ["young_adult", "adult"], ["housewarming", "wedding"], ["homebody", "maker"], (120, 380), "🪵",
+  ("Solid Oak Coffee Table", "Round solid oak coffee table with a lower shelf for books and magazines. Scandinavian-style furniture that suits any sofa."),
+  ("Couchtisch aus massiver Eiche", "Runder Couchtisch aus Massiveiche mit Ablage für Bücher und Zeitschriften. Möbel im skandinavischen Stil, passend zu jedem Sofa."),
+  ("Masif Meşe Orta Sehpa", "Kitap ve dergiler için alt raflı yuvarlak masif meşe sehpa. Her koltuğa uyan İskandinav tarzı mobilya."),
+  ("Massief eiken salontafel", "Ronde massief eiken salontafel met onderblad voor boeken en tijdschriften. Scandinavisch meubel dat bij elke bank past."),
+  ("Table basse en chêne massif", "Table basse ronde en chêne massif avec tablette pour livres et magazines. Un meuble de style scandinave assorti à tout canapé."))
+
+c("bookshelf_ladder", "unisex", ["young_adult", "adult"], ["housewarming", "graduation", "birthday"], ["bookworm", "homebody"], (80, 260), "📚",
+  ("5-Tier Ladder Bookshelf", "Leaning ladder bookshelf in walnut finish with five shelves for books, plants and decor. Space-saving furniture for flats and student rooms."),
+  ("Leiterregal mit 5 Böden", "Anlehn-Bücherregal in Nussbaumoptik mit fünf Böden für Bücher, Pflanzen und Deko. Platzsparendes Möbel für Wohnung und Studentenzimmer."),
+  ("5 Raflı Merdiven Kitaplık", "Kitap, bitki ve dekor için beş raflı, ceviz görünümlü yaslanan kitaplık. Küçük evler ve öğrenci odaları için yer kazandıran mobilya."),
+  ("Ladder boekenkast met 5 planken", "Leunende boekenkast in walnootlook met vijf planken voor boeken, planten en decoratie. Ruimtebesparend meubel."),
+  ("Bibliothèque échelle 5 niveaux", "Étagère échelle finition noyer avec cinq tablettes pour livres, plantes et déco. Un meuble gain de place pour appartement."))
+
+c("gaming_chair", "unisex", ["teen", "young_adult"], ["birthday", "christmas", "graduation"], ["gamer", "tech"], (130, 380), "🪑",
+  ("Ergonomic Gaming Chair", "Racing-style gaming chair with lumbar cushion, 4D armrests and 135° recline. Furniture built for long sessions at the PC or console."),
+  ("Ergonomischer Gaming-Stuhl", "Gaming-Stuhl im Racing-Stil mit Lendenkissen, 4D-Armlehnen und 135° Neigung. Möbel für lange Sessions an PC oder Konsole."),
+  ("Ergonomik Oyuncu Koltuğu", "Bel yastıklı, 4D kolçaklı ve 135° yatabilen yarış tarzı oyuncu koltuğu. PC veya konsol başında uzun saatler için mobilya."),
+  ("Ergonomische gamestoel", "Gamestoel in racestijl met lendenkussen, 4D-armleuningen en 135° kantelbaar. Meubel voor lange sessies achter pc of console."),
+  ("Fauteuil gaming ergonomique", "Siège gaming style baquet avec coussin lombaire, accoudoirs 4D et inclinaison à 135°. Un meuble pour les longues sessions."))
+
+c("game_console", "unisex", ["child", "teen", "young_adult", "adult"], ["birthday", "christmas", "graduation"], ["gamer", "tech"], (280, 560), "🎮",
+  ("Video Game Console Bundle with Two Controllers", "Current-generation game console with 1TB storage, two wireless controllers and a family game. Ready for gaming out of the box."),
+  ("Spielkonsole im Bundle mit zwei Controllern", "Aktuelle Spielkonsole mit 1 TB Speicher, zwei kabellosen Controllern und einem Familienspiel. Gaming direkt nach dem Auspacken."),
+  ("İki Kollu Oyun Konsolu Paketi", "1 TB depolamalı güncel nesil oyun konsolu, iki kablosuz oyun kolu ve bir aile oyunu. Kutudan çıkar çıkmaz oyuna hazır."),
+  ("Spelcomputer bundel met twee controllers", "Spelcomputer van de nieuwste generatie met 1 TB opslag, twee draadloze controllers en een familiespel."),
+  ("Pack console de jeu avec deux manettes", "Console de jeu dernière génération avec 1 To de stockage, deux manettes sans fil et un jeu familial. Prête à jouer."))
+
+c("wireless_controller", "unisex", ["child", "teen", "young_adult"], ["birthday", "christmas"], ["gamer"], (45, 90), "🕹️",
+  ("Wireless Game Controller", "Bluetooth controller with hall-effect sticks, back paddles and 30-hour battery for PC, console and mobile gaming."),
+  ("Kabelloser Game-Controller", "Bluetooth-Controller mit Hall-Effekt-Sticks, Rücktasten und 30 Stunden Akku für PC, Konsole und Mobile Gaming."),
+  ("Kablosuz Oyun Kolu", "Hall-effect analoglu, arka tuşlu ve 30 saat pilli Bluetooth oyun kolu. PC, konsol ve mobil oyun için."),
+  ("Draadloze gamecontroller", "Bluetooth controller met hall-effect sticks, achterpaddles en 30 uur batterij voor pc, console en mobiel gamen."),
+  ("Manette de jeu sans fil", "Manette Bluetooth avec sticks à effet Hall, palettes arrière et 30 heures d'autonomie pour PC, console et mobile."))
+
+c("dash_cam", "male", ["adult", "senior"], ["fathers_day", "birthday", "christmas"], ["tech"], (60, 190), "🚗",
+  ("4K Dash Cam Front and Rear", "Car dash cam with 4K front and 1080p rear recording, night vision, GPS and parking mode. Peace of mind for every driver."),
+  ("4K-Dashcam für vorne und hinten", "Auto-Dashcam mit 4K vorne und 1080p hinten, Nachtsicht, GPS und Parkmodus. Sicherheit für jeden Autofahrer."),
+  ("4K Ön ve Arka Araç Kamerası", "4K ön ve 1080p arka kayıt, gece görüşü, GPS ve park modlu araç kamerası. Her sürücü için güvence."),
+  ("4K dashcam voor en achter", "Auto dashcam met 4K voor en 1080p achter, nachtzicht, gps en parkeermodus. Gemoedsrust voor elke automobilist."),
+  ("Dashcam 4K avant et arrière", "Caméra embarquée pour voiture, 4K à l'avant et 1080p à l'arrière, vision nocturne, GPS et mode parking. Pour tout conducteur."))
+
+c("car_care_kit", "male", ["young_adult", "adult", "senior"], ["fathers_day", "birthday", "christmas"], ["maker"], (30, 90), "🧽",
+  ("Car Care and Detailing Kit", "14-piece car care set with shampoo, wax, microfibre towels, wheel brush and interior cleaner in a carry bag. For drivers who love a spotless car."),
+  ("Autopflege-Set", "14-teiliges Autopflege-Set mit Shampoo, Wachs, Mikrofasertüchern, Felgenbürste und Innenreiniger in Tasche. Für Autofahrer mit Liebe zum Glanz."),
+  ("Oto Bakım ve Detay Seti", "Şampuan, cila, mikrofiber bezler, jant fırçası ve iç temizleyici içeren 14 parça oto bakım seti, çantasıyla. Arabasına düşkün sürücüler için."),
+  ("Autoverzorgingsset", "14-delige autoverzorgingsset met shampoo, wax, microvezeldoeken, velgenborstel en interieurreiniger in tas. Voor de automobilist die van glans houdt."),
+  ("Kit d'entretien auto", "Set de 14 pièces pour l'entretien de la voiture : shampoing, cire, microfibres, brosse à jantes et nettoyant intérieur. Pour le conducteur soigneux."))
+
+c("car_phone_charger_mount", "unisex", ["young_adult", "adult"], ["birthday", "christmas", "graduation"], ["tech", "traveler"], (25, 70), "📱",
+  ("Wireless Car Charger Phone Mount", "Auto-clamping car phone mount with 15W wireless charging for dashboard or air vent. A practical car accessory for navigation and calls."),
+  ("Kabellose Kfz-Ladehalterung fürs Handy", "Automatisch klemmende Handyhalterung fürs Auto mit 15 W kabellosem Laden für Armaturenbrett oder Lüftung. Praktisches Autozubehör."),
+  ("Kablosuz Şarjlı Araç Telefon Tutucu", "Torpido veya havalandırma için 15W kablosuz şarjlı, otomatik kavramalı araç telefon tutucu. Navigasyon için pratik oto aksesuar."),
+  ("Draadloze autolader telefoonhouder", "Automatisch klemmende telefoonhouder voor de auto met 15W draadloos laden voor dashboard of ventilatierooster. Handig auto-accessoire."),
+  ("Support téléphone voiture à charge sans fil", "Support de téléphone pour voiture à serrage automatique avec charge sans fil 15 W. Un accessoire auto pratique."))
+
+c("car_vacuum", "unisex", ["adult", "senior"], ["fathers_day", "christmas", "birthday"], ["tech", "maker"], (30, 80), "🧹",
+  ("Cordless Car Vacuum Cleaner", "Handheld cordless car vacuum with strong suction, HEPA filter and crevice tools. Keeps the car interior clean between washes."),
+  ("Akku-Autostaubsauger", "Kabelloser Handstaubsauger fürs Auto mit starker Saugkraft, HEPA-Filter und Fugendüsen. Hält den Innenraum zwischen den Wäschen sauber."),
+  ("Şarjlı Oto Süpürge", "Güçlü emişli, HEPA filtreli ve ince uçlu şarjlı el tipi oto süpürge. Araba içini yıkamalar arasında temiz tutar."),
+  ("Draadloze autostofzuiger", "Draadloze handstofzuiger voor de auto met sterke zuigkracht, HEPA-filter en kierenmondstukken."),
+  ("Aspirateur voiture sans fil", "Aspirateur à main sans fil pour voiture, forte aspiration, filtre HEPA et embouts fins. Garde l'habitacle propre."))
+
+CATEGORY = {
+    "wireless_earbuds": "electronics", "smart_speaker": "electronics", "power_bank": "electronics",
+    "mechanical_keyboard": "games", "gaming_headset": "games", "retro_console": "games",
+    "smartwatch_fitness": "electronics", "instant_camera": "electronics", "ereader": "electronics",
+    "digital_frame": "electronics", "gourmet_chocolate_box": "food", "hot_sauce_set": "food",
+    "cheese_board": "kitchen", "bbq_tool_set": "kitchen", "pasta_making_kit": "kitchen",
+    "whisky_glass_set": "kitchen", "wine_aerator_set": "kitchen", "turkish_delight_box": "food",
+    "pour_over_set": "kitchen", "turkish_coffee_set": "kitchen", "tea_sampler": "food",
+    "milk_frother": "kitchen", "personalised_mug": "kitchen", "hiking_backpack": "sports",
+    "camping_lantern": "sports", "yoga_mat_set": "sports", "running_belt_bundle": "sports",
+    "massage_gun": "sports", "insulated_bottle": "sports", "fishing_kit": "sports",
+    "book_subscription": "books", "book_light_set": "books", "watercolor_set": "hobby",
+    "sketching_kit": "hobby", "vinyl_turntable": "electronics", "ukulele_starter": "hobby",
+    "concert_poster_map": "home", "scratch_world_map": "home", "travel_organizer_set": "travel",
+    "travel_pillow_kit": "travel", "weighted_blanket": "home", "scented_candle_set": "home",
+    "spa_gift_basket": "beauty", "essential_oil_diffuser": "home", "sunrise_alarm": "electronics",
+    "cozy_slippers_robe": "clothing", "puzzle_1000": "games", "board_game_family": "games",
+    "initial_necklace": "jewelry", "leather_wallet_engraved": "clothing", "silk_scarf": "clothing",
+    "minimalist_watch": "jewelry", "cashmere_beanie_gloves": "clothing", "herb_garden_kit": "garden",
+    "garden_tool_set": "garden", "bonsai_kit": "garden", "dog_gift_box": "pets", "cat_tree_toy": "pets",
+    "pet_portrait": "home", "multitool": "hobby", "3d_puzzle_model": "hobby", "electronics_kit": "toys",
+    "candle_making_kit": "hobby", "baby_memory_book": "toys", "baby_gift_basket": "toys",
+    "wooden_toy_train": "toys", "kids_science_kit": "toys", "plush_nightlight": "toys",
+    "kids_art_easel": "toys", "teen_led_strip": "electronics", "student_desk_set": "home",
+    "couples_photo_album": "home", "star_map_print": "home", "wedding_cutting_board": "kitchen",
+    "date_night_box": "experience", "flower_bouquet": "flowers", "retirement_watch_box": "jewelry",
+    "birdfeeder_camera": "garden", "large_print_puzzle_book": "books", "heated_blanket": "home",
+    "cooking_class_voucher": "experience", "gift_card_generic": "experience", "lego_architecture": "toys",
+    "photo_calendar": "home", "teacher_gift_set": "home", "get_well_care_package": "food",
+    "doormat_personalised": "home", "smart_plant_pot": "garden",
+    "perfume_women": "perfume", "perfume_men": "perfume", "perfume_discovery_set": "perfume",
+    "orchid_plant": "flowers", "preserved_rose_box": "flowers", "wool_sweater_women": "clothing",
+    "mens_hoodie": "clothing", "silk_pajama_set": "clothing", "sofa_3seater": "furniture",
+    "reading_armchair": "furniture", "coffee_table_oak": "furniture", "bookshelf_ladder": "furniture",
+    "gaming_chair": "furniture", "game_console": "games", "wireless_controller": "games",
+    "dash_cam": "automotive", "car_care_kit": "automotive", "car_phone_charger_mount": "automotive",
+    "car_vacuum": "automotive",
+}
+for _c in CONCEPTS:
+    _c["category"] = CATEGORY[_c["id"]]
