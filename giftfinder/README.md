@@ -215,6 +215,32 @@ npx wrangler@4 pages deploy dist --project-name giftdetect --branch main   # gif
 projesine özel alan adı (giftdetect.com, www) ve DNS'te `CNAME @ -> giftdetect.pages.dev`
 (proxy açık). Önizleme adresi: https://giftdetect.pages.dev
 
+### Otomatik yayın (GitHub Actions)
+
+`.github/workflows/giftdetect-deploy.yml` yayını tek bir bilgisayardan bağımsız kılar:
+
+| Tetik | Ne yapar |
+|---|---|
+| Her gün 03:17 UTC | feed'leri yeniden çeker → etiketler → eğitir → üretir → yayınlar |
+| `main`'e push (`giftfinder/**`) | son çalışmanın kataloğuyla yeniden üretir → yayınlar |
+| Elle (Actions → *giftdetect: build and deploy* → Run workflow) | "feed'leri çek" ve "yayınla" kutuları seçilebilir |
+
+Bir kerelik kurulum, repo → Settings → Secrets and variables → Actions:
+
+* `GIFTDETECT_ENV`: `giftfinder/.env` dosyasının tüm içeriği (AWIN_AFFILIATE_ID,
+  AWIN_FEED_ALL_<CC> …). Değerler loglarda maskelenir.
+* `CLOUDFLARE_API_TOKEN`: Cloudflare → My Profile → API Tokens → Create Token →
+  "Cloudflare Pages: Edit" izni.
+* `CLOUDFLARE_ACCOUNT_ID`: Cloudflare panelinde Workers & Pages sayfasının sağındaki Account ID.
+* İsteğe bağlı değişkenler (Variables): `INGEST_LIMITS` (varsayılan `US=60 GB=120 DE=270`,
+  diğer ülkeler 500) ve `MIN_PRODUCTS` (varsayılan 3000).
+
+Güvenlik ağları: bir ülkenin feed'i çökerse ya da ürün sayısı yarıdan aza düşerse o ülkenin
+eski ürünleri korunur (`scripts/ci_ingest.py`); üretilen site eksikse ya da gerçek ürün sayısı
+`MIN_PRODUCTS` altındaysa yayın yapılmaz (`scripts/check_dist.py`). Katalog ve model git'te
+değil, Actions önbelleğinde taşınır; elle `"source": "manual"` yapılan ürünler önbellekte
+kalır, yalnızca Mac'teki katalogda duranlar bu akışa girmez.
+
 ## Analytics
 
 Google Analytics 4 (`GA_MEASUREMENT_ID`, varsayılan G-XN9SC9S3K2; boş = kapalı). `web/analytics.js`

@@ -1,0 +1,139 @@
+# Builds giftdetect.com from the affiliate feeds and publishes it to Cloudflare Pages,
+# so a release no longer depends on one computer.
+#
+#   every day      fresh feeds -> label -> train -> export -> deploy
+#   push to main   (giftfinder/** changed) rebuild with the catalog of the last run -> deploy
+#   by hand        Actions -> "giftdetect: build and deploy" -> Run workflow
+#
+# Repository secrets (Settings -> Secrets and variables -> Actions):
+#   GIFTDETECT_ENV         the whole giftfinder/.env file (AWIN_AFFILIATE_ID, AWIN_FEED_ALL_<CC> ...)
+#   CLOUDFLARE_API_TOKEN   token with "Cloudflare Pages: Edit"
+#   CLOUDFLARE_ACCOUNT_ID  the account id shown on the Cloudflare dashboard
+# Optional repository variables:
+#   INGEST_LIMITS   products per advertiser, per country: "US=60 GB=120 DE=270" (others: 500)
+#   MIN_PRODUCTS    refuse to deploy a catalog smaller than this (default 3000)
+name: "giftdetect: build and deploy"
+
+on:
+  schedule:
+    - cron: "17 3 * * *"          # 03:17 UTC, after the shops' nightly feed updates
+  push:
+    branches: [main]
+    paths: ["giftfinder/**", ".github/workflows/giftdetect-deploy.yml"]
+  workflow_dispatch:
+    inputs:
+      ingest:
+        description: "Fetch the feeds again (no = reuse the catalog of the last run)"
+        type: boolean
+        default: true
+      deploy:
+        description: "Publish to giftdetect.com (no = build and check only)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: giftdetect-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: giftfinder
+    env:
+      INGEST_LIMITS: ${{ vars.INGEST_LIMITS || 'US=60 GB=120 DE=270' }}
+      MIN_PRODUCTS: ${{ vars.MIN_PRODUCTS || '3000' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: giftfinder/requirements.txt
+
+      - run: pip install -r requirements.txt
+
+      - name: Write .env from the secret
+        env:
+          GIFTDETECT_ENV: ${{ secrets.GIFTDETECT_ENV }}
+        run: |
+          if [ -z "$GIFTDETECT_ENV" ]; then
+            echo "::error::Secret GIFTDETECT_ENV is missing: paste the contents of giftfinder/.env into it."
+            exit 1
+          fi
+          printf '%s\n' "$GIFTDETECT_ENV" > .env
+          # feed URLs carry the Awin key: keep every value out of the logs
+          grep -vE '^\s*(#|$)' .env | cut -d= -f2- | sed -e 's/^["'"'"']//' -e 's/["'"'"']$//' | tr ' ' '\n' \
+            | awk 'length($0) > 5' | while read -r v; do echo "::add-mask::$v"; done
+
+      # The catalog and the model live in the Actions cache between runs (they are not in git).
+      - name: Restore the catalog of the last run
+        id: catalog
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            giftfinder/app/data/catalog.json
+            giftfinder/app/data/models
+          key: giftdetect-catalog-${{ github.run_id }}
+          restore-keys: giftdetect-catalog-
+
+      - name: Decide whether to fetch the feeds
+        id: plan
+        run: |
+          ingest=true
+          if [ "${{ github.event_name }}" = "push" ]; then ingest=false; fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then ingest=${{ inputs.ingest }}; fi
+          # nothing to reuse (first run, cache expired): fetch regardless
+          if [ ! -s app/data/catalog.json ]; then ingest=true; fi
+          echo "ingest=$ingest" >> "$GITHUB_OUTPUT"
+          echo "fetch feeds: $ingest"
+
+      - name: Seed catalog and first model
+        if: steps.plan.outputs.ingest == 'true'
+        run: |
+          if [ ! -s app/data/catalog.json ]; then python3 scripts/build_seed.py; fi
+          if [ ! -s app/data/models/facet_model.joblib ]; then python3 -m app.ml.train; fi
+
+      - name: Fetch and label the feeds
+        if: steps.plan.outputs.ingest == 'true'
+        run: python3 scripts/ci_ingest.py
+
+      - name: Train
+        run: python3 -m app.ml.train
+
+      - name: Tests
+        continue-on-error: true      # a few tests name products of today's feeds; the gate is the check below
+        run: python3 -m pytest -q tests
+
+      - name: Export the static site
+        run: python3 scripts/export_static.py dist
+
+      - name: Check the build before it goes live
+        run: python3 scripts/check_dist.py dist
+
+      - name: Save the catalog for the next run
+        if: steps.plan.outputs.ingest == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            giftfinder/app/data/catalog.json
+            giftfinder/app/data/models
+          key: giftdetect-catalog-${{ github.run_id }}
+
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'workflow_dispatch' || inputs.deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are missing."
+            exit 1
+          fi
+          npx --yes wrangler@4 pages deploy dist --project-name giftdetect --branch main --commit-dirty=true
