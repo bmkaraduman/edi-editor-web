@@ -122,7 +122,7 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
   şeridi de aynı aramadan geçer.
 * **Hediye olmayan ürün kataloğa girmez.** Awin satırının kendi kategorisi hiç hediye
   olmayan bir aralıktaysa (`app/sources/awin.py: NOT_GIFT_CATEGORIES`: ofis malzemesi,
-  kablo, yazıcı, bilgisayar parçası, mobilya, bahçe aleti, vitamin ...) ya da başlık /
+  kablo, yazıcı, bilgisayar parçası, mobilya (büyük mobilya hariç, aşağıya bakın), bahçe aleti, vitamin ...) ya da başlık /
   kategori / anahtar kelimeleri bir "hediye değil" kuralına takılırsa (vida, musluk,
   inşaat malzemesi, yedek parça, yedek başlık / düze, tıbbi ölçüm, eczane ürünü (tablet,
   takviye), temizlik, ofis mobilyası, IT parçası; tüm site dillerinde, `app/data/rules.py`
@@ -152,9 +152,34 @@ düğmesi kategori kutucuklarını açar; seçilen kategori **kesin filtredir**
 * Kategori facet'inden önce ingest edilmiş ürünler için yeniden ingest gerekmez: indeks
   kurulurken kurallardan hesaplanır. Modelin kategori başlığı için `python3 -m app.ml.train`
   bir kez çalıştırılmalıdır (eski modelle de çalışır, o zaman yalnızca kurallar kullanılır).
-* Büyük mobilya (3'lü koltuk, sehpa, kitaplık) hediye önceliği düşük olduğu için normal
-  aramalarda çıkmaz; **Mobilya** kategorisi seçilince listelenir (kategori seçimi hediye
-  eşiğini kaldırır). Vetolu ürünler (yedek parça, ofis mobilyası) yine katalogda yoktur.
+* Büyük mobilya (2'li / 3'lü kanepe, köşe takımı, berjer, sehpa, yemek masası ve sandalyesi,
+  baza, gardırop, şifonyer, kitaplık; tüm site dillerinde `seating` kuralı) hediye önceliği
+  düşük (0.1) olduğu için normal aramalarda çıkmaz; **Mobilya** kategorisi seçilince ya da
+  "sofa" yazılınca listelenir (kategori seçimi hediye eşiğini kaldırır). Kuralın `keep`
+  işareti ürünü 0.15 eşiğine rağmen kataloğa alır; Awin'in Sofas / Furniture / Tables /
+  Chairs kategorileri (`FURNITURE_CATEGORIES`) yalnızca böyle bir ürün için açılır. Kılıf ve
+  minder (`furniture_covers`) ev tekstilidir, mutfak dolabı / modüler mutfak (`kitchen_units`)
+  ve vetolu ürünler (yedek parça, ofis mobilyası) katalogda yoktur. Genel "mobilya" kuralı
+  (raf, "Möbel" kategorisi) kategoriyi etiketler ama ürünü tek başına kataloğa almaz.
+
+### Blog
+
+`https://giftdetect.com/blog/<dil>/` 20 hediye rehberini 12 dilde listeler (en, de, nl, fr, pl,
+it, es, sv, fi, da, pt-BR, ro: sitedeki ülkelerin dilleri). Yazılar
+`content/blog/<dil>/<id>.md` dosyalarıdır (biçim: `content/blog/README.md`); `id` her dilde
+aynıdır, adres dilin kendi `slug`'ını kullanır (`/blog/de/geschenke-fuer-papa/`).
+`scripts/export_static.py` → `scripts/blog_pages.py` her yazıyı statik sayfa olarak üretir:
+
+* Sayfanın üstünde sitenin hediye arama çubuğu durur; arama sonuçları makalenin üstünde açılır.
+  Ülke, ziyaretçinin ülkesi o dili konuşuyorsa odur, değilse dilin ana ülkesi (pt → BR).
+* Yazıdaki `[[search occasion=christmas max=25 | …]]` düğmeleri aramayı o filtrelerle çalıştırır;
+  aynı bağlantı (`/?occasion=christmas&max=25`) ana sayfada da aramayı açar.
+* SEO: başlık, açıklama, canonical, dil alternatifleri (hreflang + x-default), Open Graph,
+  BlogPosting + BreadcrumbList (+ SSS'li yazılarda FAQPage) JSON-LD, `sitemap-blog.xml`
+  (sitemap.xml dizininde). `/blog/` tarayıcı diline yönlendiren dil sayfasıdır (noindex).
+* Üst menüde **Blog** bağlantısı ziyaretçinin dilindeki listeye gider.
+* `tests/test_blog.py` her dilde aynı yazıların, aynı filtrelerin ve bağlantıların olduğunu denetler
+  (yalnızca `max=` para birimine göre değişir).
 
 ## Gerçek ürünleri bağlama
 

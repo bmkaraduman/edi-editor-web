@@ -37,8 +37,9 @@ import random
 import requests
 
 from ..config import COUNTRIES, GIFT_WORDS, MERCHANTS
-from ..data.rules import GIFT_FLOOR, match_rules
+from ..data.rules import GIFT_FLOOR, KEEP_STEMS, kept_for_category, match_rules
 from ..ml.labeling import strong_text
+from ..ml.preprocess import normalize
 from .base import Product, Source
 from .csv_feed import parse_price, pick
 from .images import is_placeholder
@@ -59,6 +60,9 @@ NOT_GIFT_CATEGORIES = {
     450: "Tables", 448: "Chairs", 449: "Sofas", 424: "Furniture", 452: "Storage", 469: "Furniture Accessories",
     459: "Garden Tools", 425: "Garden", 457: "Garden & Leisure", 458: "Sheds & Garden Furniture", 428: "DIY",
 }
+# furniture is no classic present but has a category page of its own: rows in these Awin
+# categories pass when a `keep` rule in app/data/rules.py names them (sofa, armchair, wardrobe)
+FURNITURE_CATEGORIES = {450, 448, 449, 424}
 
 
 # Countries whose product ids (and /p/<id> pages) predate multi-country shops; they keep the
@@ -74,7 +78,15 @@ def external_id(country, row_id):
 def is_gift(product):
     """False when a "not a present" rule decides the product (gift prior below GIFT_FLOOR)."""
     strong = strong_text(product.title, product.keywords, product.category, product.category_path, product.product_type, product.brand)
-    return match_rules(strong)[2] >= GIFT_FLOOR
+    _, hit, gift = match_rules(strong)
+    return gift >= GIFT_FLOOR or kept_for_category(hit)
+
+
+def kept_row(text, title, keywords, category, category_path, product_type, brand):
+    """A row without any search word that a `keep` rule still wants (a sofa in a furniture shop)."""
+    if not any(s in text for s in KEEP_STEMS):
+        return False
+    return kept_for_category(match_rules(strong_text(title, keywords, category, category_path, product_type, brand))[1])
 
 
 def open_feed(url, timeout=120):
@@ -147,7 +159,8 @@ class AwinSource(Source):
                 image = next((u for u in candidates if u and not is_placeholder(u)), "")
                 if not title or not image:          # rule: a product without a picture is never shown
                     continue
-                if pick(row, "category_id").isdigit() and int(pick(row, "category_id")) in NOT_GIFT_CATEGORIES:
+                cid = int(pick(row, "category_id")) if pick(row, "category_id").isdigit() else None
+                if cid in NOT_GIFT_CATEGORIES and cid not in FURNITURE_CATEGORIES:
                     continue
                 if feed_merchant.startswith("*"):
                     mid = pick(row, "merchant_id", "advertiser_id", "merchant_product_id_source")
@@ -159,8 +172,12 @@ class AwinSource(Source):
                 category_path = pick(row, "merchant_product_category_path")
                 product_type = pick(row, "product_type")
                 text = f"{title} {desc} {keywords} {category} {category_path} {product_type}".lower()
-                if not any(w in text for w in words):
-                    continue
+                kept = None
+                if cid in FURNITURE_CATEGORIES or not any(w in text for w in words):
+                    # Awin's furniture categories only let through what a `keep` rule wants (a sofa, not a shelf bracket)
+                    kept = kept_row(normalize(text), title, keywords, category, category_path, product_type, pick(row, "brand_name", "brand"))
+                    if not kept:
+                        continue
                 price = parse_price(pick(row, "search_price", "store_price", "price", "sale_price"))
                 if price is None:
                     continue

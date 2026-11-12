@@ -23,6 +23,11 @@ const EXAMPLES = [
   { occasion: "valentines", personality: ["homebody"] },
 ];
 const PAGE = 36;
+/* Blog pages (/blog/<lang>/...) are this page with an article under the results; window.BLOG = {lang, country}. */
+const BLOG = window.BLOG || null;
+const BLOG_LANGS = ["en", "de", "nl", "fr", "pl", "it", "es", "sv", "fi", "da", "pt", "ro"];
+const BLOG_WORD = { sv: "Blogg", fi: "Blogi" };
+const BASE = BLOG ? location.pathname : "/", TITLE0 = BLOG ? document.title : "giftdetect.com";   // where "back" returns to
 const DETAIL_KEYS = ["colour", "condition", "model", "dimensions", "specifications", "delivery_cost", "promotion"];
 const track = (name, params) => { if (window.track) window.track(name, params || {}); };
 const pageView = (path, title) => track("page_view", { page_path: path, page_title: title || document.title, page_location: location.origin + path, country: state.country });
@@ -89,6 +94,7 @@ function choose(facet, id) {
 }
 function applyI18n(opts) {
   document.documentElement.lang = state.lang;
+  const nav = $("nav-blog"); if (nav) { nav.textContent = BLOG_WORD[state.lang] || "Blog"; nav.href = `/blog/${BLOG_LANGS.includes(state.lang) ? state.lang : "en"}/`; }
   $("t-hero").textContent = t("hero"); $("t-sub").textContent = t("sub"); $("go").textContent = t("go"); $("t-sort").textContent = t("sort"); $("more").textContent = t("more");
   $("t-disclosure").textContent = t("disclosure"); $("demo").innerHTML = t("demo"); $("back").textContent = t("back"); $("t-similar").textContent = t("similar");
   ["gender", "age", "occasion", "personality"].forEach((f) => { $("l-" + f).textContent = opts.titles[f]; }); $("l-budget").textContent = t("budget");
@@ -112,7 +118,7 @@ async function setCountry(cc, opts = {}) {
   renderSettings();
   const o = await GF.options(state.lang); state.labels = {}; Object.values(o.facets).flat().forEach((l) => { state.labels[l.id] = l.label; }); state.titles = o.titles; state.opts = o;
   applyI18n(o);
-  loadUpcoming();
+  if (!BLOG) loadUpcoming();
   if (state.view === "product" && !opts.keepProduct) { showSearch(); }
   if (state.searched && state.view !== "product") search(true);
 }
@@ -150,7 +156,7 @@ new MutationObserver(() => fitStrip()).observe(document.getElementById("upcoming
 /* ---------------------------------------------------------------- views */
 function showSearch() {
   state.view = state.searched ? "results" : "home";
-  $("product-wrap").hidden = true; $("results-wrap").hidden = !state.searched; $("bar-wrap").hidden = false; $("hero").hidden = false;
+  $("product-wrap").hidden = true; $("results-wrap").hidden = !state.searched; $("bar-wrap").hidden = false; $("hero").hidden = false; if ($("blog-wrap")) $("blog-wrap").hidden = false;
   document.body.classList.toggle("results-mode", state.searched); document.body.classList.remove("product-mode");
 }
 async function search(reset) {
@@ -195,7 +201,7 @@ async function openProduct(id, push) {
   if (push) history.pushState({ product: id }, "", `/p/${id}`);
   state.view = "product"; state.product = id;
   document.body.classList.add("product-mode"); document.body.classList.remove("results-mode");
-  $("hero").hidden = true; $("bar-wrap").hidden = true; $("results-wrap").hidden = true; $("product-wrap").hidden = false;
+  $("hero").hidden = true; $("bar-wrap").hidden = true; $("results-wrap").hidden = true; $("product-wrap").hidden = false; if ($("blog-wrap")) $("blog-wrap").hidden = true;
   $("product").innerHTML = `<div class="loading">${t("loading")}</div>`; $("similar").innerHTML = ""; $("t-similar").hidden = true;
   window.scrollTo({ top: 0 });
   const d = await GF.product(id);
@@ -253,6 +259,15 @@ async function detect(geoP) {
   const byLang = { de: "DE", nl: "NL", fr: "FR", tr: "TR", en: "US", pl: "PL", it: "IT", es: "ES", sv: "SE", fi: "FI", pt: "BR", da: "DK", ro: "RO", nb: "SE", no: "SE" }[lang];
   return [geo, ...(NEAR[geo] || []), byLang, "US"].find((c) => c && COUNTRIES[c]) || Object.keys(COUNTRIES)[0];
 }
+function linkSearch(qs) {
+  const q = new URLSearchParams(qs), one = (k, f) => { const v = q.get(k); return v && state.opts.facets[f].some((o) => o.id === v) ? v : ""; };
+  const many = (k, f, n) => (q.get(k) || "").split(",").filter((v) => state.opts.facets[f] && state.opts.facets[f].some((o) => o.id === v)).slice(0, n);
+  const num = (k) => { const v = parseFloat(q.get(k)); return v > 0 ? String(v) : ""; };
+  const sel = { gender: one("gender", "gender"), age: one("age", "age"), occasion: one("occasion", "occasion"), personality: many("personality", "personality", 3), category: many("category", "category", 20), budget: "" };
+  if (num("max") || num("min")) sel.budget = `${num("min") || 0}-${num("max")}`;
+  if (![sel.gender, sel.age, sel.occasion, sel.budget, ...sel.personality, ...sel.category].some(Boolean)) return false;
+  state.sel = sel; prune(); renderBar(); if (sel.category.length) toggleAdv(true); return true;
+}
 function route() { const m = location.pathname.match(/^\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
 async function init() {
   const geoP = fetchGeo();
@@ -266,6 +281,10 @@ async function init() {
     if (!item) return;
     const cc = item.dataset.country; try { localStorage.setItem(PICKED, cc); } catch (err) {}
     track("country_pick", { country: cc, from: state.country });
+    if (BLOG && COUNTRIES[cc].lang !== BLOG.lang) {       // the same article in the new language, if there is one
+      const alt = document.querySelector(`link[rel="alternate"][hreflang="${COUNTRIES[cc].lang}"]`);
+      if (alt) { location.href = new URL(alt.href).pathname; return; }
+    }
     if (cc !== state.country) setCountry(cc);
   };
   document.addEventListener("click", () => toggleSettings(false));
@@ -285,16 +304,25 @@ async function init() {
   $("cats").addEventListener("click", (e) => { const b = e.target.closest(".tile"); if (!b) return; const a = state.sel.category, i = a.indexOf(b.dataset.id); if (i >= 0) a.splice(i, 1); else a.push(b.dataset.id); renderCats(); search(true); });
   $("more").onclick = () => search(false);
   $("sort").onchange = (e) => { state.sort = e.target.value; search(true); };
-  const goHome = (e) => { e.preventDefault(); if (state.view === "product") history.pushState({}, "", "/"); state.searched = false; showSearch(); document.title = "giftdetect.com"; window.scrollTo({ top: 0 }); };
+  const goHome = (e) => { if (BLOG) return; e.preventDefault(); if (state.view === "product") history.pushState({}, "", "/"); state.searched = false; showSearch(); document.title = "giftdetect.com"; window.scrollTo({ top: 0 }); };
   $("home").onclick = goHome;
-  $("back").onclick = (e) => { e.preventDefault(); if (state.view === "product") history.pushState({}, "", "/"); showSearch(); document.title = "giftdetect.com"; if (state.searched) $("results-wrap").scrollIntoView({ block: "start" }); };
-  window.addEventListener("popstate", () => { const id = route(); if (id) openProduct(id, false); else { showSearch(); document.title = "giftdetect.com"; } });
+  $("back").onclick = (e) => { e.preventDefault(); if (state.view === "product") history.pushState({}, "", BASE); showSearch(); document.title = TITLE0; if (state.searched) $("results-wrap").scrollIntoView({ block: "start" }); };
+  window.addEventListener("popstate", () => { const id = route(); if (id) openProduct(id, false); else { showSearch(); document.title = TITLE0; } });
   const pid = route();
   if (pid) {
     const p = await GF.product(pid);
     if (p) { await setCountry(COUNTRIES[p.country] ? p.country : await detect(geoP), { keepProduct: true }); state.view = "product"; state.product = pid; document.body.classList.add("product-mode"); $("hero").hidden = true; $("bar-wrap").hidden = true; $("product-wrap").hidden = false; renderProduct(p); }
     else await setCountry(await detect(geoP));
-  } else { await setCountry(await detect(geoP)); pageView("/", "giftdetect.com"); }
+  } else if (BLOG) {
+    // the visitor's own country when it speaks the page's language, else the language's main country
+    const cc = await detect(geoP);
+    await setCountry(COUNTRIES[cc] && COUNTRIES[cc].lang === BLOG.lang ? cc : COUNTRIES[BLOG.country] ? BLOG.country : cc);
+    pageView(location.pathname, document.title);
+    document.querySelectorAll("a.blog-cta").forEach((a) => { a.onclick = (e) => { if (!linkSearch(new URL(a.href).search)) return; e.preventDefault(); track("blog_cta", { href: a.getAttribute("href"), page: location.pathname }); search(true); }; });
+  } else {
+    await setCountry(await detect(geoP)); pageView("/", "giftdetect.com");
+    if (linkSearch(location.search)) search(true);
+  }
   GF.stats().then((s) => { const h = s.model && s.model.holdout ? Object.entries(s.model.holdout).map(([k, v]) => `${k} F1 ${v.micro_f1}`).join(" · ") : ""; $("stats").textContent = `${s.products} products · text-mining model: ${h}`; });
 }
 init();

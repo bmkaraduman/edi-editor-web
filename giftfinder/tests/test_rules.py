@@ -185,3 +185,24 @@ def test_category_is_a_hard_filter_and_lifts_the_gift_floor():
     api = client.get("/api/search", params={"country": "DE", "category": ["furniture"], "limit": 5})
     assert api.status_code == 200
     assert "category" in client.get("/api/options", params={"lang": "pl"}).json()["facets"]
+
+
+def test_big_furniture_is_kept_for_its_category_but_covers_and_kitchens_are_not():
+    from app.data.rules import kept_for_category
+    from app.sources.awin import is_gift
+    from app.sources.base import Product
+
+    def kept(title, category_path=""):
+        _, hit, _ = match_rules(strong_text(title, "", "", category_path))
+        return kept_for_category(hit)
+    for title in ("3-Sitzer Sofa Stoff grau", "Ecksofa mit Schlaffunktion", "Chesterfield 2 Seater Leather Sofa", "Divano 3 posti in velluto",
+                  "Soffa 3-sits", "Narożnik rozkładany", "Canapea extensibila 3 locuri", "Ohrensessel Samt", "Kleiderschrank 3-türig"):
+        assert kept(title), title
+    for title in ("Sofahusse elastisch 3-Sitzer", "3 Seater Garden Bench Cushion", "Balcão de Cozinha 120cm", "Wood screws 4x40",
+                  "Dumbbell Rack 1-10kg", "Wandregal Eiche"):
+        assert not kept(title), title
+    _, hit, _ = match_rules(strong_text("BH Pioneer S3 Treadmill", "Under the bed treadmills"))
+    assert not kept_for_category(hit)         # "bed" alone is no bed
+    sofa = Product(id="x", country="DE", lang="de", merchant_id="m", title="3-Sitzer Sofa Stoff grau", description="", price=499.0,
+                   currency="EUR", url="", image="", category_path="Möbel > Sofas")
+    assert is_gift(sofa)          # the feed reader keeps it, plain gift searches still hide it (prior 0.1)

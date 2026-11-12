@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 
 from app.config import ACTIVE_COUNTRIES, COUNTRIES, GA_MEASUREMENT_ID, MERCHANT_BY_ID, affiliate_link, format_price  # noqa: E402
 from app.i18n import web_script  # noqa: E402
+import blog_pages  # noqa: E402
 from app.ml.preprocess import normalize  # noqa: E402
 from app.ml.search import GiftSearch  # noqa: E402
 from app.occasions import upcoming  # noqa: E402
@@ -27,6 +28,45 @@ from app.taxonomy import FACETS, FACET_TITLES, LEXICON, UI_LABELS, clashes  # no
 HERE = os.path.dirname(os.path.abspath(__file__))
 WEB = os.path.join(HERE, "..", "web")
 DESC_CHARS = 400
+
+
+HOME_HEAD = """<title>giftdetect.com</title>
+<meta name="description" content="giftdetect.com: Geschenk-Suchmaschine. Wähle, für wen es ist, den Anlass und die Persönlichkeit und bekomme passende Geschenkideen aus Shops in deinem Land.">
+<link rel="canonical" href="https://giftdetect.com/">"""
+
+
+def page_renderer():
+    """render(lang, head, blog_html="", blog_cfg=None) -> a full page: the gift search, plus
+    (on blog pages) an article or article list under the results."""
+    read = lambda name: open(os.path.join(WEB, name), encoding="utf-8").read()
+    body = read("body.html")
+
+    def render(lang, head, blog_html="", blog_cfg=None):
+        """One page of the site: the gift search, plus (on blog pages) an article or list under the results."""
+        b = body
+        if blog_html:
+            b = b.replace('<section class="product-page gutter" id="product-wrap" hidden>', blog_html + '\n<section class="product-page gutter" id="product-wrap" hidden>', 1)
+        cfg = f"<script>window.BLOG={json.dumps(blog_cfg)};</script>" if blog_cfg else ""
+        return f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{head}
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap">
+<style>
+{read('style.css')}
+</style></head><body{' class="blog-mode"' if blog_cfg else ''}>
+{b}
+{cfg}<script>{web_script()}</script>
+<script>
+{read('provider_static.js')}
+</script>
+<script>
+{read('ui.js')}
+</script>
+<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};
+{read('analytics.js')}
+</script></body></html>"""
+    return render
 
 
 def main(dest):
@@ -90,29 +130,9 @@ def main(dest):
     for cc in shown:
         dump(f"items-{cc}.json", [it for it in items if it["c"] == cc])
     dump("where.json", {cc: "".join(it["id"] for it in items if it["c"] == cc) for cc in shown})
-    page = f"""<!doctype html><html lang="de"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>giftdetect.com</title>
-<meta name="description" content="giftdetect.com: Geschenk-Suchmaschine. Wähle, für wen es ist, den Anlass und die Persönlichkeit und bekomme passende Geschenkideen aus Shops in deinem Land.">
-<link rel="canonical" href="https://giftdetect.com/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap">
-<style>
-{read('style.css')}
-</style></head><body>
-{read('body.html')}
-<script>{web_script()}</script>
-<script>
-{read('provider_static.js')}
-</script>
-<script>
-{read('ui.js')}
-</script>
-<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};
-{read('analytics.js')}
-</script></body></html>"""
+    render = page_renderer()
     with open(os.path.join(dest, "index.html"), "w", encoding="utf-8") as f:
-        f.write(page)
+        f.write(render("de", HOME_HEAD))
     with open(os.path.join(dest, "_redirects"), "w") as f:
         f.write("/p/*  /index.html  200\n")
     with open(os.path.join(dest, "robots.txt"), "w") as f:
@@ -136,6 +156,9 @@ def main(dest):
                     f.write(f"<url><loc>https://giftdetect.com/p/{pid}</loc></url>\n")
                 f.write("</urlset>\n")
             parts.append(name)
+    blog_map = blog_pages.build(dest, lambda lang, head, html, cfg: render(lang, head, html, cfg))
+    if blog_map:
+        parts.append(blog_map)
     with open(os.path.join(dest, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for name in parts:
