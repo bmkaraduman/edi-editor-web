@@ -41,6 +41,17 @@ def test_screws_and_taps_are_not_gifts_in_any_language():
         assert match_rules(strong_text(title))[2] >= GIFT_FLOOR, title
 
 
+def test_medicine_and_replacement_parts_are_not_gifts():
+    """Pharmacy stock and spare heads / nozzles, also when the rule word is a phrase with a wildcard."""
+    from app.data.rules import GIFT_FLOOR
+    for title in ("Anti-Hist Allergy Cetirizine 10mg Tablets (30)", "Lansinoh Lanolin Nipple Cream", "Kosttillskott Magnesium",
+                  "Udskiftelige dyser til HIGE", "Inlocuibile pentru irigatorul MIGA PRO", "Oral-B iO Aufsteckbürsten 4 Stück",
+                  "Spax wood screws 4x40", "Armário Aéreo de Cozinha 3 Portas"):
+        assert match_rules(strong_text(title))[2] < GIFT_FLOOR, title
+    for title in ("Samsung Galaxy Tab A9 Android Tablet", "Vitamin C Serum Gift Set", "Personalised Mug with Name"):
+        assert match_rules(strong_text(title))[2] >= GIFT_FLOOR, title
+
+
 def test_variants_collapse_to_one_listing():
     a = dedupe_key({"title": "Socken aus Baumwolle – Beige – 43-46", "merchant_id": "m"})
     b = dedupe_key({"title": "Socken aus Baumwolle – Schwarz – 39-42", "merchant_id": "m"})
@@ -80,7 +91,8 @@ def test_upcoming_occasion_and_active_countries():
     assert u["occasion"] == "christmas" and u["date"] == "2026-12-24" and u["days"] == 51
     r = client.get("/api/upcoming", params={"country": "DE"}).json()
     assert r["label"] and r["results"] and all(x["image"] for x in r["results"])
-    assert set(client.get("/api/countries").json()) == {"DE", "NL", "FR", "US"}     # TR waits for a feed
+    assert {"DE", "NL", "FR", "US", "GB", "PL", "IT", "ES", "SE", "BR"} <= set(client.get("/api/countries").json())
+    assert "TR" not in client.get("/api/countries").json()     # TR waits for a feed
     nl = upcoming("NL", dt.date(2026, 11, 3))
     assert nl["date"] == "2026-12-05" and upcoming("NL", dt.date(2026, 12, 6))["date"] == "2026-12-24"   # Sinterklaas, then Kerst
 
@@ -130,3 +142,67 @@ def test_filters_that_never_go_together_are_served_with_the_options():
     assert ("fathers_day", "female") in pairs and ("male", "mothers_day") in pairs
     assert ("baby", "gamer") in pairs and ("baby", "retirement") in pairs
     assert ("baby", "bookworm") not in pairs and ("adult", "gamer") not in pairs and ("birthday", "female") not in pairs
+
+
+def test_prices_and_gift_days_follow_the_country():
+    import datetime as dt
+    from app.config import format_price
+    from app.occasions import mothers_day, fathers_day, upcoming
+    assert format_price(1234.5, "DE") == "1.234,50 €" and format_price(1234.5, "GB") == "£1,234.50"
+    assert format_price(1234.5, "PL") == "1 234,50 zł" and format_price(12.5, "BR") == "R$ 12,50"
+    assert mothers_day(2027, "GB") == dt.date(2027, 3, 7) and fathers_day(2027, "IT") == dt.date(2027, 3, 19)
+    assert upcoming("ES", dt.date(2026, 12, 26))["date"] == "2027-01-06"          # Reyes Magos
+    assert upcoming("SE", dt.date(2026, 11, 4))["occasion"] == "fathers_day"      # Swedish Father's Day in November
+
+
+# ---------------------------------------------------------------- category facet (advanced search)
+def test_rules_give_one_category_and_the_product_type_wins():
+    from app.data.rules import match_rules
+    from app.ml.labeling import strong_text
+    cat = lambda *a, **k: match_rules(strong_text(*a, **k))[0].get("category")
+    assert cat("Dior Sauvage Eau de Parfum 100ml") == ["perfume"]
+    assert cat("3-Sitzer Sofa Stoff grau", category_path="Möbel > Sofas") == ["furniture"]
+    assert cat("Couchtisch Eiche massiv", keywords="kaffee, wohnzimmer") == ["furniture"]      # not food
+    assert cat("Apple Watch Series 9 Smartwatch") == ["electronics"]                           # not jewellery
+    assert cat("Dashcam 4K Front und Heck", category_path="Autozubehör") == ["automotive"]
+    assert cat("Blumenstrauß Rote Rosen") == ["flowers"]
+    assert cat("Holzschrauben 4x40 200 Stück") is None
+
+
+def test_feed_product_gets_a_category_label():
+    labels = label_product(engine, "Ecksofa mit Schlaffunktion", "Großes Sofa mit Bettkasten und Stoffbezug.", {"category_path": "Möbel > Sofas"})
+    assert labels["category"] == ["furniture"]
+    assert len(label_product(engine, "Herren Eau de Toilette 50ml", "Holziger Duft.")["category"]) == 1
+
+
+def test_category_is_a_hard_filter_and_lifts_the_gift_floor():
+    cols = engine.label_cols["category"]
+    for cc in ("DE", "US"):
+        r = engine.search(cc, category=["furniture"], limit=60)
+        assert all(engine.S["category"][engine.pos[x["id"]], cols["furniture"]] >= 0.5 for x in r["results"])
+        both = engine.search(cc, category=["perfume", "automotive"], gender="male", limit=60)
+        assert all(max(engine.S["category"][engine.pos[x["id"]], cols[c]] for c in ("perfume", "automotive")) >= 0.5 for x in both["results"])
+    api = client.get("/api/search", params={"country": "DE", "category": ["furniture"], "limit": 5})
+    assert api.status_code == 200
+    assert "category" in client.get("/api/options", params={"lang": "pl"}).json()["facets"]
+
+
+def test_big_furniture_is_kept_for_its_category_but_covers_and_kitchens_are_not():
+    from app.data.rules import kept_for_category
+    from app.sources.awin import is_gift
+    from app.sources.base import Product
+
+    def kept(title, category_path=""):
+        _, hit, _ = match_rules(strong_text(title, "", "", category_path))
+        return kept_for_category(hit)
+    for title in ("3-Sitzer Sofa Stoff grau", "Ecksofa mit Schlaffunktion", "Chesterfield 2 Seater Leather Sofa", "Divano 3 posti in velluto",
+                  "Soffa 3-sits", "Narożnik rozkładany", "Canapea extensibila 3 locuri", "Ohrensessel Samt", "Kleiderschrank 3-türig"):
+        assert kept(title), title
+    for title in ("Sofahusse elastisch 3-Sitzer", "3 Seater Garden Bench Cushion", "Balcão de Cozinha 120cm", "Wood screws 4x40",
+                  "Dumbbell Rack 1-10kg", "Wandregal Eiche"):
+        assert not kept(title), title
+    _, hit, _ = match_rules(strong_text("BH Pioneer S3 Treadmill", "Under the bed treadmills"))
+    assert not kept_for_category(hit)         # "bed" alone is no bed
+    sofa = Product(id="x", country="DE", lang="de", merchant_id="m", title="3-Sitzer Sofa Stoff grau", description="", price=499.0,
+                   currency="EUR", url="", image="", category_path="Möbel > Sofas")
+    assert is_gift(sofa)          # the feed reader keeps it, plain gift searches still hide it (prior 0.1)

@@ -23,6 +23,8 @@ STOPWORDS = {
 def fold(text):
     """Lowercase and strip diacritics. Turkish dotless i is handled too."""
     text = text.replace("ı", "i").replace("İ", "i").replace("ß", "ss")
+    for a, b in (("ł", "l"), ("Ł", "l"), ("ø", "o"), ("Ø", "o"), ("æ", "ae"), ("Æ", "ae"), ("œ", "oe"), ("Œ", "oe"), ("đ", "d")):
+        text = text.replace(a, b)          # letters NFKD does not split (Polish, Danish, French)
     text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
     return text.lower()
@@ -34,6 +36,9 @@ def normalize(text):
     return _WS.sub(" ", text).strip()
 
 
+from ..i18n import table as _i18n_table  # noqa: E402
+
+STOPWORDS.update({lang: words.split() if isinstance(words, str) else list(words) for lang, words in _i18n_table("stopwords").items()})
 _ALL_STOP = {fold(w) for ws in STOPWORDS.values() for w in ws}
 
 

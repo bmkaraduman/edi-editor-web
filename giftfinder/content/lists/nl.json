@@ -1,0 +1,339 @@
+{
+  "root": "cadeaus",
+  "under_slug": "onder-{n}",
+  "under_h1": "{h1} onder {price}",
+  "under_description": "{h1} onder {price}: {n} ideeën van winkels in {country}, gerangschikt op hoe goed ze bij de persoon en de gelegenheid passen.",
+  "home": {
+    "title": "Cadeaufinder: cadeau-ideeën van winkels in {country} | giftdetect.com",
+    "description": "Vertel giftdetect.com voor wie het cadeau is, wat de gelegenheid is, hoe diegene is en wat je budget is, en krijg passende cadeau-ideeën van winkels in {country}.",
+    "h1": "Vind in een paar seconden het juiste cadeau",
+    "sub": "Kies voor wie het is, de gelegenheid en de persoonlijkheid. giftdetect.com doorzoekt het aanbod van winkels in {country} en zet bovenaan wat het beste past."
+  },
+  "ui": {
+    "popular": "Populaire cadeau-ideeën",
+    "who": "Voor wie",
+    "occasion": "Per gelegenheid",
+    "combo": "Gelegenheid en ontvanger",
+    "interest": "Per interesse",
+    "budget": "Per budget",
+    "picks": "Onze favorieten",
+    "stats": "{n} cadeau-ideeën van {shops} winkels in {country}, van {min} tot {max}. De helft kost minder dan {median}.",
+    "under_intro": "Elk idee op deze pagina kost {price} of minder.",
+    "guide": "Lees de gids: {title}",
+    "more": "Meer cadeau-ideeën",
+    "home": "Cadeau zoeken",
+    "countries": "giftdetect.com in andere landen",
+    "blog": "Cadeaugidsen op het blog",
+    "view": "Bekijken"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "voor-haar",
+      "h1": "Cadeaus voor haar",
+      "title": "Cadeaus voor haar: ideeën die ze echt gebruikt",
+      "description": "Cadeaus voor haar, van kleine verwennerij tot grote verrassing: sieraden, beauty, wonen, hobby's en meer, van winkels in je eigen land.",
+      "intro": "Een goed cadeau voor haar begint bij wat ze graag doet, niet bij het schap waar ‘voor vrouwen’ op staat. Deze ideeën gaan van sieraden en beauty tot wonen, boeken en hobby's; vul in de zoekbalk hierboven haar persoonlijkheid in om de lijst te verfijnen."
+    },
+    "for-him": {
+      "slug": "voor-hem",
+      "h1": "Cadeaus voor hem",
+      "title": "Cadeaus voor hem: ideeën voorbij sokken en stropdassen",
+      "description": "Cadeaus voor hem, ook als hij zegt dat hij niets nodig heeft: tech, gereedschap, outdoor, eten en drinken en meer, gesorteerd op hoe goed ze passen.",
+      "intro": "Mannen die ‘niets nodig hebben’ zijn makkelijker te verrassen als je bedenkt hoe ze een vrije zaterdag doorbrengen. Deze ideeën lopen van tech en gereedschap tot outdoorspullen en lekker eten; kies zijn interesses in de zoekbalk hierboven om de lijst scherper te maken."
+    },
+    "for-mom": {
+      "slug": "voor-mama",
+      "h1": "Cadeaus voor mama",
+      "title": "Cadeaus voor mama: attente ideeën voor elk budget",
+      "description": "Cadeaus voor mama voor Moederdag, haar verjaardag of zomaar: wellness, wonen, tuin, sieraden en iets persoonlijks, gesorteerd op hoe goed ze passen.",
+      "intro": "Mama vraagt zelden ergens om, en juist daarom doet een goed gekozen cadeau zoveel. Hier vind je ideeën voor Moederdag en de rest van het jaar, van een uurtje ontspanning tot iets voor de tuin of het huis waar ze trots op is."
+    },
+    "for-dad": {
+      "slug": "voor-papa",
+      "h1": "Cadeaus voor papa",
+      "title": "Cadeaus voor papa: ideeën die niet in een la belanden",
+      "description": "Cadeaus voor papa voor Vaderdag, zijn verjaardag of kerst: barbecue, gereedschap, outdoor, tech en koffie, gesorteerd op hoe goed ze bij hem passen.",
+      "intro": "De beste cadeaus voor papa sluiten aan bij iets wat hij al graag doet, of dat nu barbecueën, klussen of urenlang in de tuin verdwijnen is. Deze ideeën passen bij Vaderdag, een verjaardag of kerst."
+    },
+    "for-girlfriend": {
+      "slug": "voor-vriendin",
+      "h1": "Cadeaus voor je vriendin",
+      "title": "Cadeaus voor je vriendin: romantisch en persoonlijk",
+      "description": "Cadeaus voor je vriendin of vrouw voor Valentijnsdag, jullie jubileum of zomaar: romantisch, persoonlijk en bruikbaar, gesorteerd op wat past.",
+      "intro": "Een cadeau voor je vriendin laat zien dat je hebt geluisterd, dus begin bij iets wat ze ooit noemde en nooit voor zichzelf kocht. Deze romantische ideeën passen bij Valentijnsdag, jullie jubileum of een gewone dinsdag die wel wat extra's verdient."
+    },
+    "for-boyfriend": {
+      "slug": "voor-vriend",
+      "h1": "Cadeaus voor je vriend",
+      "title": "Cadeaus voor je vriend: ideeën waar hij blij van wordt",
+      "description": "Cadeaus voor je vriend of man voor Valentijnsdag, jullie jubileum of zomaar: persoonlijk, praktisch en leuk, gesorteerd op hoe goed ze passen.",
+      "intro": "De cadeaus die je vriend onthoudt, passen bij zijn hobby's en niet bij wat er romantisch uitziet in de etalage. Hier vind je ideeën voor Valentijnsdag, jullie jubileum of een verrassing, van persoonlijke aandenkens tot dingen die hij elke dag gebruikt."
+    },
+    "for-kids": {
+      "slug": "voor-kinderen",
+      "h1": "Cadeaus voor kinderen",
+      "title": "Cadeaus voor kinderen: speelgoed dat leuk blijft",
+      "description": "Cadeaus voor kinderen: speelgoed, spellen, knutselsets, boeken en buitenspeelgoed waar ze langer zoet mee zijn dan met het cadeaupapier.",
+      "intro": "Kinderen zijn eerlijke critici: met een cadeau wordt gespeeld of niet. Deze ideeën draaien om speelgoed, spellen, knutselsets en buitenspeelgoed dat ook na de eerste middag nog leuk is, voor een verjaardag of zomaar."
+    },
+    "for-teens": {
+      "slug": "voor-tieners",
+      "h1": "Cadeaus voor tieners",
+      "title": "Cadeaus voor tieners: ideeën die ze echt willen",
+      "description": "Cadeaus voor tieners: gaming, muziek, tech, mode, kameraccessoires en creatieve hobby's, van winkels in je eigen land en gesorteerd op wat past.",
+      "intro": "Tieners weten precies wat ze leuk vinden en veranderen net zo snel van gedachten, dus een cadeau dat aansluit bij een hobby van dit moment is de veiligste keuze. Bekijk ideeën rond gaming, muziek, tech, mode en hun eigen kamer."
+    },
+    "for-grandparents": {
+      "slug": "voor-opa-en-oma",
+      "h1": "Cadeaus voor opa en oma",
+      "title": "Cadeaus voor opa en oma: comfort, herinneringen, hobby's",
+      "description": "Cadeaus voor opa en oma en andere oudere familieleden: comfort in huis, iets voor de tuin of een hobby, aandenkens en praktische hulpjes.",
+      "intro": "Opa en oma hebben meestal alles al wat ze nodig hebben. Cadeaus die wel aankomen, maken het thuis comfortabeler, passen bij een hobby of halen een herinnering terug. Deze ideeën gaan van knusse dingen voor in huis tot hulpjes voor de tuin en aandenkens."
+    },
+    "birthday": {
+      "slug": "verjaardag",
+      "h1": "Verjaardagscadeaus",
+      "title": "Verjaardagscadeaus: ideeën voor elke leeftijd en elk budget",
+      "description": "Verjaardagscadeaus voor vrienden, familie en collega's, van kleine verrassing tot groot cadeau, van winkels in je eigen land en gesorteerd op wat past.",
+      "intro": "Een verjaardagscadeau hoeft maar één ding te doen: laten zien dat je aan precies deze persoon hebt gedacht. Begin met deze ideeën en kies daarna in de zoekbalk hierboven een leeftijd en een persoonlijkheid om ze persoonlijk te maken."
+    },
+    "christmas": {
+      "slug": "kerst",
+      "h1": "Kerstcadeaus",
+      "title": "Kerstcadeaus: ideeën voor de hele familie",
+      "description": "Kerstcadeaus voor je partner, ouders, kinderen en collega's, voor elk budget, van winkels in je eigen land en gesorteerd op hoe goed ze passen.",
+      "intro": "Kerstinkopen doen gaat makkelijker als je het lijstje persoon voor persoon afwerkt. Deze ideeën zijn er voor de hele familie; vul in de zoekbalk hierboven in voor wie het cadeau is en wat je budget is, en de lijst past zich aan."
+    },
+    "valentines": {
+      "slug": "valentijnsdag",
+      "h1": "Valentijnscadeaus",
+      "title": "Valentijnscadeaus: romantische ideeën voor jullie twee",
+      "description": "Valentijnscadeaus voor haar en voor hem, voor prille stellen en lange relaties, van klein gebaar tot grote verrassing, gesorteerd op wat past.",
+      "intro": "Valentijnsdag vraagt niet om een groots gebaar, maar om een persoonlijk gebaar. Hier vind je romantische ideeën voor prille stellen en lange relaties, van kleine attenties tot cadeaus waar jullie samen van genieten."
+    },
+    "anniversary": {
+      "slug": "jubileum",
+      "h1": "Jubileumcadeaus",
+      "title": "Jubileumcadeaus: ideeën voor stellen en mijlpalen",
+      "description": "Jubileumcadeaus voor je partner of voor een stel dat je kent: aandenkens, dingen om samen van te genieten en cadeaus voor een huwelijksjubileum.",
+      "intro": "Een jubileumcadeau viert de tijd die jullie samen hebben gehad. Daarom passen aandenkens en dingen om samen van te genieten beter dan iets puur praktisch. Deze ideeën zijn geschikt voor je eigen partner en voor stellen die een mijlpaal vieren."
+    },
+    "wedding": {
+      "slug": "huwelijk",
+      "h1": "Huwelijkscadeaus",
+      "title": "Huwelijkscadeaus: ideeën die het bruidspaar bewaart",
+      "description": "Huwelijkscadeaus voor als er geen verlanglijst is: dingen voor het gezamenlijke huis, aandenkens en cadeaus voor twee, gesorteerd op wat past.",
+      "intro": "Heeft het bruidspaar geen verlanglijst, kies dan iets voor het leven dat ze samen opbouwen. Deze ideeën draaien om het gezamenlijke huis, blijvende aandenkens en cadeaus die voor twee bedoeld zijn."
+    },
+    "housewarming": {
+      "slug": "housewarming",
+      "h1": "Housewarmingcadeaus",
+      "title": "Housewarmingcadeaus: ideeën voor een nieuw huis",
+      "description": "Housewarmingcadeaus voor een eerste appartement of een nieuw huis: keukenhulpjes, decoratie, planten en praktische dingen die er nog ontbreken.",
+      "intro": "In een nieuw huis ontbreekt altijd wel iets, en een goed housewarmingcadeau vult precies zo'n gat. Denk aan keukenhulpjes, decoratie, planten en de praktische dingen die niemand koopt voordat de verhuisdozen zijn uitgepakt."
+    },
+    "graduation": {
+      "slug": "geslaagd",
+      "h1": "Cadeaus voor geslaagden",
+      "title": "Cadeaus voor geslaagden: ideeën voor de volgende stap",
+      "description": "Cadeaus voor geslaagden en afgestudeerden: dingen voor de eerste baan, het eerste eigen huis of een reis, en aandenkens die blijven.",
+      "intro": "Een cadeau voor een geslaagde werkt het best als het vooruitkijkt: naar de eerste baan, op kamers gaan of een reis die al lang op de planning staat. Deze ideeën combineren handige spullen voor de start met aandenkens aan de prestatie."
+    },
+    "retirement": {
+      "slug": "pensioen",
+      "h1": "Pensioencadeaus",
+      "title": "Pensioencadeaus: ideeën voor al die vrije tijd",
+      "description": "Pensioencadeaus voor collega's en familie: hobby's, reizen, tuin en ontspanning, met ideeën die ook geschikt zijn als gezamenlijk cadeau.",
+      "intro": "Met pensioen gaan betekent eindelijk tijd voor alles wat moest wachten. Goede cadeaus sluiten aan bij die plannen, of het nu om de tuin, reizen of een hobby gaat; veel van deze ideeën zijn ook geschikt als gezamenlijk cadeau van het team."
+    },
+    "new-baby": {
+      "slug": "geboorte",
+      "h1": "Kraamcadeaus",
+      "title": "Kraamcadeaus: ideeën voor de baby en de ouders",
+      "description": "Kraamcadeaus voor de baby en de kersverse ouders: praktische hulpjes, knuffels en aandenkens voor een geboorte, babyshower of kraambezoek.",
+      "intro": "Kersverse ouders hebben meer aan praktische hulp en een beetje comfort dan aan een tiende rompertje. Deze ideeën voor een kraambezoek of babyshower combineren handige dingen voor de eerste maanden met knuffels en aandenkens."
+    },
+    "thank-you": {
+      "slug": "bedankje",
+      "h1": "Bedankcadeaus",
+      "title": "Bedankcadeaus: kleine ideeën die veel zeggen",
+      "description": "Bedankcadeaus voor juffen en meesters, buren, collega's en gastheren: kleine, attente cadeaus van winkels in je eigen land, gesorteerd op wat past.",
+      "intro": "Een bedankje hoort luchtig te voelen: klein genoeg om niemand in verlegenheid te brengen, attent genoeg om op te vallen. Hier vind je ideeën voor de juf of meester, de buren, collega's en gastheren en gastvrouwen."
+    },
+    "get-well": {
+      "slug": "beterschap",
+      "h1": "Beterschapscadeaus",
+      "title": "Beterschapscadeaus: ideeën die troost bieden",
+      "description": "Beterschapscadeaus voor iemand die ziek is of herstelt: comfort, afleiding en kleine verwennerijen, van winkels in je eigen land, gesorteerd op wat past.",
+      "intro": "Als iemand ziek is of herstelt, zijn comfort en afleiding meer waard dan iets chics. Tussen deze beterschapscadeaus vind je knusse dingen, iets om te lezen of te doen en kleine verwennerijen."
+    },
+    "birthday-for-her": {
+      "slug": "verjaardag-voor-haar",
+      "h1": "Verjaardagscadeaus voor haar",
+      "title": "Verjaardagscadeaus voor haar: op smaak en budget",
+      "description": "Verjaardagscadeaus voor haar: voor je vriendin, vrouw, moeder, zus of beste vriendin, voor elke smaak en elk budget, gesorteerd op wat past.",
+      "intro": "Of het nu voor je partner, je zus of je beste vriendin is: haar verjaardagscadeau moet bij haar smaak passen en niet bij een cliché. Bekijk deze ideeën en vul in de zoekbalk hierboven haar interesses in."
+    },
+    "birthday-for-him": {
+      "slug": "verjaardag-voor-hem",
+      "h1": "Verjaardagscadeaus voor hem",
+      "title": "Verjaardagscadeaus voor hem: op hobby en budget",
+      "description": "Verjaardagscadeaus voor hem: voor je vriend, man, vader, broer of een goede vriend, voor elke hobby en elk budget, gesorteerd op wat past.",
+      "intro": "Sla voor zijn verjaardag het standaardcadeau over en kies voor zijn hobby: het onderwerp waar hij ongevraagd over begint. Deze ideeën passen bij partners, vaders, broers en vrienden, en met de zoekbalk hierboven verfijn je ze op interesse."
+    },
+    "birthday-for-kids": {
+      "slug": "verjaardag-voor-kinderen",
+      "h1": "Verjaardagscadeaus voor kinderen",
+      "title": "Verjaardagscadeaus voor kinderen: om echt mee te spelen",
+      "description": "Verjaardagscadeaus voor kinderen: speelgoed, spellen, knutselsets en buitenspeelgoed voor je eigen kind of voor het volgende kinderfeestje.",
+      "intro": "Hangt er weer een uitnodiging voor een kinderfeestje op de koelkast? Deze cadeau-ideeën voor kinderen, van speelgoed en spellen tot knutselsets, zijn geschikt voor je eigen kind en voor het klasgenootje dat je nauwelijks kent."
+    },
+    "birthday-for-teens": {
+      "slug": "verjaardag-voor-tieners",
+      "h1": "Verjaardagscadeaus voor tieners",
+      "title": "Verjaardagscadeaus voor tieners: ideeën die aanslaan",
+      "description": "Verjaardagscadeaus voor tieners: gaming, muziek, tech, mode en kameraccessoires, van winkels in je eigen land en gesorteerd op wat past.",
+      "intro": "De verjaardag van een tiener is een kans om te laten zien dat je weet waar die nu mee bezig is. Deze ideeën gaan over gaming, muziek, tech en mode, voor een achttiende verjaardag of elk jaar daarvoor."
+    },
+    "christmas-for-her": {
+      "slug": "kerst-voor-haar",
+      "h1": "Kerstcadeaus voor haar",
+      "title": "Kerstcadeaus voor haar: ideeën waar ze blij van wordt",
+      "description": "Kerstcadeaus voor haar: voor je vrouw, vriendin, moeder of zus, van knus tot luxe, van winkels in je eigen land en gesorteerd op wat past.",
+      "intro": "Zoek je iets voor haar onder de kerstboom? Deze kerstideeën voor je vrouw, vriendin, moeder of zus gaan van knusse winterspullen tot kleine luxe die ze niet snel voor zichzelf zou kopen."
+    },
+    "christmas-for-him": {
+      "slug": "kerst-voor-hem",
+      "h1": "Kerstcadeaus voor hem",
+      "title": "Kerstcadeaus voor hem: ideeën die hij echt gebruikt",
+      "description": "Kerstcadeaus voor hem: voor je man, vriend, vader of broer, van praktisch tot verwennerij, van winkels in je eigen land en gesorteerd op wat past.",
+      "intro": "Kerstcadeaus voor hem hoeven niet weer sokken te zijn. Deze ideeën voor je man, vriend, vader of broer lopen van praktisch tot pure verwennerij, en de meeste passen gewoon onder de boom."
+    },
+    "christmas-for-kids": {
+      "slug": "kerst-voor-kinderen",
+      "h1": "Kerstcadeaus voor kinderen",
+      "title": "Kerstcadeaus voor kinderen: speelgoed voor onder de boom",
+      "description": "Kerstcadeaus voor kinderen: speelgoed, spellen, knutselsets en boeken waar ze lang na de feestdagen nog steeds mee spelen.",
+      "intro": "Voor kinderen horen de cadeaus onder de boom bij de mooiste momenten van het jaar. Dit speelgoed, deze spellen en knutselsets zijn uitgekozen om ze tot ver na de feestdagen bezig te houden, wat er ook op hun verlanglijstje staat."
+    },
+    "christmas-for-teens": {
+      "slug": "kerst-voor-tieners",
+      "h1": "Kerstcadeaus voor tieners",
+      "title": "Kerstcadeaus voor tieners: ideeën die aanslaan",
+      "description": "Kerstcadeaus voor tieners: gaming, muziek, tech, mode en kameraccessoires, van winkels in je eigen land en gesorteerd op hoe goed ze passen.",
+      "intro": "Tieners zijn de lastigste namen op het kerstlijstje. Deze ideeën houden het bij wat meestal werkt: gaming, muziek, tech, mode en dingen voor hun eigen kamer. Kies in de zoekbalk hierboven een budget om de lijst te verfijnen."
+    },
+    "tech": {
+      "slug": "voor-techliefhebbers",
+      "h1": "Cadeaus voor techliefhebbers",
+      "title": "Cadeaus voor techliefhebbers: gadgets en slimme ideeën",
+      "description": "Cadeaus voor techliefhebbers: gadgets, audio, smart home en accessoires voor mensen die graag het nieuwste uitproberen, gesorteerd op wat past.",
+      "intro": "Techliefhebbers kopen de grote dingen meestal zelf, dus de beste cadeaus zijn de slimme extra's: gadgets, audio, hulpjes voor het smart home en accessoires die beter maken wat ze al hebben."
+    },
+    "gamer": {
+      "slug": "voor-gamers",
+      "h1": "Cadeaus voor gamers",
+      "title": "Cadeaus voor gamers: accessoires, comfort en spellen",
+      "description": "Cadeaus voor gamers: accessoires, spullen voor de setup, bordspellen en merchandise, zonder het risico dat je een game koopt die ze al hebben.",
+      "intro": "Een game kopen voor een gamer is riskant, want de kans is groot dat die hem al heeft. Accessoires, comfort voor lange sessies, bordspellen en spullen voor de setup zijn veiliger, en deze ideeën laten zien waar je kunt beginnen."
+    },
+    "foodie": {
+      "slug": "voor-foodies",
+      "h1": "Cadeaus voor foodies",
+      "title": "Cadeaus voor foodies: ideeën voor wie graag kookt",
+      "description": "Cadeaus voor foodies en hobbykoks: keukengerei, delicatessen, proeverijsets en dingen voor op tafel, van winkels in je eigen land.",
+      "intro": "Voor mensen die van lekker eten houden is het fijn cadeaus kopen, want er valt altijd iets nieuws te proeven of te proberen. Tussen deze ideeën vind je keukengerei, delicatessen, proeverijsets en dingen voor een mooi gedekte tafel."
+    },
+    "coffee_tea": {
+      "slug": "voor-koffie-en-theeliefhebbers",
+      "h1": "Cadeaus voor koffie- en theeliefhebbers",
+      "title": "Cadeaus voor koffie- en theeliefhebbers: zetten en genieten",
+      "description": "Cadeaus voor koffie- en theeliefhebbers: zetspullen, kopjes, proeverijsets en accessoires voor beginners en kenners, gesorteerd op wat past.",
+      "intro": "Voor koffie- en theeliefhebbers is het dagelijkse kopje een klein ritueel, en een goed cadeau maakt dat ritueel nog fijner. Hier vind je zetspullen, kopjes, proeverijsets en accessoires voor beginners en kenners."
+    },
+    "outdoor": {
+      "slug": "voor-outdoorliefhebbers",
+      "h1": "Cadeaus voor outdoorliefhebbers",
+      "title": "Cadeaus voor outdoorliefhebbers: wandelen en kamperen",
+      "description": "Cadeaus voor outdoorliefhebbers: spullen voor wandelen, kamperen en dagen in de buitenlucht, van kleine praktische hulpjes tot grotere uitrusting.",
+      "intro": "Buitenmensen hechten aan spullen die licht, stevig en nuttig zijn, en ze merken het verschil. Deze ideeën voor wandelaars, kampeerders en iedereen die liever buiten is, lopen van kleine hulpjes tot grotere uitrusting."
+    },
+    "fitness": {
+      "slug": "voor-sporters",
+      "h1": "Cadeaus voor sporters",
+      "title": "Cadeaus voor sporters: ideeën voor training en herstel",
+      "description": "Cadeaus voor sporters: materiaal om thuis te trainen, accessoires voor de sportschool en dingen voor het herstel, gesorteerd op wat past.",
+      "intro": "Wie regelmatig traint, is blij met alles wat de volgende training makkelijker of het herstel aangenamer maakt. Bekijk materiaal voor thuis, accessoires voor de sportschool en dingen voor de dag erna."
+    },
+    "bookworm": {
+      "slug": "voor-boekenliefhebbers",
+      "h1": "Cadeaus voor boekenliefhebbers",
+      "title": "Cadeaus voor boekenliefhebbers: meer dan weer een boek",
+      "description": "Cadeaus voor boekenliefhebbers: leesaccessoires, knusse dingen voor de leeshoek en boeken, van winkels in je eigen land, gesorteerd op wat past.",
+      "intro": "Je hoeft niet te raden welk boek een lezer nog niet heeft gelezen. Leeslampjes, boekensteunen, knusse dingen voor de leeshoek en literaire extra's zijn ook goede cadeaus, naast de boeken zelf."
+    },
+    "artist": {
+      "slug": "voor-creatievelingen",
+      "h1": "Cadeaus voor creatievelingen",
+      "title": "Cadeaus voor creatievelingen: tekenen, schilderen, knutselen",
+      "description": "Cadeaus voor creatievelingen: materialen en sets om te tekenen, schilderen en knutselen, voor beginners en voor wie al een eigen atelierhoek heeft.",
+      "intro": "Creatievelingen hebben nooit te veel materiaal. Deze ideeën om te tekenen, schilderen en knutselen zijn geschikt voor beginners die iets nieuws willen proberen en voor mensen met een goedgevulde atelierhoek."
+    },
+    "music": {
+      "slug": "voor-muziekliefhebbers",
+      "h1": "Cadeaus voor muziekliefhebbers",
+      "title": "Cadeaus voor muziekliefhebbers: luisteren en zelf spelen",
+      "description": "Cadeaus voor muziekliefhebbers: audio, accessoires voor instrumenten en dingen voor fans, van winkels in je eigen land, gesorteerd op wat past.",
+      "intro": "Of ze nu luisteren, zelf spelen of allebei: muziekliefhebbers waarderen cadeaus die hen dichter bij het geluid brengen. Hier vind je ideeën rond audio, instrumenten en accessoires, en dingen voor fans."
+    },
+    "traveler": {
+      "slug": "voor-reizigers",
+      "h1": "Cadeaus voor reizigers",
+      "title": "Cadeaus voor reizigers: ideeën voor de volgende reis",
+      "description": "Cadeaus voor reizigers: bagage, handige inpakhulpjes, comfort voor onderweg en manieren om herinneringen te bewaren, van winkels in je eigen land.",
+      "intro": "Reizigers willen spullen die licht en compact zijn en de reis makkelijker maken. Tussen deze ideeën vind je bagage en inpakhulpjes, comfort voor lange reizen en manieren om de herinneringen achteraf te bewaren."
+    },
+    "homebody": {
+      "slug": "voor-huismussen",
+      "h1": "Cadeaus voor huismussen",
+      "title": "Cadeaus voor huismussen: knusse ideeën voor thuis",
+      "description": "Cadeaus voor huismussen: plaids, kaarsen, decoratie en alles wat een avond op de bank nog fijner maakt, gesorteerd op hoe goed ze passen.",
+      "intro": "Voor mensen die het liefst op hun eigen bank zitten, moet een cadeau het thuis nog gezelliger maken. Denk aan plaids, kaarsen, decoratie en kleine dingen voor een rustige avond thuis."
+    },
+    "fashion": {
+      "slug": "voor-modeliefhebbers",
+      "h1": "Cadeaus voor modeliefhebbers",
+      "title": "Cadeaus voor modeliefhebbers: stijlvolle ideeën",
+      "description": "Cadeaus voor modeliefhebbers: accessoires, tassen, sieraden en stijlvolle items waarbij je niet naar de juiste maat hoeft te raden.",
+      "intro": "Kleding kopen voor iemand anders is lastig, dus met accessoires maak je een modeliefhebber met minder risico blij. Tassen, sjaals, sieraden en andere stijlvolle items passen altijd, ook als je de maat niet weet."
+    },
+    "gardener": {
+      "slug": "voor-tuinliefhebbers",
+      "h1": "Cadeaus voor tuinliefhebbers",
+      "title": "Cadeaus voor tuinliefhebbers: voor tuin en balkon",
+      "description": "Cadeaus voor tuinliefhebbers: gereedschap, plantenbakken, tuindecoratie en hulpjes voor het balkon, van winkels in je eigen land.",
+      "intro": "Tuinliefhebbers zijn blij met alles wat helpt bij het groeien of de tuin een fijnere plek maakt om te zitten. Tussen deze ideeën vind je gereedschap, plantenbakken, decoratie en hulpjes voor mensen met een balkon in plaats van een gazon."
+    },
+    "pet_lover": {
+      "slug": "voor-dierenliefhebbers",
+      "h1": "Cadeaus voor dierenliefhebbers",
+      "title": "Cadeaus voor dierenliefhebbers: voor baasje en huisdier",
+      "description": "Cadeaus voor dierenliefhebbers en hun hond of kat: speeltjes, manden, accessoires en cadeaus voor het baasje, van winkels in je eigen land.",
+      "intro": "De snelste weg naar het hart van een baasje loopt via de hond of de kat. Tussen deze ideeën vind je speeltjes, manden en accessoires voor het dier, en ook cadeaus voor degene die de riem vasthoudt."
+    },
+    "wellness": {
+      "slug": "wellness",
+      "h1": "Wellnesscadeaus",
+      "title": "Wellnesscadeaus: ideeën om thuis te ontspannen",
+      "description": "Wellnesscadeaus voor een ontspannen avond thuis: bad- en lichaamsverzorging, geuren en comfort voor mensen die een pauze verdienen.",
+      "intro": "Een wellnesscadeau is toestemming om even helemaal niets te doen. Bad- en lichaamsverzorging, geuren en knusse spullen maken van een gewone avond een kleine pauze voor iemand die dat kan gebruiken."
+    },
+    "maker": {
+      "slug": "voor-klussers",
+      "h1": "Cadeaus voor klussers",
+      "title": "Cadeaus voor klussers: gereedschap en ideeën voor doeners",
+      "description": "Cadeaus voor klussers en doe-het-zelvers: gereedschap, hulpjes voor de werkplaats en bouwpakketten voor wie het liever zelf maakt en repareert.",
+      "intro": "Mensen die graag bouwen en repareren hebben altijd een volgend project in gedachten. Gereedschap, hulpjes voor de werkplaats en bouwpakketten zijn welkom, vooral de dingen die ze zichzelf niet snel cadeau doen."
+    }
+  }
+}

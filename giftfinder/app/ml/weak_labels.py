@@ -36,6 +36,8 @@ def weak_labels(text, min_hits=1):
         hits.sort(reverse=True)
         if facet == "gender":
             out[facet] = [hits[0][1]] if hits else ["unisex"]
+        elif facet == "category":
+            out[facet] = [hits[0][1]] if hits else []
         else:
             out[facet] = [l for _, l in hits[:3]]
     return out

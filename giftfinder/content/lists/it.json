@@ -1,0 +1,339 @@
+{
+  "root": "regali",
+  "under_slug": "sotto-{n}",
+  "under_h1": "{h1} sotto i {price}",
+  "under_description": "{h1} sotto i {price}: {n} idee dai negozi online in {country}, ordinate in base a quanto si adattano alla persona e all'occasione.",
+  "home": {
+    "title": "Idee regalo dai negozi in {country} | giftdetect.com",
+    "description": "Di' a giftdetect.com per chi è il regalo, l'occasione, la personalità e il tuo budget: riceverai idee regalo su misura dai negozi online in {country}.",
+    "h1": "Trova il regalo giusto in pochi secondi",
+    "sub": "Scegli per chi è, l'occasione e la personalità. giftdetect.com legge i prodotti dei negozi online in {country} e mette in ordine quelli più adatti."
+  },
+  "ui": {
+    "popular": "Idee regalo più cercate",
+    "who": "Per destinatario",
+    "occasion": "Per occasione",
+    "combo": "Occasione e destinatario",
+    "interest": "Per interesse",
+    "budget": "Per budget",
+    "picks": "Le nostre scelte",
+    "stats": "{n} idee regalo da {shops} negozi in {country}, da {min} a {max}. La metà costa meno di {median}.",
+    "under_intro": "Tutte le idee di questa pagina costano {price} o meno.",
+    "guide": "Leggi la guida: {title}",
+    "more": "Altre idee regalo",
+    "home": "Ricerca regali",
+    "countries": "giftdetect.com in altri paesi",
+    "blog": "Guide ai regali sul blog",
+    "view": "Vedi"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "per-lei",
+      "h1": "Regali per lei",
+      "title": "Regali per lei: idee che userà davvero",
+      "description": "Regali per lei, dal piccolo pensiero alla grande sorpresa: gioielli, bellezza, casa, hobby e altro, dai negozi online del tuo paese.",
+      "intro": "Un bel regalo per lei parte da quello che le piace fare, non dallo scaffale con la scritta “per donna”. Queste idee spaziano tra gioielli, bellezza, casa, libri e hobby; aggiungi la sua personalità nella ricerca qui sopra per restringere la scelta."
+    },
+    "for-him": {
+      "slug": "per-lui",
+      "h1": "Regali per lui",
+      "title": "Regali per lui: idee oltre calzini e cravatte",
+      "description": "Regali per lui, anche se dice di non avere bisogno di niente: tecnologia, attrezzi, outdoor, cibo e bevande, dai negozi online del tuo paese.",
+      "intro": "Gli uomini che “non hanno bisogno di niente” diventano più facili da accontentare se pensi a come passano un sabato libero. Queste idee vanno dalla tecnologia agli attrezzi, dall'outdoor al buon cibo; scegli i suoi interessi nella ricerca qui sopra per affinare la lista."
+    },
+    "for-mom": {
+      "slug": "per-la-mamma",
+      "h1": "Regali per la mamma",
+      "title": "Regali per la mamma: idee pensate per ogni budget",
+      "description": "Regali per la mamma per la Festa della mamma, il compleanno o senza un motivo: benessere, casa, giardino, gioielli e pensieri personali.",
+      "intro": "La mamma non chiede quasi mai niente, ed è proprio per questo che un regalo scelto bene fa centro. Qui trovi idee per la Festa della mamma e non solo, da un'ora di relax tutta per lei a qualcosa per il giardino o per la casa di cui va fiera."
+    },
+    "for-dad": {
+      "slug": "per-il-papa",
+      "h1": "Regali per il papà",
+      "title": "Regali per il papà: idee che non finiscono nel cassetto",
+      "description": "Regali per il papà per la Festa del papà, il compleanno o Natale: barbecue, attrezzi, outdoor, tecnologia e caffè, ordinate per affinità.",
+      "intro": "I regali migliori per il papà sostengono qualcosa che ama già fare, che sia stare al barbecue, aggiustare le cose o sparire in giardino. Queste idee vanno bene per la Festa del papà, per il compleanno o per Natale."
+    },
+    "for-girlfriend": {
+      "slug": "per-la-fidanzata",
+      "h1": "Regali per la fidanzata",
+      "title": "Regali per la fidanzata: idee romantiche e personali",
+      "description": "Regali per la fidanzata o la moglie per San Valentino, l'anniversario o una sorpresa: romantiche, personali e utili, ordinate per affinità.",
+      "intro": "Un regalo per la fidanzata dovrebbe dimostrare che l'hai ascoltata: parti da qualcosa che ha nominato e non si è mai comprata. Queste idee romantiche vanno bene per San Valentino, per l'anniversario o per un martedì qualunque che merita di più."
+    },
+    "for-boyfriend": {
+      "slug": "per-il-fidanzato",
+      "h1": "Regali per il fidanzato",
+      "title": "Regali per il fidanzato: idee che gli piaceranno",
+      "description": "Regali per il fidanzato o il marito per San Valentino, l'anniversario o una sorpresa: personali, pratiche e divertenti, ordinate per affinità.",
+      "intro": "I regali che un fidanzato ricorda sono quelli legati alle sue passioni, non quelli che sembrano romantici in vetrina. Qui trovi idee per San Valentino, per l'anniversario o per una sorpresa, dai ricordi personali alle cose che userà ogni giorno."
+    },
+    "for-kids": {
+      "slug": "per-bambini",
+      "h1": "Regali per bambini",
+      "title": "Regali per bambini: giochi che durano oltre il primo giorno",
+      "description": "Regali per bambini: giocattoli, giochi, set creativi, libri e divertimento all'aperto che li tengono impegnati più a lungo della carta regalo.",
+      "intro": "I bambini sono critici sinceri: con un regalo ci giocano oppure no. Queste idee puntano su giocattoli, giochi, set creativi e divertimento all'aria aperta che restano interessanti anche dopo il primo pomeriggio."
+    },
+    "for-teens": {
+      "slug": "per-adolescenti",
+      "h1": "Regali per adolescenti",
+      "title": "Regali per adolescenti: idee che i ragazzi vogliono davvero",
+      "description": "Regali per adolescenti: gaming, musica, tecnologia, moda, decorazioni per la cameretta e hobby creativi, dai negozi online del tuo paese.",
+      "intro": "Gli adolescenti sanno benissimo cosa gli piace e cambiano idea altrettanto in fretta, quindi i regali legati a una passione del momento sono la scelta più sicura. Sfoglia le idee su gaming, musica, tecnologia, moda e la loro camera."
+    },
+    "for-grandparents": {
+      "slug": "per-i-nonni",
+      "h1": "Regali per i nonni",
+      "title": "Regali per i nonni: comodità, ricordi e passioni",
+      "description": "Regali per i nonni e i parenti più anziani: comodità per la casa, regali per il giardino e gli hobby, ricordi e aiuti pratici.",
+      "intro": "I nonni di solito hanno già quello che gli serve, quindi i regali che funzionano aggiungono comodità, sostengono una passione o risvegliano un ricordo. Queste idee vanno dalle cose accoglienti per la casa agli aiuti per il giardino e ai ricordi da conservare."
+    },
+    "birthday": {
+      "slug": "compleanno",
+      "h1": "Regali di compleanno",
+      "title": "Regali di compleanno: idee per ogni età e budget",
+      "description": "Idee per regali di compleanno per amici, famiglia e colleghi, dal piccolo pensiero al regalo importante, dai negozi online del tuo paese.",
+      "intro": "Un regalo di compleanno deve fare una cosa sola: mostrare che hai pensato proprio a quella persona. Parti da queste idee, poi scegli un'età e una personalità nella ricerca qui sopra per renderle più personali."
+    },
+    "christmas": {
+      "slug": "natale",
+      "h1": "Regali di Natale",
+      "title": "Regali di Natale: idee per tutta la famiglia",
+      "description": "Idee per regali di Natale per partner, genitori, bambini e colleghi, per ogni budget, dai negozi online del tuo paese e ordinate per affinità.",
+      "intro": "I regali di Natale diventano più semplici se affronti la lista una persona alla volta. Queste idee coprono tutta la famiglia; indica per chi è il regalo e il tuo budget nella ricerca qui sopra e la lista si riordina da sola."
+    },
+    "valentines": {
+      "slug": "san-valentino",
+      "h1": "Regali di San Valentino",
+      "title": "Regali di San Valentino: idee romantiche per la coppia",
+      "description": "Idee per regali di San Valentino per lei e per lui, per coppie nuove e storie di lunga data, dal piccolo gesto alla grande sorpresa.",
+      "intro": "A San Valentino non serve un gesto grandioso, ne serve uno personale. Qui trovi idee romantiche per le coppie appena nate e per le storie di lunga data, dai piccoli pensieri ai regali da godersi in due."
+    },
+    "anniversary": {
+      "slug": "anniversario",
+      "h1": "Regali per l'anniversario",
+      "title": "Regali per l'anniversario: idee per coppie e traguardi",
+      "description": "Idee per regali per l'anniversario, per il tuo partner o per una coppia che conosci: ricordi, cose da vivere insieme e regali per i grandi traguardi.",
+      "intro": "Un regalo per l'anniversario celebra il tempo passato insieme, quindi i ricordi e le cose da godersi in due sono più adatti di un oggetto soltanto pratico. Queste idee vanno bene per il tuo partner e per le coppie che festeggiano un traguardo."
+    },
+    "wedding": {
+      "slug": "matrimonio",
+      "h1": "Regali di matrimonio",
+      "title": "Regali di matrimonio: idee che gli sposi terranno",
+      "description": "Idee per regali di matrimonio oltre la lista nozze: cose per la casa in comune, ricordi e regali per due, dai negozi online del tuo paese.",
+      "intro": "Se gli sposi non hanno una lista nozze, scegli qualcosa per la vita che stanno costruendo insieme. Queste idee puntano sulla casa in comune, sui ricordi che durano e sui regali pensati per due."
+    },
+    "housewarming": {
+      "slug": "casa-nuova",
+      "h1": "Regali per la casa nuova",
+      "title": "Regali per la casa nuova: idee per l'inaugurazione",
+      "description": "Idee per regali per la casa nuova, dal primo appartamento alla villetta: aiuti in cucina, decorazioni, piante e cose pratiche che mancano sempre.",
+      "intro": "In una casa nuova manca sempre qualcosa, e un buon regalo per l'inaugurazione riempie uno di quei vuoti. Pensa agli aiuti in cucina, alle decorazioni, alle piante e alle cose pratiche che nessuno si ricorda di comprare prima del trasloco."
+    },
+    "graduation": {
+      "slug": "laurea",
+      "h1": "Regali di laurea",
+      "title": "Regali di laurea: idee per il prossimo capitolo",
+      "description": "Idee per regali di laurea e di maturità: cose per il primo lavoro, la prima casa, i viaggi e ricordi che durano, ordinate per affinità.",
+      "intro": "I regali di laurea funzionano meglio quando guardano avanti: al primo lavoro, alla prima casa o a un viaggio sognato da tempo. Queste idee uniscono cose utili per cominciare e ricordi che celebrano il traguardo."
+    },
+    "retirement": {
+      "slug": "pensionamento",
+      "h1": "Regali per il pensionamento",
+      "title": "Regali per il pensionamento: idee per il tempo libero",
+      "description": "Idee per regali per il pensionamento di colleghi e familiari: hobby, viaggi, giardino e relax, comprese idee adatte a un regalo di gruppo.",
+      "intro": "La pensione significa avere finalmente tempo per tutto quello che ha dovuto aspettare. I regali giusti alimentano quei progetti, che riguardino il giardino, i viaggi o un hobby; molte di queste idee vanno bene anche come regalo di gruppo dei colleghi."
+    },
+    "new-baby": {
+      "slug": "nascita",
+      "h1": "Regali per la nascita",
+      "title": "Regali per la nascita: idee per il bebè e i genitori",
+      "description": "Idee per regali per la nascita, per il neonato e i neogenitori: aiuti pratici, peluche e ricordi per il lieto evento, un baby shower o la prima visita.",
+      "intro": "Ai neogenitori servono un aiuto pratico e un po' di conforto più della decima tutina. Queste idee per una nascita o un baby shower uniscono cose utili per i primi mesi a peluche e ricordi da conservare."
+    },
+    "thank-you": {
+      "slug": "per-ringraziare",
+      "h1": "Regali per ringraziare",
+      "title": "Regali per ringraziare: piccoli pensieri che dicono tanto",
+      "description": "Idee per regali per ringraziare insegnanti, vicini, colleghi e chi ti ospita: piccoli pensieri fatti con cura, dai negozi online del tuo paese.",
+      "intro": "Un regalo per ringraziare deve essere leggero: abbastanza piccolo da non mettere in imbarazzo nessuno, abbastanza curato da farsi notare. Qui trovi idee per insegnanti, vicini di casa, colleghi e per chi ti ha ospitato."
+    },
+    "get-well": {
+      "slug": "pronta-guarigione",
+      "h1": "Regali di pronta guarigione",
+      "title": "Regali di pronta guarigione: idee che danno conforto",
+      "description": "Idee per regali di pronta guarigione per chi è malato o in convalescenza: conforto, distrazione e piccole coccole, dai negozi online del tuo paese.",
+      "intro": "Quando qualcuno è malato o in convalescenza, conforto e distrazione valgono più di qualsiasi cosa ricercata. Queste idee per augurare una pronta guarigione comprendono cose accoglienti, qualcosa da leggere o da fare e piccole coccole."
+    },
+    "birthday-for-her": {
+      "slug": "compleanno-per-lei",
+      "h1": "Regali di compleanno per lei",
+      "title": "Regali di compleanno per lei: idee per gusti e budget",
+      "description": "Idee per regali di compleanno per lei: per la fidanzata, la moglie, la mamma, la sorella o la migliore amica, per ogni gusto e budget.",
+      "intro": "Che sia per la tua compagna, per tua sorella o per la tua migliore amica, il regalo di compleanno per lei dovrebbe rispecchiare i suoi gusti e non un cliché. Sfoglia queste idee e aggiungi i suoi interessi nella ricerca qui sopra."
+    },
+    "birthday-for-him": {
+      "slug": "compleanno-per-lui",
+      "h1": "Regali di compleanno per lui",
+      "title": "Regali di compleanno per lui: idee per hobby e budget",
+      "description": "Idee per regali di compleanno per lui: per il fidanzato, il marito, il papà, il fratello o un amico, per ogni hobby e budget, ordinate per affinità.",
+      "intro": "Per il suo compleanno lascia perdere il regalo generico e punta sulla sua passione: quella di cui parla anche quando nessuno gliel'ha chiesto. Queste idee vanno bene per compagni, papà, fratelli e amici, e la ricerca qui sopra le filtra per interesse."
+    },
+    "birthday-for-kids": {
+      "slug": "compleanno-per-bambini",
+      "h1": "Regali di compleanno per bambini",
+      "title": "Regali di compleanno per bambini: idee per giocare",
+      "description": "Idee per regali di compleanno per bambini: giocattoli, giochi, set creativi e divertimento all'aperto, per tuo figlio o per la prossima festa.",
+      "intro": "Un altro invito a una festa di compleanno attaccato al frigo? Queste idee regalo per bambini, dai giocattoli ai giochi fino ai set creativi, vanno bene per tuo figlio e anche per il compagno di classe che conosci appena."
+    },
+    "birthday-for-teens": {
+      "slug": "compleanno-per-adolescenti",
+      "h1": "Regali di compleanno per adolescenti",
+      "title": "Regali di compleanno per adolescenti: idee che piacciono",
+      "description": "Idee per regali di compleanno per adolescenti: gaming, musica, tecnologia, moda e decorazioni per la camera, dai negozi online del tuo paese.",
+      "intro": "Il compleanno di un adolescente è l'occasione per dimostrare che sai cosa gli piace in questo momento. Queste idee spaziano tra gaming, musica, tecnologia e moda, per il diciottesimo o per qualsiasi compleanno prima."
+    },
+    "christmas-for-her": {
+      "slug": "natale-per-lei",
+      "h1": "Regali di Natale per lei",
+      "title": "Regali di Natale per lei: idee che le piaceranno",
+      "description": "Idee per regali di Natale per lei: per la moglie, la fidanzata, la mamma o la sorella, dal pensiero accogliente al piccolo lusso.",
+      "intro": "Cerchi qualcosa per lei da mettere sotto l'albero? Queste idee di Natale per mogli, fidanzate, mamme e sorelle vanno dalle coccole per l'inverno ai piccoli lussi che da sola non si comprerebbe."
+    },
+    "christmas-for-him": {
+      "slug": "natale-per-lui",
+      "h1": "Regali di Natale per lui",
+      "title": "Regali di Natale per lui: idee che userà davvero",
+      "description": "Idee per regali di Natale per lui: per il marito, il fidanzato, il papà o il fratello, dal regalo pratico al piccolo sfizio, ordinate per affinità.",
+      "intro": "I regali di Natale per lui non devono per forza essere di nuovo calzini. Queste idee per mariti, fidanzati, papà e fratelli vanno dal pratico al piccolo sfizio, e quasi tutte stanno comodamente sotto l'albero."
+    },
+    "christmas-for-kids": {
+      "slug": "natale-per-bambini",
+      "h1": "Regali di Natale per bambini",
+      "title": "Regali di Natale per bambini: giochi sotto l'albero",
+      "description": "Idee per regali di Natale per bambini: giocattoli, giochi, set creativi e libri con cui si gioca ancora molto dopo la fine delle feste.",
+      "intro": "Per i bambini la mattina di Natale è il momento più bello dell'anno. Questi giocattoli, giochi e set creativi sono scelti per tenerli impegnati ben oltre le feste, qualunque cosa abbiano scritto nella letterina."
+    },
+    "christmas-for-teens": {
+      "slug": "natale-per-adolescenti",
+      "h1": "Regali di Natale per adolescenti",
+      "title": "Regali di Natale per adolescenti: idee che piacciono",
+      "description": "Idee per regali di Natale per adolescenti: gaming, musica, tecnologia, moda e decorazioni per la camera, dai negozi online del tuo paese.",
+      "intro": "Gli adolescenti sono i nomi più difficili della lista di Natale. Queste idee restano su quello che di solito funziona: gaming, musica, tecnologia, moda e cose per la loro camera."
+    },
+    "tech": {
+      "slug": "per-appassionati-di-tecnologia",
+      "h1": "Regali per appassionati di tecnologia",
+      "title": "Regali per appassionati di tecnologia: gadget e idee",
+      "description": "Idee per regali per appassionati di tecnologia: gadget, audio, smart home e accessori per chi ama provare sempre l'ultima novità.",
+      "intro": "Gli appassionati di tecnologia le cose importanti tendono a comprarsele da soli, quindi i regali migliori sono gli extra intelligenti: gadget, prodotti audio, aiuti per la smart home e accessori che migliorano quello che hanno già."
+    },
+    "gamer": {
+      "slug": "per-gamer",
+      "h1": "Regali per gamer",
+      "title": "Regali per gamer: accessori, comodità e giochi",
+      "description": "Idee per regali per gamer: accessori, cose per la postazione, giochi da tavolo e merchandising, senza il rischio di comprare un gioco che ha già.",
+      "intro": "Regalare un videogioco a un gamer è rischioso, perché probabilmente ce l'ha già. Accessori, comodità per le sessioni lunghe, giochi da tavolo e cose per la postazione sono scelte più sicure, e queste idee ti mostrano da dove cominciare."
+    },
+    "foodie": {
+      "slug": "per-buongustai",
+      "h1": "Regali per buongustai",
+      "title": "Regali per buongustai: idee per chi ama cucinare",
+      "description": "Idee per regali per buongustai e appassionati di cucina: utensili, specialità, set degustazione e cose per la tavola, dai negozi del tuo paese.",
+      "intro": "Fare un regalo a chi ama il buon cibo è un piacere, perché c'è sempre qualcosa di nuovo da assaggiare o da provare. Queste idee comprendono utensili da cucina, specialità gastronomiche, set degustazione e cose per una tavola ben apparecchiata."
+    },
+    "coffee_tea": {
+      "slug": "per-amanti-di-caffe-e-te",
+      "h1": "Regali per amanti di caffè e tè",
+      "title": "Regali per amanti di caffè e tè: idee da gustare",
+      "description": "Idee per regali per amanti di caffè e tè: attrezzi per la preparazione, tazze, set degustazione e accessori per principianti e intenditori.",
+      "intro": "Per chi ama il caffè e il tè la tazza di ogni giorno è un piccolo rito, e un buon regalo rende quel rito ancora più bello. Qui trovi attrezzi per la preparazione, tazze, set degustazione e accessori per principianti e intenditori."
+    },
+    "outdoor": {
+      "slug": "per-amanti-dell-outdoor",
+      "h1": "Regali per amanti dell'outdoor",
+      "title": "Regali per amanti dell'outdoor: trekking e campeggio",
+      "description": "Idee per regali per amanti dell'outdoor: attrezzatura per trekking, campeggio e giornate all'aperto, dai piccoli aiuti pratici ai pezzi importanti.",
+      "intro": "Chi ama la vita all'aria aperta apprezza l'attrezzatura leggera, robusta e utile, e la differenza la nota. Queste idee per escursionisti, campeggiatori e per chiunque preferisca stare fuori vanno dai piccoli aiuti all'attrezzatura più importante."
+    },
+    "fitness": {
+      "slug": "per-sportivi",
+      "h1": "Regali per sportivi",
+      "title": "Regali per sportivi: idee per allenamento e recupero",
+      "description": "Idee per regali per sportivi e appassionati di fitness: attrezzi per allenarsi a casa, accessori per la palestra e cose per il recupero.",
+      "intro": "Chi si allena con regolarità è contento di tutto quello che rende più semplice la prossima sessione o più piacevole il recupero. Sfoglia gli attrezzi per la casa, gli accessori per la palestra e le cose per il giorno dopo."
+    },
+    "bookworm": {
+      "slug": "per-amanti-dei-libri",
+      "h1": "Regali per amanti dei libri",
+      "title": "Regali per amanti dei libri: non solo un altro libro",
+      "description": "Idee per regali per amanti dei libri: accessori per la lettura, cose accoglienti per l'angolo lettura e libri, dai negozi online del tuo paese.",
+      "intro": "Non devi per forza indovinare quale libro un lettore non ha ancora letto. Anche luci da lettura, fermalibri, cose accoglienti per l'angolo lettura e accessori a tema letterario sono ottimi regali, accanto ai libri stessi."
+    },
+    "artist": {
+      "slug": "per-creativi",
+      "h1": "Regali per creativi",
+      "title": "Regali per creativi: idee per arte e fai da te creativo",
+      "description": "Idee per regali per creativi: materiali e set per disegnare, dipingere e fare lavoretti, per chi inizia e per chi ha già il suo angolo studio.",
+      "intro": "Le persone creative non hanno mai abbastanza materiali. Queste idee per disegnare, dipingere e creare con le mani vanno bene sia per chi vuole provare qualcosa di nuovo sia per chi ha già un angolo studio ben fornito."
+    },
+    "music": {
+      "slug": "per-amanti-della-musica",
+      "h1": "Regali per amanti della musica",
+      "title": "Regali per amanti della musica: per ascoltare e suonare",
+      "description": "Idee per regali per amanti della musica: prodotti audio, accessori per strumenti e cose per i fan, dai negozi online del tuo paese.",
+      "intro": "Che ascoltino, suonino o facciano entrambe le cose, gli amanti della musica apprezzano i regali che li avvicinano al suono. Qui trovi idee su prodotti audio, strumenti e accessori, e cose per i fan."
+    },
+    "traveler": {
+      "slug": "per-viaggiatori",
+      "h1": "Regali per viaggiatori",
+      "title": "Regali per viaggiatori: idee per il prossimo viaggio",
+      "description": "Idee per regali per viaggiatori: valigie, aiuti per fare i bagagli, comodità in viaggio e modi per conservare i ricordi, dai negozi del tuo paese.",
+      "intro": "Chi viaggia vuole cose leggere, compatte e capaci di rendere più semplice lo spostamento. Queste idee comprendono valigie e aiuti per fare i bagagli, comodità per i viaggi lunghi e modi per conservare i ricordi al ritorno."
+    },
+    "homebody": {
+      "slug": "per-chi-ama-stare-a-casa",
+      "h1": "Regali per chi ama stare a casa",
+      "title": "Regali per chi ama stare a casa: idee accoglienti",
+      "description": "Idee per regali per chi ama stare a casa: coperte, candele, decorazioni e tutto quello che rende ancora più bella una serata sul divano.",
+      "intro": "Per chi ha nel proprio divano il posto preferito, un regalo dovrebbe rendere la casa ancora più accogliente. Pensa a coperte, candele, decorazioni e piccole coccole per una serata tranquilla."
+    },
+    "fashion": {
+      "slug": "per-amanti-della-moda",
+      "h1": "Regali per amanti della moda",
+      "title": "Regali per amanti della moda: idee di stile",
+      "description": "Idee per regali per amanti della moda: accessori, borse, gioielli e pezzi di stile che non richiedono di indovinare la taglia giusta.",
+      "intro": "Comprare vestiti per un'altra persona è complicato, quindi gli accessori sono il modo più sicuro per far felice chi ama la moda. Borse, sciarpe, gioielli e altri pezzi di stile vanno bene anche senza conoscere la taglia."
+    },
+    "gardener": {
+      "slug": "per-chi-ama-il-giardinaggio",
+      "h1": "Regali per chi ama il giardinaggio",
+      "title": "Regali per chi ama il giardinaggio: giardino e balcone",
+      "description": "Idee per regali per chi ama il giardinaggio: attrezzi, vasi, decorazioni da giardino e aiuti per il balcone, dai negozi online del tuo paese.",
+      "intro": "Chi ama il giardinaggio è contento di tutto quello che aiuta le piante a crescere o rende il giardino più piacevole da vivere. Queste idee comprendono attrezzi, vasi, decorazioni e aiuti per chi ha un balcone al posto del prato."
+    },
+    "pet_lover": {
+      "slug": "per-amanti-degli-animali",
+      "h1": "Regali per amanti degli animali",
+      "title": "Regali per amanti degli animali: per padrone e amico",
+      "description": "Idee per regali per amanti degli animali e per i loro cani e gatti: giochi, cucce, accessori e regali per il padrone, dai negozi del tuo paese.",
+      "intro": "La strada più breve per il cuore di chi ha un animale passa dal suo cane o dal suo gatto. Queste idee comprendono giochi, cucce e accessori per l'animale, ma anche regali per la persona che tiene il guinzaglio."
+    },
+    "wellness": {
+      "slug": "benessere",
+      "h1": "Regali benessere",
+      "title": "Regali benessere: idee per rilassarsi a casa",
+      "description": "Idee per regali benessere per una serata rilassante a casa: prodotti per il bagno e per il corpo, profumi e coccole per chi merita una pausa.",
+      "intro": "Un regalo benessere è il permesso di non fare niente per un po'. Prodotti per il bagno e per il corpo, profumazioni e coccole accoglienti trasformano una serata qualunque in una piccola pausa per chi ne ha bisogno."
+    },
+    "maker": {
+      "slug": "per-amanti-del-fai-da-te",
+      "h1": "Regali per amanti del fai da te",
+      "title": "Regali per amanti del fai da te: attrezzi e idee",
+      "description": "Idee per regali per amanti del fai da te: attrezzi, aiuti per il laboratorio e kit per chi preferisce costruire e riparare con le proprie mani.",
+      "intro": "Chi ama costruire e riparare ha sempre in mente il prossimo progetto. Attrezzi, aiuti per il laboratorio e kit sono sempre graditi, soprattutto quelli che da solo non si concederebbe."
+    }
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "root": "gaver",
+  "under_slug": "under-{n}",
+  "under_h1": "{h1} under {price}",
+  "under_description": "{h1} under {price}: {n} idéer fra butikker i {country}, sorteret efter, hvor godt de passer til personen og anledningen.",
+  "home": {
+    "title": "Gavefinder: gaveidéer fra butikker i {country} | giftdetect.com",
+    "description": "Fortæl giftdetect.com, hvem gaven er til, anledningen, personligheden og dit budget, og få gaveidéer, der passer, fra butikker i {country}.",
+    "h1": "Find den rigtige gave på få sekunder",
+    "sub": "Vælg, hvem gaven er til, anledningen og personligheden. giftdetect.com gennemgår varerne hos butikker i {country} og sorterer dem efter, hvad der passer bedst."
+  },
+  "ui": {
+    "popular": "Populære gaveidéer",
+    "who": "Efter modtager",
+    "occasion": "Efter anledning",
+    "combo": "Anledning og modtager",
+    "interest": "Efter interesse",
+    "budget": "Efter budget",
+    "picks": "Vores favoritter",
+    "stats": "{n} gaveidéer fra {shops} butikker i {country}, fra {min} til {max}. Halvdelen koster under {median}.",
+    "under_intro": "Alle idéer på denne side koster højst {price}.",
+    "guide": "Læs guiden: {title}",
+    "more": "Flere gaveidéer",
+    "home": "Gavesøgning",
+    "countries": "giftdetect.com i andre lande",
+    "blog": "Gaveguides på bloggen",
+    "view": "Se gaven"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "til-hende",
+      "h1": "Gaver til hende",
+      "title": "Gaver til hende: idéer, hun rent faktisk får brugt",
+      "description": "Gaver til hende, fra små opmærksomheder til større overraskelser: smykker, skønhed, bolig, hobby og meget mere fra butikker i Danmark.",
+      "intro": "En god gave til hende tager udgangspunkt i, hvad hun godt kan lide at lave, ikke i hylden med skiltet »til kvinder«. Her finder du idéer inden for smykker, skønhed, bolig, bøger og hobby. Tilføj hendes personlighed i søgningen øverst, så bliver listen mere præcis."
+    },
+    "for-him": {
+      "slug": "til-ham",
+      "h1": "Gaver til ham",
+      "title": "Gaver til ham: idéer ud over sokker og slips",
+      "description": "Gaver til ham, der siger, at han ikke ønsker sig noget: teknik, værktøj, friluftsudstyr, mad og drikke og meget mere fra butikker i Danmark.",
+      "intro": "Mænd, der »ikke mangler noget«, er lettere at købe gave til, når du tænker på, hvordan de bruger en fri lørdag. Idéerne spænder fra teknik og værktøj til friluftsudstyr og god mad. Vælg hans interesser i søgningen øverst, så bliver listen skarpere."
+    },
+    "for-mom": {
+      "slug": "til-mor",
+      "h1": "Gaver til mor",
+      "title": "Gaver til mor: betænksomme idéer til ethvert budget",
+      "description": "Gaver til mor til mors dag, fødselsdagen eller bare fordi: wellness, bolig, have, smykker og personlige gaver, sorteret efter, hvor godt de passer.",
+      "intro": "Mor beder sjældent om noget, og netop derfor gør en velvalgt gave ekstra stor glæde. Her er idéer til mors dag og resten af året, fra en stille times wellness til noget til haven eller det hjem, hun er stolt af."
+    },
+    "for-dad": {
+      "slug": "til-far",
+      "h1": "Gaver til far",
+      "title": "Gaver til far: idéer, der ikke ender i skuffen",
+      "description": "Gaver til far til fars dag, fødselsdagen eller jul: grill, værktøj, friluftsliv, teknik og kaffe fra butikker i Danmark, sorteret efter, hvad der passer.",
+      "intro": "De bedste gaver til far støtter noget, han allerede elsker at lave, uanset om det er at grille, reparere ting eller forsvinde ud i haven. Idéerne her passer til fars dag, fødselsdagen og juleaften. Vælg hans interesser i søgningen øverst."
+    },
+    "for-girlfriend": {
+      "slug": "til-kaeresten-eller-konen",
+      "h1": "Gaver til kæresten eller konen",
+      "title": "Gaver til kæresten eller konen: romantiske idéer",
+      "description": "Gaver til kæresten eller konen til valentinsdag, årsdagen eller som overraskelse: romantiske, personlige og praktiske idéer, sorteret efter, hvad der passer.",
+      "intro": "En gave til kæresten skal vise, at du har hørt efter, så begynd med noget, hun har nævnt, men aldrig selv har købt. De romantiske idéer her passer til valentinsdag, årsdagen eller en helt almindelig tirsdag, der fortjener lidt ekstra."
+    },
+    "for-boyfriend": {
+      "slug": "til-kaeresten-eller-manden",
+      "h1": "Gaver til kæresten eller manden",
+      "title": "Gaver til kæresten eller manden: idéer, han bliver glad for",
+      "description": "Gaver til kæresten eller manden til valentinsdag, årsdagen eller som overraskelse: personlige, praktiske og sjove idéer, sorteret efter, hvad der passer.",
+      "intro": "De gaver, en kæreste husker, er dem, der passer til hans hobby, ikke dem, der ser romantiske ud i butiksvinduet. Her er idéer til valentinsdag, årsdagen eller en overraskelse, fra personlige minder til ting, han bruger hver dag."
+    },
+    "for-kids": {
+      "slug": "til-born",
+      "h1": "Gaver til børn",
+      "title": "Gaver til børn: legetøj og idéer, der holder længe",
+      "description": "Gaver til børn: legetøj, spil, kreative sæt, bøger og udeleg, der holder dem beskæftiget i længere tid, end gavepapiret gør.",
+      "intro": "Børn er ærlige anmeldere: Enten bliver der leget med gaven, eller også gør der ikke. Idéerne her er legetøj, spil, kreative sæt og ting til udeleg, som stadig er spændende efter den første eftermiddag."
+    },
+    "for-teens": {
+      "slug": "til-teenagere",
+      "h1": "Gaver til teenagere",
+      "title": "Gaver til teenagere: idéer, de rent faktisk ønsker sig",
+      "description": "Gaver til teenagere: gaming, musik, teknik, mode, ting til værelset og kreative hobbyer fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "Teenagere ved præcis, hvad de kan lide, og skifter mening lige så hurtigt. Derfor er gaver, der hænger sammen med en aktuel hobby, det sikreste valg. Se idéer inden for gaming, musik, teknik, mode og deres eget værelse."
+    },
+    "for-grandparents": {
+      "slug": "til-bedsteforaeldre",
+      "h1": "Gaver til bedsteforældre",
+      "title": "Gaver til bedsteforældre: hygge, minder og hobby",
+      "description": "Gaver til bedsteforældre og ældre i familien: hygge til hjemmet, gaver til haven og hobbyen, minder og praktiske hjælpere, sorteret efter, hvad der passer.",
+      "intro": "Bedsteforældre har som regel det, de skal bruge. De gaver, der virker, giver mere hygge, støtter en hobby eller vækker et minde. Idéerne her spænder fra lune ting til hjemmet over hjælpere til haven til gaver med minder i."
+    },
+    "birthday": {
+      "slug": "til-fodselsdag",
+      "h1": "Fødselsdagsgaver",
+      "title": "Fødselsdagsgaver: idéer til enhver alder og ethvert budget",
+      "description": "Fødselsdagsgaver til venner, familie og kolleger, fra små overraskelser til store gaver, fra butikker i Danmark og sorteret efter, hvad der passer.",
+      "intro": "En fødselsdagsgave skal kun kunne én ting: vise, at du har tænkt på netop den person. Begynd med idéerne her, og vælg derefter alder og personlighed i søgningen øverst, så bliver forslagene personlige."
+    },
+    "christmas": {
+      "slug": "til-jul",
+      "h1": "Julegaver",
+      "title": "Julegaver: idéer til hele familien",
+      "description": "Julegaver til kæresten, forældrene, børnene og kollegerne til ethvert budget, fra butikker i Danmark og sorteret efter, hvor godt de passer.",
+      "intro": "Julegaveindkøbene bliver lettere, når du tager listen én person ad gangen. Idéerne her dækker hele familien. Angiv i søgningen øverst, hvem gaven er til, og hvad dit budget er, så sorterer listen sig selv på ny."
+    },
+    "valentines": {
+      "slug": "til-valentinsdag",
+      "h1": "Valentinsgaver",
+      "title": "Valentinsgaver: romantiske idéer til jer begge",
+      "description": "Valentinsgaver til hende og til ham, til nyforelskede og til lange forhold, fra små opmærksomheder til store overraskelser, sorteret efter, hvad der passer.",
+      "intro": "Valentinsdag kræver ikke en stor gestus, men en personlig. Her er romantiske idéer til nyforelskede og til par, der har været sammen længe, fra små opmærksomheder til gaver, I kan nyde sammen."
+    },
+    "anniversary": {
+      "slug": "til-arsdagen",
+      "h1": "Gaver til årsdagen",
+      "title": "Gaver til årsdagen: idéer til par og mærkedage",
+      "description": "Gaver til årsdagen eller bryllupsdagen til din partner eller et par, du kender: minder, ting til at nyde sammen og gaver til de store mærkedage.",
+      "intro": "En gave til årsdagen fejrer den tid, I har haft sammen. Derfor passer minder og ting, I kan nyde sammen, bedre end noget rent praktisk. Idéerne fungerer både til din egen partner og til par, der fejrer en mærkedag."
+    },
+    "wedding": {
+      "slug": "til-bryllup",
+      "h1": "Bryllupsgaver",
+      "title": "Bryllupsgaver: idéer, brudeparret beholder",
+      "description": "Bryllupsgaver ud over ønskelisten: ting til det fælles hjem, minder og gaver til to fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "Har brudeparret ingen ønskeliste, så vælg noget til det liv, de er ved at bygge op sammen. Idéerne her handler om det fælles hjem, minder, der holder, og gaver, der er tænkt til to."
+    },
+    "housewarming": {
+      "slug": "til-indflytning",
+      "h1": "Indflyttergaver",
+      "title": "Indflyttergaver: idéer til det nye hjem",
+      "description": "Indflyttergaver til den første lejlighed eller det nye hus: køkkenhjælpere, pynt, planter og de praktiske ting, ethvert nyt hjem mangler.",
+      "intro": "I et nyt hjem mangler der altid et eller andet, og en god indflyttergave udfylder et af hullerne. Tænk på køkkenhjælpere, pynt, planter og de praktiske ting, ingen husker at købe, før de flytter ind."
+    },
+    "graduation": {
+      "slug": "til-studenten",
+      "h1": "Studentergaver",
+      "title": "Studentergaver: idéer til det næste kapitel",
+      "description": "Studentergaver og gaver til nyuddannede: ting til det første job, den første lejlighed og rejsen samt minder, der holder i mange år.",
+      "intro": "Studentergaver fungerer bedst, når de peger fremad mod det første job, den første lejlighed eller den rejse, der længe har været planlagt. Idéerne her kombinerer nyttige ting til starten med minder, der markerer huen og eksamensbeviset."
+    },
+    "retirement": {
+      "slug": "til-pension",
+      "h1": "Gaver til pension",
+      "title": "Gaver til pension: idéer til al den nye fritid",
+      "description": "Gaver til pension til kolleger og familie: hobby, rejser, have og afslapning, også idéer, der egner sig som fællesgave fra arbejdspladsen.",
+      "intro": "At gå på pension betyder endelig tid til alt det, der måtte vente. Gode gaver støtter de planer, uanset om de handler om haven, rejser eller en hobby. Mange af idéerne egner sig også som fællesgave fra kollegerne."
+    },
+    "new-baby": {
+      "slug": "til-barsel",
+      "h1": "Barselsgaver",
+      "title": "Barselsgaver: idéer til babyen og forældrene",
+      "description": "Barselsgaver til den nyfødte og de nybagte forældre: praktiske hjælpere, bamser og minder til fødslen, et babyshower eller det første besøg.",
+      "intro": "Nybagte forældre har mere brug for praktisk hjælp og lidt forkælelse end for sparkedragt nummer ti. Barselsgaverne her blander nyttige ting til de første måneder med bamser og minder, og de passer også til et babyshower."
+    },
+    "thank-you": {
+      "slug": "som-tak",
+      "h1": "Takkegaver",
+      "title": "Takkegaver: små idéer, der siger meget",
+      "description": "Takkegaver og værtindegaver til lærere, naboer, kolleger og værter: små, betænksomme gaver fra butikker i Danmark, sorteret efter, hvad der passer.",
+      "intro": "En takkegave skal føles let: lille nok til, at ingen bliver forlegne, og betænksom nok til, at den bliver lagt mærke til. Her er idéer til læreren, naboen, kollegaen og værtsparret."
+    },
+    "get-well": {
+      "slug": "god-bedring",
+      "h1": "God bedring-gaver",
+      "title": "God bedring-gaver: idéer, der varmer og trøster",
+      "description": "God bedring-gaver til en, der er syg eller ved at komme sig: hygge, adspredelse og små forkælelser fra butikker i Danmark, sorteret efter, hvad der passer.",
+      "intro": "Når nogen er syg eller ved at komme sig, er hygge og adspredelse mere værd end noget fint. Idéerne her tæller lune og bløde ting, noget at læse eller lave og små forkælelser."
+    },
+    "birthday-for-her": {
+      "slug": "fodselsdag-til-hende",
+      "h1": "Fødselsdagsgaver til hende",
+      "title": "Fødselsdagsgaver til hende: idéer efter smag og budget",
+      "description": "Fødselsdagsgaver til hende: til kæresten, konen, mor, søster eller veninden, til enhver smag og ethvert budget, sorteret efter, hvad der passer.",
+      "intro": "Uanset om gaven er til din kæreste, din søster eller din bedste veninde, skal fødselsdagsgaven passe til hendes smag og ikke til en kliché. Kig idéerne igennem, og tilføj hendes interesser i søgningen øverst."
+    },
+    "birthday-for-him": {
+      "slug": "fodselsdag-til-ham",
+      "h1": "Fødselsdagsgaver til ham",
+      "title": "Fødselsdagsgaver til ham: idéer efter hobby og budget",
+      "description": "Fødselsdagsgaver til ham: til kæresten, manden, far, bror eller en ven, til enhver hobby og ethvert budget, sorteret efter, hvad der passer.",
+      "intro": "Til hans fødselsdag kan du springe det upersonlige over og gå efter hans hobby: det, han taler om, selv når ingen har spurgt. Idéerne passer til kærester, fædre, brødre og venner, og søgningen øverst sorterer dem efter interesse."
+    },
+    "birthday-for-kids": {
+      "slug": "fodselsdag-til-born",
+      "h1": "Fødselsdagsgaver til børn",
+      "title": "Fødselsdagsgaver til børn: idéer, der bliver leget med",
+      "description": "Fødselsdagsgaver til børn: legetøj, spil, kreative sæt og udeleg til dit eget barn eller til den næste invitation til børnefødselsdag.",
+      "intro": "Hænger der endnu en invitation til børnefødselsdag på køleskabet? Gaveidéerne her, fra legetøj og spil til kreative sæt, passer både til dit eget barn og til klassekammeraten, du knap nok kender."
+    },
+    "birthday-for-teens": {
+      "slug": "fodselsdag-til-teenagere",
+      "h1": "Fødselsdagsgaver til teenagere",
+      "title": "Fødselsdagsgaver til teenagere: idéer, de kan lide",
+      "description": "Fødselsdagsgaver til teenagere: gaming, musik, teknik, mode og ting til værelset fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "En teenagers fødselsdag er en chance for at vise, at du ved, hvad de går op i lige nu. Idéerne her dækker gaming, musik, teknik og mode, til 18-årsfødselsdagen og til alle årene før."
+    },
+    "christmas-for-her": {
+      "slug": "jul-til-hende",
+      "h1": "Julegaver til hende",
+      "title": "Julegaver til hende: idéer, hun bliver glad for",
+      "description": "Julegaver til hende: til konen, kæresten, mor eller søster, fra hyggelige til luksuriøse idéer, sorteret efter, hvor godt de passer.",
+      "intro": "Leder du efter noget til hende under juletræet? Juleidéerne her til koner, kærester, mødre og søstre går fra lun vinterhygge til den lille luksus, hun ikke selv ville købe. Tilføj hendes interesser i søgningen øverst."
+    },
+    "christmas-for-him": {
+      "slug": "jul-til-ham",
+      "h1": "Julegaver til ham",
+      "title": "Julegaver til ham: idéer, han får brugt",
+      "description": "Julegaver til ham: til manden, kæresten, far eller bror, fra de praktiske til de forkælende idéer, sorteret efter, hvor godt de passer.",
+      "intro": "Julegaver til ham behøver ikke at være sokker igen. Idéerne her til mænd, kærester, fædre og brødre spænder fra det praktiske til det forkælende, og de fleste kan ligge under juletræet."
+    },
+    "christmas-for-kids": {
+      "slug": "jul-til-born",
+      "h1": "Julegaver til børn",
+      "title": "Julegaver til børn: legetøj og spil til juleaften",
+      "description": "Julegaver til børn: legetøj, spil, kreative sæt og bøger, som der stadig bliver leget med, længe efter at juleferien er slut.",
+      "intro": "For børn er juleaften årets højdepunkt. Legetøjet, spillene og de kreative sæt her er valgt, fordi de holder børnene beskæftiget langt ud over juleferien, uanset hvad der står på ønskesedlen."
+    },
+    "christmas-for-teens": {
+      "slug": "jul-til-teenagere",
+      "h1": "Julegaver til teenagere",
+      "title": "Julegaver til teenagere: idéer, de kan lide",
+      "description": "Julegaver til teenagere: gaming, musik, teknik, mode og ting til værelset fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "Teenagerne er de sværeste navne på julegavelisten. Idéerne her holder sig til det, der plejer at virke: gaming, musik, teknik, mode og ting til deres eget værelse. Vælg en interesse i søgningen øverst, så bliver listen mere præcis."
+    },
+    "tech": {
+      "slug": "til-gadgetelskere",
+      "h1": "Gaver til gadgetelskere",
+      "title": "Gaver til gadgetelskere: gadgets og smarte idéer",
+      "description": "Gaver til gadgetelskere: gadgets, lyd, smart home og tilbehør til dem, der gerne vil prøve det nyeste, sorteret efter, hvor godt de passer.",
+      "intro": "Teknikinteresserede køber som regel selv de store ting, så de bedste gaver er de smarte ekstra ting: gadgets, lydudstyr, hjælpere til det smarte hjem og tilbehør, der gør det, de allerede har, endnu bedre."
+    },
+    "gamer": {
+      "slug": "til-gamere",
+      "h1": "Gaver til gamere",
+      "title": "Gaver til gamere: udstyr, komfort og spil",
+      "description": "Gaver til gamere: tilbehør, ting til setuppet, brætspil og merchandise, uden risikoen for at købe et spil, de allerede har i forvejen.",
+      "intro": "Det er risikabelt at købe et spil til en gamer, for de har det sandsynligvis allerede. Tilbehør, komfort til de lange sessioner, brætspil og ting til setuppet er sikrere, og idéerne her viser, hvor du kan begynde."
+    },
+    "foodie": {
+      "slug": "til-madelskere",
+      "h1": "Gaver til madelskere",
+      "title": "Gaver til madelskere: idéer til dem, der elsker at lave mad",
+      "description": "Gaver til madelskere og hobbykokke: køkkenredskaber, delikatesser, smagekasser og ting til det dækkede bord fra butikker i Danmark.",
+      "intro": "Det er en fornøjelse at købe gave til folk, der elsker mad, for der er altid noget nyt at smage eller prøve. Idéerne her tæller køkkenredskaber, delikatesser, smagekasser og ting til et smukt dækket bord."
+    },
+    "coffee_tea": {
+      "slug": "til-kaffe-og-teelskere",
+      "h1": "Gaver til kaffe- og teelskere",
+      "title": "Gaver til kaffe- og teelskere: bryg, nip og nyd",
+      "description": "Gaver til kaffe- og teelskere: brygudstyr, kopper, smagekasser og tilbehør til både begyndere og kendere, sorteret efter, hvor godt de passer.",
+      "intro": "For kaffe- og teelskere er den daglige kop et lille ritual, og en god gave gør det ritual bedre. Her er brygudstyr, kopper, smagekasser og tilbehør til både begyndere og kendere."
+    },
+    "outdoor": {
+      "slug": "til-friluftsmennesker",
+      "h1": "Gaver til friluftsmennesker",
+      "title": "Gaver til friluftsmennesker: idéer til vandring og camping",
+      "description": "Gaver til friluftsmennesker: udstyr til vandring, camping og dage i det fri, fra små praktiske hjælpere til større grej.",
+      "intro": "Friluftsmennesker sætter pris på grej, der er let, robust og nyttigt, og de kan mærke forskellen. Idéerne her til vandrere, campister og alle, der helst vil være ude, spænder fra små hjælpere til større udstyr."
+    },
+    "fitness": {
+      "slug": "til-traeningsglade",
+      "h1": "Gaver til træningsglade",
+      "title": "Gaver til træningsglade: idéer til træning og restitution",
+      "description": "Gaver til træningsglade: udstyr til hjemmetræning, tilbehør til fitnesscentret og ting til restitutionen, sorteret efter, hvor godt de passer.",
+      "intro": "Den, der træner regelmæssigt, bliver glad for alt, der gør næste træningspas lettere eller restitutionen rarere. Se idéer til udstyr til hjemmetræningen, tilbehør til fitnesscentret og ting til dagen derpå."
+    },
+    "bookworm": {
+      "slug": "til-bogelskere",
+      "h1": "Gaver til bogelskere",
+      "title": "Gaver til bogelskere: mere end bare endnu en bog",
+      "description": "Gaver til bogelskere: tilbehør til læsningen, hyggelige ting til læsekrogen og bøger fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "Du behøver ikke at gætte, hvilken bog en læsehest endnu ikke har læst. Læselamper, bogstøtter, hyggelige ting til læsekrogen og andet til bogelskere er også gode gaver, ved siden af selve bøgerne."
+    },
+    "artist": {
+      "slug": "til-kreative",
+      "h1": "Gaver til kreative",
+      "title": "Gaver til kreative: idéer til kunst og hobby",
+      "description": "Gaver til kreative: materialer og sæt til at tegne, male og lave håndarbejde, til begyndere og til dem, der allerede har et lille atelier.",
+      "intro": "Kreative mennesker kan aldrig få for mange materialer. Idéerne her til at tegne, male og skabe med hænderne passer både til begyndere, der vil prøve noget nyt, og til dem med et velforsynet hjørne derhjemme."
+    },
+    "music": {
+      "slug": "til-musikelskere",
+      "h1": "Gaver til musikelskere",
+      "title": "Gaver til musikelskere: idéer til at lytte og spille",
+      "description": "Gaver til musikelskere: lydudstyr, tilbehør til instrumenter og ting til fans fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "Uanset om de lytter, spiller eller gør begge dele, sætter musikelskere pris på gaver, der bringer dem tættere på lyden. Her er idéer inden for lydudstyr, instrumenter og tilbehør samt ting til fans."
+    },
+    "traveler": {
+      "slug": "til-rejseglade",
+      "h1": "Gaver til rejseglade",
+      "title": "Gaver til rejseglade: idéer til den næste rejse",
+      "description": "Gaver til rejseglade: bagage, pakkehjælpere, komfort på farten og måder at gemme minderne på, fra butikker i Danmark, sorteret efter, hvad der passer.",
+      "intro": "Rejseglade vil have ting, der er lette, kompakte og gør turen nemmere. Idéerne her tæller bagage og pakkehjælpere, komfort til de lange ture og måder at gemme minderne på bagefter."
+    },
+    "homebody": {
+      "slug": "til-hjemmemennesker",
+      "h1": "Gaver til hjemmemennesker",
+      "title": "Gaver til hjemmemennesker: hyggelige idéer til sofaen",
+      "description": "Gaver til hjemmemennesker: tæpper, stearinlys, pynt og alt det, der gør en aften i sofaen endnu mere hyggelig, sorteret efter, hvad der passer.",
+      "intro": "Til dem, hvis yndlingssted er deres egen sofa, skal en gave gøre hjemmet endnu hyggeligere. Tænk på tæpper, stearinlys, pynt og små ting, der gør en stille aften derhjemme rarere."
+    },
+    "fashion": {
+      "slug": "til-modeinteresserede",
+      "h1": "Gaver til modeinteresserede",
+      "title": "Gaver til modeinteresserede: stilfulde idéer",
+      "description": "Gaver til modeinteresserede: accessories, tasker, smykker og stilfulde ting, hvor du ikke behøver at gætte den rigtige størrelse.",
+      "intro": "Det er svært at købe tøj til andre, så accessories er den sikre vej til at glæde en modeinteresseret. Tasker, tørklæder, smykker og andre stilfulde ting passer, uden at du kender størrelsen."
+    },
+    "gardener": {
+      "slug": "til-haveelskere",
+      "h1": "Gaver til haveelskere",
+      "title": "Gaver til haveelskere: idéer til have og altan",
+      "description": "Gaver til haveelskere: redskaber, krukker, havepynt og hjælpere til altanen fra butikker i Danmark, sorteret efter, hvor godt de passer.",
+      "intro": "Haveelskere bliver glade for alt, der får ting til at gro eller gør haven rarere at sidde i. Idéerne her tæller redskaber, krukker, pynt og hjælpere til dem, der har en altan i stedet for en græsplæne."
+    },
+    "pet_lover": {
+      "slug": "til-dyreelskere",
+      "h1": "Gaver til dyreelskere",
+      "title": "Gaver til dyreelskere: idéer til ejer og kæledyr",
+      "description": "Gaver til dyreelskere og deres hunde og katte: legetøj, senge, tilbehør og gaver til ejeren fra butikker i Danmark, sorteret efter, hvad der passer.",
+      "intro": "Den hurtigste vej til en dyreejers hjerte går gennem hunden eller katten. Idéerne her tæller legetøj, senge og tilbehør til dyret og også gaver til den, der holder snoren på gåturen."
+    },
+    "wellness": {
+      "slug": "wellness",
+      "h1": "Wellnessgaver",
+      "title": "Wellnessgaver: idéer til afslapning derhjemme",
+      "description": "Wellnessgaver til en afslappende aften derhjemme: bad og kropspleje, dufte og hygge til dem, der fortjener en pause, sorteret efter, hvad der passer.",
+      "intro": "En wellnessgave er en tilladelse til ikke at lave noget i et stykke tid. Bad og kropspleje, dufte og bløde, lune ting gør en almindelig aften til en lille pause for en, der trænger til den."
+    },
+    "maker": {
+      "slug": "til-gor-det-selv-folk",
+      "h1": "Gaver til gør det selv-folk",
+      "title": "Gaver til gør det selv-folk: værktøj og idéer",
+      "description": "Gaver til gør det selv-folk og handymænd: værktøj, hjælpere til værkstedet og byggesæt til dem, der helst selv bygger og reparerer.",
+      "intro": "Folk, der godt kan lide at bygge og reparere, har altid det næste projekt i tankerne. Værktøj, hjælpere til værkstedet og byggesæt er velkomne, især de ting, de ikke selv ville unde sig."
+    }
+  }
+}

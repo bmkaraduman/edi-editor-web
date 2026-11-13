@@ -29,6 +29,7 @@ from sklearn.preprocessing import normalize as l2
 from ..config import COUNTRIES, GIFT_WORDS, MERCHANT_BY_ID, format_price
 from ..data.rules import GIFT_FLOOR
 from ..taxonomy import FACETS, UI_LABELS
+from .labeling import rule_category
 from .preprocess import doc_text, normalize, product_doc
 from .train import THRESHOLD, lexicon_features
 from .weak_labels import expand_query, lexicon_scores
@@ -115,12 +116,18 @@ class GiftSearch:
         self.X = l2(Xraw)          # unit vectors for cosine retrieval
         self.label_cols = {}
         self.S = {}
-        for facet, head in self.heads.items():
-            classes = head["classes"]
-            P = head["clf"].predict_proba(Xraw)
+        heads = dict(self.heads)
+        heads.setdefault("category", None)     # a model trained before the facet: rules and stored labels only
+        for facet, head in heads.items():
+            classes = head["classes"] if head else FACETS[facet]
+            P = head["clf"].predict_proba(Xraw) if head else np.zeros((len(self.products), len(classes)))
             # stored labels override the classifier where they exist
             for i, p in enumerate(self.products):
                 given = p.get("labels", {}).get(facet)
+                if facet == "category" and not given and p.get("source", "feed") not in LABEL_TRUST:
+                    # rows ingested before the category facet: the rules still know
+                    cat = rule_category(p)
+                    given = [cat] if cat else None
                 if given:
                     trust = LABEL_TRUST.get(p.get("source", "feed"), RULE_LABEL_TRUST if p.get("rules") else FEED_LABEL_TRUST)
                     row = np.zeros(len(classes))
@@ -186,13 +193,15 @@ class GiftSearch:
             classes = head["classes"]
             if facet == "gender":
                 out[facet] = [classes[int(P.argmax())]]
+            elif facet == "category":
+                out[facet] = [classes[int(P.argmax())]] if P.max() >= 0.5 else []
             else:
                 picked = [classes[j] for j in np.argsort(-P) if P[j] >= threshold][:3]
                 out[facet] = picked
         return out
 
     def _rank(self, country, q="", gender=None, age=(), occasion=(), personality=(),
-              price_min=None, price_max=None, exclude_key=None, allow_hidden=False):
+              price_min=None, price_max=None, exclude_key=None, allow_hidden=False, category=()):
         """Return (idx, score, why, match) over the visible products of a country."""
         lang = COUNTRIES[country]["lang"]
         mask = (self.country == country) & self.visible
@@ -202,8 +211,17 @@ class GiftSearch:
             mask &= self.price <= price_max
         text_query = normalize(q)
         selected = ([gender] if gender and gender != "unisex" else []) + list(age) + list(occasion) + list(personality)
-        if not text_query and not allow_hidden:
-            mask &= self.gifty >= GIFT_FLOOR      # office stock only surfaces through a typed search
+        # Category (advanced search) is a hard filter: "only furniture", "only perfume".
+        category = [c for c in category if c in self.label_cols.get("category", {})]
+        in_cat = None
+        if category:
+            in_cat = np.zeros(len(self.products), dtype=bool)
+            for c in category:
+                in_cat |= self.S["category"][:, self.label_cols["category"][c]] >= 0.5
+            mask &= in_cat
+        if not text_query and not allow_hidden and not category:
+            mask &= self.gifty >= GIFT_FLOOR      # office stock only surfaces through a typed search;
+                                                  # picking a category is asking for it (a 3-seater sofa under Furniture)
         idx = np.where(mask)[0]
         if len(idx) == 0:
             return idx, np.zeros(0), [], None
@@ -264,7 +282,17 @@ class GiftSearch:
         facet_boost("personality", list(personality), WEIGHTS["personality"], hinted.get("personality"))
 
         # 3) giftability --------------------------------------------------
-        if not selected and not text_query:
+        if category:
+            cols = self.label_cols["category"]
+            per_cat = np.array([self.S["category"][idx, cols[c]] for c in category])
+            cat_s = per_cat.max(axis=0)
+            for k, j in enumerate(per_cat.argmax(axis=0)):
+                why[k].insert(0, category[int(j)])
+        if category and not selected and not text_query:
+            # only a category picked: the whole category, most gift-like first
+            rng = np.random.default_rng(7)
+            score = cat_s * (0.3 + 0.7 * self.gifty[idx]) + 0.15 * rng.random(len(idx))
+        elif not selected and not text_query:
             # Nothing selected and nothing typed: a varied mix of clearly gift-like items.
             rng = np.random.default_rng(7)
             score = rng.random(len(idx)) * np.where(self.gifty[idx] >= 0.5, self.gifty[idx], 0.0)
@@ -310,7 +338,7 @@ class GiftSearch:
         return picked + deferred
 
     def search(self, country, q="", gender=None, age=None, occasion=None, personality=None,
-               price_min=None, price_max=None, limit=24, offset=0, sort="relevance"):
+               price_min=None, price_max=None, limit=24, offset=0, sort="relevance", category=None):
         country = country.upper()
         if country not in COUNTRIES:
             raise ValueError("unknown country")
@@ -318,7 +346,8 @@ class GiftSearch:
         age = [a for a in (age or []) if a]
         occasion = [o for o in (occasion or []) if o]
         personality = [p for p in (personality or []) if p]
-        idx, score, why, match = self._rank(country, q, gender, age, occasion, personality, price_min, price_max)
+        category = [c for c in (category or []) if c]
+        idx, score, why, match = self._rank(country, q, gender, age, occasion, personality, price_min, price_max, category=category)
         demo = country not in self.real_countries
         if len(idx) == 0:
             return {"total": 0, "demo": demo, "results": []}

@@ -1,0 +1,339 @@
+{
+  "root": "presentes",
+  "under_slug": "ate-{n}",
+  "under_h1": "{h1} até {price}",
+  "under_description": "{h1} até {price}: {n} ideias de lojas do {country}, ordenadas por quanto combinam com a pessoa e com a ocasião.",
+  "home": {
+    "title": "Buscador de presentes: ideias de presentes em lojas do {country} | giftdetect.com",
+    "description": "Conte ao giftdetect.com para quem é o presente, qual é a ocasião, como é a pessoa e quanto você quer gastar, e receba ideias de presentes de lojas do {country}.",
+    "h1": "Encontre o presente certo em segundos",
+    "sub": "Escolha para quem é, a ocasião e o jeito da pessoa. O giftdetect.com lê os produtos de lojas do {country} e coloca na frente o que mais combina."
+  },
+  "ui": {
+    "popular": "Ideias de presentes mais procuradas",
+    "who": "Por pessoa",
+    "occasion": "Por ocasião",
+    "combo": "Ocasião e pessoa",
+    "interest": "Por interesse",
+    "budget": "Por faixa de preço",
+    "picks": "Nossas principais sugestões",
+    "stats": "{n} ideias de presentes de {shops} lojas do {country}, de {min} a {max}. Metade delas custa menos de {median}.",
+    "under_intro": "Todas as ideias desta página custam {price} ou menos.",
+    "guide": "Leia o guia: {title}",
+    "more": "Mais ideias de presentes",
+    "home": "Busca de presentes",
+    "countries": "giftdetect.com em outros países",
+    "blog": "Guias de presentes no blog",
+    "view": "Ver"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "para-ela",
+      "h1": "Presentes para ela",
+      "title": "Presentes para ela: ideias que ela vai usar de verdade",
+      "description": "Ideias de presentes para ela, de mimos a grandes surpresas: joias, beleza, casa, hobbies e mais, de lojas do seu país e ordenadas por afinidade.",
+      "intro": "Um bom presente para ela começa pelo que ela gosta de fazer, e não pela prateleira com a placa “para mulheres”. Estas ideias passam por joias, beleza, casa, livros e hobbies; informe o jeito dela na busca acima para afinar a lista."
+    },
+    "for-him": {
+      "slug": "para-ele",
+      "h1": "Presentes para ele",
+      "title": "Presentes para ele: ideias além de meia e gravata",
+      "description": "Ideias de presentes para ele, mesmo quando diz que não precisa de nada: tecnologia, ferramentas, vida ao ar livre, comidas e bebidas, por afinidade.",
+      "intro": "Quem “não precisa de nada” fica mais fácil de presentear quando você pensa em como ele passa um sábado livre. Estas ideias vão de tecnologia e ferramentas a itens para a vida ao ar livre e boa comida; escolha os interesses dele na busca acima para refinar a lista."
+    },
+    "for-mom": {
+      "slug": "para-mae",
+      "h1": "Presentes para mãe",
+      "title": "Presentes para mãe: ideias com carinho para todo bolso",
+      "description": "Ideias de presentes para mãe no Dia das Mães, no aniversário ou sem motivo: bem-estar, casa, plantas, joias e toques pessoais, ordenadas por afinidade.",
+      "intro": "Mãe quase nunca pede nada, e é por isso que um presente bem escolhido emociona tanto. Aqui você encontra ideias para o Dia das Mães e para o ano todo, de uma hora tranquila de bem-estar a algo para as plantas ou para a casa de que ela tanto cuida."
+    },
+    "for-dad": {
+      "slug": "para-pai",
+      "h1": "Presentes para pai",
+      "title": "Presentes para pai: ideias que não vão parar na gaveta",
+      "description": "Ideias de presentes para pai no Dia dos Pais, no aniversário ou no Natal: churrasco, ferramentas, vida ao ar livre, tecnologia e café, por afinidade.",
+      "intro": "Os melhores presentes para pai têm a ver com algo que ele já adora fazer, seja comandar o churrasco, consertar as coisas da casa ou cuidar do quintal. Estas ideias servem para o Dia dos Pais, para o aniversário e para o Natal."
+    },
+    "for-girlfriend": {
+      "slug": "para-namorada",
+      "h1": "Presentes para namorada",
+      "title": "Presentes para namorada: ideias românticas e pessoais",
+      "description": "Ideias de presentes para namorada ou esposa no Dia dos Namorados, no aniversário de namoro ou de surpresa: românticas, pessoais e úteis, por afinidade.",
+      "intro": "Um presente para namorada deve mostrar que você prestou atenção, então comece por algo que ela comentou e nunca comprou para si mesma. Estas ideias românticas combinam com o Dia dos Namorados, com o aniversário de namoro e com uma terça-feira comum que merece mais."
+    },
+    "for-boyfriend": {
+      "slug": "para-namorado",
+      "h1": "Presentes para namorado",
+      "title": "Presentes para namorado: ideias que ele vai adorar",
+      "description": "Ideias de presentes para namorado ou marido no Dia dos Namorados, no aniversário de namoro ou de surpresa: pessoais, práticas e divertidas, por afinidade.",
+      "intro": "Os presentes que um namorado guarda na memória são os que combinam com os hobbies dele, e não os que parecem românticos na vitrine. Aqui estão ideias para o Dia dos Namorados, o aniversário de namoro ou uma surpresa, de lembranças pessoais a coisas para usar todo dia."
+    },
+    "for-kids": {
+      "slug": "para-criancas",
+      "h1": "Presentes para crianças",
+      "title": "Presentes para crianças: brinquedos que duram mais",
+      "description": "Ideias de presentes para crianças: brinquedos, jogos, kits criativos, livros e diversão ao ar livre que entretêm por mais tempo que o papel de presente.",
+      "intro": "Criança é crítica sincera: ou brinca com o presente, ou deixa de lado. Estas ideias apostam em brinquedos, jogos, kits criativos e diversão ao ar livre que continuam interessantes depois da primeira tarde."
+    },
+    "for-teens": {
+      "slug": "para-adolescentes",
+      "h1": "Presentes para adolescentes",
+      "title": "Presentes para adolescentes: ideias que eles querem",
+      "description": "Ideias de presentes para adolescentes: games, música, tecnologia, moda, decoração do quarto e hobbies criativos, de lojas do seu país, por afinidade.",
+      "intro": "Adolescente sabe muito bem do que gosta e muda de ideia na mesma velocidade, por isso o mais seguro é apostar no hobby do momento. Veja ideias de games, música, tecnologia, moda e para o quarto deles."
+    },
+    "for-grandparents": {
+      "slug": "para-avos",
+      "h1": "Presentes para avós",
+      "title": "Presentes para avós: conforto, lembranças e hobbies",
+      "description": "Ideias de presentes para avós e parentes mais velhos: conforto para a casa, plantas e hobbies, lembranças e itens práticos, ordenadas por afinidade.",
+      "intro": "Os avós costumam já ter o que precisam, então os presentes que funcionam trazem conforto, incentivam um hobby ou despertam uma lembrança. Estas ideias vão de itens aconchegantes para a casa a ajudas para cuidar das plantas e recordações de família."
+    },
+    "birthday": {
+      "slug": "de-aniversario",
+      "h1": "Presentes de aniversário",
+      "title": "Presentes de aniversário: ideias para toda idade e bolso",
+      "description": "Ideias de presentes de aniversário para amigos, família e colegas, de lembrancinhas a presentes grandes, de lojas do seu país e ordenadas por afinidade.",
+      "intro": "Um presente de aniversário só precisa de uma coisa: mostrar que você pensou naquela pessoa. Comece por estas ideias e depois escolha a idade e o jeito dela na busca acima para deixar tudo mais pessoal."
+    },
+    "christmas": {
+      "slug": "de-natal",
+      "h1": "Presentes de Natal",
+      "title": "Presentes de Natal: ideias para a família toda",
+      "description": "Ideias de presentes de Natal para o par, os pais, as crianças e os colegas, para todo bolso, de lojas do seu país e ordenadas por afinidade.",
+      "intro": "As compras de Natal ficam mais fáceis quando você resolve a lista uma pessoa de cada vez. Estas ideias atendem a família toda; informe para quem é o presente e quanto quer gastar na busca acima e a lista se reorganiza."
+    },
+    "valentines": {
+      "slug": "dia-dos-namorados",
+      "h1": "Presentes de Dia dos Namorados",
+      "title": "Presentes de Dia dos Namorados: ideias românticas a dois",
+      "description": "Ideias de presentes de Dia dos Namorados para ela e para ele, para namoros recentes e relações longas, de pequenos gestos a grandes surpresas.",
+      "intro": "O Dia dos Namorados não pede um gesto grandioso, pede um gesto pessoal. Aqui estão ideias românticas para quem acabou de começar a namorar e para quem está junto há anos, de pequenos mimos a presentes para curtir a dois."
+    },
+    "anniversary": {
+      "slug": "de-aniversario-de-casamento",
+      "h1": "Presentes de aniversário de casamento",
+      "title": "Presentes de aniversário de casamento: ideias para bodas",
+      "description": "Ideias de presentes de aniversário de casamento ou de namoro, para o seu par ou para um casal querido: lembranças, momentos a dois e bodas marcantes.",
+      "intro": "Um presente de aniversário de casamento celebra o tempo vivido a dois, por isso lembranças e coisas para curtir juntos combinam mais do que algo apenas prático. Estas ideias servem para o seu par e para casais que comemoram bodas."
+    },
+    "wedding": {
+      "slug": "de-casamento",
+      "h1": "Presentes de casamento",
+      "title": "Presentes de casamento: ideias que os noivos vão guardar",
+      "description": "Ideias de presentes de casamento além da lista dos noivos: itens para a casa nova, lembranças e presentes para dois, de lojas do seu país, por afinidade.",
+      "intro": "Se os noivos não fizeram lista de presentes, escolha algo para a vida que eles estão construindo juntos. Estas ideias priorizam a casa nova, lembranças que ficam e presentes pensados para dois."
+    },
+    "housewarming": {
+      "slug": "para-cha-de-casa-nova",
+      "h1": "Presentes para chá de casa nova",
+      "title": "Presentes para chá de casa nova: ideias para o novo lar",
+      "description": "Ideias de presentes para chá de casa nova, do primeiro apartamento à casa própria: utensílios de cozinha, decoração, plantas e itens que sempre faltam.",
+      "intro": "Em uma casa nova sempre falta alguma coisa, e um bom presente para chá de casa nova resolve uma dessas faltas. Pense em utensílios de cozinha, decoração, plantas e naqueles itens práticos que ninguém lembra de comprar antes da mudança."
+    },
+    "graduation": {
+      "slug": "de-formatura",
+      "h1": "Presentes de formatura",
+      "title": "Presentes de formatura: ideias para a nova fase",
+      "description": "Ideias de presentes de formatura para quem termina o ensino médio ou a faculdade: itens para o primeiro emprego, a primeira casa, viagens e lembranças.",
+      "intro": "Presentes de formatura funcionam melhor quando apontam para a frente: o primeiro emprego, o primeiro apartamento ou aquela viagem planejada há tempos. Estas ideias juntam itens úteis para o começo com lembranças que marcam a conquista."
+    },
+    "retirement": {
+      "slug": "de-aposentadoria",
+      "h1": "Presentes de aposentadoria",
+      "title": "Presentes de aposentadoria: ideias para o tempo livre",
+      "description": "Ideias de presentes de aposentadoria para colegas e familiares: hobbies, viagens, jardinagem e descanso, com opções que funcionam para uma vaquinha.",
+      "intro": "Aposentadoria é ter tempo, enfim, para tudo o que ficou esperando. Os bons presentes alimentam esses planos, sejam eles cuidar das plantas, viajar ou retomar um hobby; muitas destas ideias também servem para uma vaquinha da equipe."
+    },
+    "new-baby": {
+      "slug": "para-recem-nascido",
+      "h1": "Presentes para recém-nascido",
+      "title": "Presentes para recém-nascido: para o bebê e para os pais",
+      "description": "Ideias de presentes para recém-nascido e para os pais: itens práticos, pelúcias e lembranças para o nascimento, o chá de bebê ou a primeira visita.",
+      "intro": "Pais de primeira viagem precisam mais de ajuda prática e de um pouco de conforto do que do décimo macacão. Estas ideias para o nascimento ou o chá de bebê misturam itens úteis para os primeiros meses com pelúcias e lembranças."
+    },
+    "thank-you": {
+      "slug": "de-agradecimento",
+      "h1": "Presentes de agradecimento",
+      "title": "Presentes de agradecimento: pequenas ideias que dizem muito",
+      "description": "Ideias de presentes de agradecimento para professores, vizinhos, colegas e anfitriões: lembranças pequenas e atenciosas, ordenadas por afinidade.",
+      "intro": "Um presente de agradecimento deve ser leve: pequeno o bastante para não constranger ninguém, atencioso o bastante para ser notado. Aqui estão ideias para professores, vizinhos, colegas e para quem recebeu você em casa."
+    },
+    "get-well": {
+      "slug": "para-desejar-melhoras",
+      "h1": "Presentes para desejar melhoras",
+      "title": "Presentes para desejar melhoras: ideias que confortam",
+      "description": "Ideias de presentes para desejar melhoras a quem está doente ou em recuperação: conforto, distração e pequenos mimos, ordenadas por afinidade.",
+      "intro": "Quando alguém está doente ou se recuperando, conforto e distração valem mais do que qualquer coisa sofisticada. Estas ideias incluem itens aconchegantes, algo para ler ou fazer e pequenos mimos."
+    },
+    "birthday-for-her": {
+      "slug": "de-aniversario-para-ela",
+      "h1": "Presentes de aniversário para ela",
+      "title": "Presentes de aniversário para ela: por gosto e bolso",
+      "description": "Ideias de presentes de aniversário para ela: namorada, esposa, mãe, irmã ou melhor amiga, para todo gosto e todo bolso, ordenadas por afinidade.",
+      "intro": "Seja para a sua parceira, a sua irmã ou a sua melhor amiga, o presente de aniversário deve combinar com o gosto dela, e não com um clichê. Veja estas ideias e informe os interesses dela na busca acima."
+    },
+    "birthday-for-him": {
+      "slug": "de-aniversario-para-ele",
+      "h1": "Presentes de aniversário para ele",
+      "title": "Presentes de aniversário para ele: por hobby e bolso",
+      "description": "Ideias de presentes de aniversário para ele: namorado, marido, pai, irmão ou amigo, para todo hobby e todo bolso, ordenadas por afinidade.",
+      "intro": "No aniversário dele, fuja do genérico e vá atrás do hobby: aquele assunto de que ele fala sem ninguém perguntar. Estas ideias servem para parceiros, pais, irmãos e amigos, e a busca acima filtra por interesse."
+    },
+    "birthday-for-kids": {
+      "slug": "de-aniversario-para-criancas",
+      "h1": "Presentes de aniversário para crianças",
+      "title": "Presentes de aniversário para crianças: para brincar",
+      "description": "Ideias de presentes de aniversário para crianças: brinquedos, jogos, kits criativos e diversão ao ar livre para o seu filho ou para a próxima festinha.",
+      "intro": "Mais um convite de festinha preso na geladeira? Estas ideias de presentes para crianças, de brinquedos e jogos a kits criativos, servem tanto para o seu filho quanto para aquele colega de escola que você mal conhece."
+    },
+    "birthday-for-teens": {
+      "slug": "de-aniversario-para-adolescentes",
+      "h1": "Presentes de aniversário para adolescentes",
+      "title": "Presentes de aniversário para adolescentes: boas ideias",
+      "description": "Ideias de presentes de aniversário para adolescentes: games, música, tecnologia, moda e decoração do quarto, de lojas do seu país, por afinidade.",
+      "intro": "O aniversário de um adolescente é a chance de mostrar que você sabe do que ele ou ela gosta agora. Estas ideias passam por games, música, tecnologia e moda, para os 15 anos, os 18 ou qualquer outra idade."
+    },
+    "christmas-for-her": {
+      "slug": "de-natal-para-ela",
+      "h1": "Presentes de Natal para ela",
+      "title": "Presentes de Natal para ela: ideias que ela vai adorar",
+      "description": "Ideias de presentes de Natal para ela: esposa, namorada, mãe ou irmã, do aconchegante ao sofisticado, ordenadas por quanto combinam com ela.",
+      "intro": "Procurando algo para colocar debaixo da árvore para ela? Estas ideias de Natal para esposas, namoradas, mães e irmãs vão de confortos para o dia a dia a pequenos luxos que ela não compraria para si mesma."
+    },
+    "christmas-for-him": {
+      "slug": "de-natal-para-ele",
+      "h1": "Presentes de Natal para ele",
+      "title": "Presentes de Natal para ele: ideias que ele vai usar",
+      "description": "Ideias de presentes de Natal para ele: marido, namorado, pai ou irmão, do prático ao especial, ordenadas por quanto combinam com ele.",
+      "intro": "Presentes de Natal para ele não precisam ser meias outra vez. Estas ideias para maridos, namorados, pais e irmãos vão do prático ao especial, e a maioria cabe debaixo da árvore."
+    },
+    "christmas-for-kids": {
+      "slug": "de-natal-para-criancas",
+      "h1": "Presentes de Natal para crianças",
+      "title": "Presentes de Natal para crianças: brinquedos e jogos",
+      "description": "Ideias de presentes de Natal para crianças: brinquedos, jogos, kits criativos e livros que continuam em uso muito depois das festas de fim de ano.",
+      "intro": "Para as crianças, a hora de abrir os presentes de Natal é o ponto alto do ano. Estes brinquedos, jogos e kits criativos foram escolhidos para entreter muito além das festas, seja qual for o pedido na cartinha."
+    },
+    "christmas-for-teens": {
+      "slug": "de-natal-para-adolescentes",
+      "h1": "Presentes de Natal para adolescentes",
+      "title": "Presentes de Natal para adolescentes: boas ideias",
+      "description": "Ideias de presentes de Natal para adolescentes: games, música, tecnologia, moda e decoração do quarto, de lojas do seu país, por afinidade.",
+      "intro": "Os adolescentes são os nomes mais difíceis da lista de Natal. Estas ideias ficam no que costuma dar certo: games, música, tecnologia, moda e coisas para deixar o quarto com a cara deles."
+    },
+    "tech": {
+      "slug": "para-amantes-de-tecnologia",
+      "h1": "Presentes para amantes de tecnologia",
+      "title": "Presentes para amantes de tecnologia: gadgets e ideias",
+      "description": "Ideias de presentes para amantes de tecnologia: gadgets, áudio, casa inteligente e acessórios para quem gosta de testar novidades, por afinidade.",
+      "intro": "Quem ama tecnologia costuma comprar por conta própria os itens grandes, então os melhores presentes são os extras inteligentes: gadgets, equipamentos de áudio, itens de casa inteligente e acessórios que melhoram o que a pessoa já tem."
+    },
+    "gamer": {
+      "slug": "para-gamers",
+      "h1": "Presentes para gamers",
+      "title": "Presentes para gamers: acessórios, conforto e jogos",
+      "description": "Ideias de presentes para gamers: acessórios, itens para o setup, jogos de tabuleiro e produtos de fã, sem o risco de dar um jogo que a pessoa já tem.",
+      "intro": "Dar um jogo para um gamer é arriscado, porque é bem provável que ele já tenha. Acessórios, conforto para sessões longas, jogos de tabuleiro e itens para o setup são apostas mais seguras, e estas ideias mostram por onde começar."
+    },
+    "foodie": {
+      "slug": "para-quem-ama-cozinhar",
+      "h1": "Presentes para quem ama cozinhar",
+      "title": "Presentes para quem ama cozinhar e comer bem",
+      "description": "Ideias de presentes para quem ama cozinhar e comer bem: utensílios de cozinha, delícias, kits de degustação e itens para a mesa, de lojas do seu país.",
+      "intro": "Dá gosto presentear quem ama comida, porque sempre existe algo novo para provar ou testar. Estas ideias incluem utensílios de cozinha, delícias, kits de degustação e itens para uma mesa bem posta."
+    },
+    "coffee_tea": {
+      "slug": "para-amantes-de-cafe-e-cha",
+      "h1": "Presentes para amantes de café e chá",
+      "title": "Presentes para amantes de café e chá: do preparo à xícara",
+      "description": "Ideias de presentes para amantes de café e chá: itens de preparo, xícaras, kits de degustação e acessórios para iniciantes e entendidos, por afinidade.",
+      "intro": "Para quem ama café e chá, a xícara de todo dia é um pequeno ritual, e um bom presente deixa esse ritual melhor. Aqui estão itens de preparo, xícaras, kits de degustação e acessórios para iniciantes e entendidos."
+    },
+    "outdoor": {
+      "slug": "para-quem-ama-trilha-e-camping",
+      "h1": "Presentes para quem ama trilha e camping",
+      "title": "Presentes para quem ama trilha e camping: boas ideias",
+      "description": "Ideias de presentes para quem ama trilha e camping: equipamentos para caminhadas, acampamentos e dias ao ar livre, de itens práticos aos maiores.",
+      "intro": "Quem vive ao ar livre valoriza equipamento leve, resistente e útil, e percebe a diferença. Estas ideias para quem faz trilha, acampa ou simplesmente prefere estar lá fora vão de pequenos itens práticos a equipamentos maiores."
+    },
+    "fitness": {
+      "slug": "fitness",
+      "h1": "Presentes fitness",
+      "title": "Presentes fitness: ideias para treino e recuperação",
+      "description": "Ideias de presentes fitness para quem treina: equipamentos para treinar em casa, acessórios para a academia e itens de recuperação, por afinidade.",
+      "intro": "Quem treina com frequência gosta de tudo o que facilita o próximo treino ou deixa a recuperação mais agradável. Veja equipamentos para usar em casa, acessórios para a academia e itens para o dia seguinte."
+    },
+    "bookworm": {
+      "slug": "para-quem-ama-ler",
+      "h1": "Presentes para quem ama ler",
+      "title": "Presentes para quem ama ler: muito além de mais um livro",
+      "description": "Ideias de presentes para quem ama ler: acessórios de leitura, itens aconchegantes para o cantinho de leitura e livros, de lojas do seu país.",
+      "intro": "Você não precisa adivinhar qual livro a pessoa ainda não leu. Luminárias de leitura, aparadores de livros, itens aconchegantes para o cantinho de leitura e mimos literários também são ótimos presentes, ao lado dos próprios livros."
+    },
+    "artist": {
+      "slug": "para-pessoas-criativas",
+      "h1": "Presentes para pessoas criativas",
+      "title": "Presentes para pessoas criativas: arte e artesanato",
+      "description": "Ideias de presentes para pessoas criativas: materiais e kits de desenho, pintura e artesanato, para iniciantes e para quem já tem um cantinho de ateliê.",
+      "intro": "Gente criativa nunca acha que tem material demais. Estas ideias de desenho, pintura e artesanato servem tanto para iniciantes que querem experimentar algo novo quanto para quem já tem um cantinho de ateliê bem abastecido."
+    },
+    "music": {
+      "slug": "para-amantes-de-musica",
+      "h1": "Presentes para amantes de música",
+      "title": "Presentes para amantes de música: para ouvir e tocar",
+      "description": "Ideias de presentes para amantes de música: equipamentos de áudio, acessórios para instrumentos e itens para fãs, de lojas do seu país, por afinidade.",
+      "intro": "Seja para ouvir, tocar ou as duas coisas, quem ama música gosta de presentes que aproximam do som. Aqui estão ideias de equipamentos de áudio, instrumentos e acessórios e itens para fãs."
+    },
+    "traveler": {
+      "slug": "para-quem-ama-viajar",
+      "h1": "Presentes para quem ama viajar",
+      "title": "Presentes para quem ama viajar: ideias para a viagem",
+      "description": "Ideias de presentes para quem ama viajar: malas, organizadores de bagagem, conforto no trajeto e formas de guardar as lembranças, de lojas do seu país.",
+      "intro": "Quem viaja quer coisas leves, compactas e que facilitem o caminho. Estas ideias incluem malas e organizadores de bagagem, conforto para trajetos longos e formas de guardar as lembranças depois."
+    },
+    "homebody": {
+      "slug": "para-quem-ama-ficar-em-casa",
+      "h1": "Presentes para quem ama ficar em casa",
+      "title": "Presentes para quem ama ficar em casa: puro aconchego",
+      "description": "Ideias de presentes para quem ama ficar em casa: mantas, velas, decoração e tudo o que deixa a noite no sofá ainda melhor, ordenadas por afinidade.",
+      "intro": "Para quem tem o próprio sofá como lugar favorito, o presente deve deixar a casa ainda mais aconchegante. Pense em mantas, velas, decoração e pequenos confortos para uma noite tranquila em casa."
+    },
+    "fashion": {
+      "slug": "para-quem-ama-moda",
+      "h1": "Presentes para quem ama moda",
+      "title": "Presentes para quem ama moda: ideias cheias de estilo",
+      "description": "Ideias de presentes para quem ama moda: acessórios, bolsas, joias e peças cheias de estilo que não dependem de acertar o tamanho da pessoa.",
+      "intro": "Comprar roupa para outra pessoa é complicado, então os acessórios são o caminho mais seguro para agradar quem ama moda. Bolsas, lenços, joias e outras peças cheias de estilo servem sem que você precise saber o tamanho."
+    },
+    "gardener": {
+      "slug": "para-quem-ama-plantas",
+      "h1": "Presentes para quem ama plantas",
+      "title": "Presentes para quem ama plantas: jardim e varanda",
+      "description": "Ideias de presentes para quem ama plantas e jardinagem: ferramentas, vasos, decoração de jardim e itens para a varanda, de lojas do seu país.",
+      "intro": "Quem cuida de plantas gosta de tudo o que ajuda a fazer crescer ou deixa o jardim mais gostoso de aproveitar. Estas ideias incluem ferramentas, vasos, decoração e itens para quem tem uma varanda no lugar de um gramado."
+    },
+    "pet_lover": {
+      "slug": "para-quem-ama-pets",
+      "h1": "Presentes para quem ama pets",
+      "title": "Presentes para quem ama pets: para o tutor e o bichinho",
+      "description": "Ideias de presentes para quem ama pets e para seus cães e gatos: brinquedos, caminhas, acessórios e presentes para o tutor, de lojas do seu país.",
+      "intro": "O caminho mais curto até o coração de um tutor passa pelo cachorro ou pelo gato dele. Estas ideias incluem brinquedos, caminhas e acessórios para o bichinho, além de presentes para quem segura a guia."
+    },
+    "wellness": {
+      "slug": "de-bem-estar",
+      "h1": "Presentes de bem-estar",
+      "title": "Presentes de bem-estar: ideias para relaxar em casa",
+      "description": "Ideias de presentes de bem-estar para uma noite relaxante em casa: banho e cuidados com o corpo, aromas e conforto para quem merece uma pausa.",
+      "intro": "Um presente de bem-estar é uma permissão para não fazer nada por um tempo. Itens de banho e cuidados com o corpo, aromas e confortos aconchegantes transformam uma noite comum em uma pequena pausa para quem está precisando."
+    },
+    "maker": {
+      "slug": "para-quem-gosta-de-faca-voce-mesmo",
+      "h1": "Presentes para quem gosta de faça você mesmo",
+      "title": "Presentes para quem gosta de faça você mesmo: ferramentas",
+      "description": "Ideias de presentes para quem gosta de faça você mesmo: ferramentas, itens de oficina e kits para quem prefere construir e consertar por conta própria.",
+      "intro": "Quem gosta de construir e consertar sempre tem um próximo projeto em mente. Ferramentas, itens de oficina e kits são bem-vindos, principalmente aqueles que a pessoa não compraria para si mesma."
+    }
+  }
+}

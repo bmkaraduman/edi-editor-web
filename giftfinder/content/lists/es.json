@@ -1,0 +1,339 @@
+{
+  "root": "regalos",
+  "under_slug": "menos-de-{n}",
+  "under_h1": "{h1} por menos de {price}",
+  "under_description": "{h1} por menos de {price}: {n} ideas de tiendas de {country}, ordenadas según lo bien que encajan con la persona y la ocasión.",
+  "home": {
+    "title": "Buscador de regalos: ideas de tiendas de {country} | giftdetect.com",
+    "description": "Cuéntale a giftdetect.com para quién es el regalo, la ocasión, cómo es esa persona y tu presupuesto, y recibe ideas de regalo de tiendas de {country}.",
+    "h1": "Encuentra el regalo perfecto en segundos",
+    "sub": "Elige para quién es, la ocasión y su personalidad. giftdetect.com revisa los productos de tiendas de {country} y ordena los que mejor encajan."
+  },
+  "ui": {
+    "popular": "Ideas de regalo populares",
+    "who": "Según para quién",
+    "occasion": "Según la ocasión",
+    "combo": "Ocasión y destinatario",
+    "interest": "Según sus aficiones",
+    "budget": "Según el presupuesto",
+    "picks": "Nuestros favoritos",
+    "stats": "{n} ideas de regalo de {shops} tiendas de {country}, desde {min} hasta {max}. La mitad cuesta menos de {median}.",
+    "under_intro": "Todas las ideas de esta página cuestan {price} o menos.",
+    "guide": "Lee la guía: {title}",
+    "more": "Más ideas de regalo",
+    "home": "Buscador de regalos",
+    "countries": "giftdetect.com en otros países",
+    "blog": "Guías de regalos en el blog",
+    "view": "Ver"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "para-ella",
+      "h1": "Regalos para ella",
+      "title": "Regalos para ella: ideas que va a usar de verdad",
+      "description": "Regalos para ella, desde pequeños detalles hasta grandes sorpresas: joyas, belleza, hogar, aficiones y más, de tiendas de tu país y ordenados por afinidad.",
+      "intro": "Un buen regalo para ella empieza por lo que le gusta hacer, no por la estantería con el cartel «para mujer». Estas ideas incluyen joyas, belleza, hogar, libros y aficiones; añade su personalidad en el buscador de arriba para afinar la lista."
+    },
+    "for-him": {
+      "slug": "para-el",
+      "h1": "Regalos para él",
+      "title": "Regalos para él: ideas más allá de calcetines y corbatas",
+      "description": "Regalos para él, también para los que dicen que no necesitan nada: tecnología, herramientas, aire libre, gastronomía y más, ordenados por afinidad.",
+      "intro": "Con los hombres que «no necesitan nada» es más fácil acertar si piensas en cómo pasan un sábado libre. Estas ideas van desde tecnología y herramientas hasta equipo para el aire libre y buena comida; elige sus aficiones en el buscador de arriba para afinar la lista."
+    },
+    "for-mom": {
+      "slug": "para-mama",
+      "h1": "Regalos para mamá",
+      "title": "Regalos para mamá: ideas con cariño para cada presupuesto",
+      "description": "Regalos para mamá para el Día de la Madre, su cumpleaños o porque sí: bienestar, hogar, jardín, joyas y detalles personales, ordenados por afinidad.",
+      "intro": "Mamá casi nunca pide nada, y justo por eso un regalo bien elegido le hace tanta ilusión. Aquí tienes ideas para el Día de la Madre y para cualquier otro momento, desde un rato de relax hasta algo para el jardín o para esa casa de la que está tan orgullosa."
+    },
+    "for-dad": {
+      "slug": "para-papa",
+      "h1": "Regalos para papá",
+      "title": "Regalos para papá: ideas que no acabarán en un cajón",
+      "description": "Regalos para papá para el Día del Padre, su cumpleaños o Navidad: barbacoa, herramientas, aire libre, tecnología y café, de tiendas de tu país.",
+      "intro": "Los mejores regalos para papá acompañan algo que ya le encanta hacer, sea encender la barbacoa, arreglar cosas o perderse en el jardín. Estas ideas sirven para el Día del Padre, un cumpleaños o Navidad."
+    },
+    "for-girlfriend": {
+      "slug": "para-mi-novia",
+      "h1": "Regalos para tu novia",
+      "title": "Regalos para tu novia: ideas románticas y personales",
+      "description": "Regalos para tu novia o tu mujer para San Valentín, un aniversario o una sorpresa: románticos, personales y útiles, ordenados por afinidad.",
+      "intro": "Un regalo para tu novia debería demostrar que la escuchas, así que empieza por algo que mencionó y nunca se compró. Estas ideas románticas valen para San Valentín, un aniversario o un martes cualquiera que merece algo mejor."
+    },
+    "for-boyfriend": {
+      "slug": "para-mi-novio",
+      "h1": "Regalos para tu novio",
+      "title": "Regalos para tu novio: ideas que le van a encantar",
+      "description": "Regalos para tu novio o tu marido para San Valentín, un aniversario o una sorpresa: personales, prácticos y divertidos, ordenados por afinidad.",
+      "intro": "Los regalos que un novio recuerda son los que encajan con sus aficiones, no los que quedan románticos en el escaparate. Aquí tienes ideas para San Valentín, un aniversario o una sorpresa, desde recuerdos personales hasta cosas que usará a diario."
+    },
+    "for-kids": {
+      "slug": "para-ninos",
+      "h1": "Regalos para niños",
+      "title": "Regalos para niños: juguetes que duran más de un día",
+      "description": "Regalos para niños y niñas: juguetes, juegos, manualidades, libros y diversión al aire libre que los entretienen más tiempo que el papel de regalo.",
+      "intro": "Los niños son críticos muy sinceros: con un regalo se juega o no se juega. Estas ideas apuestan por juguetes, juegos, kits de manualidades y diversión al aire libre que siguen interesando después de la primera tarde."
+    },
+    "for-teens": {
+      "slug": "para-adolescentes",
+      "h1": "Regalos para adolescentes",
+      "title": "Regalos para adolescentes: ideas que sí quieren",
+      "description": "Regalos para adolescentes: videojuegos, música, tecnología, moda, decoración para su cuarto y aficiones creativas, ordenados por afinidad.",
+      "intro": "Los adolescentes saben muy bien lo que les gusta y cambian de opinión igual de rápido, así que lo más seguro es un regalo ligado a su afición del momento. Descubre ideas de videojuegos, música, tecnología, moda y cosas para su cuarto."
+    },
+    "for-grandparents": {
+      "slug": "para-abuelos",
+      "h1": "Regalos para abuelos",
+      "title": "Regalos para abuelos: comodidad, recuerdos y aficiones",
+      "description": "Regalos para abuelos y familiares mayores: comodidad para casa, jardín y aficiones, recuerdos y ayudas prácticas, ordenados por afinidad.",
+      "intro": "Los abuelos suelen tener ya lo que necesitan, así que funcionan los regalos que dan comodidad, acompañan una afición o traen un recuerdo. Estas ideas van desde cosas acogedoras para casa hasta ayudas para el jardín y recuerdos de familia."
+    },
+    "birthday": {
+      "slug": "de-cumpleanos",
+      "h1": "Regalos de cumpleaños",
+      "title": "Regalos de cumpleaños: ideas para cada edad y presupuesto",
+      "description": "Regalos de cumpleaños para amigos, familia y compañeros de trabajo, desde pequeñas sorpresas hasta grandes regalos, de tiendas de tu país.",
+      "intro": "Un regalo de cumpleaños solo tiene que conseguir una cosa: demostrar que has pensado en esa persona en concreto. Empieza por estas ideas y luego elige una edad y una personalidad en el buscador de arriba para hacerlas más personales."
+    },
+    "christmas": {
+      "slug": "de-navidad",
+      "h1": "Regalos de Navidad",
+      "title": "Regalos de Navidad: ideas para toda la familia",
+      "description": "Regalos de Navidad para tu pareja, tus padres, los niños y los compañeros de trabajo, para todos los presupuestos y ordenados por afinidad.",
+      "intro": "Las compras de Navidad y Reyes son más fáciles si vas persona por persona. Estas ideas sirven para toda la familia; indica para quién es el regalo y tu presupuesto en el buscador de arriba y la lista se reordena sola."
+    },
+    "valentines": {
+      "slug": "de-san-valentin",
+      "h1": "Regalos de San Valentín",
+      "title": "Regalos de San Valentín: ideas románticas para los dos",
+      "description": "Regalos de San Valentín para ella y para él, para parejas recientes y de muchos años, desde pequeños detalles hasta grandes sorpresas.",
+      "intro": "San Valentín no pide un gran gesto, pide uno personal. Aquí tienes ideas románticas para parejas que acaban de empezar y para las de toda la vida, desde pequeños detalles hasta regalos para disfrutar juntos."
+    },
+    "anniversary": {
+      "slug": "de-aniversario",
+      "h1": "Regalos de aniversario",
+      "title": "Regalos de aniversario: ideas para parejas",
+      "description": "Regalos de aniversario para tu pareja o para una pareja cercana: recuerdos, planes para disfrutar juntos y regalos para las fechas señaladas.",
+      "intro": "Un regalo de aniversario celebra el tiempo que habéis compartido, así que los recuerdos y las cosas para disfrutar juntos encajan mejor que algo puramente práctico. Estas ideas sirven para tu pareja y para parejas que celebran una fecha especial."
+    },
+    "wedding": {
+      "slug": "de-boda",
+      "h1": "Regalos de boda",
+      "title": "Regalos de boda: ideas que los novios conservarán",
+      "description": "Regalos de boda más allá de la lista de bodas: cosas para el hogar común, recuerdos y regalos para dos, de tiendas de tu país y ordenados por afinidad.",
+      "intro": "Si los novios no tienen lista de bodas, elige algo para la vida que están construyendo juntos. Estas ideas se centran en el hogar que comparten, en recuerdos que duran y en regalos pensados para dos."
+    },
+    "housewarming": {
+      "slug": "para-casa-nueva",
+      "h1": "Regalos para casa nueva",
+      "title": "Regalos para casa nueva: ideas para estrenar hogar",
+      "description": "Regalos para casa nueva, sea el primer piso o una casa recién estrenada: utensilios de cocina, decoración, plantas y cosas prácticas que siempre faltan.",
+      "intro": "En una casa nueva siempre falta algo, y un buen regalo de inauguración cubre uno de esos huecos. Piensa en utensilios de cocina, decoración, plantas y esas cosas prácticas que nadie se acuerda de comprar antes de la mudanza."
+    },
+    "graduation": {
+      "slug": "de-graduacion",
+      "h1": "Regalos de graduación",
+      "title": "Regalos de graduación: ideas para la nueva etapa",
+      "description": "Regalos de graduación para quien termina el instituto o la universidad: cosas para el primer trabajo, el primer piso, los viajes y recuerdos duraderos.",
+      "intro": "Los regalos de graduación funcionan mejor cuando miran hacia delante: al primer trabajo, al primer piso o a ese viaje planeado desde hace tiempo. Estas ideas combinan cosas útiles para empezar con recuerdos que celebran el logro."
+    },
+    "retirement": {
+      "slug": "de-jubilacion",
+      "h1": "Regalos de jubilación",
+      "title": "Regalos de jubilación: ideas para tanto tiempo libre",
+      "description": "Regalos de jubilación para compañeros y familiares: aficiones, viajes, jardín y descanso, con ideas que también sirven como regalo conjunto.",
+      "intro": "Jubilarse significa tener por fin tiempo para todo lo que tuvo que esperar. Los buenos regalos alimentan esos planes, sean el jardín, los viajes o una afición; muchas de estas ideas sirven también como regalo conjunto de todo el equipo."
+    },
+    "new-baby": {
+      "slug": "para-recien-nacidos",
+      "h1": "Regalos para recién nacidos",
+      "title": "Regalos para recién nacidos: ideas para bebé y padres",
+      "description": "Regalos para recién nacidos y para los nuevos padres: ayudas prácticas, peluches y recuerdos para un nacimiento, un baby shower o la primera visita.",
+      "intro": "Los padres primerizos necesitan ayuda práctica y un poco de mimo más que un décimo pelele. Estas ideas para un nacimiento o un baby shower combinan cosas útiles para los primeros meses con peluches y recuerdos."
+    },
+    "thank-you": {
+      "slug": "de-agradecimiento",
+      "h1": "Regalos de agradecimiento",
+      "title": "Regalos de agradecimiento: detalles que dicen mucho",
+      "description": "Regalos de agradecimiento para profesores, vecinos, compañeros y anfitriones: detalles pequeños y bien pensados, de tiendas de tu país.",
+      "intro": "Un regalo de agradecimiento debe ser ligero: lo bastante pequeño para no incomodar a nadie y lo bastante pensado para que se note. Aquí tienes ideas para profesores, vecinos, compañeros de trabajo y anfitriones."
+    },
+    "get-well": {
+      "slug": "para-desear-pronta-recuperacion",
+      "h1": "Regalos para desear una pronta recuperación",
+      "title": "Regalos para desear una pronta recuperación y dar ánimos",
+      "description": "Regalos para desear una pronta recuperación a alguien enfermo o convaleciente: comodidad, distracción y pequeños caprichos, ordenados por afinidad.",
+      "intro": "Cuando alguien está enfermo o recuperándose, la comodidad y la distracción valen más que cualquier cosa sofisticada. Estas ideas para dar ánimos incluyen cosas acogedoras, algo para leer o entretenerse y pequeños caprichos."
+    },
+    "birthday-for-her": {
+      "slug": "de-cumpleanos-para-ella",
+      "h1": "Regalos de cumpleaños para ella",
+      "title": "Regalos de cumpleaños para ella: para cada gusto",
+      "description": "Regalos de cumpleaños para ella: para tu novia, tu mujer, tu madre, tu hermana o tu mejor amiga, para cada gusto y presupuesto.",
+      "intro": "Sea para tu pareja, tu hermana o tu mejor amiga, su regalo de cumpleaños debería ir con sus gustos y no con un cliché. Echa un vistazo a estas ideas y añade sus aficiones en el buscador de arriba."
+    },
+    "birthday-for-him": {
+      "slug": "de-cumpleanos-para-el",
+      "h1": "Regalos de cumpleaños para él",
+      "title": "Regalos de cumpleaños para él: para cada afición",
+      "description": "Regalos de cumpleaños para él: para tu novio, tu marido, tu padre, tu hermano o un amigo, para cada afición y presupuesto.",
+      "intro": "Para su cumpleaños, olvídate de lo genérico y ve a por su afición: eso de lo que habla aunque nadie le pregunte. Estas ideas valen para parejas, padres, hermanos y amigos, y el buscador de arriba las filtra por intereses."
+    },
+    "birthday-for-kids": {
+      "slug": "de-cumpleanos-para-ninos",
+      "h1": "Regalos de cumpleaños para niños",
+      "title": "Regalos de cumpleaños para niños: ideas para jugar",
+      "description": "Regalos de cumpleaños para niños: juguetes, juegos, manualidades y diversión al aire libre para tu hijo o para la próxima fiesta de cumpleaños.",
+      "intro": "¿Otra invitación de cumpleaños pegada en la nevera? Estas ideas de regalo para niños, desde juguetes y juegos hasta kits de manualidades, sirven tanto para tu propio hijo como para ese compañero de clase al que apenas conoces."
+    },
+    "birthday-for-teens": {
+      "slug": "de-cumpleanos-para-adolescentes",
+      "h1": "Regalos de cumpleaños para adolescentes",
+      "title": "Regalos de cumpleaños para adolescentes: ideas que gustan",
+      "description": "Regalos de cumpleaños para adolescentes: videojuegos, música, tecnología, moda y decoración para su cuarto, ordenados por afinidad.",
+      "intro": "El cumpleaños de un adolescente es la ocasión de demostrar que sabes qué le interesa ahora mismo. Estas ideas incluyen videojuegos, música, tecnología y moda, para los dieciocho o para cualquier año anterior."
+    },
+    "christmas-for-her": {
+      "slug": "de-navidad-para-ella",
+      "h1": "Regalos de Navidad para ella",
+      "title": "Regalos de Navidad para ella: ideas que le encantarán",
+      "description": "Regalos de Navidad para ella: para tu mujer, tu novia, tu madre o tu hermana, desde lo más acogedor hasta un pequeño lujo, ordenados por afinidad.",
+      "intro": "¿Buscas algo para ella que dejar bajo el árbol? Estas ideas de Navidad para mujeres, novias, madres y hermanas van desde cosas acogedoras para el invierno hasta pequeños lujos que ella no se compraría."
+    },
+    "christmas-for-him": {
+      "slug": "de-navidad-para-el",
+      "h1": "Regalos de Navidad para él",
+      "title": "Regalos de Navidad para él: ideas que va a usar",
+      "description": "Regalos de Navidad para él: para tu marido, tu novio, tu padre o tu hermano, desde lo práctico hasta un buen capricho, ordenados por afinidad.",
+      "intro": "Los regalos de Navidad para él no tienen por qué ser calcetines otra vez. Estas ideas para maridos, novios, padres y hermanos van de lo práctico al capricho, y casi todas caben bajo el árbol."
+    },
+    "christmas-for-kids": {
+      "slug": "de-navidad-para-ninos",
+      "h1": "Regalos de Navidad para niños",
+      "title": "Regalos de Navidad para niños: juguetes y juegos",
+      "description": "Regalos de Navidad para niños: juguetes, juegos, manualidades y libros con los que siguen jugando mucho después de las fiestas.",
+      "intro": "Para los niños, la mañana de Navidad o de Reyes es el gran momento del año. Estos juguetes, juegos y kits de manualidades están pensados para entretenerlos mucho después de las fiestas, pidan lo que pidan en su carta."
+    },
+    "christmas-for-teens": {
+      "slug": "de-navidad-para-adolescentes",
+      "h1": "Regalos de Navidad para adolescentes",
+      "title": "Regalos de Navidad para adolescentes: ideas que gustan",
+      "description": "Regalos de Navidad para adolescentes: videojuegos, música, tecnología, moda y decoración para su cuarto, de tiendas de tu país.",
+      "intro": "Los adolescentes son los nombres más difíciles de la lista de Navidad. Estas ideas se quedan con lo que suele funcionar: videojuegos, música, tecnología, moda y cosas para su cuarto."
+    },
+    "tech": {
+      "slug": "para-amantes-de-la-tecnologia",
+      "h1": "Regalos para amantes de la tecnología",
+      "title": "Regalos para amantes de la tecnología: gadgets e ideas",
+      "description": "Regalos para amantes de la tecnología: gadgets, audio, hogar inteligente y accesorios para quien siempre quiere probar lo último.",
+      "intro": "Los amantes de la tecnología suelen comprarse ellos mismos las cosas grandes, así que los mejores regalos son los extras ingeniosos: gadgets, equipos de audio, dispositivos para el hogar inteligente y accesorios que mejoran lo que ya tienen."
+    },
+    "gamer": {
+      "slug": "para-gamers",
+      "h1": "Regalos para gamers",
+      "title": "Regalos para gamers: accesorios, comodidad y juegos",
+      "description": "Regalos para gamers: accesorios, cosas para el setup, juegos de mesa y merchandising, sin el riesgo de comprar un juego que ya tienen.",
+      "intro": "Regalarle un videojuego a un gamer es arriesgado, porque seguramente ya lo tiene. Los accesorios, la comodidad para las sesiones largas, los juegos de mesa y las cosas para el setup son apuestas más seguras, y estas ideas te dicen por dónde empezar."
+    },
+    "foodie": {
+      "slug": "para-foodies",
+      "h1": "Regalos para foodies",
+      "title": "Regalos para foodies: ideas para cocinillas",
+      "description": "Regalos para foodies y cocinillas: utensilios de cocina, productos gourmet, packs de degustación y cosas para la mesa, de tiendas de tu país.",
+      "intro": "Da gusto hacer regalos a la gente que disfruta comiendo, porque siempre hay algo nuevo que probar. Estas ideas incluyen utensilios de cocina, productos gourmet, packs de degustación y cosas para una mesa bien puesta."
+    },
+    "coffee_tea": {
+      "slug": "para-amantes-del-cafe-y-del-te",
+      "h1": "Regalos para amantes del café y del té",
+      "title": "Regalos para amantes del café y del té: ideas con aroma",
+      "description": "Regalos para amantes del café y del té: cafeteras y teteras, tazas, packs de degustación y accesorios para principiantes y entendidos.",
+      "intro": "Para los amantes del café y del té, la taza de cada día es un pequeño ritual, y un buen regalo lo hace todavía mejor. Aquí encontrarás cafeteras y teteras, tazas, packs de degustación y accesorios para principiantes y entendidos."
+    },
+    "outdoor": {
+      "slug": "para-amantes-del-aire-libre",
+      "h1": "Regalos para amantes del aire libre",
+      "title": "Regalos para amantes del aire libre: senderismo y camping",
+      "description": "Regalos para amantes del aire libre: equipo para senderismo, camping y días en la naturaleza, desde pequeños accesorios hasta material más grande.",
+      "intro": "A la gente de montaña le gusta el material ligero, resistente y útil, y nota la diferencia. Estas ideas para senderistas, campistas y todos los que prefieren estar fuera van desde pequeños accesorios hasta equipo de más envergadura."
+    },
+    "fitness": {
+      "slug": "para-amantes-del-fitness",
+      "h1": "Regalos para amantes del fitness",
+      "title": "Regalos para amantes del fitness: entrenar y recuperar",
+      "description": "Regalos para amantes del fitness: material para entrenar en casa, accesorios para el gimnasio y cosas para la recuperación, ordenados por afinidad.",
+      "intro": "Quien entrena con regularidad agradece cualquier cosa que haga más fácil la próxima sesión o más agradable la recuperación. Descubre material para casa, accesorios para el gimnasio y cosas para el día después."
+    },
+    "bookworm": {
+      "slug": "para-amantes-de-la-lectura",
+      "h1": "Regalos para amantes de la lectura",
+      "title": "Regalos para amantes de la lectura: más que otro libro",
+      "description": "Regalos para amantes de la lectura: accesorios para leer, cosas acogedoras para el rincón de lectura y libros, de tiendas de tu país.",
+      "intro": "No hace falta adivinar qué libro le falta por leer. Las luces de lectura, los sujetalibros, las cosas acogedoras para el rincón de lectura y los detalles literarios también son buenos regalos, además de los propios libros."
+    },
+    "artist": {
+      "slug": "para-personas-creativas",
+      "h1": "Regalos para personas creativas",
+      "title": "Regalos para personas creativas: arte y manualidades",
+      "description": "Regalos para personas creativas: materiales y kits de dibujo, pintura y manualidades, para quien empieza y para quien ya tiene su rincón de trabajo.",
+      "intro": "A una persona creativa nunca le sobran materiales. Estas ideas de dibujo, pintura y manualidades sirven tanto para quien quiere probar algo nuevo como para quien ya tiene un rincón de trabajo bien surtido."
+    },
+    "music": {
+      "slug": "para-amantes-de-la-musica",
+      "h1": "Regalos para amantes de la música",
+      "title": "Regalos para amantes de la música: escuchar y tocar",
+      "description": "Regalos para amantes de la música: equipos de audio, accesorios para instrumentos y cosas para fans, de tiendas de tu país y ordenados por afinidad.",
+      "intro": "Escuchen, toquen o hagan las dos cosas, los amantes de la música agradecen los regalos que los acercan al sonido. Aquí tienes ideas de equipos de audio, instrumentos y accesorios, y cosas para fans."
+    },
+    "traveler": {
+      "slug": "para-viajeros",
+      "h1": "Regalos para viajeros",
+      "title": "Regalos para viajeros: ideas para el próximo viaje",
+      "description": "Regalos para viajeros: maletas, organizadores de equipaje, comodidad para el camino y formas de guardar los recuerdos, de tiendas de tu país.",
+      "intro": "Los viajeros quieren cosas ligeras, compactas y que hagan el trayecto más fácil. Estas ideas incluyen maletas y organizadores de equipaje, comodidad para los viajes largos y formas de conservar los recuerdos a la vuelta."
+    },
+    "homebody": {
+      "slug": "para-caseros",
+      "h1": "Regalos para los más caseros",
+      "title": "Regalos para los más caseros: ideas para estar en casa",
+      "description": "Regalos para los más caseros: mantas, velas, decoración y todo lo que hace todavía mejor una tarde de sofá, ordenados por afinidad.",
+      "intro": "Para quienes tienen su lugar favorito en el sofá de casa, un regalo debería hacer el hogar aún más acogedor. Piensa en mantas, velas, decoración y pequeños placeres para una tarde tranquila sin salir."
+    },
+    "fashion": {
+      "slug": "para-amantes-de-la-moda",
+      "h1": "Regalos para amantes de la moda",
+      "title": "Regalos para amantes de la moda: ideas con estilo",
+      "description": "Regalos para amantes de la moda: accesorios, bolsos, joyas y piezas con estilo con las que no hace falta acertar con la talla.",
+      "intro": "Comprar ropa para otra persona es complicado, así que los accesorios son la forma más segura de acertar con alguien a quien le encanta la moda. Bolsos, pañuelos, joyas y otras piezas con estilo quedan bien sin saber la talla."
+    },
+    "gardener": {
+      "slug": "para-jardineros",
+      "h1": "Regalos para jardineros",
+      "title": "Regalos para jardineros: ideas para jardín y terraza",
+      "description": "Regalos para jardineros y amantes de las plantas: herramientas, macetas, decoración de jardín y accesorios para el balcón, de tiendas de tu país.",
+      "intro": "A quien le gusta la jardinería le alegra cualquier cosa que ayude a que las plantas crezcan o que haga el jardín más agradable. Estas ideas incluyen herramientas, macetas, decoración y accesorios para quien tiene un balcón en lugar de césped."
+    },
+    "pet_lover": {
+      "slug": "para-amantes-de-los-animales",
+      "h1": "Regalos para amantes de los animales",
+      "title": "Regalos para amantes de los animales y sus mascotas",
+      "description": "Regalos para amantes de los animales y para sus perros y gatos: juguetes, camas, accesorios y detalles para el dueño, de tiendas de tu país.",
+      "intro": "El camino más corto al corazón de quien tiene mascota pasa por su perro o su gato. Estas ideas incluyen juguetes, camas y accesorios para el animal, y también regalos para la persona que sujeta la correa."
+    },
+    "wellness": {
+      "slug": "de-bienestar-y-relax",
+      "h1": "Regalos de bienestar y relax",
+      "title": "Regalos de bienestar y relax: ideas para desconectar",
+      "description": "Regalos de bienestar y relax para una tarde tranquila en casa: baño y cuidado corporal, aromas y comodidad para quien se merece un descanso.",
+      "intro": "Un regalo de bienestar es un permiso para no hacer nada durante un rato. Los productos de baño y cuidado corporal, los aromas y las cosas acogedoras convierten una tarde cualquiera en un pequeño descanso para quien lo necesita."
+    },
+    "maker": {
+      "slug": "para-manitas",
+      "h1": "Regalos para manitas",
+      "title": "Regalos para manitas: herramientas e ideas de bricolaje",
+      "description": "Regalos para manitas y aficionados al bricolaje: herramientas, accesorios para el taller y kits para quien prefiere construir y reparar por su cuenta.",
+      "intro": "A quien le gusta construir y reparar siempre le ronda un próximo proyecto. Las herramientas, los accesorios para el taller y los kits son bienvenidos, sobre todo los que no se compraría por su cuenta."
+    }
+  }
+}

@@ -24,13 +24,18 @@ TITLE_PREFIX = {
 }
 
 
+from ..i18n import table as _i18n_table  # noqa: E402
+
+for _lang, _a in _i18n_table("augment").items():
+    TEMPLATES[_lang], NOISE[_lang], TITLE_PREFIX[_lang] = _a["templates"], _a["noise"], _a["title_prefix"]
+
 def augment(rng, concept, lang, cue_labels=None):
     """Return (title, description) with label-bearing phrases appended.
     `cue_labels` are extra labels (not in the concept) whose phrases are also
     injected, so the model learns that an explicit cue such as "fête des
     pères" implies the label regardless of product type."""
     title, desc = concept["text"][lang]
-    labels = [concept["gender"]] + concept["age"] + concept["occasion"] + concept["personality"]
+    labels = [concept["gender"]] + concept["age"] + concept["occasion"] + concept["personality"] + [concept["category"]]
     labels = [l for l in labels if l != "unisex"] + list(cue_labels or [])
     extra = []
     for label in cue_labels or []:

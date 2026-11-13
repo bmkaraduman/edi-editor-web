@@ -18,6 +18,7 @@ from .occasions import upcoming
 from .taxonomy import UI_LABELS
 from .ml.search import GiftSearch, facet_options
 from .taxonomy import FACET_TITLES, clashes
+from .i18n import web_script
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WEB = os.path.join(HERE, "..", "web")
@@ -29,7 +30,7 @@ engine = GiftSearch()
 
 @app.get("/api/countries")
 def countries():
-    return {cc: {"name": c["name"], "lang": c["lang"], "currency": c["currency"], "flag": c["flag"],
+    return {cc: {"name": c["name"], "lang": c["lang"], "currency": c["currency"], "flag": c["flag"], "locale": c["locale"],
                  "merchants": [m["name"] for m in MERCHANTS[cc]]} for cc, c in COUNTRIES.items() if cc in ACTIVE_COUNTRIES}
 
 
@@ -59,13 +60,13 @@ def options(lang: str = "en"):
 @app.get("/api/search")
 def search(country: str, q: str = "", gender: Optional[str] = None,
            age: List[str] = Query(default=[]), occasion: List[str] = Query(default=[]),
-           personality: List[str] = Query(default=[]),
+           personality: List[str] = Query(default=[]), category: List[str] = Query(default=[]),
            price_min: Optional[float] = None, price_max: Optional[float] = None,
            limit: int = 36, offset: int = 0, sort: str = "relevance"):
     try:
         return engine.search(country, q=q, gender=gender, age=age, occasion=occasion,
                              personality=personality, price_min=price_min, price_max=price_max,
-                             limit=min(limit, 60), offset=offset, sort=sort)
+                             limit=min(limit, 60), offset=offset, sort=sort, category=category)
     except ValueError as e:
         raise HTTPException(400, str(e))
 
@@ -107,7 +108,7 @@ def go(product_id: str):
     return RedirectResponse(link, status_code=302)
 
 
-def _page(title="giftdetect.com", description="giftdetect.com: a gift search engine. Pick who it is for, the occasion and their personality and get ranked gift ideas from shops in the US, Germany, Türkiye, the Netherlands and France.", canonical="https://giftdetect.com/", image=None):
+def _page(title="giftdetect.com", description="giftdetect.com: a gift search engine. Pick who it is for, the occasion and their personality and get ranked gift ideas from shops in your country.", canonical="https://giftdetect.com/", image=None):
     """Assemble the storefront from the shared fragments in web/."""
     body = open(os.path.join(WEB, "body.html"), encoding="utf-8").read()
     og = f'<meta property="og:image" content="{html.escape(image)}">' if image else ""
@@ -119,7 +120,7 @@ def _page(title="giftdetect.com", description="giftdetect.com: a gift search eng
 <link rel="canonical" href="{html.escape(canonical)}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="/static/style.css"></head><body>{body}
-<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};</script>
+<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};{web_script()}</script>
 <script src="/static/provider_api.js"></script><script src="/static/ui.js"></script><script src="/static/analytics.js"></script></body></html>"""
 
 

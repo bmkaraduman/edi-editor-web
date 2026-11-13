@@ -36,10 +36,11 @@ class AmazonSource(Source):
         self.access = os.environ.get("AMAZON_ACCESS_KEY", "")
         self.secret = os.environ.get("AMAZON_SECRET_KEY", "")
         self.tag = os.environ.get(f"AMAZON_TAG_{country}", os.environ.get("AMAZON_TAG", ""))
-        self.host, self.region, self.site, self.merchant_id = MARKETPLACES[country]
+        # countries without an Amazon marketplace here are skipped (available() is False)
+        self.host, self.region, self.site, self.merchant_id = MARKETPLACES.get(country, (None, None, None, None))
 
     def available(self):
-        return bool(self.access and self.secret and self.tag)
+        return bool(self.host and self.access and self.secret and self.tag)
 
     def _request(self, payload):
         target = "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems"

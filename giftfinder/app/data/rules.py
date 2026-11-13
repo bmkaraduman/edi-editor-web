@@ -16,6 +16,10 @@ Every rule has
   veto      the product itself is never a present (screws, taps, spare parts): its
             gift prior wins even over a strong gift rule ("Kitchen faucet" is not a
             kitchen gift). Ingest drops such products.
+  keep      the product is no classic present but has a category page of its own (a
+            3-seater sofa under Furniture): ingest keeps it although its gift prior is
+            below GIFT_FLOOR, plain gift searches still hide it, the category and typed
+            searches show it. A veto rule still wins.
   gift      giftability prior in 0..1. 1 = classic present, 0.05 = office supply
             or spare part that should only appear when someone searches for it.
             The ranker multiplies by it and hides anything below GIFT_FLOOR
@@ -25,13 +29,14 @@ Add a rule when a merchant's category keeps producing odd results; the ids show 
 in the product's "rules" field and on the detail page, so mistakes are traceable.
 """
 from ..ml.preprocess import normalize
+from ..taxonomy import CATEGORY_PRIORITY
 
 GIFT_FLOOR = 0.15
 
 
-def R(rid, patterns, gift=0.8, veto=False, **labels):
+def R(rid, patterns, gift=0.8, veto=False, keep=False, **labels):
     return {"id": rid, "patterns": [("*" if p.startswith("*") else "") + normalize(p.strip("*")) + ("*" if p.endswith("*") else "") for p in patterns],
-            "labels": {k: v for k, v in labels.items()}, "gift": gift, "veto": veto}
+            "labels": {k: v for k, v in labels.items()}, "gift": gift, "veto": veto, "keep": keep}
 
 
 RULES = [
@@ -117,8 +122,15 @@ RULES = [
       personality=["homebody"], occasion=["housewarming", "christmas"], gift=0.85),
     R("home_kitchen", ["home & garden", "haus & garten", "haushalt*", "household", "bathroom accessor*", "badezimmer*", "seifenspender*", "soap dispenser*", "kuche", "tableware", "geschirr*", "glaser", "glasses", "tasse*", "mug", "mugs", "flasche*", "bottle*", "karaffe*", "decanter*"],
       personality=["homebody", "foodie"], occasion=["housewarming"], gift=0.7),
-    R("furniture", ["mobel", "möbel", "furniture", "tisch", "tische", "table", "stuhl*", "chair*", "sofa*", "couch*", "regal*", "shelf", "shelves", "schrank*", "cabinet*", "bett*", "bed", "nachttisch*", "nightstand*", "sideboard*", "kommode*"],
+    R("furniture", ["mobel", "möbel", "furniture", "tisch", "tische", "table", "stuhl*", "chair*", "sofa*", "couch*", "regal*", "shelf", "shelves", "schrank*", "cabinet*", "bett*", "bed", "nachttisch*", "nightstand*", "sideboard*", "kommode*",
+                      "mesa", "sapateira*"],
       personality=["homebody"], occasion=["housewarming"], gift=0.1),
+    # fitted kitchens and wall panels are building work, not furniture someone gives
+    R("kitchen_units", ["balcao*", "balcoes", "torre quente", "paneleiro*", "cozinha compacta", "cozinha modulada", "conjunto de cozinha", "area gourmet",
+                        "painel ripado", "gabinete*", "kitchen cabinet*", "base cabinet*", "wall cabinet*", "kitchen base unit*", "kitchen wall unit*",
+                        "kitchen unit*", "cabinet carcass*", "carcass*", "worktop*", "arbeitsplatte*", "einbaukuche*", "kuchenzeile*", "unterschrank*",
+                        "hangeschrank*", "keukenkast*", "meuble de cuisine", "mobile da cucina", "mueble de cocina", "koksskap*", "szafka kuchenna*"],
+      gift=0.05, veto=True),
     R("lighting_parts", ["led streifen*", "led strip*", "led controller*", "dmx*", "netzteil*", "power supply*", "trafo*", "transformer*", "dimmer*", "relais*", "relay*", "repeater*", "zigbee*", "leuchtmittel*", "light bulb*", "led modul*", "led profil*", "aluprofil*", "endkappe*", "einbauprofil*", "aufbauprofil*", "einbaustrahler*", "lichtbron*", "leuchtmittel*"],
       personality=["tech", "maker"], gift=0.1),
 
@@ -146,7 +158,22 @@ RULES = [
     R("medical", ["blutzucker*", "glukose*", "glucose*", "harnsaure*", "blutdruckmess*", "teststreifen*", "test strip*", "lanzette*", "lancet*", "inkontinenz*", "incontinen*",
                   "tampon*", "maandverband*", "inlegkruisje*", "sanitary pad*", "menstruat*", "kompressionsstrumpf*", "kompressionsstrumpfe", "compression stocking*", "steunkous*",
                   "diabetes*", "first aid", "erste hilfe", "verbandkasten*", "zahnbleaching*", "tandenborstel*", "zahnburste*", "toothbrush*", "brosse a dents",
-                  "seker olcum*", "tansiyon aleti*"],
+                  "seker olcum*", "tansiyon aleti*", "bandage*", "crepe bandage*", "wound dressing*", "verband", "pflaster", "epsom salt*"],
+      gift=0.05, veto=True),
+    R("pharmacy", ["*mg", "antihistamin*", "cetirizin*", "loratadin*", "ibuprofen*", "paracetamol*", "aspirin*", "painkiller*", "pain relief",
+                   "allergy relief", "hay fever", "laxativ*", "cough syrup*", "cold and flu", "nasal spray*", "nipple cream*", "nappy rash",
+                   "food supplement*", "dietary supplement*", "supplements", "multivitamin*", "probiotic*", "vitamin d3", "vitamin b12",
+                   "nahrungserganzung*", "schmerztablette*", "lutschtablette*", "voedingssupplement*", "complement alimentaire", "complements alimentaires",
+                   "integratore alimentare", "integratori", "complemento alimenticio", "suplemento alimentar", "suplementos", "suplement diety",
+                   "kosttillskott*", "kosttilskud*", "ravintolisa*", "supliment alimentar", "gida takviyesi", "tabletki", "comprimidos", "comprimate",
+                   "tabletter", "gelules", "kapseln", "capsulas", "kapsulki", "kapslar", "kapsler"],
+      gift=0.05, veto=True),
+    R("spare_parts", ["replacement head*", "replacement nozzle*", "replacement brush*", "replacement filter*", "replacement blade*", "replacement cartridge*",
+                      "spare nozzle*", "refill cartridge*", "ersatzduse*", "ersatzkopf*", "ersatzburste*", "aufsteckburste*", "ersatzklinge*", "ersatzfilter*",
+                      "opzetborstel*", "vervangende borstel*", "vervangingsfilter*", "tete de rechange", "tetes de rechange", "brossette*", "de rechange",
+                      "testina di ricambio", "testine di ricambio", "di ricambio", "cabezal de recambio", "cabezales de recambio", "de recambio",
+                      "cabeca de reposicao", "refil", "refis", "de reposicao", "ersattningsborst*", "ersattningsmunstyck*", "udskiftelig*", "dyser",
+                      "vaihtoharja*", "vaihtopaa*", "koncowk*", "wymienn*", "inlocuibil*", "rezerve", "capete de schimb", "yedek baslik*"],
       gift=0.05, veto=True),
     R("cleaning", ["reinigungsmittel*", "reiniger", "putzmittel*", "waschmittel*", "spulmittel*", "entkalker*", "staubsauger*", "handspruher*", "ruckenspritze*", "schaumspruher*", "trolleyspritze*",
                    "reinigingsmiddel*", "schoonmaak*", "wasmiddel*", "afwasmiddel*", "stofzuiger*", "kruimelzuiger*", "luchtverfrisser*",
@@ -171,11 +198,98 @@ RULES = [
       personality=["bookworm", "artist"], occasion=["graduation", "retirement", "thank_you"], gift=0.9),
 ]
 
+# Keywords of the languages added from app/i18n/<lang>.json join the rule they name.
+from ..i18n import table as _i18n_table  # noqa: E402
+
+# ------------------------------------------------------------- product categories
+# The category facet (advanced search). Existing rules name their category here; the
+# rules below exist only to recognise a category the hobby rules do not cover.
+RULES += [
+    R("flowers", ["blumenstrauss*", "rosenstrauss*", "schnittblumen", "flowerbox*", "rosenbox*", "ewige rose*", "infinity rose*", "preserved rose*",
+                  "flower bouquet*", "fresh flowers", "flower delivery", "boeket*", "bos bloemen", "bouquet de fleurs", "fleurs fraiches",
+                  "cicek buketi*", "cicek aranjman*", "buket*", "solmayan gul*"],
+      category=["flowers"], occasion=["valentines", "mothers_day", "anniversary", "thank_you", "get_well"], gift=1.0),
+    R("car_accessories", ["autozubehor*", "car accessor*", "dashcam*", "dash cam*", "autopflege*", "car care*", "autoladegerat*", "car charger*",
+                          "handyhalterung auto*", "car phone mount*", "car phone holder*", "auto accessoires", "accessoires auto*", "autolader*",
+                          "telefoonhouder auto*", "support telephone voiture*", "oto aksesuar*", "arac kamerasi*", "arac ici*", "oto bakim*"],
+      category=["automotive"], gift=0.7),
+    R("toys", ["spielzeug*", "toys", "toy", "kuscheltier*", "plusch*", "plush*", "stuffed animal*", "puppe", "puppen", "doll", "dolls", "lego*",
+               "playmobil*", "bauklotz*", "building blocks", "speelgoed*", "knuffel*", "jouet*", "peluche*", "oyuncak*"],
+      category=["toys"], gift=0.95),
+    R("board_games", ["brettspiel*", "gesellschaftsspiel*", "kartenspiel*", "board game*", "card game*", "puzzle*", "bordspel*", "kaartspel*",
+                      "jeu de societe", "jeux de societe", "kutu oyunu*", "yapboz*"],
+      category=["games"], personality=["homebody", "gamer"], gift=0.95),
+    R("kitchenware", ["kochgeschirr*", "pfanne*", "topfset*", "messerset*", "kuchenmesser*", "schneidebrett*", "cookware*", "frying pan*", "knife set*",
+                      "cutting board*", "kitchen gadget*", "kuchenhelfer*", "keukengerei*", "pannenset*", "snijplank*", "ustensiles de cuisine",
+                      "planche a decouper", "tencere*", "kesme tahtasi*", "weinglas*", "wine glass*", "becher", "tasse", "tassen", "mug", "mugs"],
+      category=["kitchen"], personality=["foodie"], gift=0.8),
+    R("vouchers", ["gutschein*", "geschenkgutschein*", "gift card*", "giftcard*", "voucher*", "cadeaubon*", "cadeaukaart*", "carte cadeau*",
+                   "bon cadeau*", "hediye karti*", "hediye ceki*", "erlebnisgeschenk*"],
+      category=["experience"], gift=1.0),
+    # big furniture is one item of its own: like the "furniture" rule it stays out of the
+    # plain gift searches (prior 0.1) and shows when the visitor picks the category; unlike
+    # it (shelf, rack, "Möbel" anything) it is kept in the catalog (`keep`)
+    R("seating", ["sofa*", "couch*", "3 sitzer*", "2 sitzer*", "3 seater*", "2 seater*", "sessel*", "armchair*", "ohrensessel*", "couchtisch*", "coffee table*",
+                  "bucherregal*", "bookshelf*", "bookcase*", "kommode*", "dresser*", "sideboard*", "koltuk*", "kanepe*", "berjer*", "sehpa*", "kitaplik*",
+                  "3 zits*", "2 zits*", "fauteuil*", "salontafel*", "boekenkast*", "canape*", "table basse*", "bibliotheque*",
+                  "*sofa", "*sofas", "*couch", "schlafcouch*", "wohnlandschaft*", "relaxsessel*", "sectional*", "loveseat*", "recliner*", "chaise longue*",
+                  "sofa bed*", "bankstel*", "hoekbank*", "divano*", "divani", "poltrona*", "poltrone", "sillon*", "sofa cama", "soffa*", "*soffa",
+                  "fatolj*", "sohva*", "nojatuoli*", "kanapa*", "naroznik*", "fotel*", "canapea*", "fotoliu*", "sofabord*", "lenestol*", "berzer*",
+                  # dining sets, beds, wardrobes
+                  "esstisch*", "dining table*", "esszimmerstuhl*", "dining chair*", "eettafel*", "eetkamerstoel*", "table a manger", "chaise de salle a manger",
+                  "tavolo da pranzo", "sedie da pranzo", "mesa de comedor", "sillas de comedor", "mesa de jantar", "matbord*", "matstol*", "spisebord*",
+                  "spisebordsstol*", "ruokapoyta*", "ruokatuoli*", "stol jadalniany", "krzesla do jadalni", "masa dining", "scaune dining",
+                  "bed frame*", "double bed*", "king size bed*", "single bed*", "divan bed*", "ottoman bed*", "bettgestell*", "polsterbett*",
+                  "doppelbett*", "boxspring*", "box spring*", "ledikant*", "tweepersoonsbed*", "lit double", "cadre de lit", "letto matrimoniale",
+                  "cama de matrimonio", "cama box", "cama casal", "sangram*", "dubbelsang*", "sengeramme*", "dobbeltseng*", "parisanky*",
+                  "rama lozka", "lozko dwuosobowe", "cadru pat", "pat matrimonial",
+                  "kleiderschrank*", "wardrobe*", "kledingkast*", "armoire*", "armadio*", "armario ropero", "guarda roupa*", "guarda-roupa*",
+                  "garderob*", "klaedeskab*", "vaatekaappi*", "szafa*", "dulap*", "sifonyer*", "gardirop*", "yatak bazasi*", "yemek masasi*"],
+      category=["furniture"], personality=["homebody"], occasion=["housewarming"], gift=0.1, keep=True),
+    # covers and cushions for a sofa are home textiles, not the furniture itself
+    R("furniture_covers", ["sofa cover*", "couch cover*", "chair cover*", "slipcover*", "cover", "covers", "throw", "throws", "*husse", "*hussen", "sofabezug*", "sofauberwurf*", "cushion*", "*kissen",
+                           "kissen*", "seat pad*", "bench pad*", "kussen*", "overtrek*", "coussin*", "housse*", "cuscin*", "copridivano*", "fodera*",
+                           "funda*", "capa de sofa", "almofada*", "dyna", "dynor", "hynde*", "pude*", "tyyny*", "poduszk*", "pokrowiec*", "husa*",
+                           "perna*", "minder*", "kilif*"],
+      category=["home"], personality=["homebody"], gift=0.5),
+]
+RULE_CATEGORY = {
+    "wine": "food", "gourmet": "food", "coffee_tea": "food", "perfume": "perfume", "skincare": "beauty", "spa": "beauty",
+    "jewellery": "jewelry", "watch": "jewelry", "smartwatch": "electronics", "cufflinks": "clothing", "socks": "clothing",
+    "apparel": "clothing", "bags": "clothing", "fishing": "sports", "fishing_parts": "sports", "fishing_tackle": "sports",
+    "outdoor": "sports", "sports": "sports", "garden": "garden", "model_kit": "hobby", "model_supplies": "hobby", "crafts": "hobby",
+    "writing_set": "hobby", "books": "books", "music": "electronics", "gaming": "games", "tech_gadget": "electronics",
+    "pets": "pets", "travel": "travel", "home_decor": "home", "home_kitchen": "home", "furniture": "furniture",
+}
+for _r in RULES:
+    if _r["id"] in RULE_CATEGORY:
+        _r["labels"]["category"] = [RULE_CATEGORY[_r["id"]]]
+# rules whose category wins outright ("Apple Watch" is electronics, not jewellery)
+CATEGORY_OVERRIDE = ["smartwatch", "furniture_covers"]
+
+_BY_ID = {r["id"]: r for r in RULES}
+for _lang, _rules in _i18n_table("rules").items():
+    for _rid, _words in _rules.items():
+        if _rid in _BY_ID:
+            _new = R(_rid, [w for w in _words if w and w.strip("*").strip()])["patterns"]
+            _BY_ID[_rid]["patterns"] += [p for p in _new if p.strip("*") and p not in _BY_ID[_rid]["patterns"]]
+
 # Umbrella category names that would trigger the wrong hobby rule ("Home & Garden" is not
 # gardening, it is where soap dispensers live). Removed from the text before matching.
 NEUTRAL = [normalize(x) for x in ("home & garden", "haus & garten", "home and garden", "home, garden", "garden & outdoor")]
 
 _INDEX = [(r, [(p[1:], "suffix") if p.startswith("*") else (p[:-1], "prefix") if p.endswith("*") else (p, "") for p in r["patterns"]]) for r in RULES]
+
+
+def kept_for_category(rule_ids):
+    """True when a `keep` rule matched and no veto rule did (a sofa, not a kitchen unit)."""
+    rules = [_BY_ID[r] for r in rule_ids if r in _BY_ID]
+    return any(r["keep"] for r in rules) and not any(r["veto"] or r["id"] in KEEP_BLOCKERS for r in rules)
+
+
+KEEP_BLOCKERS = {"furniture_covers"}
+# cheap substring test before the full rule match: the longest word of every `keep` pattern
+KEEP_STEMS = sorted({max(p.strip("*").split(), key=len) for r in RULES if r["keep"] for p in r["patterns"] if p.strip("*")} - {""})
 
 
 def match_rules(strong_text):
@@ -194,11 +308,12 @@ def match_rules(strong_text):
         ok = False
         for pat, mode in pats:
             if mode == "prefix":
-                if pat and any(t.startswith(pat) for t in toks):
+                # "wood screw*": a phrase whose last word may continue
+                if pat and (f" {pat}" in padded if " " in pat else any(t.startswith(pat) for t in toks)):
                     ok = True
                     break
             elif mode == "suffix":
-                if any(t.endswith(pat) for t in toks):
+                if pat and (f"{pat} " in padded if " " in pat else any(t.endswith(pat) for t in toks)):
                     ok = True
                     break
             elif f" {pat} " in padded:
@@ -217,5 +332,8 @@ def match_rules(strong_text):
             for l in ls:
                 if l not in labels.setdefault(facet, []):
                     labels[facet].append(l)
+    if labels.get("category"):
+        over = [_BY_ID[r]["labels"]["category"][0] for r in CATEGORY_OVERRIDE if r in hit]
+        labels["category"] = over[:1] or sorted(labels["category"], key=CATEGORY_PRIORITY.index)[:1]
     gift = 0.5 if gift is None else gift
     return labels, hit, (gift if veto is None else min(gift, veto))

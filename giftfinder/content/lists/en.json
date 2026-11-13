@@ -1,0 +1,339 @@
+{
+  "root": "gifts",
+  "under_slug": "under-{n}",
+  "under_h1": "{h1} under {price}",
+  "under_description": "{h1} under {price}: {n} ideas from shops in {country}, ranked by how well they fit the person and the occasion.",
+  "home": {
+    "title": "Gift finder: gift ideas from shops in {country} | giftdetect.com",
+    "description": "Tell giftdetect.com who the gift is for, the occasion, their personality and your budget, and get matching gift ideas from shops in {country}.",
+    "h1": "Find the right gift in seconds",
+    "sub": "Choose who it is for, the occasion and their personality. giftdetect.com reads the products of shops in {country} and ranks what fits."
+  },
+  "ui": {
+    "popular": "Popular gift ideas",
+    "who": "By recipient",
+    "occasion": "By occasion",
+    "combo": "Occasion and recipient",
+    "interest": "By interest",
+    "budget": "By budget",
+    "picks": "Our top picks",
+    "stats": "{n} gift ideas from {shops} shops in {country}, from {min} to {max}. Half of them cost less than {median}.",
+    "under_intro": "Every idea on this page costs {price} or less.",
+    "guide": "Read the guide: {title}",
+    "more": "More gift ideas",
+    "home": "Gift search",
+    "countries": "giftdetect.com in other countries",
+    "blog": "Gift guides on the blog",
+    "view": "View"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "for-her",
+      "h1": "Gifts for her",
+      "title": "Gifts for her: ideas she will actually use",
+      "description": "Gift ideas for women, from small treats to bigger surprises: jewellery, beauty, home, hobbies and more, from shops in your country and sorted by fit.",
+      "intro": "A good gift for her starts with what she likes doing, not with what is on the shelf marked \"for women\". These ideas cover jewellery, beauty, home, books and hobbies; add her personality in the search above to narrow them down."
+    },
+    "for-him": {
+      "slug": "for-him",
+      "h1": "Gifts for him",
+      "title": "Gifts for him: ideas beyond socks and ties",
+      "description": "Gift ideas for men who say they need nothing: tech, tools, outdoor gear, food and drink and more, from shops in your country and sorted by fit.",
+      "intro": "Men who \"don't need anything\" are easier to buy for once you think about how they spend a free Saturday. These ideas run from tech and tools to outdoor gear and good food; pick his interests in the search above to sharpen the list."
+    },
+    "for-mom": {
+      "slug": "for-mom",
+      "h1": "Gifts for mom",
+      "title": "Gifts for mom: thoughtful ideas for every budget",
+      "description": "Gift ideas for mom for Mother's Day, her birthday or just because: wellness, home, garden, jewellery and personal touches, sorted by how well they fit.",
+      "intro": "Mom rarely asks for anything, which is exactly why a well-chosen gift lands so well. Here are ideas for Mother's Day and beyond, from a quiet hour of wellness to something for the garden or the home she is proud of."
+    },
+    "for-dad": {
+      "slug": "for-dad",
+      "h1": "Gifts for dad",
+      "title": "Gifts for dad: ideas he will not put in a drawer",
+      "description": "Gift ideas for dad for Father's Day, his birthday or Christmas: grilling, tools, outdoor, tech and coffee, from shops in your country, sorted by fit.",
+      "intro": "The best gifts for dad support something he already loves doing, whether that is grilling, fixing things or disappearing into the garden. These ideas work for Father's Day, a birthday or Christmas."
+    },
+    "for-girlfriend": {
+      "slug": "for-girlfriend",
+      "h1": "Gifts for your girlfriend",
+      "title": "Gifts for your girlfriend: romantic and personal ideas",
+      "description": "Gift ideas for your girlfriend or wife for Valentine's Day, an anniversary or a surprise: romantic, personal and useful, sorted by how well they fit.",
+      "intro": "A gift for your girlfriend should show that you were listening, so start with something she mentioned and never bought herself. These romantic ideas suit Valentine's Day, an anniversary or an ordinary Tuesday that deserves better."
+    },
+    "for-boyfriend": {
+      "slug": "for-boyfriend",
+      "h1": "Gifts for your boyfriend",
+      "title": "Gifts for your boyfriend: ideas he will love",
+      "description": "Gift ideas for your boyfriend or husband for Valentine's Day, an anniversary or a surprise: personal, practical and fun, sorted by how well they fit.",
+      "intro": "The gifts boyfriends remember are the ones that fit their hobbies, not the ones that look romantic in the shop window. Here are ideas for Valentine's Day, an anniversary or a surprise, from personal keepsakes to things he will use every day."
+    },
+    "for-kids": {
+      "slug": "for-kids",
+      "h1": "Gifts for kids",
+      "title": "Gifts for kids: toys and ideas that last past day one",
+      "description": "Gift ideas for children: toys, games, creative sets, books and outdoor fun that keep them busy for longer than the wrapping paper does.",
+      "intro": "Children are honest critics: a gift either gets played with or it does not. These ideas lean on toys, games, creative sets and outdoor fun that stay interesting after the first afternoon."
+    },
+    "for-teens": {
+      "slug": "for-teenagers",
+      "h1": "Gifts for teenagers",
+      "title": "Gifts for teenagers: ideas teens actually want",
+      "description": "Gift ideas for teenagers: gaming, music, tech, fashion, room decor and creative hobbies, from shops in your country and sorted by how well they fit.",
+      "intro": "Teenagers know exactly what they like and change their minds just as fast, so gifts tied to a current hobby are the safest bet. Browse ideas around gaming, music, tech, fashion and their own room."
+    },
+    "for-grandparents": {
+      "slug": "for-grandparents",
+      "h1": "Gifts for grandparents",
+      "title": "Gifts for grandparents: comfort, memories and hobbies",
+      "description": "Gift ideas for grandparents and older relatives: comfort for the home, garden and hobby gifts, keepsakes and practical helpers, sorted by fit.",
+      "intro": "Grandparents usually have the things they need, so the gifts that work add comfort, support a hobby or bring back a memory. These ideas range from cosy things for the home to garden helpers and keepsakes."
+    },
+    "birthday": {
+      "slug": "birthday",
+      "h1": "Birthday gifts",
+      "title": "Birthday gifts: ideas for every age and budget",
+      "description": "Birthday gift ideas for friends, family and colleagues, from small surprises to big presents, from shops in your country and sorted by fit.",
+      "intro": "A birthday gift only has to do one thing: show that you thought about this particular person. Start with these ideas, then pick an age and a personality in the search above to make them personal."
+    },
+    "christmas": {
+      "slug": "christmas",
+      "h1": "Christmas gifts",
+      "title": "Christmas gifts: ideas for the whole family",
+      "description": "Christmas gift ideas for partners, parents, children and colleagues, for every budget, from shops in your country and sorted by how well they fit.",
+      "intro": "Christmas shopping is easier when you take the list one person at a time. These ideas cover the whole family; add who the gift is for and your budget in the search above and the list reorders itself."
+    },
+    "valentines": {
+      "slug": "valentines-day",
+      "h1": "Valentine's Day gifts",
+      "title": "Valentine's Day gifts: romantic ideas for both of you",
+      "description": "Valentine's Day gift ideas for her and for him, for new couples and long relationships, from small gestures to big surprises, sorted by fit.",
+      "intro": "Valentine's Day does not need a grand gesture, it needs a personal one. Here are romantic ideas for new couples and long relationships, from small tokens to gifts you can enjoy together."
+    },
+    "anniversary": {
+      "slug": "anniversary",
+      "h1": "Anniversary gifts",
+      "title": "Anniversary gifts: ideas for couples and milestones",
+      "description": "Anniversary gift ideas for your partner or for a couple you know: keepsakes, things to enjoy together and gifts for the big milestones.",
+      "intro": "An anniversary gift celebrates the time you have shared, so keepsakes and things to enjoy together fit better than something purely practical. These ideas work for your own partner and for couples marking a milestone."
+    },
+    "wedding": {
+      "slug": "wedding",
+      "h1": "Wedding gifts",
+      "title": "Wedding gifts: ideas the couple will keep",
+      "description": "Wedding gift ideas beyond the gift list: things for the shared home, keepsakes and gifts for two, from shops in your country and sorted by fit.",
+      "intro": "If the couple has no gift list, choose something for the life they are building together. These ideas focus on the shared home, lasting keepsakes and gifts made for two."
+    },
+    "housewarming": {
+      "slug": "housewarming",
+      "h1": "Housewarming gifts",
+      "title": "Housewarming gifts: ideas for a new home",
+      "description": "Housewarming gift ideas for a first flat or a new house: kitchen helpers, decor, plants and practical things every new home is missing.",
+      "intro": "A new home is always missing something, and a good housewarming gift fills one of those gaps. Think kitchen helpers, decor, plants and the practical things nobody remembers to buy before moving in."
+    },
+    "graduation": {
+      "slug": "graduation",
+      "h1": "Graduation gifts",
+      "title": "Graduation gifts: ideas for the next chapter",
+      "description": "Graduation gift ideas for school leavers and university graduates: things for the first job, the first flat, travel and lasting keepsakes.",
+      "intro": "Graduation gifts work best when they point forward to the first job, the first flat or a long-planned trip. These ideas combine useful starters with keepsakes that mark the achievement."
+    },
+    "retirement": {
+      "slug": "retirement",
+      "h1": "Retirement gifts",
+      "title": "Retirement gifts: ideas for all that free time",
+      "description": "Retirement gift ideas for colleagues and family: hobbies, travel, garden and relaxation, including ideas that work as a group gift.",
+      "intro": "Retirement means time at last for everything that had to wait. Good gifts feed those plans, whether they involve the garden, travelling or a hobby; many of these ideas also work as a group gift from the team."
+    },
+    "new-baby": {
+      "slug": "new-baby",
+      "h1": "New baby gifts",
+      "title": "New baby gifts: ideas for the baby and the parents",
+      "description": "Gift ideas for a newborn and the new parents: practical helpers, soft toys and keepsakes for a birth, a baby shower or a first visit.",
+      "intro": "New parents need practical help and a little comfort more than a tenth romper. These ideas for a birth or a baby shower mix useful things for the first months with soft toys and keepsakes."
+    },
+    "thank-you": {
+      "slug": "thank-you",
+      "h1": "Thank-you gifts",
+      "title": "Thank-you gifts: small ideas that say a lot",
+      "description": "Thank-you gift ideas for teachers, neighbours, colleagues and hosts: small, thoughtful presents from shops in your country, sorted by fit.",
+      "intro": "A thank-you gift should feel light: small enough not to embarrass anyone, thoughtful enough to be noticed. Here are ideas for teachers, neighbours, colleagues and hosts."
+    },
+    "get-well": {
+      "slug": "get-well-soon",
+      "h1": "Get-well gifts",
+      "title": "Get-well gifts: ideas that bring comfort",
+      "description": "Get-well-soon gift ideas for someone who is ill or recovering: comfort, distraction and small treats, from shops in your country, sorted by fit.",
+      "intro": "When someone is ill or recovering, comfort and distraction are worth more than anything fancy. These get-well ideas include cosy things, something to read or do, and small treats."
+    },
+    "birthday-for-her": {
+      "slug": "birthday-for-her",
+      "h1": "Birthday gifts for her",
+      "title": "Birthday gifts for her: ideas by taste and budget",
+      "description": "Birthday gift ideas for women: for your girlfriend, wife, mother, sister or best friend, for every taste and budget, sorted by how well they fit.",
+      "intro": "Whether it is for your partner, your sister or your best friend, her birthday gift should match her taste rather than a cliché. Browse these ideas and add her interests in the search above."
+    },
+    "birthday-for-him": {
+      "slug": "birthday-for-him",
+      "h1": "Birthday gifts for him",
+      "title": "Birthday gifts for him: ideas by hobby and budget",
+      "description": "Birthday gift ideas for men: for your boyfriend, husband, father, brother or friend, for every hobby and budget, sorted by how well they fit.",
+      "intro": "For his birthday, skip the generic and go for his hobby: the thing he talks about when nobody asked. These ideas suit partners, fathers, brothers and friends, and the search above narrows them by interest."
+    },
+    "birthday-for-kids": {
+      "slug": "birthday-for-kids",
+      "h1": "Birthday gifts for kids",
+      "title": "Birthday gifts for kids: ideas they will play with",
+      "description": "Birthday gift ideas for children: toys, games, creative sets and outdoor fun for your own child or for the next birthday party invitation.",
+      "intro": "Another birthday party invitation on the fridge? These gift ideas for children, from toys and games to creative sets, work for your own child and for the classmate you hardly know."
+    },
+    "birthday-for-teens": {
+      "slug": "birthday-for-teenagers",
+      "h1": "Birthday gifts for teenagers",
+      "title": "Birthday gifts for teenagers: ideas they will like",
+      "description": "Birthday gift ideas for teenagers: gaming, music, tech, fashion and room decor, from shops in your country and sorted by how well they fit.",
+      "intro": "A teenager's birthday is a chance to show you know what they are into right now. These ideas cover gaming, music, tech and fashion, for an eighteenth birthday or any year before it."
+    },
+    "christmas-for-her": {
+      "slug": "christmas-for-her",
+      "h1": "Christmas gifts for her",
+      "title": "Christmas gifts for her: ideas she will love",
+      "description": "Christmas gift ideas for women: for your wife, girlfriend, mother or sister, from cosy to luxurious, sorted by how well they fit.",
+      "intro": "Looking for something for her under the tree? These Christmas ideas for wives, girlfriends, mothers and sisters go from cosy winter comforts to small luxuries she would not buy herself."
+    },
+    "christmas-for-him": {
+      "slug": "christmas-for-him",
+      "h1": "Christmas gifts for him",
+      "title": "Christmas gifts for him: ideas he will use",
+      "description": "Christmas gift ideas for men: for your husband, boyfriend, father or brother, from practical to indulgent, sorted by how well they fit.",
+      "intro": "Christmas gifts for him do not have to be socks again. These ideas for husbands, boyfriends, fathers and brothers range from the practical to the indulgent, and most of them fit under the tree."
+    },
+    "christmas-for-kids": {
+      "slug": "christmas-for-kids",
+      "h1": "Christmas gifts for kids",
+      "title": "Christmas gifts for kids: toys and games for the tree",
+      "description": "Christmas gift ideas for children: toys, games, creative sets and books that are still being played with long after the holidays.",
+      "intro": "For children, Christmas morning is the highlight of the year. These toys, games and creative sets are picked to keep them busy well past the holidays, whatever is on their wish list."
+    },
+    "christmas-for-teens": {
+      "slug": "christmas-for-teenagers",
+      "h1": "Christmas gifts for teenagers",
+      "title": "Christmas gifts for teenagers: ideas they will like",
+      "description": "Christmas gift ideas for teenagers: gaming, music, tech, fashion and room decor, from shops in your country and sorted by how well they fit.",
+      "intro": "Teenagers are the hardest names on the Christmas list. These ideas stick to what usually works: gaming, music, tech, fashion and things for their own room."
+    },
+    "tech": {
+      "slug": "for-tech-lovers",
+      "h1": "Gifts for tech lovers",
+      "title": "Gifts for tech lovers: gadgets and smart ideas",
+      "description": "Gift ideas for tech lovers: gadgets, audio, smart home and accessories for people who like to try the newest thing, sorted by fit.",
+      "intro": "Tech lovers tend to buy the big things themselves, so the best gifts are the clever extras: gadgets, audio gear, smart home helpers and accessories that improve what they already own."
+    },
+    "gamer": {
+      "slug": "for-gamers",
+      "h1": "Gifts for gamers",
+      "title": "Gifts for gamers: gear, comfort and games",
+      "description": "Gift ideas for gamers: accessories, things for the setup, board games and merchandise, without the risk of buying a game they already own.",
+      "intro": "Buying a game for a gamer is risky, because they probably have it. Accessories, comfort for long sessions, board games and things for the setup are safer, and these ideas show where to start."
+    },
+    "foodie": {
+      "slug": "for-foodies",
+      "h1": "Gifts for foodies",
+      "title": "Gifts for foodies: ideas for people who love to cook",
+      "description": "Gift ideas for foodies and hobby cooks: kitchen tools, delicacies, tasting sets and things for the table, from shops in your country.",
+      "intro": "People who love food are a pleasure to buy for, because there is always something new to taste or try. These ideas include kitchen tools, delicacies, tasting sets and things for a well-laid table."
+    },
+    "coffee_tea": {
+      "slug": "for-coffee-and-tea-lovers",
+      "h1": "Gifts for coffee and tea lovers",
+      "title": "Gifts for coffee and tea lovers: brew, sip, enjoy",
+      "description": "Gift ideas for coffee and tea lovers: brewing gear, cups, tasting sets and accessories for beginners and connoisseurs, sorted by fit.",
+      "intro": "For coffee and tea lovers, the daily cup is a small ritual, and a good gift makes that ritual better. Here are brewing gear, cups, tasting sets and accessories for beginners and connoisseurs."
+    },
+    "outdoor": {
+      "slug": "for-outdoor-lovers",
+      "h1": "Gifts for outdoor lovers",
+      "title": "Gifts for outdoor lovers: hiking and camping ideas",
+      "description": "Gift ideas for outdoor lovers: gear for hiking, camping and days outside, from small practical helpers to bigger equipment.",
+      "intro": "Outdoor people value gear that is light, sturdy and useful, and they notice the difference. These ideas for hikers, campers and everyone who would rather be outside run from small helpers to bigger equipment."
+    },
+    "fitness": {
+      "slug": "for-fitness-fans",
+      "h1": "Gifts for fitness fans",
+      "title": "Gifts for fitness fans: ideas for training and recovery",
+      "description": "Gift ideas for fitness fans: equipment for training at home, accessories for the gym and things for recovery, sorted by how well they fit.",
+      "intro": "Someone who trains regularly is happy about anything that makes the next session easier or the recovery nicer. Browse equipment for home, gym accessories and things for the day after."
+    },
+    "bookworm": {
+      "slug": "for-book-lovers",
+      "h1": "Gifts for book lovers",
+      "title": "Gifts for book lovers: more than just another book",
+      "description": "Gift ideas for book lovers: reading accessories, cosy things for the reading corner and books, from shops in your country, sorted by fit.",
+      "intro": "You do not have to guess which book a reader has not read yet. Reading lights, bookends, cosy things for the reading corner and literary extras make good gifts too, alongside the books themselves."
+    },
+    "artist": {
+      "slug": "for-creatives",
+      "h1": "Gifts for creative people",
+      "title": "Gifts for creative people: art and craft ideas",
+      "description": "Gift ideas for creative people: materials and sets for drawing, painting and crafting, for beginners and for those who already have a studio corner.",
+      "intro": "Creative people can never have too many materials. These ideas for drawing, painting and crafting suit beginners trying something new as well as people with a well-stocked studio corner."
+    },
+    "music": {
+      "slug": "for-music-lovers",
+      "h1": "Gifts for music lovers",
+      "title": "Gifts for music lovers: ideas for listening and playing",
+      "description": "Gift ideas for music lovers: audio gear, accessories for instruments and things for fans, from shops in your country, sorted by fit.",
+      "intro": "Whether they listen, play or do both, music lovers appreciate gifts that bring them closer to the sound. Here are ideas around audio gear, instruments and accessories, and things for fans."
+    },
+    "traveler": {
+      "slug": "for-travelers",
+      "h1": "Gifts for travelers",
+      "title": "Gifts for travelers: ideas for the next trip",
+      "description": "Gift ideas for travelers: luggage, packing helpers, comfort on the road and ways to keep the memories, from shops in your country.",
+      "intro": "Travelers want things that are light, compact and make the journey easier. These ideas include luggage and packing helpers, comfort for long trips and ways to keep the memories afterwards."
+    },
+    "homebody": {
+      "slug": "for-homebodies",
+      "h1": "Gifts for homebodies",
+      "title": "Gifts for homebodies: cosy ideas for staying in",
+      "description": "Gift ideas for homebodies: blankets, candles, decor and everything that makes an evening on the sofa even better, sorted by fit.",
+      "intro": "For people whose favourite place is their own sofa, a gift should make home even cosier. Think blankets, candles, decor and small comforts for a quiet evening in."
+    },
+    "fashion": {
+      "slug": "for-fashion-lovers",
+      "h1": "Gifts for fashion lovers",
+      "title": "Gifts for fashion lovers: stylish ideas",
+      "description": "Gift ideas for fashion lovers: accessories, bags, jewellery and stylish pieces that do not depend on guessing the right size.",
+      "intro": "Buying clothes for someone else is tricky, so accessories are the safer way to please a fashion lover. Bags, scarves, jewellery and other stylish pieces fit without knowing the size."
+    },
+    "gardener": {
+      "slug": "for-gardeners",
+      "h1": "Gifts for gardeners",
+      "title": "Gifts for gardeners: ideas for garden and balcony",
+      "description": "Gift ideas for gardeners: tools, planters, garden decor and helpers for the balcony, from shops in your country, sorted by fit.",
+      "intro": "Gardeners are happy about anything that helps things grow or makes the garden nicer to sit in. These ideas include tools, planters, decor and helpers for people with a balcony instead of a lawn."
+    },
+    "pet_lover": {
+      "slug": "for-pet-lovers",
+      "h1": "Gifts for pet lovers",
+      "title": "Gifts for pet lovers: ideas for owner and pet",
+      "description": "Gift ideas for pet lovers and their dogs and cats: toys, beds, accessories and gifts for the owner, from shops in your country.",
+      "intro": "The quickest way to a pet owner's heart is through their dog or cat. These ideas include toys, beds and accessories for the animal as well as gifts for the person holding the lead."
+    },
+    "wellness": {
+      "slug": "for-wellness-fans",
+      "h1": "Wellness gifts",
+      "title": "Wellness gifts: ideas for relaxing at home",
+      "description": "Wellness gift ideas for a relaxing evening at home: bath and body care, scents and comfort for people who deserve a break.",
+      "intro": "A wellness gift is permission to do nothing for a while. Bath and body care, scents and cosy comforts turn an ordinary evening into a small break for someone who needs one."
+    },
+    "maker": {
+      "slug": "for-diy-fans",
+      "h1": "Gifts for DIY fans",
+      "title": "Gifts for DIY fans: tools and ideas for makers",
+      "description": "Gift ideas for DIY fans and makers: tools, workshop helpers and kits for people who would rather build and repair it themselves.",
+      "intro": "People who like to build and repair things always have a next project in mind. Tools, workshop helpers and kits are welcome, especially the ones they would not treat themselves to."
+    }
+  }
+}

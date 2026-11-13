@@ -63,15 +63,19 @@
     const typed = norm(p.q || "");
     const qv = chosen.length || typed ? queryVec(`${typed} ${typed} ${chosen.length ? expand(chosen, lang) : ""}`) : null;
     const facets = [["age", p.age], ["occasion", p.occasion], ["personality", p.personality]];
-    const out = [];
+    const out = []; const cats = p.category || [];
     index.docs.forEach((it, i) => {
       if (p.price_min != null && it.p < p.price_min) return; if (p.price_max != null && it.p > p.price_max) return;
-      if (!typed && it.g < GIFT_FLOOR) return;
-      const g = (l) => it.s[l] || 0; let s = 0; const why = []; const parts = [];
+      const g = (l) => it.s[l] || 0;
+      /* category is a hard filter; picking one also lifts the gift floor (a 3-seater sofa under Furniture) */
+      if (cats.length && !cats.some((c) => g(c) >= 0.5)) return;
+      if (!typed && !cats.length && it.g < GIFT_FLOOR) return; let s = 0; const why = []; const parts = [];
       if (qv) s += cos(qv, index.vecs[i]) * (typed ? 2 : 1);
       if (p.gender === "female" || p.gender === "male") { const o = p.gender === "female" ? "male" : "female"; const v = Math.max(g(p.gender), 0.7 * g("unisex")); s += W.gender * (v - 0.8 * g(o)); parts.push(v); if (g(p.gender) >= 0.5) why.push(p.gender); }
       facets.forEach(([f, ls]) => { if (!ls.length) return; let best = 0; ls.forEach((l) => { best = Math.max(best, g(l)); if (g(l) >= 0.5) why.push(l); }); s += W[f] * best; parts.push(best); });
-      if (!chosen.length && !typed) s = (((i + 1) * 2654435761) % 1000) / 1000 * (it.g >= HOME_FLOOR ? it.g : 0); else s *= 0.3 + 0.7 * it.g;
+      if (cats.length) why.unshift(cats.reduce((a, c) => (g(c) > g(a) ? c : a), cats[0]));
+      if (cats.length && !chosen.length && !typed) s = Math.max(...cats.map(g)) * (0.3 + 0.7 * it.g) + 0.15 * ((((i + 1) * 2654435761) % 1000) / 1000);
+      else if (!chosen.length && !typed) s = (((i + 1) * 2654435761) % 1000) / 1000 * (it.g >= HOME_FLOOR ? it.g : 0); else s *= 0.3 + 0.7 * it.g;
       const match = parts.length ? Math.round(100 * parts.reduce((a, b) => a + b, 0) / parts.length) : null;
       out.push({ it, s, why: [...new Set(why)].slice(0, 4), match });
     });

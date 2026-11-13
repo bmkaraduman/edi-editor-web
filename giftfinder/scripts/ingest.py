@@ -21,8 +21,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
-from app.config import COUNTRIES  # noqa: E402
-from app.data.rules import GIFT_FLOOR  # noqa: E402
+from app.config import COUNTRIES, GIFT_WORDS  # noqa: E402
+from app.data.rules import GIFT_FLOOR, kept_for_category  # noqa: E402
 from app.ml.search import GiftSearch  # noqa: E402
 from app.ml.labeling import label_product  # noqa: E402
 from app.ml.weak_labels import expand_query  # noqa: E402
@@ -38,7 +38,7 @@ def gift_queries(lang):
     qs = []
     for facet in ("occasion", "personality"):
         for label in FACETS[facet]:
-            qs.append(expand_query([label], lang).split(" ")[0] + " " + {"en": "gift", "de": "geschenk", "tr": "hediye", "nl": "cadeau", "fr": "cadeau"}[lang])
+            qs.append(expand_query([label], lang).split(" ")[0]  + " " + GIFT_WORDS.get(lang, GIFT_WORDS["en"])[0])
     return qs
 
 
@@ -68,7 +68,7 @@ def main(countries, fresh=False):
             skipped = 0
             for product in verify_images(fetched):
                 product.labels = label_product(engine, product.title, product.description, product)
-                if product.gift < GIFT_FLOOR:
+                if product.gift < GIFT_FLOOR and not kept_for_category(product.rules):
                     skipped += 1
                     continue
                 d = product.to_dict()

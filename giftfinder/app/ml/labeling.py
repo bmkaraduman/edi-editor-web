@@ -9,6 +9,10 @@ Priority, per facet:
      "Laserschnitt-Technik" does not turn the product into a coffee or tech gift
   4. the trained classifier fills what is still empty
 
+Category is single-label too: the rule's category (already reduced to one by
+app/data/rules.py), else the classifier when it is sure. The lexicon is not used for it:
+single words are too ambiguous across thirteen languages.
+
 Gender is single-label: rules > strong lexicon > classifier; the description only
 counts with an explicit multi-word cue ("für ihn", "for her").
 """
@@ -57,6 +61,9 @@ def label_product(engine, title, description, product=None):
                             break
             out[facet] = (picked or predicted.get(facet) or ["unisex"])[:1]
             continue
+        if facet == "category":
+            out[facet] = (picked or predicted.get(facet) or [])[:1]
+            continue
         strong_l = sorted(((strong_hits.get(l, 0), l) for l in labels if strong_hits.get(l, 0)), reverse=True)
         picked += [l for _, l in strong_l if l not in picked]
         if not rule_labels.get(facet):   # description cues only where no category rule decided the facet
@@ -72,3 +79,12 @@ def label_product(engine, title, description, product=None):
         else:
             product.rules, product.gift = rule_ids, gift
     return out
+
+
+def rule_category(product):
+    """The category the rules give a stored product (dict), or None. Used for catalog rows
+    ingested before the category facet existed, so they need no re-ingest."""
+    strong = strong_text(product.get("title"), product.get("keywords"), product.get("category"), product.get("category_path"),
+                         product.get("product_type"), product.get("brand"))
+    cats = match_rules(strong)[0].get("category")
+    return cats[0] if cats else None

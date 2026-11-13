@@ -15,17 +15,33 @@ text mining ile çalışır.
 | 🇳🇱 NL | nl | EUR | bol.com (Partnerprogramma), Amazon.nl, Coolblue / Etsy (Awin), Wehkamp (Daisycon) |
 | 🇫🇷 FR | fr | EUR | Amazon.fr (Partenaires), Fnac, Cdiscount, Etsy, Nature & Découvertes (Awin) |
 
-Sitede **DE, NL, FR, US** açık (`ACTIVE_COUNTRIES=DE,NL,FR,US`). Bu ülkelerin ürünleri
-Awin feed'lerinden gelir (Ankashop yayıncı hesabı, tanıtım alanı giftdetect.com; DE 23,
-NL 20, FR 12, US 43 programa katılındı). TR config'de durur: Awin'de Türkiye
-reklamvereni yok, Trendyol/Gelirortakları feed'i gelince açılır.
+Sitede **19 ülke** açık (`ACTIVE_COUNTRIES`): DE, NL, FR, US ile birlikte GB, IE, CA, AU,
+AT, CH, BE, PL, IT, ES, SE, FI, DK, BR, RO. Ürünler Awin feed'lerinden gelir (Ankashop yayıncı
+hesabı, tanıtım alanı giftdetect.com). Awin'de yalnızca tek mağazası olan ülkeler (CZ, BG, UA,
+SA, JP, KR, VN, KG, AD, PT) ve TR açılmadı; mağaza sayısı artınca listeye eklenir.
+
+| Dil | Ülkeler | Para |
+|-----|---------|------|
+| en | US, GB, IE, CA, AU | USD, GBP, EUR, CAD, AUD |
+| de | DE, AT, CH | EUR, CHF |
+| nl / fr | NL, BE / FR | EUR |
+| pl, it, es, sv, fi, da, pt, ro | PL, IT, ES, SE, FI, DK, BR, RO | PLN, EUR, SEK, DKK, BRL, RON |
+
+İlk beş dil (en, de, tr, nl, fr) koddaki tablolarda durur. Sonradan eklenen diller
+`app/i18n/<dil>.json` dosyalarındadır: arayüz metinleri, çerez metni, filtre etiketleri,
+sözlük (lexicon), stopword'ler, "hediye" kelimesi, sentetik eğitim şablonları ve kural
+kelimeleri tek dosyada; yükleyici (`app/i18n/__init__.py`) bunları taxonomy, preprocess,
+augment, rules ve web arayüzüne (export sırasında `window.I18N_EXTRA`) ekler. Yeni dil =
+yeni dosya. Fiyat biçimi ülkeye göre (`config.PRICE_STYLE`, tarayıcıda `Intl.NumberFormat`),
+özel günler ülkeye göre (`app/occasions.py`: Mothering Sunday, San Giuseppe, Reyes Magos,
+Sint-Niklaas, Dia dos Namorados, İsveç/Finlandiya Kasım Babalar Günü ...).
 
 Ziyaretçinin ülkesi otomatik açılır: önce ayarlar menüsünde (sağ üstteki 🌐 düğmesi)
 kendi seçtiği ülke, yoksa girdiği ülke (Cloudflare IP konumu, `GET /api/geo`;
-`functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; AT/CH → DE,
-LU → FR, BE → tarayıcı diline göre NL/FR), yoksa tarayıcı dili, yoksa US. Bağlantıda
-`?country=DE` varsa (ör. osegi.com tanıtım kartı ziyaretçinin ülkesini geçirir) o ziyaret için o ülke
-açılır; menüdeki seçim değiştirilmez.
+`functions/api/geo.js` Pages Function'ı, FastAPI'de `CF-IPCountry` başlığı; katalog
+olmayan komşular en yakına: LI → CH, LU → BE, MC → FR, NZ → AU, PT → ES, NO → SE), yoksa
+tarayıcı dili, yoksa US. Bağlantıda `?country=DE` varsa (ör. osegi.com tanıtım kartı
+ziyaretçinin ülkesini geçirir) o ziyaret için o ülke açılır; menüdeki seçim değiştirilmez.
 
 ## Hızlı başlangıç
 
@@ -34,7 +50,7 @@ cd giftfinder
 python3 -m venv .venv && source .venv/bin/activate   # bağımlılıklar .venv'de; her yeni kabukta activate
 ./setup.sh                      # bağımlılıklar + seed katalog + model eğitimi
 uvicorn app.main:app --reload   # http://127.0.0.1:8000
-python3 -m pytest tests         # 26 test
+python3 -m pytest tests         # 29 test
 ```
 
 `.venv` etkin değilse komutları `.venv/bin/python …` ile çalıştır.
@@ -106,10 +122,12 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
   şeridi de aynı aramadan geçer.
 * **Hediye olmayan ürün kataloğa girmez.** Awin satırının kendi kategorisi hiç hediye
   olmayan bir aralıktaysa (`app/sources/awin.py: NOT_GIFT_CATEGORIES`: ofis malzemesi,
-  kablo, yazıcı, bilgisayar parçası, mobilya, bahçe aleti, vitamin ...) ya da başlık /
+  kablo, yazıcı, bilgisayar parçası, mobilya (büyük mobilya hariç, aşağıya bakın), bahçe aleti, vitamin ...) ya da başlık /
   kategori / anahtar kelimeleri bir "hediye değil" kuralına takılırsa (vida, musluk,
-  inşaat malzemesi, yedek parça, tıbbi ölçüm, temizlik, ofis mobilyası, IT parçası;
-  DE/NL/FR/EN/TR, `app/data/rules.py`) ürün ingest'te atlanır. Create-a-Feed, reklamveren
+  inşaat malzemesi, yedek parça, yedek başlık / düze, tıbbi ölçüm, eczane ürünü (tablet,
+  takviye), temizlik, ofis mobilyası, IT parçası; tüm site dillerinde, `app/data/rules.py`
+  ve `app/i18n/*.json`) ürün ingest'te atlanır. Kural kelimesi boşluklu ve yıldızlı olabilir
+  ("wood screw*" = "wood screws" da). Create-a-Feed, reklamveren
   seçilince kategori filtresini yok saydığı için eleme bizde yapılır. `veto` kuralları
   güçlü hediye kurallarını da ezer ("Kitchen faucet" mutfak hediyesi değildir).
 * **Hediyelik puanı.** Kurallardan gelen 0-1 arası puan sıralamayı çarpar; 0.15 altı
@@ -119,6 +137,67 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
   "% passend" rozeti buna göre değişir.
 * **Eğitim.** `app/ml/train.py` seed konseptlerin yanına en fazla 1500 kural-etiketli
   gerçek feed ürünü ekler (gerçek mağaza dili); ingest sonrası `python3 -m app.ml.train`.
+
+### Kategori ve gelişmiş arama
+
+Beşinci facet `category` (20 değer: parfüm, çiçek, giyim, takı, elektronik, oyun, oyuncak,
+mobilya, ev, mutfak, otomobil, bahçe…). Arama çubuğunun altındaki **Gelişmiş arama**
+düğmesi kategori kutucuklarını açar; seçilen kategori **kesin filtredir**
+(`/api/search?category=furniture&category=perfume`).
+
+* Feed ürünleri kategoriyi `app/data/rules.py` kurallarından alır (`RULE_CATEGORY` + flowers,
+  car_accessories, toys, board_games, kitchenware, vouchers, seating kuralları). Birden çok
+  kural eşleşirse ürün tipi kazanır (`taxonomy.CATEGORY_PRIORITY`: "Couchtisch" mobilyadır,
+  kahve değil). Kural yoksa sınıflandırıcı emin olduğunda (≥ 0.5) doldurur.
+* Kategori facet'inden önce ingest edilmiş ürünler için yeniden ingest gerekmez: indeks
+  kurulurken kurallardan hesaplanır. Modelin kategori başlığı için `python3 -m app.ml.train`
+  bir kez çalıştırılmalıdır (eski modelle de çalışır, o zaman yalnızca kurallar kullanılır).
+* Büyük mobilya (2'li / 3'lü kanepe, köşe takımı, berjer, sehpa, yemek masası ve sandalyesi,
+  baza, gardırop, şifonyer, kitaplık; tüm site dillerinde `seating` kuralı) hediye önceliği
+  düşük (0.1) olduğu için normal aramalarda çıkmaz; **Mobilya** kategorisi seçilince ya da
+  "sofa" yazılınca listelenir (kategori seçimi hediye eşiğini kaldırır). Kuralın `keep`
+  işareti ürünü 0.15 eşiğine rağmen kataloğa alır; Awin'in Sofas / Furniture / Tables /
+  Chairs kategorileri (`FURNITURE_CATEGORIES`) yalnızca böyle bir ürün için açılır. Kılıf ve
+  minder (`furniture_covers`) ev tekstilidir, mutfak dolabı / modüler mutfak (`kitchen_units`)
+  ve vetolu ürünler (yedek parça, ofis mobilyası) katalogda yoktur. Genel "mobilya" kuralı
+  (raf, "Möbel" kategorisi) kategoriyi etiketler ama ürünü tek başına kataloğa almaz.
+
+### Arama motorları için sayfalar
+
+Ürün sayfaları (`/p/<id>`) mağazaların kendi metinlerini tekrarlar; bu yüzden dizine
+alınmaz (`_headers` ile `X-Robots-Tag: noindex`, site haritasında yoklar). Bulunmasını
+istediğimiz sayfaları `scripts/list_pages.py` üretir:
+
+* `/<ülke>/` (ör. `/de/`, `/gb/`): ülkenin kendi dilinde ana sayfası; `/` ziyaretçinin
+  ülkesini algılayan sayfa olarak kalır (hreflang `x-default`).
+* `/<ülke>/<hediye>/<liste>/` (ör. `/de/geschenke/fuer-papa/`): sabit bir aramanın sonucu.
+  Giriş metni, gerçek veriden bir satır (kaç ürün, kaç mağaza, fiyat aralığı) ve ilk 36 ürün
+  HTML'in içindedir; tarayıcıda sayfa, filtreleri seçili normal hediye aramasıdır.
+* `/<ülke>/<hediye>/<liste>/<fiyat-altı>/`: aynı liste, fiyat tavanıyla.
+
+Bir liste, o ülkede aramaya iyi uyan (eşleşme ≥ %70) en az 12 ürün varsa yazılır. Listeler
+`LISTS` içinde, metinleri `content/lists/<dil>.json` dosyalarındadır (bkz. oradaki
+README). Hepsi `sitemap-pages.xml` içinde hreflang alternatifleriyle listelenir. Stil ve
+betikler artık her sayfaya gömülmez; `dist/assets/app.<hash>.css|js` olarak bir kez yazılır.
+
+### Blog
+
+`https://giftdetect.com/blog/<dil>/` 20 hediye rehberini 12 dilde listeler (en, de, nl, fr, pl,
+it, es, sv, fi, da, pt-BR, ro: sitedeki ülkelerin dilleri). Yazılar
+`content/blog/<dil>/<id>.md` dosyalarıdır (biçim: `content/blog/README.md`); `id` her dilde
+aynıdır, adres dilin kendi `slug`'ını kullanır (`/blog/de/geschenke-fuer-papa/`).
+`scripts/export_static.py` → `scripts/blog_pages.py` her yazıyı statik sayfa olarak üretir:
+
+* Sayfanın üstünde sitenin hediye arama çubuğu durur; arama sonuçları makalenin üstünde açılır.
+  Ülke, ziyaretçinin ülkesi o dili konuşuyorsa odur, değilse dilin ana ülkesi (pt → BR).
+* Yazıdaki `[[search occasion=christmas max=25 | …]]` düğmeleri aramayı o filtrelerle çalıştırır;
+  aynı bağlantı (`/?occasion=christmas&max=25`) ana sayfada da aramayı açar.
+* SEO: başlık, açıklama, canonical, dil alternatifleri (hreflang + x-default), Open Graph,
+  BlogPosting + BreadcrumbList (+ SSS'li yazılarda FAQPage) JSON-LD, `sitemap-blog.xml`
+  (sitemap.xml dizininde). `/blog/` tarayıcı diline yönlendiren dil sayfasıdır (noindex).
+* Üst menüde **Blog** bağlantısı ziyaretçinin dilindeki listeye gider.
+* `tests/test_blog.py` her dilde aynı yazıların, aynı filtrelerin ve bağlantıların olduğunu denetler
+  (yalnızca `max=` para birimine göre değişir).
 
 ## Gerçek ürünleri bağlama
 
@@ -144,7 +223,10 @@ açık ipuçlarını ürün tipi önyargısından üstün tutmayı öğrenir.
      (gzip desteklenir); yüz binlerce satırlık birleşik feed'lerde her reklamverenden en
      fazla `INGEST_LIMIT` (varsayılan 500) ürün rastgele örneklenir, metninde
      "Geschenk/gift/cadeau/hediye" geçenler önceliklidir. Böylece katalog tek bir
-     ofis-malzemesi mağazasıyla dolmaz.
+     ofis-malzemesi mağazasıyla dolmaz. Çok mağazalı ülkelerde limit düşürülür (US 60, GB 120,
+     DE 270), çünkü tarayıcı ülkenin `items-<CC>.json` dosyasını bütün olarak indirir.
+     Aynı reklamveren birden çok ülkede satabildiği için yeni ülkelerde ürün kimliğine
+     ülke de girer (`awin.py: external_id`); DE/NL/FR/US/TR eski kimliklerini korur.
    * **CSV / Google Shopping feed**: `feeds/<CC>/<merchant_id>.csv` (ör.
      `feeds/TR/trendyol.csv`, `feeds/NL/bol.csv`). Sütun adları gevşek eşlenir
      (title/name/ürün adı, description/açıklama, price/fiyat, link, image).
@@ -167,7 +249,7 @@ puanı, mağaza kotası, yaklaşan gün şeridi, `/p/{id}` ürün sayfaları `_r
 
 ```bash
 python3 scripts/ingest.py DE && python3 -m app.ml.train   # yeni feed sonrası
-python3 scripts/export_static.py dist                      # dist/: index.html, data.json, _redirects, sitemap.xml
+python3 scripts/export_static.py dist                      # dist/: index.html, data.json, items-<CC>.json, _redirects, _headers, assets/, ülke ve liste sayfaları, blog, sitemap.xml (sitemap-pages.xml + sitemap-blog.xml)
 npx wrangler@4 pages deploy dist --project-name giftdetect --branch main   # giftfinder/ içinden: functions/ da yüklenir
 ```
 
@@ -175,6 +257,32 @@ npx wrangler@4 pages deploy dist --project-name giftdetect --branch main   # gif
 --production-branch main --force` (Pages projesi; `--force` yalnızca ilk kez), Pages
 projesine özel alan adı (giftdetect.com, www) ve DNS'te `CNAME @ -> giftdetect.pages.dev`
 (proxy açık). Önizleme adresi: https://giftdetect.pages.dev
+
+### Otomatik yayın (GitHub Actions)
+
+`.github/workflows/giftdetect-deploy.yml` yayını tek bir bilgisayardan bağımsız kılar:
+
+| Tetik | Ne yapar |
+|---|---|
+| Her gün 03:17 UTC | feed'leri yeniden çeker → etiketler → eğitir → üretir → yayınlar |
+| `main`'e push (`giftfinder/**`) | son çalışmanın kataloğuyla yeniden üretir → yayınlar |
+| Elle (Actions → *giftdetect: build and deploy* → Run workflow) | "feed'leri çek" ve "yayınla" kutuları seçilebilir |
+
+Bir kerelik kurulum, repo → Settings → Secrets and variables → Actions:
+
+* `GIFTDETECT_ENV`: `giftfinder/.env` dosyasının tüm içeriği (AWIN_AFFILIATE_ID,
+  AWIN_FEED_ALL_<CC> …). Değerler loglarda maskelenir.
+* `CLOUDFLARE_API_TOKEN`: Cloudflare → My Profile → API Tokens → Create Token →
+  "Cloudflare Pages: Edit" izni.
+* `CLOUDFLARE_ACCOUNT_ID`: Cloudflare panelinde Workers & Pages sayfasının sağındaki Account ID.
+* İsteğe bağlı değişkenler (Variables): `INGEST_LIMITS` (varsayılan `US=60 GB=120 DE=270`,
+  diğer ülkeler 500) ve `MIN_PRODUCTS` (varsayılan 3000).
+
+Güvenlik ağları: bir ülkenin feed'i çökerse ya da ürün sayısı yarıdan aza düşerse o ülkenin
+eski ürünleri korunur (`scripts/ci_ingest.py`); üretilen site eksikse ya da gerçek ürün sayısı
+`MIN_PRODUCTS` altındaysa yayın yapılmaz (`scripts/check_dist.py`). Katalog ve model git'te
+değil, Actions önbelleğinde taşınır; elle `"source": "manual"` yapılan ürünler önbellekte
+kalır, yalnızca Mac'teki katalogda duranlar bu akışa girmez.
 
 ## Analytics
 

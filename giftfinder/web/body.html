@@ -1,6 +1,7 @@
 <header class="top gutter" id="top">
   <div class="top-in">
     <a class="brand" href="/" id="home"><span class="mark">🎁</span>gift<span class="tld">detect</span><span class="dot">.com</span></a>
+    <a class="nav-blog" id="nav-blog" href="/blog/">Blog</a>
     <div class="settings" id="settings">
       <button type="button" class="settings-btn" id="settings-btn" aria-haspopup="menu" aria-expanded="false">
         <span class="settings-flag" id="settings-flag"></span>
@@ -26,6 +27,17 @@
     <div class="field f-budget" data-facet="budget"><span id="l-budget"></span><button type="button" class="pick-btn" aria-haspopup="dialog" aria-expanded="false"></button><div class="pick-pop" role="dialog" hidden></div></div>
     <button type="submit" class="go" id="go"></button>
   </form>
+  <div class="adv-row" id="adv-row">
+    <button type="button" class="adv-toggle" id="adv-toggle" aria-expanded="false" aria-controls="adv">
+      <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="16" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span id="t-adv"></span><span class="adv-count" id="adv-count" hidden></span><span class="chev" aria-hidden="true"></span>
+    </button>
+  </div>
+  <section class="adv" id="adv" hidden>
+    <div class="pick-head"><b id="t-adv-title"></b><button type="button" class="adv-clear" id="adv-clear"></button></div>
+    <p class="adv-sub" id="t-adv-sub"></p>
+    <div class="tiles cat-tiles" id="cats"></div>
+  </section>
   <div class="examples" id="examples"></div>
 </div>
 <section class="upcoming gutter" id="upcoming-wrap" hidden>

@@ -11,6 +11,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor
 
 import requests
+import urllib3
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; giftdetect.com feed check)", "Accept": "image/*,*/*;q=0.5"}
 
@@ -37,8 +38,8 @@ def image_ok(url, timeout=12):
             ok = len(r.raw.read(64) or b"") > 0     # a 200 with an empty body is no picture either
         r.close()
         return ok
-    except requests.RequestException:
-        return False
+    except (requests.RequestException, urllib3.exceptions.HTTPError, OSError):
+        return False                    # reading the first bytes can time out too (urllib3 ReadTimeoutError)
 
 
 def verify_images(products, workers=32, log=print):

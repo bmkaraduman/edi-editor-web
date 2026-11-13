@@ -35,7 +35,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .settings-btn:hover, .settings.open .settings-btn { background: var(--chip); color: var(--ink) }
 .settings-btn .ic { width: 18px; height: 18px }
 .settings-flag { font-size: 1.05rem; line-height: 1 }
-.settings-pop { position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; padding: 6px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: var(--shadow); z-index: 30; animation: pop .12s ease-out }
+.settings-pop { position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; max-height: min(70vh, 560px); overflow-y: auto; padding: 6px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: var(--shadow); z-index: 30; animation: pop .12s ease-out }
 @keyframes sheet { from { transform: translateY(40px); opacity: .6 } to { transform: none; opacity: 1 } }
 @keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(.985) } to { opacity: 1; transform: none } }
 .settings-pop .menu-header { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 6px 10px 4px }
@@ -100,6 +100,21 @@ body.results-mode .bar-wrap { position: sticky; top: 52px; background: color-mix
 .pick-foot { display: flex; justify-content: flex-end; padding-top: 10px }
 .pick-done { border: 0; background: var(--grad); color: #fff; font-weight: 700; border-radius: 12px; padding: 9px 20px; cursor: pointer }
 @media (prefers-reduced-motion: reduce) { .tile, .tile:hover { transition: none; transform: none } .pick-pop { animation: none } }
+/* advanced search: category tiles under the bar */
+.adv-row { max-width: 1100px; margin: 10px auto 0; display: flex; justify-content: center }
+.adv-toggle { display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 7px 12px; border-radius: 999px; font-weight: 700; font-size: .88rem; color: var(--violet); cursor: pointer }
+.adv-toggle:hover, .adv-toggle[aria-expanded="true"] { background: var(--violet-soft) }
+.adv-toggle .ic { width: 17px; height: 17px }
+.adv-toggle .chev { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); margin-top: -3px; transition: transform .15s }
+.adv-toggle[aria-expanded="true"] .chev { transform: rotate(225deg); margin-top: 3px }
+.adv-count { background: var(--violet); color: #fff; border-radius: 999px; font-size: .72rem; min-width: 18px; padding: 1px 6px; text-align: center; font-variant-numeric: tabular-nums }
+.adv { max-width: 1100px; margin: 8px auto 0; background: var(--surface); border: 1px solid var(--line-2); border-radius: 20px; box-shadow: var(--shadow); padding: 14px 16px 16px }
+.adv-clear { border: 0; background: none; color: var(--muted); font-weight: 600; font-size: .82rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px }
+.adv-sub { margin: 0 4px 10px; color: var(--muted); font-size: .84rem }
+.cat-tiles { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); max-height: none; overflow: visible }
+.cat-tiles .tile.on { border-color: var(--violet); background: var(--violet-soft); color: var(--violet) }
+body.results-mode .bar-wrap { max-height: calc(100vh - 52px); overflow-y: auto }
+@media (prefers-reduced-motion: reduce) { .adv-toggle .chev { transition: none } }
 .examples { max-width: 1100px; margin: 14px auto 0; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center }
 .examples button { border: 1px solid var(--line-2); background: var(--surface); border-radius: 999px; padding: 7px 13px; font-size: .84rem; font-weight: 600; cursor: pointer; color: var(--muted) }
 .examples button:nth-child(6n+1):hover { background: var(--berry-soft); color: var(--berry) } .examples button:nth-child(6n+2):hover { background: var(--mint-soft); color: var(--mint) } .examples button:nth-child(6n+3):hover { background: var(--violet-soft); color: var(--violet) } .examples button:nth-child(6n+4):hover { background: var(--amber-soft); color: #b8740a } .examples button:nth-child(6n+5):hover { background: var(--mint-soft); color: var(--mint) } .examples button:nth-child(6n+6):hover { background: var(--berry-soft); color: var(--berry) }
@@ -200,6 +215,8 @@ footer { max-width: 1320px; margin: 0 auto; color: var(--muted); font-size: .82r
   .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: 60vh }
   .f-budget .tiles { grid-template-columns: 1fr 1fr }
   .tile { min-height: 78px }
+  .cat-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: none }
+  body.results-mode .bar-wrap { max-height: none; overflow: visible }
   #results-wrap { scroll-margin-top: 8px }
   .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px }
   .upcoming-in { padding: 12px; border-radius: 18px }
@@ -216,3 +233,59 @@ footer { max-width: 1320px; margin: 0 auto; color: var(--muted); font-size: .82r
 .consent button { border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 9px 14px; font-weight: 700; cursor: pointer }
 .consent .consent-yes { background: var(--grad); color: #fff; border-color: transparent }
 footer #consent-link { color: var(--muted) }
+
+/* blog: /blog/<lang>/ lists the guides, /blog/<lang>/<slug>/ is one guide under the gift search */
+.nav-blog { margin-left: auto; font-weight: 700; font-size: .92rem; color: var(--ink); text-decoration: none; padding: 8px 12px; border-radius: 999px }
+.nav-blog:hover { background: var(--chip) }
+.nav-blog + .settings { margin-left: 0 }
+body.blog-mode .hero { display: none }
+body.blog-mode .bar-wrap { padding-top: 22px }
+body.blog-mode .examples { display: none }
+.blog-in { max-width: 760px; margin: 0 auto; padding-block: 10px 60px; min-width: 0 }
+.blog-head { text-align: center; padding-block: 18px 8px }
+.blog-head h1 { font: 700 clamp(1.8rem, 4.4vw, 2.7rem)/1.12 var(--display); letter-spacing: -.02em; margin: 0 0 10px; text-wrap: balance }
+.blog-head p { color: var(--muted); margin: 0 auto; max-width: 60ch }
+.crumbs { display: flex; flex-wrap: wrap; gap: 6px; font-size: .82rem; color: var(--muted); margin: 8px 0 18px }
+.crumbs a { color: var(--muted) }
+.crumbs span[aria-current] { color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100% }
+.post { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 4vw, 44px); box-shadow: var(--shadow) }
+.post h1 { font: 700 clamp(1.7rem, 4.2vw, 2.5rem)/1.14 var(--display); letter-spacing: -.02em; margin: 6px 0 18px; text-wrap: balance }
+.post h2 { font: 700 1.4rem/1.25 var(--display); margin: 34px 0 10px; letter-spacing: -.01em }
+.post h3 { font: 700 1.1rem/1.3 var(--display); margin: 22px 0 6px }
+.post p, .post li { font-size: 1.04rem; line-height: 1.7 }
+.post ul, .post ol { padding-left: 1.3em }
+.post li { margin: 6px 0 }
+.post a { color: var(--berry); font-weight: 600 }
+.post-kicker { color: var(--muted); font-size: .86rem; margin: 0 }
+.blog-cta-row { margin: 22px 0 }
+.blog-cta-row.big { text-align: center; margin-top: 34px }
+.post .blog-cta { display: inline-block; background: var(--grad); color: #fff; text-decoration: none; font-weight: 700; padding: 12px 22px; border-radius: 999px; box-shadow: 0 6px 18px rgba(232,51,109,.3) }
+.post .blog-cta:hover { filter: brightness(1.05) }
+.related { margin-top: 34px }
+.related h2 { font: 700 1.3rem/1.2 var(--display); margin: 0 0 14px }
+.post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 18px }
+.post-card { display: flex; flex-direction: column; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; text-decoration: none; color: inherit; transition: transform .15s, box-shadow .15s }
+.post-card:hover { transform: translateY(-2px); box-shadow: var(--shadow) }
+.post-card h3 { font: 700 1.05rem/1.3 var(--display); margin: 0 }
+.post-card p { color: var(--muted); font-size: .9rem; margin: 0; flex: 1 }
+.pc-emoji { font-size: 1.7rem }
+.pc-more { color: var(--berry); font-weight: 700; font-size: .88rem }
+.blog-langs { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 30px; line-height: 2 }
+.blog-langs a { color: var(--muted) }
+@media (max-width: 640px) { .nav-blog { padding: 8px } .post { border-radius: 16px } }
+
+/* landing pages: a gift list (heading, intro and numbers above the results) and the link hubs under them */
+.list-in { max-width: 1320px; margin: 0 auto; min-width: 0 }
+.list-head { padding-block: 8px 4px }
+.list-head h1 { font: 700 clamp(1.7rem, 4.2vw, 2.5rem)/1.14 var(--display); letter-spacing: -.02em; margin: 4px 0 12px; text-wrap: balance }
+.list-intro { font-size: 1.04rem; line-height: 1.65; max-width: 75ch; margin: 0 0 8px }
+.list-stats { color: var(--muted); font-size: .92rem; max-width: 75ch; margin: 0 0 12px }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 14px }
+.chips b { font-size: .86rem; color: var(--muted); margin-right: 4px }
+.chip-link { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px; font-size: .9rem; font-weight: 600; color: var(--ink); text-decoration: none }
+.chip-link:hover { border-color: var(--berry); color: var(--berry) }
+.hub { padding-block: 26px 50px }
+.hub h2 { font: 700 1.4rem/1.2 var(--display); margin: 0 0 14px }
+.hub h3 { font: 700 1rem/1.3 var(--display); margin: 18px 0 8px; color: var(--muted) }
+.list-guide { margin: 24px 0 0 }
+.list-guide a { color: var(--berry); font-weight: 700 }

@@ -1,0 +1,339 @@
+{
+  "root": "prezenty",
+  "under_slug": "do-{n}",
+  "under_h1": "{h1} do {price}",
+  "under_description": "{h1} do {price}: propozycje ({n}) ze sklepów internetowych ({country}), ułożone według dopasowania do osoby i okazji.",
+  "home": {
+    "title": "Wyszukiwarka prezentów: pomysły ze sklepów internetowych ({country}) | giftdetect.com",
+    "description": "Podaj, dla kogo szukasz prezentu, na jaką okazję, jaki ma charakter i ile chcesz wydać, a giftdetect.com pokaże pasujące pomysły ze sklepów internetowych ({country}).",
+    "h1": "Znajdź trafiony prezent w kilka sekund",
+    "sub": "Wybierz, dla kogo jest prezent, okazję i charakter tej osoby. giftdetect.com przegląda ofertę sklepów internetowych ({country}) i układa produkty według dopasowania."
+  },
+  "ui": {
+    "popular": "Popularne pomysły na prezent",
+    "who": "Dla kogo",
+    "occasion": "Na jaką okazję",
+    "combo": "Okazja i osoba",
+    "interest": "Według zainteresowań",
+    "budget": "Według budżetu",
+    "picks": "Nasze propozycje",
+    "stats": "Pomysły na prezent: {n}. Sklepy internetowe ({country}): {shops}. Ceny od {min} do {max}, połowa propozycji kosztuje mniej niż {median}.",
+    "under_intro": "Każda propozycja na tej stronie kosztuje nie więcej niż {price}.",
+    "guide": "Przeczytaj poradnik: {title}",
+    "more": "Więcej pomysłów na prezent",
+    "home": "Wyszukiwarka prezentów",
+    "countries": "giftdetect.com w innych krajach",
+    "blog": "Poradniki prezentowe na blogu",
+    "view": "Zobacz"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "dla-niej",
+      "h1": "Prezenty dla niej",
+      "title": "Prezenty dla niej: pomysły, które naprawdę się przydadzą",
+      "description": "Prezenty dla niej, od drobiazgów po większe niespodzianki: biżuteria, kosmetyki, dom, hobby i nie tylko. Pomysły ze sklepów w Twoim kraju.",
+      "intro": "Dobry prezent dla niej zaczyna się od tego, co lubi robić, a nie od półki z napisem „dla kobiet”. Znajdziesz tu biżuterię, kosmetyki, rzeczy do domu, książki i pomysły związane z hobby. Dodaj jej charakter w wyszukiwarce powyżej, żeby zawęzić listę."
+    },
+    "for-him": {
+      "slug": "dla-niego",
+      "h1": "Prezenty dla niego",
+      "title": "Prezenty dla niego: pomysły inne niż skarpetki i krawat",
+      "description": "Prezenty dla niego, także dla mężczyzny, który twierdzi, że wszystko ma: elektronika, narzędzia, outdoor, dobre jedzenie i trunki. Ułożone według dopasowania.",
+      "intro": "Mężczyźnie, który „niczego nie potrzebuje”, łatwiej coś kupić, gdy pomyślisz, jak spędza wolną sobotę. Te pomysły sięgają od elektroniki i narzędzi po sprzęt outdoorowy i dobre jedzenie. Wybierz jego zainteresowania w wyszukiwarce powyżej, a lista stanie się dokładniejsza."
+    },
+    "for-mom": {
+      "slug": "dla-mamy",
+      "h1": "Prezenty dla mamy",
+      "title": "Prezenty dla mamy: przemyślane pomysły na każdą kieszeń",
+      "description": "Prezenty dla mamy na Dzień Matki, urodziny, imieniny albo bez okazji: relaks, dom, ogród, biżuteria i osobiste upominki, ułożone według dopasowania.",
+      "intro": "Mama rzadko o cokolwiek prosi i właśnie dlatego dobrze dobrany prezent tak bardzo cieszy. Zebraliśmy pomysły na Dzień Matki i inne okazje, od spokojnej chwili relaksu po coś do ogrodu albo do domu, z którego jest dumna."
+    },
+    "for-dad": {
+      "slug": "dla-taty",
+      "h1": "Prezenty dla taty",
+      "title": "Prezenty dla taty: pomysły, które nie trafią do szuflady",
+      "description": "Prezenty dla taty na Dzień Ojca, urodziny lub święta: grill, narzędzia, outdoor, elektronika i kawa. Pomysły ze sklepów w Twoim kraju, według dopasowania.",
+      "intro": "Najlepsze prezenty dla taty wspierają to, co i tak lubi robić: grillowanie, majsterkowanie albo znikanie na całe popołudnie w ogrodzie. Te pomysły sprawdzą się na Dzień Ojca, urodziny, imieniny i pod choinkę."
+    },
+    "for-girlfriend": {
+      "slug": "dla-dziewczyny",
+      "h1": "Prezenty dla dziewczyny",
+      "title": "Prezenty dla dziewczyny: romantyczne i osobiste pomysły",
+      "description": "Prezenty dla dziewczyny lub żony na walentynki, rocznicę albo bez okazji: romantyczne, osobiste i praktyczne pomysły, ułożone według dopasowania.",
+      "intro": "Prezent dla dziewczyny powinien pokazać, że jej słuchasz, więc zacznij od czegoś, o czym wspominała, ale sama sobie nie kupiła. Te romantyczne pomysły pasują na walentynki, rocznicę i na zwykły wtorek, który zasługuje na coś więcej."
+    },
+    "for-boyfriend": {
+      "slug": "dla-chlopaka",
+      "h1": "Prezenty dla chłopaka",
+      "title": "Prezenty dla chłopaka: pomysły, które go ucieszą",
+      "description": "Prezenty dla chłopaka lub męża na walentynki, rocznicę albo bez okazji: osobiste, praktyczne i z humorem, ułożone według dopasowania.",
+      "intro": "Chłopak zapamięta prezent, który pasuje do jego pasji, a nie ten, który romantycznie wyglądał na wystawie. Znajdziesz tu pomysły na walentynki, rocznicę lub niespodziankę, od osobistych pamiątek po rzeczy, z których będzie korzystał codziennie."
+    },
+    "for-kids": {
+      "slug": "dla-dzieci",
+      "h1": "Prezenty dla dzieci",
+      "title": "Prezenty dla dzieci: zabawki, które nie znudzą się w dzień",
+      "description": "Prezenty dla dzieci: zabawki, gry, zestawy kreatywne, książki i zabawa na świeżym powietrzu, czyli pomysły, które zajmą dłużej niż rozpakowywanie.",
+      "intro": "Dzieci to szczerzy recenzenci: prezentem albo się bawią, albo nie. Dlatego stawiamy na zabawki, gry, zestawy kreatywne i rzeczy do zabawy na dworze, które są ciekawe także po pierwszym popołudniu."
+    },
+    "for-teens": {
+      "slug": "dla-nastolatkow",
+      "h1": "Prezenty dla nastolatków",
+      "title": "Prezenty dla nastolatków: to, czego naprawdę chcą",
+      "description": "Prezenty dla nastolatków: gaming, muzyka, elektronika, moda, dekoracje do pokoju i kreatywne hobby. Pomysły ze sklepów w Twoim kraju, według dopasowania.",
+      "intro": "Nastolatki dokładnie wiedzą, co lubią, i równie szybko zmieniają zdanie, dlatego najbezpieczniej wybrać prezent związany z aktualną pasją. Przejrzyj pomysły z kategorii gaming, muzyka, elektronika, moda i wystrój własnego pokoju."
+    },
+    "for-grandparents": {
+      "slug": "dla-dziadkow",
+      "h1": "Prezenty dla dziadków",
+      "title": "Prezenty dla dziadków: wygoda, wspomnienia i hobby",
+      "description": "Prezenty dla dziadków, także na Dzień Babci i Dziadka: wygoda w domu, ogród i hobby, pamiątki i praktyczne drobiazgi, ułożone według dopasowania.",
+      "intro": "Babcia i dziadek zwykle mają już wszystko, czego potrzebują, więc sprawdzają się prezenty, które dodają wygody, wspierają hobby albo przywołują wspomnienia. Znajdziesz tu przytulne rzeczy do domu, pomocników do ogrodu i pamiątki."
+    },
+    "birthday": {
+      "slug": "na-urodziny",
+      "h1": "Prezenty na urodziny",
+      "title": "Prezenty na urodziny: pomysły na każdy wiek i budżet",
+      "description": "Prezenty na urodziny dla przyjaciół, rodziny i znajomych z pracy, od drobnych niespodzianek po duże upominki. Pomysły ze sklepów w Twoim kraju.",
+      "intro": "Prezent urodzinowy ma jedno zadanie: pokazać, że pomyślałeś właśnie o tej osobie. Zacznij od tych pomysłów, a potem wybierz wiek i charakter w wyszukiwarce powyżej, żeby lista stała się naprawdę osobista."
+    },
+    "christmas": {
+      "slug": "na-swieta",
+      "h1": "Prezenty na święta",
+      "title": "Prezenty na święta: pomysły dla całej rodziny",
+      "description": "Prezenty na święta Bożego Narodzenia dla partnera, rodziców, dzieci i znajomych z pracy, na każdy budżet. Pomysły ułożone według dopasowania.",
+      "intro": "Świąteczne zakupy idą łatwiej, gdy przechodzisz listę osoba po osobie. Te pomysły pod choinkę obejmują całą rodzinę. Wpisz w wyszukiwarce powyżej, dla kogo jest prezent i jaki masz budżet, a lista ułoży się na nowo."
+    },
+    "valentines": {
+      "slug": "na-walentynki",
+      "h1": "Prezenty na walentynki",
+      "title": "Prezenty na walentynki: romantyczne pomysły dla dwojga",
+      "description": "Prezenty na walentynki dla niej i dla niego, dla świeżych par i wieloletnich związków, od drobnych gestów po duże niespodzianki, według dopasowania.",
+      "intro": "Walentynki nie wymagają wielkiego gestu, tylko osobistego. Znajdziesz tu romantyczne pomysły dla par, które dopiero się poznają, i dla tych z długim stażem: od drobnych upominków po prezenty, którymi nacieszycie się razem."
+    },
+    "anniversary": {
+      "slug": "na-rocznice",
+      "h1": "Prezenty na rocznicę",
+      "title": "Prezenty na rocznicę: pomysły dla par i na jubileusze",
+      "description": "Prezenty na rocznicę ślubu lub związku, dla ukochanej osoby albo zaprzyjaźnionej pary: pamiątki, coś dla dwojga i upominki na okrągłe jubileusze.",
+      "intro": "Prezent na rocznicę świętuje wspólnie spędzony czas, dlatego pamiątki i rzeczy do cieszenia się we dwoje pasują lepiej niż coś czysto praktycznego. Te pomysły sprawdzą się dla Twojej drugiej połówki i dla par obchodzących okrągły jubileusz."
+    },
+    "wedding": {
+      "slug": "na-slub",
+      "h1": "Prezenty na ślub",
+      "title": "Prezenty na ślub: pomysły, które zostaną z parą na lata",
+      "description": "Prezenty na ślub zamiast koperty albo jako dodatek do niej: rzeczy do wspólnego domu, pamiątki i upominki dla dwojga, ułożone według dopasowania.",
+      "intro": "Jeśli młoda para nie podała listy prezentów, wybierz coś na wspólne życie, które właśnie zaczynają. Te pomysły skupiają się na wspólnym domu, trwałych pamiątkach i prezentach pomyślanych dla dwojga, także jako dodatek do koperty."
+    },
+    "housewarming": {
+      "slug": "na-parapetowke",
+      "h1": "Prezenty na parapetówkę",
+      "title": "Prezenty na parapetówkę: pomysły do nowego mieszkania",
+      "description": "Prezenty na parapetówkę do pierwszego mieszkania lub nowego domu: pomocnicy kuchenni, dekoracje, rośliny i praktyczne rzeczy, których zawsze brakuje.",
+      "intro": "W nowym mieszkaniu zawsze czegoś brakuje, a dobry prezent na parapetówkę wypełnia jedną z tych luk. Pomyśl o akcesoriach kuchennych, dekoracjach, roślinach i praktycznych rzeczach, o których nikt nie pamięta przed przeprowadzką."
+    },
+    "graduation": {
+      "slug": "dla-absolwenta",
+      "h1": "Prezenty dla absolwenta",
+      "title": "Prezenty dla absolwenta: pomysły na nowy rozdział",
+      "description": "Prezenty dla absolwenta po maturze, obronie lub odebraniu dyplomu: rzeczy do pierwszej pracy, pierwszego mieszkania, w podróż i trwałe pamiątki.",
+      "intro": "Prezenty dla absolwenta sprawdzają się najlepiej, gdy patrzą w przyszłość: na pierwszą pracę, pierwsze mieszkanie albo długo planowaną podróż. Te pomysły łączą przydatne rzeczy na start z pamiątkami, które upamiętnią zdaną maturę lub obroniony dyplom."
+    },
+    "retirement": {
+      "slug": "na-emeryture",
+      "h1": "Prezenty na emeryturę",
+      "title": "Prezenty na emeryturę: pomysły na cały ten wolny czas",
+      "description": "Prezenty na emeryturę dla koleżanki lub kolegi z pracy i dla bliskich: hobby, podróże, ogród i relaks, także pomysły na prezent składkowy.",
+      "intro": "Emerytura to wreszcie czas na wszystko, co musiało czekać. Dobre prezenty wspierają te plany, czy chodzi o ogród, podróże, czy hobby. Wiele z tych pomysłów sprawdzi się też jako wspólny prezent od całego zespołu."
+    },
+    "new-baby": {
+      "slug": "na-narodziny-dziecka",
+      "h1": "Prezenty na narodziny dziecka",
+      "title": "Prezenty na narodziny dziecka: dla malucha i rodziców",
+      "description": "Prezenty na narodziny dziecka dla noworodka i świeżo upieczonych rodziców: praktyczne rzeczy, przytulanki i pamiątki, także na baby shower.",
+      "intro": "Młodzi rodzice bardziej niż dziesiątych śpioszków potrzebują praktycznej pomocy i odrobiny wygody. Te pomysły na narodziny dziecka, baby shower lub pierwsze odwiedziny łączą rzeczy przydatne w pierwszych miesiącach z przytulankami i pamiątkami."
+    },
+    "thank-you": {
+      "slug": "na-podziekowanie",
+      "h1": "Prezenty na podziękowanie",
+      "title": "Prezenty na podziękowanie: drobiazgi, które mówią wiele",
+      "description": "Prezenty na podziękowanie dla nauczyciela, sąsiadów, znajomych z pracy i gospodarzy: drobne, przemyślane upominki ze sklepów w Twoim kraju.",
+      "intro": "Prezent na podziękowanie powinien być lekki: na tyle drobny, żeby nikogo nie wprawić w zakłopotanie, i na tyle przemyślany, żeby został zauważony. Znajdziesz tu pomysły dla nauczycieli, sąsiadów, znajomych z pracy i gospodarzy."
+    },
+    "get-well": {
+      "slug": "na-powrot-do-zdrowia",
+      "h1": "Prezenty na powrót do zdrowia",
+      "title": "Prezenty na powrót do zdrowia: pomysły, które dodają otuchy",
+      "description": "Prezenty na powrót do zdrowia dla osoby chorej lub po zabiegu: coś dla wygody, dla zabicia czasu i drobne przyjemności, ułożone według dopasowania.",
+      "intro": "Gdy ktoś choruje albo wraca do sił, wygoda i odrobina rozrywki znaczą więcej niż cokolwiek wyszukanego. Wśród tych pomysłów znajdziesz przytulne rzeczy, coś do czytania lub zajęcia rąk oraz drobne przyjemności."
+    },
+    "birthday-for-her": {
+      "slug": "na-urodziny-dla-niej",
+      "h1": "Prezenty na urodziny dla niej",
+      "title": "Prezenty na urodziny dla niej: na każdy gust i budżet",
+      "description": "Prezenty na urodziny dla niej: dla dziewczyny, żony, mamy, siostry lub przyjaciółki, na każdy gust i budżet, ułożone według dopasowania.",
+      "intro": "Niezależnie od tego, czy szukasz czegoś dla partnerki, siostry, czy najlepszej przyjaciółki, prezent urodzinowy powinien pasować do jej gustu, a nie do stereotypu. Przejrzyj te pomysły i dodaj jej zainteresowania w wyszukiwarce powyżej."
+    },
+    "birthday-for-him": {
+      "slug": "na-urodziny-dla-niego",
+      "h1": "Prezenty na urodziny dla niego",
+      "title": "Prezenty na urodziny dla niego: według hobby i budżetu",
+      "description": "Prezenty na urodziny dla niego: dla chłopaka, męża, taty, brata lub przyjaciela, na każde hobby i każdy budżet, ułożone według dopasowania.",
+      "intro": "Na jego urodziny odpuść sobie banały i postaw na hobby, czyli to, o czym opowiada, nawet gdy nikt nie pyta. Te pomysły pasują dla partnera, taty, brata i przyjaciela, a wyszukiwarka powyżej zawęzi je według zainteresowań."
+    },
+    "birthday-for-kids": {
+      "slug": "na-urodziny-dla-dzieci",
+      "h1": "Prezenty na urodziny dla dzieci",
+      "title": "Prezenty na urodziny dla dzieci: do prawdziwej zabawy",
+      "description": "Prezenty na urodziny dla dzieci: zabawki, gry, zestawy kreatywne i zabawa na dworze, dla własnej pociechy albo na kolejne urodzinki kolegi z klasy.",
+      "intro": "Na lodówce wisi kolejne zaproszenie na urodzinki? Te pomysły na prezent dla dziecka, od zabawek i gier po zestawy kreatywne, sprawdzą się zarówno dla Twojej pociechy, jak i dla kolegi z klasy, którego prawie nie znasz."
+    },
+    "birthday-for-teens": {
+      "slug": "na-urodziny-dla-nastolatkow",
+      "h1": "Prezenty na urodziny dla nastolatków",
+      "title": "Prezenty na urodziny dla nastolatków: trafione pomysły",
+      "description": "Prezenty na urodziny dla nastolatków: gaming, muzyka, elektronika, moda i dekoracje do pokoju. Pomysły ze sklepów w Twoim kraju, według dopasowania.",
+      "intro": "Urodziny nastolatka to okazja, żeby pokazać, że wiesz, czym się teraz interesuje. Te pomysły obejmują gaming, muzykę, elektronikę i modę, więc pasują zarówno na osiemnastkę, jak i na każde wcześniejsze urodziny."
+    },
+    "christmas-for-her": {
+      "slug": "na-swieta-dla-niej",
+      "h1": "Prezenty na święta dla niej",
+      "title": "Prezenty na święta dla niej: pomysły, które ją zachwycą",
+      "description": "Prezenty na święta dla niej: dla żony, dziewczyny, mamy lub siostry, od przytulnych po luksusowe. Pomysły pod choinkę ułożone według dopasowania.",
+      "intro": "Szukasz czegoś dla niej pod choinkę? Te świąteczne pomysły dla żony, dziewczyny, mamy i siostry sięgają od przytulnych zimowych drobiazgów po małe luksusy, których sama by sobie nie kupiła, a z których na pewno się ucieszy."
+    },
+    "christmas-for-him": {
+      "slug": "na-swieta-dla-niego",
+      "h1": "Prezenty na święta dla niego",
+      "title": "Prezenty na święta dla niego: pomysły, z których skorzysta",
+      "description": "Prezenty na święta dla niego: dla męża, chłopaka, taty lub brata, od praktycznych po takie dla przyjemności. Pomysły pod choinkę według dopasowania.",
+      "intro": "Prezent na święta dla niego nie musi być kolejną parą skarpetek. Te pomysły dla męża, chłopaka, taty i brata sięgają od praktycznych po takie dla czystej przyjemności, a większość z nich zmieści się pod choinką."
+    },
+    "christmas-for-kids": {
+      "slug": "na-swieta-dla-dzieci",
+      "h1": "Prezenty na święta dla dzieci",
+      "title": "Prezenty na święta dla dzieci: zabawki i gry pod choinkę",
+      "description": "Prezenty na święta dla dzieci: zabawki, gry, zestawy kreatywne i książki, którymi maluchy bawią się jeszcze długo po zakończeniu świąt.",
+      "intro": "Dla dzieci rozpakowywanie prezentów w wigilijny wieczór to najważniejsza chwila w roku. Te zabawki, gry i zestawy kreatywne dobraliśmy tak, żeby zajmowały długo po świętach, niezależnie od tego, co znalazło się w liście do Mikołaja."
+    },
+    "christmas-for-teens": {
+      "slug": "na-swieta-dla-nastolatkow",
+      "h1": "Prezenty na święta dla nastolatków",
+      "title": "Prezenty na święta dla nastolatków: trafione pomysły",
+      "description": "Prezenty na święta dla nastolatków: gaming, muzyka, elektronika, moda i dekoracje do pokoju. Pomysły ze sklepów w Twoim kraju, według dopasowania.",
+      "intro": "Nastolatki to najtrudniejsza pozycja na świątecznej liście prezentów. Te pomysły trzymają się tego, co zwykle się sprawdza: gamingu, muzyki, elektroniki, mody i rzeczy do własnego pokoju, czyli tematów bliskich ich codzienności."
+    },
+    "tech": {
+      "slug": "dla-gadzeciarza",
+      "h1": "Prezenty dla gadżeciarza",
+      "title": "Prezenty dla gadżeciarza: gadżety i sprytna elektronika",
+      "description": "Prezenty dla gadżeciarza i fana technologii: gadżety, audio, smart home i akcesoria dla osób, które lubią testować nowości, według dopasowania.",
+      "intro": "Fani technologii duże zakupy robią zwykle sami, więc najlepsze prezenty to sprytne dodatki: gadżety, sprzęt audio, urządzenia smart home i akcesoria, które ulepszają to, co już mają. Zacznij od tych pomysłów i dopasuj budżet."
+    },
+    "gamer": {
+      "slug": "dla-gracza",
+      "h1": "Prezenty dla gracza",
+      "title": "Prezenty dla gracza: sprzęt, wygoda i gry",
+      "description": "Prezenty dla gracza: akcesoria, dodatki do stanowiska, gry planszowe i gadżety dla fanów, bez ryzyka, że kupisz grę, którą już ma na półce.",
+      "intro": "Kupowanie gry dla gracza jest ryzykowne, bo pewnie już ją ma. Bezpieczniejsze są akcesoria, coś dla wygody podczas długich sesji, gry planszowe i dodatki do stanowiska. Te pomysły podpowiedzą, od czego zacząć."
+    },
+    "foodie": {
+      "slug": "dla-smakosza",
+      "h1": "Prezenty dla smakosza",
+      "title": "Prezenty dla smakosza: dla tych, którzy kochają gotować",
+      "description": "Prezenty dla smakosza i domowego kucharza: akcesoria kuchenne, delikatesy, zestawy degustacyjne i dodatki na stół ze sklepów w Twoim kraju.",
+      "intro": "Osobom, które kochają dobre jedzenie, kupuje się prezenty z przyjemnością, bo zawsze jest coś nowego do spróbowania. Wśród tych pomysłów są akcesoria kuchenne, delikatesy, zestawy degustacyjne i dodatki na pięknie nakryty stół."
+    },
+    "coffee_tea": {
+      "slug": "dla-milosnikow-kawy-i-herbaty",
+      "h1": "Prezenty dla miłośników kawy i herbaty",
+      "title": "Prezenty dla miłośników kawy i herbaty: parz i smakuj",
+      "description": "Prezenty dla miłośników kawy i herbaty: akcesoria do parzenia, kubki i filiżanki, zestawy degustacyjne dla początkujących i koneserów.",
+      "intro": "Dla kawosza i herbaciarza codzienna filiżanka to mały rytuał, a dobry prezent sprawia, że ten rytuał jest jeszcze przyjemniejszy. Znajdziesz tu akcesoria do parzenia, kubki, zestawy degustacyjne i dodatki dla początkujących oraz koneserów."
+    },
+    "outdoor": {
+      "slug": "dla-milosnikow-outdooru",
+      "h1": "Prezenty dla miłośników outdooru",
+      "title": "Prezenty dla miłośników outdooru: góry, szlak i biwak",
+      "description": "Prezenty dla miłośników outdooru: sprzęt na górskie wędrówki, biwak i dni spędzane w terenie, od praktycznych drobiazgów po większe wyposażenie.",
+      "intro": "Ludzie, którzy lubią być w terenie, cenią sprzęt lekki, wytrzymały i przydatny, i od razu widzą różnicę. Te pomysły dla turystów górskich, biwakowiczów i wszystkich, którzy wolą być na dworze, obejmują drobne akcesoria i większe wyposażenie."
+    },
+    "fitness": {
+      "slug": "dla-fanow-fitnessu",
+      "h1": "Prezenty dla fanów fitnessu",
+      "title": "Prezenty dla fanów fitnessu: trening i regeneracja",
+      "description": "Prezenty dla fanów fitnessu: sprzęt do ćwiczeń w domu, akcesoria na siłownię i rzeczy do regeneracji po treningu, ułożone według dopasowania.",
+      "intro": "Kto trenuje regularnie, ucieszy się ze wszystkiego, co ułatwi kolejny trening albo umili regenerację. Przejrzyj sprzęt do ćwiczeń w domu, akcesoria na siłownię i rzeczy, które przydają się dzień po mocnym wysiłku."
+    },
+    "bookworm": {
+      "slug": "dla-mola-ksiazkowego",
+      "h1": "Prezenty dla mola książkowego",
+      "title": "Prezenty dla mola książkowego: nie tylko kolejna książka",
+      "description": "Prezenty dla mola książkowego: akcesoria do czytania, przytulne dodatki do kącika czytelniczego i książki ze sklepów w Twoim kraju.",
+      "intro": "Nie musisz zgadywać, której książki ktoś jeszcze nie czytał. Lampki do czytania, podpórki do książek, przytulne dodatki do kącika czytelniczego i literackie gadżety też są dobrym prezentem, obok samych książek."
+    },
+    "artist": {
+      "slug": "dla-kreatywnych",
+      "h1": "Prezenty dla kreatywnych",
+      "title": "Prezenty dla kreatywnych: rysowanie, malowanie, rękodzieło",
+      "description": "Prezenty dla kreatywnych: materiały i zestawy do rysowania, malowania i rękodzieła, dla początkujących i dla tych, którzy mają już własną pracownię.",
+      "intro": "Osoby kreatywne nigdy nie mają za dużo materiałów. Te pomysły do rysowania, malowania i rękodzieła pasują dla początkujących, którzy chcą spróbować czegoś nowego, i dla osób z dobrze wyposażonym kącikiem do pracy twórczej."
+    },
+    "music": {
+      "slug": "dla-milosnikow-muzyki",
+      "h1": "Prezenty dla miłośników muzyki",
+      "title": "Prezenty dla miłośników muzyki: do słuchania i grania",
+      "description": "Prezenty dla miłośników muzyki: sprzęt audio, akcesoria do instrumentów i gadżety dla fanów ze sklepów w Twoim kraju, ułożone według dopasowania.",
+      "intro": "Bez względu na to, czy słuchają, grają, czy robią jedno i drugie, miłośnicy muzyki docenią prezent, który przybliża ich do dźwięku. Znajdziesz tu pomysły związane ze sprzętem audio, instrumentami i akcesoriami oraz gadżety dla fanów."
+    },
+    "traveler": {
+      "slug": "dla-podroznika",
+      "h1": "Prezenty dla podróżnika",
+      "title": "Prezenty dla podróżnika: pomysły na następną wyprawę",
+      "description": "Prezenty dla podróżnika: bagaż, akcesoria do pakowania, wygoda w drodze i sposoby na zachowanie wspomnień ze sklepów w Twoim kraju.",
+      "intro": "Podróżnicy chcą rzeczy lekkich, kompaktowych i ułatwiających drogę. Wśród tych pomysłów są walizki i plecaki, akcesoria do pakowania, coś dla wygody podczas długich tras oraz sposoby na zachowanie wspomnień po powrocie."
+    },
+    "homebody": {
+      "slug": "dla-domatora",
+      "h1": "Prezenty dla domatora",
+      "title": "Prezenty dla domatora: przytulne pomysły na wieczór w domu",
+      "description": "Prezenty dla domatora: koce, świece, dekoracje i wszystko, co sprawia, że wieczór na kanapie jest jeszcze przyjemniejszy, według dopasowania.",
+      "intro": "Dla osób, których ulubionym miejscem jest własna kanapa, prezent powinien sprawić, że w domu będzie jeszcze przytulniej. Pomyśl o kocach, świecach, dekoracjach i drobnych przyjemnościach na spokojny wieczór bez wychodzenia."
+    },
+    "fashion": {
+      "slug": "dla-milosnikow-mody",
+      "h1": "Prezenty dla miłośników mody",
+      "title": "Prezenty dla miłośników mody: stylowe pomysły",
+      "description": "Prezenty dla miłośników mody: dodatki, torebki, biżuteria i stylowe drobiazgi, przy których nie trzeba zgadywać właściwego rozmiaru.",
+      "intro": "Kupowanie ubrań dla kogoś innego bywa trudne, dlatego dodatki to bezpieczniejszy sposób, żeby ucieszyć osobę kochającą modę. Torebki, szale, biżuteria i inne stylowe drobiazgi pasują bez znajomości rozmiaru i łatwo dobrać je do jej lub jego stylu."
+    },
+    "gardener": {
+      "slug": "dla-ogrodnika",
+      "h1": "Prezenty dla ogrodnika",
+      "title": "Prezenty dla ogrodnika: pomysły do ogrodu i na balkon",
+      "description": "Prezenty dla ogrodnika i działkowca: narzędzia, donice, dekoracje ogrodowe i akcesoria na balkon ze sklepów w Twoim kraju, według dopasowania.",
+      "intro": "Ogrodnik ucieszy się ze wszystkiego, co pomaga roślinom rosnąć albo sprawia, że w ogrodzie siedzi się przyjemniej. Wśród tych pomysłów są narzędzia, donice, dekoracje i akcesoria dla osób, które zamiast trawnika mają balkon."
+    },
+    "pet_lover": {
+      "slug": "dla-milosnikow-zwierzat",
+      "h1": "Prezenty dla miłośników zwierząt",
+      "title": "Prezenty dla miłośników zwierząt: dla opiekuna i pupila",
+      "description": "Prezenty dla miłośników zwierząt oraz ich psów i kotów: zabawki, legowiska, akcesoria i upominki dla opiekuna ze sklepów w Twoim kraju.",
+      "intro": "Najkrótsza droga do serca opiekuna zwierzaka prowadzi przez jego psa albo kota. Wśród tych pomysłów są zabawki, legowiska i akcesoria dla pupila, a także prezenty dla osoby, która trzyma smycz."
+    },
+    "wellness": {
+      "slug": "na-relaks",
+      "h1": "Prezenty na relaks",
+      "title": "Prezenty na relaks: domowe spa i chwila dla siebie",
+      "description": "Prezenty na relaks i domowe spa: kosmetyki do kąpieli i pielęgnacji ciała, zapachy i przytulne dodatki dla osób, które zasłużyły na odpoczynek.",
+      "intro": "Prezent na relaks to pozwolenie, żeby przez chwilę nic nie robić. Kosmetyki do kąpieli i pielęgnacji ciała, zapachy i przytulne dodatki zamieniają zwykły wieczór w domowe spa dla kogoś, komu przyda się przerwa."
+    },
+    "maker": {
+      "slug": "dla-majsterkowicza",
+      "h1": "Prezenty dla majsterkowicza",
+      "title": "Prezenty dla majsterkowicza: narzędzia i coś do warsztatu",
+      "description": "Prezenty dla majsterkowicza: narzędzia, wyposażenie warsztatu i zestawy do samodzielnego montażu dla osób, które wolą same budować i naprawiać.",
+      "intro": "Kto lubi budować i naprawiać, zawsze ma w głowie kolejny projekt. Narzędzia, wyposażenie warsztatu i zestawy do samodzielnego montażu są mile widziane, zwłaszcza te, na które sam majsterkowicz by sobie nie pozwolił."
+    }
+  }
+}

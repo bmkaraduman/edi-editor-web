@@ -32,6 +32,8 @@ def main(variants_per_country=5, seed=1):
         lo, hi = concept["price_usd"]
         for cc, cinfo in COUNTRIES.items():
             lang = cinfo["lang"]
+            if lang not in concept["text"]:          # added languages have no hand-written concept text
+                continue
             pool = [m for m in MERCHANTS[cc] if not m.get("fit") or set(m["fit"]) & set(concept["personality"])]
             merchants = rng.sample(pool, k=min(variants_per_country, len(pool)))
             for m in merchants:
@@ -42,7 +44,8 @@ def main(variants_per_country=5, seed=1):
                     price=nice_price(rng.uniform(lo, hi), cc), currency=cinfo["currency"],
                     url="", image="", brand="", category="",
                     labels={"gender": [concept["gender"]], "age": concept["age"],
-                            "occasion": concept["occasion"], "personality": concept["personality"]},
+                            "occasion": concept["occasion"], "personality": concept["personality"],
+                            "category": [concept["category"]]},
                     source="seed",
                 ).to_dict()
                 p["concept_id"] = concept["id"]

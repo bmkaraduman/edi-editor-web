@@ -1,0 +1,339 @@
+{
+  "root": "geschenke",
+  "under_slug": "unter-{n}",
+  "under_h1": "{h1} unter {price}",
+  "under_description": "{h1} unter {price}: {n} Ideen aus Shops in {country}, danach sortiert, wie gut sie zu Person und Anlass passen.",
+  "home": {
+    "title": "Geschenkefinder: Geschenkideen aus Shops in {country} | giftdetect.com",
+    "description": "Sag giftdetect.com, für wen das Geschenk ist, zu welchem Anlass, wie die Person tickt und wie viel du ausgeben willst, und erhalte passende Geschenkideen aus Shops in {country}.",
+    "h1": "Das passende Geschenk in Sekunden finden",
+    "sub": "Wähle Empfänger, Anlass und Persönlichkeit. giftdetect.com durchsucht die Produkte von Shops in {country} und sortiert sie danach, was am besten passt."
+  },
+  "ui": {
+    "popular": "Beliebte Geschenkideen",
+    "who": "Nach Empfänger",
+    "occasion": "Nach Anlass",
+    "combo": "Anlass und Empfänger",
+    "interest": "Nach Interessen",
+    "budget": "Nach Budget",
+    "picks": "Unsere Favoriten",
+    "stats": "{n} Geschenkideen aus {shops} Shops in {country}, von {min} bis {max}. Die Hälfte davon kostet weniger als {median}.",
+    "under_intro": "Jede Idee auf dieser Seite kostet höchstens {price}.",
+    "guide": "Zum Ratgeber: {title}",
+    "more": "Weitere Geschenkideen",
+    "home": "Geschenksuche",
+    "countries": "giftdetect.com in anderen Ländern",
+    "blog": "Geschenkratgeber im Blog",
+    "view": "Ansehen"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "fuer-sie",
+      "h1": "Geschenke für sie",
+      "title": "Geschenke für sie: Ideen, die sie wirklich nutzt",
+      "description": "Geschenke für sie, von der kleinen Aufmerksamkeit bis zur großen Überraschung: Schmuck, Beauty, Wohnen, Hobbys und mehr, sortiert nach Passgenauigkeit.",
+      "intro": "Ein gutes Geschenk für sie beginnt bei dem, was sie gern macht, und nicht beim Regal mit der Aufschrift „für Frauen“. Diese Ideen reichen von Schmuck und Beauty über Wohnen und Bücher bis zu Hobbys. Gib oben in der Suche ihre Persönlichkeit an, um die Auswahl einzugrenzen."
+    },
+    "for-him": {
+      "slug": "fuer-ihn",
+      "h1": "Geschenke für ihn",
+      "title": "Geschenke für ihn: Ideen jenseits von Socken und Krawatte",
+      "description": "Geschenke für ihn, auch wenn er angeblich nichts braucht: Technik, Werkzeug, Outdoor, Essen und Trinken und mehr, sortiert nach Passgenauigkeit.",
+      "intro": "Männer, die „nichts brauchen“, sind leichter zu beschenken, sobald du überlegst, wie sie einen freien Samstag verbringen. Diese Ideen reichen von Technik und Werkzeug bis zu Outdoor-Ausrüstung und gutem Essen. Wähle oben in der Suche seine Interessen aus, um die Liste zu schärfen."
+    },
+    "for-mom": {
+      "slug": "fuer-mama",
+      "h1": "Geschenke für Mama",
+      "title": "Geschenke für Mama: liebevolle Ideen für jedes Budget",
+      "description": "Geschenke für Mama zum Muttertag, zum Geburtstag oder einfach so: Wellness, Wohnen, Garten, Schmuck und Persönliches, danach sortiert, wie gut sie passen.",
+      "intro": "Mama wünscht sich selten etwas, und genau deshalb kommt ein gut gewähltes Geschenk so gut an. Hier findest du Ideen für den Muttertag und darüber hinaus, von einer ruhigen Stunde Wellness bis zu etwas für den Garten oder das Zuhause, auf das sie stolz ist."
+    },
+    "for-dad": {
+      "slug": "fuer-papa",
+      "h1": "Geschenke für Papa",
+      "title": "Geschenke für Papa: Ideen, die nicht in der Schublade landen",
+      "description": "Geschenke für Papa zum Vatertag, zum Geburtstag oder zu Weihnachten: Grillen, Werkzeug, Outdoor, Technik und Kaffee, sortiert nach Passgenauigkeit.",
+      "intro": "Die besten Geschenke für Papa unterstützen etwas, das er ohnehin gern macht, ob Grillen, Reparieren oder stundenlanges Verschwinden im Garten. Diese Ideen passen zum Vatertag, zum Geburtstag und zu Weihnachten."
+    },
+    "for-girlfriend": {
+      "slug": "fuer-freundin",
+      "h1": "Geschenke für die Freundin",
+      "title": "Geschenke für die Freundin: romantisch und persönlich",
+      "description": "Geschenke für die Freundin oder Ehefrau zum Valentinstag, zum Jahrestag oder als Überraschung: romantisch, persönlich und nützlich, sortiert nach Passung.",
+      "intro": "Ein Geschenk für deine Freundin sollte zeigen, dass du zugehört hast. Fang also bei etwas an, das sie erwähnt, sich aber nie selbst gekauft hat. Diese romantischen Ideen passen zum Valentinstag, zum Jahrestag oder zu einem ganz normalen Dienstag, der etwas Besseres verdient hat."
+    },
+    "for-boyfriend": {
+      "slug": "fuer-freund",
+      "h1": "Geschenke für den Freund",
+      "title": "Geschenke für den Freund: Ideen, über die er sich freut",
+      "description": "Geschenke für den Freund oder Ehemann zum Valentinstag, zum Jahrestag oder als Überraschung: persönlich, praktisch und mit Spaß, sortiert nach Passgenauigkeit.",
+      "intro": "In Erinnerung bleiben die Geschenke, die zu seinen Hobbys passen, nicht die, die im Schaufenster romantisch aussehen. Hier findest du Ideen für den Valentinstag, den Jahrestag oder eine Überraschung, von persönlichen Erinnerungsstücken bis zu Dingen, die er jeden Tag benutzt."
+    },
+    "for-kids": {
+      "slug": "fuer-kinder",
+      "h1": "Geschenke für Kinder",
+      "title": "Geschenke für Kinder: Ideen für mehr als einen Tag Spaß",
+      "description": "Geschenke für Kinder: Spielzeug, Spiele, Kreativsets, Bücher und Spaß für draußen, die länger beschäftigen als das Geschenkpapier.",
+      "intro": "Kinder sind ehrliche Kritiker: Mit einem Geschenk wird gespielt oder eben nicht. Diese Ideen setzen auf Spielzeug, Spiele, Kreativsets und Spaß für draußen, die auch nach dem ersten Nachmittag noch spannend sind."
+    },
+    "for-teens": {
+      "slug": "fuer-teenager",
+      "h1": "Geschenke für Teenager",
+      "title": "Geschenke für Teenager: Ideen, die Teens wirklich wollen",
+      "description": "Geschenke für Teenager: Gaming, Musik, Technik, Mode, Deko fürs eigene Zimmer und kreative Hobbys, danach sortiert, wie gut sie passen.",
+      "intro": "Teenager wissen genau, was ihnen gefällt, und ändern ihre Meinung genauso schnell. Am sichersten sind deshalb Geschenke, die zu einem aktuellen Hobby passen. Stöbere durch Ideen rund um Gaming, Musik, Technik, Mode und das eigene Zimmer."
+    },
+    "for-grandparents": {
+      "slug": "fuer-grosseltern",
+      "h1": "Geschenke für Großeltern",
+      "title": "Geschenke für Großeltern: Gemütliches und Erinnerungen",
+      "description": "Geschenke für Großeltern und ältere Verwandte: Gemütliches fürs Zuhause, Ideen für Garten und Hobby, Erinnerungsstücke und praktische Helfer.",
+      "intro": "Oma und Opa haben meist schon alles, was sie brauchen. Gut an kommen deshalb Geschenke, die es gemütlicher machen, ein Hobby unterstützen oder eine Erinnerung wecken. Diese Ideen reichen von Kuscheligem fürs Zuhause bis zu Gartenhelfern und Erinnerungsstücken."
+    },
+    "birthday": {
+      "slug": "zum-geburtstag",
+      "h1": "Geburtstagsgeschenke",
+      "title": "Geburtstagsgeschenke: Ideen für jedes Alter und Budget",
+      "description": "Geburtstagsgeschenke für Freunde, Familie und Kollegen, von der kleinen Überraschung bis zum großen Geschenk, danach sortiert, wie gut sie passen.",
+      "intro": "Ein Geburtstagsgeschenk muss nur eines können: zeigen, dass du an genau diesen Menschen gedacht hast. Starte mit diesen Ideen und wähle dann oben in der Suche Alter und Persönlichkeit aus, damit sie persönlich werden."
+    },
+    "christmas": {
+      "slug": "zu-weihnachten",
+      "h1": "Weihnachtsgeschenke",
+      "title": "Weihnachtsgeschenke: Ideen für die ganze Familie",
+      "description": "Weihnachtsgeschenke für Partner, Eltern, Kinder und Kollegen, für jedes Budget und danach sortiert, wie gut sie zur beschenkten Person passen.",
+      "intro": "Der Weihnachtseinkauf wird leichter, wenn du die Liste Person für Person durchgehst. Diese Ideen decken die ganze Familie ab. Gib oben in der Suche an, für wen das Geschenk ist und wie hoch dein Budget ist, und die Liste sortiert sich neu."
+    },
+    "valentines": {
+      "slug": "zum-valentinstag",
+      "h1": "Valentinstagsgeschenke",
+      "title": "Valentinstagsgeschenke: romantische Ideen für euch beide",
+      "description": "Valentinstagsgeschenke für sie und für ihn, für frisch Verliebte und lange Beziehungen, von der kleinen Geste bis zur großen Überraschung.",
+      "intro": "Der Valentinstag braucht keine große Geste, sondern eine persönliche. Hier findest du romantische Ideen für frisch Verliebte und für lange Beziehungen, von kleinen Aufmerksamkeiten bis zu Geschenken, die ihr gemeinsam genießen könnt."
+    },
+    "anniversary": {
+      "slug": "zum-jahrestag",
+      "h1": "Geschenke zum Jahrestag",
+      "title": "Geschenke zum Jahrestag und Hochzeitstag: Ideen für Paare",
+      "description": "Geschenke zum Jahrestag für deinen Partner oder ein befreundetes Paar: Erinnerungsstücke, Gemeinsames zum Genießen und Ideen für runde Hochzeitstage.",
+      "intro": "Ein Geschenk zum Jahrestag feiert die gemeinsame Zeit. Erinnerungsstücke und Dinge, die man zusammen genießt, passen deshalb besser als rein Praktisches. Diese Ideen eignen sich für den eigenen Partner ebenso wie für Paare, die einen runden Hochzeitstag feiern."
+    },
+    "wedding": {
+      "slug": "zur-hochzeit",
+      "h1": "Hochzeitsgeschenke",
+      "title": "Hochzeitsgeschenke: Ideen, die das Brautpaar behält",
+      "description": "Hochzeitsgeschenke abseits der Wunschliste: Schönes fürs gemeinsame Zuhause, Erinnerungsstücke und Geschenke für zwei, sortiert nach Passgenauigkeit.",
+      "intro": "Hat das Brautpaar keine Wunschliste, dann wähle etwas für das Leben, das die beiden sich gemeinsam aufbauen. Diese Ideen drehen sich um das gemeinsame Zuhause, bleibende Erinnerungsstücke und Geschenke, die für zwei gemacht sind."
+    },
+    "housewarming": {
+      "slug": "zum-einzug",
+      "h1": "Geschenke zum Einzug",
+      "title": "Geschenke zum Einzug: Ideen für das neue Zuhause",
+      "description": "Geschenke zum Einzug in die erste Wohnung oder das neue Haus: Küchenhelfer, Deko, Pflanzen und Praktisches, das bei der Einweihung noch fehlt.",
+      "intro": "In einem neuen Zuhause fehlt immer irgendetwas, und ein gutes Geschenk zum Einzug schließt eine dieser Lücken. Denk an Küchenhelfer, Deko, Pflanzen und die praktischen Dinge, an die vor dem Umzug niemand denkt."
+    },
+    "graduation": {
+      "slug": "zum-abschluss",
+      "h1": "Geschenke zum Abschluss",
+      "title": "Geschenke zum Abschluss: Ideen für Abi, Matura und Studium",
+      "description": "Geschenke zum Abschluss von Schule, Ausbildung oder Studium: Nützliches für den ersten Job, die erste Wohnung und Reisen sowie bleibende Erinnerungen.",
+      "intro": "Geschenke zum Abschluss kommen am besten an, wenn sie nach vorn zeigen: auf den ersten Job, die erste eigene Wohnung oder eine lang geplante Reise. Diese Ideen verbinden Nützliches für den Start mit Erinnerungsstücken, die das Geschaffte würdigen."
+    },
+    "retirement": {
+      "slug": "zum-ruhestand",
+      "h1": "Geschenke zum Ruhestand",
+      "title": "Geschenke zum Ruhestand: Ideen für die viele freie Zeit",
+      "description": "Geschenke zum Ruhestand für Kollegen und Familie: Hobby, Reisen, Garten und Entspannung, darunter Ideen, die sich als Sammelgeschenk eignen.",
+      "intro": "Ruhestand heißt, endlich Zeit für alles zu haben, was warten musste. Gute Geschenke unterstützen diese Pläne, ob es um den Garten, ums Reisen oder um ein Hobby geht. Viele dieser Ideen eignen sich auch als Sammelgeschenk vom ganzen Team."
+    },
+    "new-baby": {
+      "slug": "zur-geburt",
+      "h1": "Geschenke zur Geburt",
+      "title": "Geschenke zur Geburt: Ideen für Baby und Eltern",
+      "description": "Geschenke zur Geburt für das Neugeborene und die frischgebackenen Eltern: praktische Helfer, Kuscheltiere und Erinnerungen, auch für die Babyparty.",
+      "intro": "Frischgebackene Eltern brauchen praktische Hilfe und ein bisschen Entlastung dringender als den zehnten Strampler. Diese Ideen zur Geburt oder zur Babyparty verbinden Nützliches für die ersten Monate mit Kuscheltieren und Erinnerungsstücken."
+    },
+    "thank-you": {
+      "slug": "dankeschoen",
+      "h1": "Dankeschön-Geschenke",
+      "title": "Dankeschön-Geschenke: kleine Ideen, die viel sagen",
+      "description": "Dankeschön-Geschenke für Lehrer, Nachbarn, Kollegen und Gastgeber: kleine, durchdachte Aufmerksamkeiten, danach sortiert, wie gut sie passen.",
+      "intro": "Ein Dankeschön-Geschenk sollte leicht wirken: klein genug, um niemanden in Verlegenheit zu bringen, und durchdacht genug, um aufzufallen. Hier findest du Ideen für Lehrerinnen und Lehrer, Nachbarn, Kollegen und Gastgeber."
+    },
+    "get-well": {
+      "slug": "gute-besserung",
+      "h1": "Geschenke zur Genesung",
+      "title": "Geschenke zur Genesung: Ideen, die guttun",
+      "description": "Geschenke zur Genesung für alle, die krank sind oder sich erholen: Gemütliches, Ablenkung und kleine Freuden, die gute Besserung wünschen.",
+      "intro": "Wer krank ist oder sich gerade erholt, hat von Gemütlichkeit und Ablenkung mehr als von etwas Ausgefallenem. Zu diesen Ideen für gute Besserung gehören Kuscheliges, etwas zum Lesen oder Beschäftigen und kleine Freuden."
+    },
+    "birthday-for-her": {
+      "slug": "zum-geburtstag-fuer-sie",
+      "h1": "Geburtstagsgeschenke für sie",
+      "title": "Geburtstagsgeschenke für sie: Ideen für jeden Geschmack",
+      "description": "Geburtstagsgeschenke für sie: für Freundin, Ehefrau, Mutter, Schwester oder beste Freundin, für jeden Geschmack und jedes Budget, sortiert nach Passgenauigkeit.",
+      "intro": "Ob für deine Partnerin, deine Schwester oder deine beste Freundin: Ihr Geburtstagsgeschenk sollte zu ihrem Geschmack passen und nicht zu einem Klischee. Stöbere durch diese Ideen und gib oben in der Suche ihre Interessen an."
+    },
+    "birthday-for-him": {
+      "slug": "zum-geburtstag-fuer-ihn",
+      "h1": "Geburtstagsgeschenke für ihn",
+      "title": "Geburtstagsgeschenke für ihn: Ideen nach Hobby und Budget",
+      "description": "Geburtstagsgeschenke für ihn: für Freund, Ehemann, Vater, Bruder oder Kumpel, für jedes Hobby und jedes Budget, sortiert nach Passgenauigkeit.",
+      "intro": "Lass zu seinem Geburtstag das Beliebige weg und setz auf sein Hobby, also auf das Thema, über das er redet, ohne dass jemand gefragt hat. Diese Ideen passen für Partner, Väter, Brüder und Freunde, und die Suche oben grenzt sie nach Interessen ein."
+    },
+    "birthday-for-kids": {
+      "slug": "zum-geburtstag-fuer-kinder",
+      "h1": "Geburtstagsgeschenke für Kinder",
+      "title": "Geburtstagsgeschenke für Kinder: Ideen zum Spielen",
+      "description": "Geburtstagsgeschenke für Kinder: Spielzeug, Spiele, Kreativsets und Spaß für draußen, fürs eigene Kind oder für die nächste Einladung zum Kindergeburtstag.",
+      "intro": "Hängt schon wieder eine Einladung zum Kindergeburtstag am Kühlschrank? Diese Geschenkideen für Kinder, von Spielzeug und Spielen bis zu Kreativsets, passen fürs eigene Kind genauso wie für das Kind aus der Klasse, das du kaum kennst."
+    },
+    "birthday-for-teens": {
+      "slug": "zum-geburtstag-fuer-teenager",
+      "h1": "Geburtstagsgeschenke für Teenager",
+      "title": "Geburtstagsgeschenke für Teenager: Ideen, die ankommen",
+      "description": "Geburtstagsgeschenke für Teenager: Gaming, Musik, Technik, Mode und Deko fürs eigene Zimmer, danach sortiert, wie gut sie passen.",
+      "intro": "Der Geburtstag eines Teenagers ist die Gelegenheit zu zeigen, dass du weißt, wofür er oder sie sich gerade begeistert. Diese Ideen drehen sich um Gaming, Musik, Technik und Mode, für den 18. Geburtstag und für jedes Jahr davor."
+    },
+    "christmas-for-her": {
+      "slug": "zu-weihnachten-fuer-sie",
+      "h1": "Weihnachtsgeschenke für sie",
+      "title": "Weihnachtsgeschenke für sie: Ideen, die ihr Freude machen",
+      "description": "Weihnachtsgeschenke für sie: für Ehefrau, Freundin, Mutter oder Schwester, von gemütlich bis luxuriös, danach sortiert, wie gut sie passen.",
+      "intro": "Suchst du etwas, das für sie unter dem Baum liegen soll? Diese Weihnachtsideen für Ehefrau, Freundin, Mutter und Schwester reichen von Gemütlichem für den Winter bis zu kleinem Luxus, den sie sich selbst nicht gönnen würde."
+    },
+    "christmas-for-him": {
+      "slug": "zu-weihnachten-fuer-ihn",
+      "h1": "Weihnachtsgeschenke für ihn",
+      "title": "Weihnachtsgeschenke für ihn: Ideen, die er wirklich nutzt",
+      "description": "Weihnachtsgeschenke für ihn: für Ehemann, Freund, Vater oder Bruder, von praktisch bis genussvoll, danach sortiert, wie gut sie passen.",
+      "intro": "Weihnachtsgeschenke für ihn müssen nicht schon wieder Socken sein. Diese Ideen für Ehemann, Freund, Vater und Bruder reichen von praktisch bis genussvoll, und die meisten davon passen gut unter den Baum."
+    },
+    "christmas-for-kids": {
+      "slug": "zu-weihnachten-fuer-kinder",
+      "h1": "Weihnachtsgeschenke für Kinder",
+      "title": "Weihnachtsgeschenke für Kinder: Spielzeug und Spiele",
+      "description": "Weihnachtsgeschenke für Kinder: Spielzeug, Spiele, Kreativsets und Bücher, mit denen auch lange nach den Feiertagen noch gespielt wird.",
+      "intro": "Für Kinder ist die Bescherung der Höhepunkt des Jahres. Diese Spielzeuge, Spiele und Kreativsets sind so ausgewählt, dass sie weit über die Feiertage hinaus beschäftigen, ganz gleich, was auf dem Wunschzettel steht."
+    },
+    "christmas-for-teens": {
+      "slug": "zu-weihnachten-fuer-teenager",
+      "h1": "Weihnachtsgeschenke für Teenager",
+      "title": "Weihnachtsgeschenke für Teenager: Ideen, die ankommen",
+      "description": "Weihnachtsgeschenke für Teenager: Gaming, Musik, Technik, Mode und Deko fürs eigene Zimmer, danach sortiert, wie gut sie passen.",
+      "intro": "Teenager sind die schwierigsten Namen auf der Weihnachtsliste. Diese Ideen halten sich an das, was meistens funktioniert: Gaming, Musik, Technik, Mode und Dinge fürs eigene Zimmer. Die Suche oben grenzt sie nach Interessen und Budget weiter ein."
+    },
+    "tech": {
+      "slug": "fuer-technikfans",
+      "h1": "Geschenke für Technikfans",
+      "title": "Geschenke für Technikfans: Gadgets und smarte Ideen",
+      "description": "Geschenke für Technikfans: Gadgets, Audio, Smart Home und Zubehör für alle, die gern das Neueste ausprobieren, sortiert nach Passgenauigkeit.",
+      "intro": "Technikfans kaufen sich die großen Dinge meist selbst. Die besten Geschenke sind deshalb die cleveren Extras: Gadgets, Audio-Zubehör, Helfer fürs Smart Home und Zubehör, das besser macht, was sie schon besitzen."
+    },
+    "gamer": {
+      "slug": "fuer-gamer",
+      "h1": "Geschenke für Gamer",
+      "title": "Geschenke für Gamer: Zubehör, Komfort und Spiele",
+      "description": "Geschenke für Gamer: Zubehör, Ideen fürs Setup, Brettspiele und Merchandise, ohne das Risiko, ein Spiel zu kaufen, das längst im Regal steht.",
+      "intro": "Einem Gamer ein Spiel zu schenken ist riskant, denn wahrscheinlich hat er es schon. Sicherer sind Zubehör, Komfort für lange Sessions, Brettspiele und Dinge fürs Setup. Diese Ideen zeigen dir, wo du anfangen kannst."
+    },
+    "foodie": {
+      "slug": "fuer-geniesser",
+      "h1": "Geschenke für Genießer",
+      "title": "Geschenke für Genießer: Ideen für Foodies und Hobbyköche",
+      "description": "Geschenke für Genießer und Hobbyköche: Küchenhelfer, Delikatessen, Probiersets und Schönes für den gedeckten Tisch, sortiert nach Passgenauigkeit.",
+      "intro": "Menschen, die gutes Essen lieben, beschenkt man gern, denn es gibt immer etwas Neues zu probieren. Zu diesen Ideen gehören Küchenhelfer, Delikatessen, Probiersets und Schönes für einen liebevoll gedeckten Tisch."
+    },
+    "coffee_tea": {
+      "slug": "fuer-kaffee-und-teeliebhaber",
+      "h1": "Geschenke für Kaffee- und Teeliebhaber",
+      "title": "Geschenke für Kaffee- und Teeliebhaber: Ideen zum Genießen",
+      "description": "Geschenke für Kaffee- und Teeliebhaber: Zubehör für die Zubereitung, Tassen, Probiersets und Accessoires für Einsteiger und Kenner.",
+      "intro": "Für Kaffee- und Teeliebhaber ist die tägliche Tasse ein kleines Ritual, und ein gutes Geschenk macht dieses Ritual noch schöner. Hier findest du Zubehör für die Zubereitung, Tassen, Probiersets und Accessoires für Einsteiger und Kenner."
+    },
+    "outdoor": {
+      "slug": "fuer-outdoor-fans",
+      "h1": "Geschenke für Outdoor-Fans",
+      "title": "Geschenke für Outdoor-Fans: Ideen für Wandern und Camping",
+      "description": "Geschenke für Outdoor-Fans: Ausrüstung fürs Wandern, fürs Camping und für Tage im Freien, vom kleinen praktischen Helfer bis zum größeren Equipment.",
+      "intro": "Outdoor-Fans schätzen Ausrüstung, die leicht, robust und nützlich ist, und sie merken den Unterschied. Diese Ideen für Wanderer, Camper und alle, die am liebsten draußen sind, reichen von kleinen Helfern bis zu größerem Equipment."
+    },
+    "fitness": {
+      "slug": "fuer-sportler",
+      "h1": "Geschenke für Sportler",
+      "title": "Geschenke für Sportler: Ideen für Training und Erholung",
+      "description": "Geschenke für Sportler und Fitnessfans: Geräte fürs Training zu Hause, Zubehör fürs Fitnessstudio und Dinge für die Regeneration danach.",
+      "intro": "Wer regelmäßig trainiert, freut sich über alles, was die nächste Einheit leichter oder die Erholung angenehmer macht. Stöbere durch Geräte für zu Hause, Zubehör fürs Fitnessstudio und Dinge für den Tag danach."
+    },
+    "bookworm": {
+      "slug": "fuer-leseratten",
+      "h1": "Geschenke für Leseratten",
+      "title": "Geschenke für Leseratten: mehr als nur noch ein Buch",
+      "description": "Geschenke für Leseratten und Buchliebhaber: Lesezubehör, Gemütliches für die Leseecke und Bücher, danach sortiert, wie gut sie passen.",
+      "intro": "Du musst nicht raten, welches Buch jemand noch nicht gelesen hat. Leselampen, Buchstützen, Gemütliches für die Leseecke und literarische Extras sind ebenfalls schöne Geschenke, natürlich immer neben den Büchern selbst."
+    },
+    "artist": {
+      "slug": "fuer-kreative",
+      "h1": "Geschenke für Kreative",
+      "title": "Geschenke für Kreative: Ideen zum Malen und Basteln",
+      "description": "Geschenke für Kreative: Material und Sets zum Zeichnen, Malen und Basteln, für Einsteiger und für alle, die schon eine eigene Atelierecke haben.",
+      "intro": "Kreative Menschen können nie genug Material haben. Diese Ideen zum Zeichnen, Malen und Basteln passen für Einsteiger, die etwas Neues ausprobieren wollen, ebenso wie für alle mit einer gut bestückten Atelierecke."
+    },
+    "music": {
+      "slug": "fuer-musikliebhaber",
+      "h1": "Geschenke für Musikliebhaber",
+      "title": "Geschenke für Musikliebhaber: Ideen zum Hören und Spielen",
+      "description": "Geschenke für Musikliebhaber: Audio-Zubehör, Zubehör für Instrumente und Ideen für Fans, danach sortiert, wie gut sie zur Person passen.",
+      "intro": "Ob sie Musik hören, selbst spielen oder beides: Musikliebhaber freuen sich über Geschenke, die sie näher an den Klang bringen. Hier findest du Ideen rund um Audio, Instrumente und Zubehör sowie Dinge für Fans."
+    },
+    "traveler": {
+      "slug": "fuer-reisende",
+      "h1": "Geschenke für Reisende",
+      "title": "Geschenke für Reisende: Ideen für die nächste Reise",
+      "description": "Geschenke für Reisende und Reiselustige: Gepäck, Packhelfer, Komfort für unterwegs und Ideen, mit denen die Erinnerungen bleiben.",
+      "intro": "Reisende wünschen sich Dinge, die leicht und kompakt sind und das Unterwegssein einfacher machen. Zu diesen Ideen gehören Gepäck und Packhelfer, Komfort für lange Strecken und Möglichkeiten, die Erinnerungen danach festzuhalten."
+    },
+    "homebody": {
+      "slug": "fuer-ein-gemuetliches-zuhause",
+      "h1": "Geschenke für ein gemütliches Zuhause",
+      "title": "Geschenke für ein gemütliches Zuhause: Ideen fürs Sofa",
+      "description": "Geschenke für ein gemütliches Zuhause: Decken, Kerzen, Deko und alles, was einen Abend auf dem Sofa noch schöner macht, sortiert nach Passgenauigkeit.",
+      "intro": "Für Menschen, deren Lieblingsplatz das eigene Sofa ist, sollte ein Geschenk das Zuhause noch gemütlicher machen. Denk an Decken, Kerzen, Deko und kleine Wohlfühlmomente für einen ruhigen Abend bei sich daheim."
+    },
+    "fashion": {
+      "slug": "fuer-modefans",
+      "h1": "Geschenke für Modefans",
+      "title": "Geschenke für Modefans: stilvolle Ideen",
+      "description": "Geschenke für Modefans: Accessoires, Taschen, Schmuck und stilvolle Stücke, bei denen du nicht die richtige Größe erraten musst.",
+      "intro": "Kleidung für jemand anderen zu kaufen ist heikel. Mit Accessoires machst du Modefans deshalb sicherer eine Freude. Taschen, Schals, Schmuck und andere stilvolle Stücke passen, ohne dass du die Größe kennen musst."
+    },
+    "gardener": {
+      "slug": "fuer-gartenfreunde",
+      "h1": "Geschenke für Gartenfreunde",
+      "title": "Geschenke für Gartenfreunde: Ideen für Garten und Balkon",
+      "description": "Geschenke für Gartenfreunde und Hobbygärtner: Werkzeug, Pflanzgefäße, Gartendeko und Helfer für den Balkon, sortiert nach Passgenauigkeit.",
+      "intro": "Gartenfreunde freuen sich über alles, was Pflanzen beim Wachsen hilft oder den Garten zu einem schöneren Platz zum Sitzen macht. Zu diesen Ideen gehören Werkzeug, Pflanzgefäße, Deko und Helfer für alle, die einen Balkon statt eines Rasens haben."
+    },
+    "pet_lover": {
+      "slug": "fuer-tierliebhaber",
+      "h1": "Geschenke für Tierliebhaber",
+      "title": "Geschenke für Tierliebhaber: Ideen für Mensch und Tier",
+      "description": "Geschenke für Tierliebhaber und ihre Hunde und Katzen: Spielzeug, Körbchen, Zubehör und Ideen für Frauchen und Herrchen, sortiert nach Passgenauigkeit.",
+      "intro": "Der kürzeste Weg ins Herz von Tierhaltern führt über ihren Hund oder ihre Katze. Zu diesen Ideen gehören Spielzeug, Körbchen und Zubehör für das Tier, aber auch Geschenke für den Menschen am anderen Ende der Leine."
+    },
+    "wellness": {
+      "slug": "wellness",
+      "h1": "Wellness-Geschenke",
+      "title": "Wellness-Geschenke: Ideen zum Entspannen zu Hause",
+      "description": "Wellness-Geschenke für einen entspannten Abend zu Hause: Bade- und Körperpflege, Düfte und Gemütliches für alle, die eine Pause verdient haben.",
+      "intro": "Ein Wellness-Geschenk ist die Erlaubnis, eine Weile einfach nichts zu tun. Bade- und Körperpflege, Düfte und Gemütliches machen aus einem gewöhnlichen Abend eine kleine Auszeit für jemanden, der sie gut gebrauchen kann."
+    },
+    "maker": {
+      "slug": "fuer-heimwerker",
+      "h1": "Geschenke für Heimwerker",
+      "title": "Geschenke für Heimwerker: Werkzeug und Ideen für Bastler",
+      "description": "Geschenke für Heimwerker und Bastler: Werkzeug, Helfer für die Werkstatt und Bausätze für alle, die lieber selbst bauen und reparieren.",
+      "intro": "Wer gern baut und repariert, hat immer schon das nächste Projekt im Kopf. Werkzeug, Helfer für die Werkstatt und Bausätze sind willkommen, vor allem die Dinge, die man sich selbst nicht gönnen würde."
+    }
+  }
+}

@@ -10,7 +10,7 @@ window.GF = {
     const u = new URLSearchParams({ country: p.country, sort: p.sort, limit: p.limit, offset: p.offset });
     if (p.q) u.set("q", p.q);
     if (p.gender) u.set("gender", p.gender);
-    ["age", "occasion", "personality"].forEach((f) => (p[f] || []).forEach((v) => u.append(f, v)));
+    ["age", "occasion", "personality", "category"].forEach((f) => (p[f] || []).forEach((v) => u.append(f, v)));
     if (p.price_min != null) u.set("price_min", p.price_min);
     if (p.price_max != null) u.set("price_max", p.price_max);
     return (await fetch(`/api/search?${u}`)).json();

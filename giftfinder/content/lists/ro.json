@@ -1,0 +1,339 @@
+{
+  "root": "cadouri",
+  "under_slug": "sub-{n}",
+  "under_h1": "{h1} sub {price}",
+  "under_description": "{h1} sub {price}: idei din magazine din {country} ({n} în total), ordonate după cât de bine se potrivesc cu persoana și cu ocazia.",
+  "home": {
+    "title": "Idei de cadouri din magazine din {country} | giftdetect.com",
+    "description": "Spune-i lui giftdetect.com pentru cine este cadoul, cu ce ocazie, ce personalitate are și ce buget ai și primești idei de cadouri potrivite din magazine din {country}.",
+    "h1": "Găsește cadoul potrivit în câteva secunde",
+    "sub": "Alege pentru cine este, ocazia și personalitatea. giftdetect.com citește produsele din magazine din {country} și le ordonează după cât de bine se potrivesc."
+  },
+  "ui": {
+    "popular": "Idei de cadouri populare",
+    "who": "După destinatar",
+    "occasion": "După ocazie",
+    "combo": "Ocazie și destinatar",
+    "interest": "După pasiuni",
+    "budget": "După buget",
+    "picks": "Recomandările noastre",
+    "stats": "Idei de cadouri pe această pagină: {n}. Magazine din {country}: {shops}. Prețurile pornesc de la {min} și ajung la {max}, iar jumătate dintre idei costă mai puțin de {median}.",
+    "under_intro": "Fiecare idee de pe această pagină costă cel mult {price}.",
+    "guide": "Citește ghidul: {title}",
+    "more": "Mai multe idei de cadouri",
+    "home": "Căutare de cadouri",
+    "countries": "giftdetect.com în alte țări",
+    "blog": "Ghiduri de cadouri pe blog",
+    "view": "Vezi"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "pentru-ea",
+      "h1": "Cadouri pentru ea",
+      "title": "Cadouri pentru ea: idei pe care chiar le va folosi",
+      "description": "Idei de cadouri pentru ea, de la mici atenții la surprize mai mari: bijuterii, cosmetice, casă, hobby-uri și altele, din magazine din țara ta.",
+      "intro": "Un cadou bun pentru ea pornește de la ce îi place să facă, nu de la raftul pe care scrie „pentru femei”. Ideile de aici acoperă bijuterii, cosmetice, casă, cărți și hobby-uri; adaugă personalitatea ei în căutarea de mai sus ca să restrângi lista."
+    },
+    "for-him": {
+      "slug": "pentru-el",
+      "h1": "Cadouri pentru el",
+      "title": "Cadouri pentru el: idei dincolo de șosete și cravate",
+      "description": "Idei de cadouri pentru el, chiar și când spune că nu are nevoie de nimic: gadgeturi, scule, echipament outdoor, bunătăți și altele, ordonate după potrivire.",
+      "intro": "Bărbații care „nu au nevoie de nimic” devin mai ușor de mulțumit când te gândești cum își petrec o sâmbătă liberă. Ideile merg de la gadgeturi și scule la echipament outdoor și mâncare bună; alege pasiunile lui în căutarea de mai sus ca să rafinezi lista."
+    },
+    "for-mom": {
+      "slug": "pentru-mama",
+      "h1": "Cadouri pentru mama",
+      "title": "Cadouri pentru mama: idei cu suflet pentru orice buget",
+      "description": "Idei de cadouri pentru mama de 8 Martie, de ziua ei sau fără ocazie: relaxare, casă, grădină, bijuterii și atenții personale, ordonate după potrivire.",
+      "intro": "Mama rareori cere ceva, și tocmai de aceea un cadou bine ales o bucură atât de mult. Aici găsești idei pentru 8 Martie, pentru ziua ei și nu numai, de la o oră de relaxare la ceva pentru grădină sau pentru casa cu care se mândrește."
+    },
+    "for-dad": {
+      "slug": "pentru-tata",
+      "h1": "Cadouri pentru tata",
+      "title": "Cadouri pentru tata: idei care nu ajung uitate în sertar",
+      "description": "Idei de cadouri pentru tata de ziua lui, de Ziua Tatălui sau de Crăciun: grătar, scule, outdoor, gadgeturi și cafea, din magazine din țara ta.",
+      "intro": "Cele mai bune cadouri pentru tata susțin ceva ce îi place deja să facă, fie că e vorba de grătar, de meșterit prin casă sau de orele petrecute în grădină. Ideile de aici se potrivesc de ziua lui, de Ziua Tatălui sau de Crăciun."
+    },
+    "for-girlfriend": {
+      "slug": "pentru-iubita",
+      "h1": "Cadouri pentru iubită",
+      "title": "Cadouri pentru iubită: idei romantice și personale",
+      "description": "Idei de cadouri pentru iubită sau soție de Valentine's Day, de aniversare sau ca surpriză: romantice, personale și utile, ordonate după potrivire.",
+      "intro": "Un cadou pentru iubită ar trebui să arate că ai ascultat-o, așa că pornește de la ceva ce a pomenit și nu și-a cumpărat niciodată. Ideile romantice de aici merg de Valentine's Day, de Dragobete, de aniversare sau într-o marți obișnuită care merită mai mult."
+    },
+    "for-boyfriend": {
+      "slug": "pentru-iubit",
+      "h1": "Cadouri pentru iubit",
+      "title": "Cadouri pentru iubit: idei care îl vor bucura",
+      "description": "Idei de cadouri pentru iubit sau soț de Valentine's Day, de aniversare sau ca surpriză: personale, practice și amuzante, ordonate după potrivire.",
+      "intro": "Cadourile pe care un iubit le ține minte sunt cele care se potrivesc cu pasiunile lui, nu cele care arată romantic în vitrină. Aici găsești idei pentru Valentine's Day, pentru aniversare sau pentru o surpriză, de la amintiri personale la lucruri pe care le va folosi zilnic."
+    },
+    "for-kids": {
+      "slug": "pentru-copii",
+      "h1": "Cadouri pentru copii",
+      "title": "Cadouri pentru copii: jucării care nu plictisesc repede",
+      "description": "Idei de cadouri pentru copii: jucării, jocuri, seturi creative, cărți și distracție în aer liber, care îi țin ocupați mai mult decât ambalajul.",
+      "intro": "Copiii sunt critici sinceri: cu un cadou fie se joacă, fie nu. Ideile de aici se bazează pe jucării, jocuri, seturi creative și distracție în aer liber, lucruri care rămân interesante și după prima după-amiază."
+    },
+    "for-teens": {
+      "slug": "pentru-adolescenti",
+      "h1": "Cadouri pentru adolescenți",
+      "title": "Cadouri pentru adolescenți: idei pe care chiar le vor",
+      "description": "Idei de cadouri pentru adolescenți: gaming, muzică, gadgeturi, modă, decor pentru cameră și hobby-uri creative, din magazine din țara ta.",
+      "intro": "Adolescenții știu exact ce le place și se răzgândesc la fel de repede, așa că un cadou legat de o pasiune de moment este alegerea cea mai sigură. Caută printre idei despre gaming, muzică, gadgeturi, modă și camera lor."
+    },
+    "for-grandparents": {
+      "slug": "pentru-bunici",
+      "h1": "Cadouri pentru bunici",
+      "title": "Cadouri pentru bunici: confort, amintiri și pasiuni",
+      "description": "Idei de cadouri pentru bunici și rude mai în vârstă: confort pentru casă, grădină și hobby-uri, amintiri și ajutoare practice, ordonate după potrivire.",
+      "intro": "Bunicii au de obicei tot ce le trebuie, așa că funcționează cadourile care aduc confort, susțin o pasiune sau trezesc o amintire. Ideile merg de la lucruri călduroase pentru casă la ajutoare pentru grădină și amintiri de păstrat."
+    },
+    "birthday": {
+      "slug": "zi-de-nastere",
+      "h1": "Cadouri de ziua de naștere",
+      "title": "Cadouri de ziua de naștere: idei pentru orice vârstă",
+      "description": "Idei de cadouri de ziua de naștere pentru prieteni, familie și colegi, de la mici surprize la cadouri mari, din magazine din țara ta.",
+      "intro": "Un cadou de ziua de naștere are un singur rol: să arate că te-ai gândit chiar la omul acela. Pornește de la ideile de aici, apoi alege vârsta și personalitatea în căutarea de mai sus ca să le faci personale."
+    },
+    "christmas": {
+      "slug": "de-craciun",
+      "h1": "Cadouri de Crăciun",
+      "title": "Cadouri de Crăciun: idei pentru toată familia",
+      "description": "Idei de cadouri de Crăciun pentru partener, părinți, copii și colegi, pentru orice buget, din magazine din țara ta, ordonate după potrivire.",
+      "intro": "Cumpărăturile de Crăciun sunt mai simple când iei lista om cu om. Ideile de aici acoperă toată familia; adaugă pentru cine este cadoul și bugetul tău în căutarea de mai sus, iar lista se reordonează singură."
+    },
+    "valentines": {
+      "slug": "de-valentines-day",
+      "h1": "Cadouri de Valentine's Day",
+      "title": "Cadouri de Valentine's Day: idei romantice pentru doi",
+      "description": "Idei de cadouri de Valentine's Day și de Dragobete, pentru ea și pentru el, pentru cupluri noi și relații lungi, de la gesturi mici la surprize mari.",
+      "intro": "De Valentine's Day nu ai nevoie de un gest grandios, ci de unul personal. Aici sunt idei romantice pentru cupluri la început de drum și pentru relații lungi, bune și de Dragobete, de la mici atenții la cadouri de care vă bucurați împreună."
+    },
+    "anniversary": {
+      "slug": "aniversare-de-cuplu",
+      "h1": "Cadouri de aniversare pentru cupluri",
+      "title": "Cadouri de aniversare pentru cupluri și momente speciale",
+      "description": "Cadouri de aniversare pentru cupluri: idei pentru partenerul tău sau pentru prieteni, de la amintiri de păstrat la lucruri de savurat în doi.",
+      "intro": "Un cadou de aniversare sărbătorește timpul petrecut împreună, așa că amintirile și lucrurile de care vă bucurați în doi se potrivesc mai bine decât ceva strict practic. Ideile merg pentru partenerul tău și pentru cuplurile care aniversează anii de căsnicie."
+    },
+    "wedding": {
+      "slug": "de-nunta",
+      "h1": "Cadouri de nuntă",
+      "title": "Cadouri de nuntă: idei pe care mirii le vor păstra",
+      "description": "Idei de cadouri de nuntă pe lângă plic: lucruri pentru casa mirilor, amintiri și cadouri pentru doi, din magazine din țara ta, ordonate după potrivire.",
+      "intro": "Dacă vrei să le oferi mirilor și altceva pe lângă plic, alege ceva pentru viața pe care o construiesc împreună. Ideile de aici se concentrează pe casa lor, pe amintiri care durează și pe cadouri gândite pentru doi."
+    },
+    "housewarming": {
+      "slug": "de-casa-noua",
+      "h1": "Cadouri de casă nouă",
+      "title": "Cadouri de casă nouă: idei pentru o locuință nouă",
+      "description": "Idei de cadouri de casă nouă pentru primul apartament sau o casă nouă: ajutoare de bucătărie, decor, plante și lucruri practice care lipsesc mereu.",
+      "intro": "Dintr-o casă nouă lipsește mereu ceva, iar un cadou bun de casă nouă umple unul dintre aceste goluri. Gândește-te la ajutoare de bucătărie, decor, plante și la lucrurile practice pe care nimeni nu își amintește să le cumpere înainte de mutare."
+    },
+    "graduation": {
+      "slug": "de-absolvire",
+      "h1": "Cadouri de absolvire",
+      "title": "Cadouri de absolvire: idei pentru un nou început",
+      "description": "Idei de cadouri de absolvire pentru liceu sau facultate: lucruri pentru primul job, prima locuință, călătorii și amintiri de păstrat.",
+      "intro": "Cadourile de absolvire sunt cele mai bune când privesc înainte, spre primul job, prima locuință sau o călătorie plănuită de mult. Ideile de aici îmbină lucruri utile pentru început cu amintiri care marchează reușita."
+    },
+    "retirement": {
+      "slug": "de-pensionare",
+      "h1": "Cadouri de pensionare",
+      "title": "Cadouri de pensionare: idei pentru mult timp liber",
+      "description": "Idei de cadouri de pensionare pentru colegi și familie: hobby-uri, călătorii, grădină și relaxare, inclusiv idei bune pentru un cadou comun.",
+      "intro": "Pensionarea înseamnă, în sfârșit, timp pentru tot ce a trebuit să aștepte. Cadourile bune hrănesc aceste planuri, fie că țin de grădină, de călătorii sau de un hobby; multe dintre idei merg și drept cadou comun din partea colegilor."
+    },
+    "new-baby": {
+      "slug": "pentru-nou-nascuti",
+      "h1": "Cadouri pentru nou-născuți",
+      "title": "Cadouri pentru nou-născuți: idei pentru bebe și părinți",
+      "description": "Idei de cadouri pentru nou-născuți și proaspeții părinți: ajutoare practice, jucării de pluș și amintiri pentru naștere, botez sau prima vizită.",
+      "intro": "Proaspeții părinți au nevoie mai degrabă de ajutor practic și de puțin confort decât de al zecelea body. Ideile de aici, pentru naștere, botez sau prima vizită, îmbină lucruri utile în primele luni cu jucării de pluș și amintiri."
+    },
+    "thank-you": {
+      "slug": "de-multumire",
+      "h1": "Cadouri de mulțumire",
+      "title": "Cadouri de mulțumire: idei mici care spun multe",
+      "description": "Idei de cadouri de mulțumire pentru profesori, vecini, colegi și gazde: atenții mici și bine gândite, din magazine din țara ta.",
+      "intro": "Un cadou de mulțumire trebuie să fie ușor de primit: destul de mic încât să nu stânjenească pe nimeni, destul de atent ales încât să fie remarcat. Aici sunt idei pentru profesori, vecini, colegi și gazde."
+    },
+    "get-well": {
+      "slug": "de-insanatosire",
+      "h1": "Cadouri de însănătoșire",
+      "title": "Cadouri de însănătoșire: idei care aduc alinare",
+      "description": "Idei de cadouri de însănătoșire pentru cineva bolnav sau în recuperare: confort, ceva care să îi distragă atenția și mici răsfățuri.",
+      "intro": "Când cineva este bolnav sau în recuperare, confortul și puțină distragere valorează mai mult decât orice lucru sofisticat. Ideile de însănătoșire grabnică de aici includ lucruri călduroase, ceva de citit sau de făcut și mici răsfățuri."
+    },
+    "birthday-for-her": {
+      "slug": "zi-de-nastere-pentru-ea",
+      "h1": "Cadouri de ziua ei",
+      "title": "Cadouri de ziua ei: idei după gust și buget",
+      "description": "Idei de cadouri de ziua ei: pentru iubită, soție, mamă, soră sau cea mai bună prietenă, pentru orice gust și buget, ordonate după potrivire.",
+      "intro": "Fie că este pentru partenera ta, pentru sora ta sau pentru cea mai bună prietenă, cadoul de ziua ei ar trebui să se potrivească gustului ei, nu unui clișeu. Uită-te prin ideile de aici și adaugă pasiunile ei în căutarea de mai sus."
+    },
+    "birthday-for-him": {
+      "slug": "zi-de-nastere-pentru-el",
+      "h1": "Cadouri de ziua lui",
+      "title": "Cadouri de ziua lui: idei după hobby și buget",
+      "description": "Idei de cadouri de ziua lui: pentru iubit, soț, tată, frate sau prieten, pentru orice hobby și buget, ordonate după cât de bine se potrivesc.",
+      "intro": "De ziua lui, lasă deoparte cadourile generice și mergi pe hobby-ul lui: lucrul despre care vorbește chiar și când nu îl întreabă nimeni. Ideile se potrivesc pentru parteneri, tați, frați și prieteni, iar căutarea de mai sus le restrânge după pasiuni."
+    },
+    "birthday-for-kids": {
+      "slug": "zi-de-nastere-pentru-copii",
+      "h1": "Cadouri de ziua de naștere pentru copii",
+      "title": "Cadouri de ziua de naștere pentru copii: idei de joacă",
+      "description": "Idei de cadouri de ziua de naștere pentru copii: jucării, jocuri, seturi creative și joacă afară, pentru copilul tău sau pentru următoarea petrecere.",
+      "intro": "Încă o invitație la o petrecere de copii prinsă pe frigider? Ideile acestea de cadouri pentru copii, de la jucării și jocuri la seturi creative, merg atât pentru copilul tău, cât și pentru colegul de clasă pe care abia îl cunoști."
+    },
+    "birthday-for-teens": {
+      "slug": "zi-de-nastere-pentru-adolescenti",
+      "h1": "Cadouri de ziua de naștere pentru adolescenți",
+      "title": "Cadouri de ziua de naștere pentru adolescenți: idei bune",
+      "description": "Idei de cadouri de ziua de naștere pentru adolescenți: gaming, muzică, gadgeturi, modă și decor pentru cameră, din magazine din țara ta.",
+      "intro": "Ziua de naștere a unui adolescent este ocazia să arăți că știi ce îl pasionează chiar acum. Ideile acoperă gaming, muzică, gadgeturi și modă, pentru majorat sau pentru oricare dintre anii de dinainte."
+    },
+    "christmas-for-her": {
+      "slug": "de-craciun-pentru-ea",
+      "h1": "Cadouri de Crăciun pentru ea",
+      "title": "Cadouri de Crăciun pentru ea: idei care o vor bucura",
+      "description": "Idei de cadouri de Crăciun pentru ea: pentru soție, iubită, mamă sau soră, de la lucruri călduroase la mici luxuri, ordonate după potrivire.",
+      "intro": "Cauți ceva pentru ea de pus sub brad? Ideile acestea de Crăciun pentru soții, iubite, mame și surori merg de la lucruri călduroase pentru iarnă la mici luxuri pe care nu și le-ar cumpăra singură."
+    },
+    "christmas-for-him": {
+      "slug": "de-craciun-pentru-el",
+      "h1": "Cadouri de Crăciun pentru el",
+      "title": "Cadouri de Crăciun pentru el: idei pe care le va folosi",
+      "description": "Idei de cadouri de Crăciun pentru el: pentru soț, iubit, tată sau frate, de la lucruri practice la mici răsfățuri, ordonate după potrivire.",
+      "intro": "Cadourile de Crăciun pentru el nu trebuie să fie iar șosete. Ideile acestea pentru soți, iubiți, tați și frați merg de la lucruri practice la mici răsfățuri, iar cele mai multe încap sub brad."
+    },
+    "christmas-for-kids": {
+      "slug": "de-craciun-pentru-copii",
+      "h1": "Cadouri de Crăciun pentru copii",
+      "title": "Cadouri de Crăciun pentru copii: jucării de pus sub brad",
+      "description": "Idei de cadouri de Crăciun pentru copii: jucării, jocuri, seturi creative și cărți cu care se joacă încă mult timp după sărbători.",
+      "intro": "Pentru copii, dimineața de Crăciun este momentul cel mai așteptat al anului. Jucăriile, jocurile și seturile creative de aici sunt alese ca să îi țină ocupați mult după sărbători, orice ar fi scris în scrisoarea către Moș Crăciun."
+    },
+    "christmas-for-teens": {
+      "slug": "de-craciun-pentru-adolescenti",
+      "h1": "Cadouri de Crăciun pentru adolescenți",
+      "title": "Cadouri de Crăciun pentru adolescenți: idei pe gustul lor",
+      "description": "Idei de cadouri de Crăciun pentru adolescenți: gaming, muzică, gadgeturi, modă și decor pentru cameră, din magazine din țara ta.",
+      "intro": "Adolescenții sunt numele cele mai dificile de pe lista de Crăciun. Ideile de aici merg pe ce funcționează de obicei: gaming, muzică, gadgeturi, modă și lucruri pentru camera lor, toate ușor de pus sub brad."
+    },
+    "tech": {
+      "slug": "pentru-pasionatii-de-tehnologie",
+      "h1": "Cadouri pentru pasionații de tehnologie",
+      "title": "Cadouri pentru pasionații de tehnologie: gadgeturi utile",
+      "description": "Idei de cadouri pentru pasionații de tehnologie: gadgeturi, audio, smart home și accesorii pentru cei cărora le place să încerce tot ce e nou.",
+      "intro": "Pasionații de tehnologie își cumpără de obicei singuri lucrurile mari, așa că cele mai bune cadouri sunt completările isteț alese: gadgeturi, echipamente audio, ajutoare smart home și accesorii care îmbunătățesc ce au deja."
+    },
+    "gamer": {
+      "slug": "pentru-gameri",
+      "h1": "Cadouri pentru gameri",
+      "title": "Cadouri pentru gameri: accesorii, confort și jocuri",
+      "description": "Idei de cadouri pentru gameri: accesorii, lucruri pentru setup, jocuri de societate și articole pentru fani, fără riscul unui joc pe care îl au deja.",
+      "intro": "Să cumperi un joc pentru un gamer este riscant, pentru că probabil îl are deja. Accesoriile, confortul pentru sesiuni lungi, jocurile de societate și lucrurile pentru setup sunt alegeri mai sigure, iar ideile de aici îți arată de unde să începi."
+    },
+    "foodie": {
+      "slug": "pentru-gurmanzi",
+      "h1": "Cadouri pentru gurmanzi",
+      "title": "Cadouri pentru gurmanzi: idei pentru cei care gătesc",
+      "description": "Idei de cadouri pentru gurmanzi și bucătari amatori: ustensile de bucătărie, delicatese, seturi de degustare și lucruri pentru masă.",
+      "intro": "Este o plăcere să cumperi pentru oamenii care iubesc mâncarea, pentru că mereu există ceva nou de gustat sau de încercat. Ideile de aici includ ustensile de bucătărie, delicatese, seturi de degustare și lucruri pentru o masă frumos aranjată."
+    },
+    "coffee_tea": {
+      "slug": "pentru-iubitorii-de-cafea-si-ceai",
+      "h1": "Cadouri pentru iubitorii de cafea și ceai",
+      "title": "Cadouri pentru iubitorii de cafea și ceai: idei cu aromă",
+      "description": "Idei de cadouri pentru iubitorii de cafea și ceai: ustensile de preparare, căni, seturi de degustare și accesorii, pentru începători și cunoscători.",
+      "intro": "Pentru iubitorii de cafea și ceai, ceașca zilnică este un mic ritual, iar un cadou bun face ritualul și mai plăcut. Aici găsești ustensile de preparare, căni, seturi de degustare și accesorii pentru începători și cunoscători."
+    },
+    "outdoor": {
+      "slug": "pentru-iubitorii-de-drumetii",
+      "h1": "Cadouri pentru iubitorii de drumeții",
+      "title": "Cadouri pentru iubitorii de drumeții și camping",
+      "description": "Idei de cadouri pentru iubitorii de drumeții: echipament pentru munte, camping și zile petrecute afară, de la mici ajutoare la echipament mai mare.",
+      "intro": "Oamenii care iubesc natura apreciază echipamentul ușor, rezistent și util și simt imediat diferența. Ideile de aici, pentru drumeții, camping și pentru toți cei care ar prefera să fie afară, merg de la mici ajutoare la echipament mai mare."
+    },
+    "fitness": {
+      "slug": "pentru-pasionatii-de-fitness",
+      "h1": "Cadouri pentru pasionații de fitness",
+      "title": "Cadouri pentru pasionații de fitness: sport și recuperare",
+      "description": "Idei de cadouri pentru pasionații de fitness: echipament pentru antrenamente acasă, accesorii pentru sală și lucruri pentru recuperare.",
+      "intro": "Cine se antrenează regulat se bucură de orice face următorul antrenament mai ușor sau recuperarea mai plăcută. Uită-te prin echipamente pentru acasă, accesorii pentru sală și lucruri pentru ziua de după."
+    },
+    "bookworm": {
+      "slug": "pentru-iubitorii-de-carti",
+      "h1": "Cadouri pentru iubitorii de cărți",
+      "title": "Cadouri pentru iubitorii de cărți: mai mult decât o carte",
+      "description": "Idei de cadouri pentru iubitorii de cărți: accesorii de lectură, lucruri confortabile pentru colțul de citit și cărți, din magazine din țara ta.",
+      "intro": "Nu trebuie să ghicești ce carte nu a citit încă un cititor pasionat. Lămpile de lectură, suporturile de cărți, lucrurile confortabile pentru colțul de citit și micile atenții literare sunt și ele cadouri bune, alături de cărțile propriu-zise."
+    },
+    "artist": {
+      "slug": "pentru-creativi",
+      "h1": "Cadouri pentru oameni creativi",
+      "title": "Cadouri pentru oameni creativi: artă și lucru manual",
+      "description": "Idei de cadouri pentru oameni creativi: materiale și seturi de desen, pictură și lucru manual, pentru începători și pentru cei cu un colț de atelier.",
+      "intro": "Oamenii creativi nu au niciodată prea multe materiale. Ideile acestea pentru desen, pictură și lucru manual se potrivesc atât începătorilor care încearcă ceva nou, cât și celor care au deja un colț de atelier bine aprovizionat."
+    },
+    "music": {
+      "slug": "pentru-iubitorii-de-muzica",
+      "h1": "Cadouri pentru iubitorii de muzică",
+      "title": "Cadouri pentru iubitorii de muzică: de ascultat și cântat",
+      "description": "Idei de cadouri pentru iubitorii de muzică: echipamente audio, accesorii pentru instrumente și lucruri pentru fani, din magazine din țara ta.",
+      "intro": "Fie că ascultă, cântă sau le fac pe amândouă, iubitorii de muzică apreciază cadourile care îi aduc mai aproape de sunet. Aici sunt idei despre echipamente audio, instrumente și accesorii, plus lucruri pentru fani."
+    },
+    "traveler": {
+      "slug": "pentru-calatori",
+      "h1": "Cadouri pentru călători",
+      "title": "Cadouri pentru călători: idei pentru următoarea vacanță",
+      "description": "Idei de cadouri pentru călători: bagaje, ajutoare la împachetat, confort pe drum și moduri de a păstra amintirile, din magazine din țara ta.",
+      "intro": "Călătorii vor lucruri ușoare, compacte și care fac drumul mai simplu. Ideile de aici includ bagaje și ajutoare la împachetat, confort pentru drumuri lungi și moduri de a păstra amintirile după întoarcere."
+    },
+    "homebody": {
+      "slug": "pentru-cei-care-iubesc-sa-stea-acasa",
+      "h1": "Cadouri pentru cei care iubesc să stea acasă",
+      "title": "Cadouri pentru cei care iubesc să stea acasă: idei cozy",
+      "description": "Idei de cadouri pentru cei care iubesc să stea acasă: pături, lumânări, decor și tot ce face o seară pe canapea și mai plăcută.",
+      "intro": "Pentru oamenii al căror loc preferat este propria canapea, un cadou ar trebui să facă acasă și mai primitor. Gândește-te la pături, lumânări, decor și mici bucurii pentru o seară liniștită în casă."
+    },
+    "fashion": {
+      "slug": "pentru-pasionatii-de-moda",
+      "h1": "Cadouri pentru pasionații de modă",
+      "title": "Cadouri pentru pasionații de modă: idei cu stil",
+      "description": "Idei de cadouri pentru pasionații de modă: accesorii, genți, bijuterii și piese cu stil, pentru care nu trebuie să ghicești mărimea potrivită.",
+      "intro": "Să cumperi haine pentru altcineva este complicat, așa că accesoriile sunt calea mai sigură de a bucura un pasionat de modă. Gențile, eșarfele, bijuteriile și alte piese cu stil se potrivesc fără să știi mărimea."
+    },
+    "gardener": {
+      "slug": "pentru-pasionatii-de-gradinarit",
+      "h1": "Cadouri pentru pasionații de grădinărit",
+      "title": "Cadouri pentru pasionații de grădinărit: grădină și balcon",
+      "description": "Idei de cadouri pentru pasionații de grădinărit: unelte, ghivece, decor de grădină și ajutoare pentru balcon, din magazine din țara ta.",
+      "intro": "Pasionații de grădinărit se bucură de orice ajută plantele să crească sau face grădina un loc mai plăcut de stat. Ideile de aici includ unelte, ghivece, decor și ajutoare pentru cei care au un balcon în loc de curte."
+    },
+    "pet_lover": {
+      "slug": "pentru-iubitorii-de-animale",
+      "h1": "Cadouri pentru iubitorii de animale",
+      "title": "Cadouri pentru iubitorii de animale: pentru om și animăluț",
+      "description": "Idei de cadouri pentru iubitorii de animale și pentru câinii și pisicile lor: jucării, culcușuri, accesorii și cadouri pentru stăpân.",
+      "intro": "Cel mai scurt drum spre inima unui iubitor de animale trece prin câinele sau pisica lui. Ideile de aici includ jucării, culcușuri și accesorii pentru animal, dar și cadouri pentru omul care ține lesa."
+    },
+    "wellness": {
+      "slug": "de-relaxare",
+      "h1": "Cadouri de relaxare",
+      "title": "Cadouri de relaxare: idei de răsfăț pentru acasă",
+      "description": "Idei de cadouri de relaxare pentru o seară liniștită acasă: îngrijire pentru baie și corp, parfumuri de cameră și confort pentru cine merită o pauză.",
+      "intro": "Un cadou de relaxare este permisiunea de a nu face nimic o vreme. Produsele de baie și de îngrijire a corpului, aromele și lucrurile confortabile transformă o seară obișnuită într-o mică pauză pentru cineva care are nevoie de ea."
+    },
+    "maker": {
+      "slug": "pentru-pasionatii-de-bricolaj",
+      "h1": "Cadouri pentru pasionații de bricolaj",
+      "title": "Cadouri pentru pasionații de bricolaj: scule și kituri",
+      "description": "Idei de cadouri pentru pasionații de bricolaj: scule, ajutoare pentru atelier și kituri pentru cei care preferă să construiască și să repare singuri.",
+      "intro": "Oamenii cărora le place să construiască și să repare au mereu în minte un proiect următor. Sculele, ajutoarele pentru atelier și kiturile sunt binevenite, mai ales cele pe care nu și le-ar cumpăra singuri."
+    }
+  }
+}
