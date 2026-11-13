@@ -1,0 +1,339 @@
+{
+  "root": "lahjat",
+  "under_slug": "alle-{n}",
+  "under_h1": "{h1} alle {price}",
+  "under_description": "{h1} alle {price}: {n} ideaa verkkokaupoista ({country}), järjestettynä sen mukaan, miten hyvin ne sopivat saajalle ja tilaisuuteen.",
+  "home": {
+    "title": "Lahjahaku: lahjaideoita verkkokaupoista ({country}) | giftdetect.com",
+    "description": "Kerro giftdetect.comille, kenelle lahja on, mikä on tilaisuus, millainen saaja on ja paljonko haluat käyttää, niin saat sopivia lahjaideoita verkkokaupoista ({country}).",
+    "h1": "Löydä sopiva lahja hetkessä",
+    "sub": "Valitse lahjan saaja, tilaisuus ja persoonallisuus. giftdetect.com käy läpi verkkokauppojen tuotteet ({country}) ja nostaa kärkeen parhaiten sopivat."
+  },
+  "ui": {
+    "popular": "Suositut lahjaideat",
+    "who": "Saajan mukaan",
+    "occasion": "Tilaisuuden mukaan",
+    "combo": "Tilaisuus ja saaja",
+    "interest": "Kiinnostuksen mukaan",
+    "budget": "Budjetin mukaan",
+    "picks": "Parhaat poimintamme",
+    "stats": "{n} lahjaideaa, {shops} verkkokauppaa ({country}), hinnat {min} – {max}. Puolet ideoista maksaa alle {median}.",
+    "under_intro": "Jokainen tämän sivun idea maksaa enintään {price}.",
+    "guide": "Lue opas: {title}",
+    "more": "Lisää lahjaideoita",
+    "home": "Lahjahaku",
+    "countries": "giftdetect.com muissa maissa",
+    "blog": "Lahjaoppaat blogissa",
+    "view": "Katso"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "naiselle",
+      "h1": "Lahja naiselle",
+      "title": "Lahja naiselle: ideoita, joille on oikeasti käyttöä",
+      "description": "Lahja naiselle pienestä ilahduttajasta isompaan yllätykseen: koruja, kauneutta, sisustusta ja harrastuksia verkkokaupoista, sopivuuden mukaan järjestettynä.",
+      "intro": "Hyvä lahja naiselle lähtee siitä, mitä hän tykkää tehdä, ei hyllystä, jossa lukee ”naisille”. Näissä ideoissa on koruja, kauneudenhoitoa, sisustusta, kirjoja ja harrastuksia. Lisää hänen persoonallisuutensa yllä olevaan hakuun, niin lista tarkentuu."
+    },
+    "for-him": {
+      "slug": "miehelle",
+      "h1": "Lahja miehelle",
+      "title": "Lahja miehelle: muutakin kuin sukkia ja solmioita",
+      "description": "Lahja miehelle, joka ei omien sanojensa mukaan tarvitse mitään: tekniikkaa, työkaluja, retkeilyvarusteita sekä ruokaa ja juomaa, sopivuuden mukaan.",
+      "intro": "Miehelle, joka ”ei tarvitse mitään”, on helpompi keksiä lahja, kun mietit, miten hän viettää vapaan lauantain. Ideat ulottuvat tekniikasta ja työkaluista retkeilyvarusteisiin ja hyvään ruokaan. Valitse hänen kiinnostuksen kohteensa yllä olevasta hausta, niin lista tarkentuu."
+    },
+    "for-mom": {
+      "slug": "aidille",
+      "h1": "Lahja äidille",
+      "title": "Lahja äidille: ajatuksella valittuja ideoita",
+      "description": "Lahja äidille äitienpäiväksi, syntymäpäiväksi tai muuten vain: hyvinvointia, kotia, puutarhaa, koruja ja henkilökohtaisia lahjoja, sopivuuden mukaan.",
+      "intro": "Äiti pyytää harvoin mitään, ja juuri siksi hyvin valittu lahja ilahduttaa häntä niin paljon. Tässä on ideoita äitienpäivään ja muihinkin päiviin: rauhallinen hemmotteluhetki, jotain puutarhaan tai jotain siihen kotiin, josta hän on ylpeä."
+    },
+    "for-dad": {
+      "slug": "isalle",
+      "h1": "Lahja isälle",
+      "title": "Lahja isälle: ideoita, jotka eivät jää laatikkoon",
+      "description": "Lahja isälle isänpäiväksi, syntymäpäiväksi tai jouluksi: grillausta, työkaluja, ulkoilua, tekniikkaa ja kahvia verkkokaupoista, sopivuuden mukaan.",
+      "intro": "Paras lahja isälle tukee jotain, mitä hän tekee jo mielellään, oli se sitten grillaamista, korjailua tai puuhastelua pihalla ja mökillä. Nämä ideat sopivat isänpäivään, syntymäpäivään ja jouluun, ja löydät niistä jotain sekä pieneen että isompaan budjettiin."
+    },
+    "for-girlfriend": {
+      "slug": "tyttoystavalle",
+      "h1": "Lahja tyttöystävälle",
+      "title": "Lahja tyttöystävälle: romanttisia ja omannäköisiä ideoita",
+      "description": "Lahja tyttöystävälle tai vaimolle ystävänpäiväksi, vuosipäiväksi tai yllätykseksi: romanttisia, henkilökohtaisia ja hyödyllisiä ideoita.",
+      "intro": "Lahja tyttöystävälle kertoo, että olet kuunnellut, joten aloita jostain, mistä hän on puhunut mutta mitä hän ei ole ostanut itselleen. Nämä romanttiset ideat sopivat ystävänpäivään, vuosipäivään tai aivan tavalliseen tiistaihin, joka ansaitsee jotain parempaa."
+    },
+    "for-boyfriend": {
+      "slug": "poikaystavalle",
+      "h1": "Lahja poikaystävälle",
+      "title": "Lahja poikaystävälle: ideoita, joista hän ilahtuu",
+      "description": "Lahja poikaystävälle tai aviomiehelle ystävänpäiväksi, vuosipäiväksi tai yllätykseksi: henkilökohtaisia, käytännöllisiä ja hauskoja ideoita.",
+      "intro": "Poikaystävä muistaa parhaiten lahjan, joka sopii hänen harrastuksiinsa, ei sitä, joka näytti romanttiselta näyteikkunassa. Tässä on ideoita ystävänpäivään, vuosipäivään tai yllätykseksi, henkilökohtaisista muistoista tavaroihin, joita hän käyttää joka päivä. Lisää hänen kiinnostuksen kohteensa yllä olevaan hakuun."
+    },
+    "for-kids": {
+      "slug": "lapselle",
+      "h1": "Lahja lapselle",
+      "title": "Lahja lapselle: leluja ja ideoita, jotka kestävät leikkiä",
+      "description": "Lahja lapselle: leluja, pelejä, askartelusettejä, kirjoja ja ulkoleikkejä, joiden parissa viihdytään pidempään kuin lahjapaperin kanssa.",
+      "intro": "Lapset ovat rehellisiä kriitikoita: lahjalla joko leikitään tai sitten ei. Näissä ideoissa painottuvat lelut, pelit, askartelusetit ja ulkoleikit, jotka jaksavat kiinnostaa vielä ensimmäisen iltapäivän jälkeenkin. Lisää lapsen ikä yllä olevaan hakuun, niin ehdotukset tarkentuvat."
+    },
+    "for-teens": {
+      "slug": "teinille",
+      "h1": "Lahja teinille",
+      "title": "Lahja teinille: ideoita, joita nuori oikeasti toivoo",
+      "description": "Lahja teinille: pelaamista, musiikkia, tekniikkaa, muotia, oman huoneen sisustusta ja luovia harrastuksia verkkokaupoista, sopivuuden mukaan.",
+      "intro": "Teini tietää tarkalleen, mistä pitää, ja muuttaa mieltään yhtä nopeasti. Varmin valinta on siksi lahja, joka liittyy tämänhetkiseen harrastukseen. Selaa ideoita pelaamisen, musiikin, tekniikan, muodin ja oman huoneen ympäriltä ja tarkenna niitä yllä olevalla haulla."
+    },
+    "for-grandparents": {
+      "slug": "isovanhemmille",
+      "h1": "Lahja isovanhemmille",
+      "title": "Lahja isovanhemmille: mukavuutta, muistoja ja harrastuksia",
+      "description": "Lahja isovanhemmille ja muille iäkkäille läheisille: mukavuutta kotiin, puutarha- ja harrastuslahjoja, muistoja ja arkea helpottavia apuvälineitä.",
+      "intro": "Mummolla ja vaarilla on yleensä jo kaikki tarpeellinen. Siksi toimivin lahja isovanhemmille lisää mukavuutta, tukee harrastusta tai tuo mieleen hyvän muiston. Ideoita löytyy kodin lämpimistä pikkuasioista puutarhan apuvälineisiin ja muistoesineisiin."
+    },
+    "birthday": {
+      "slug": "syntymapaivalahjat",
+      "h1": "Syntymäpäivälahjat",
+      "title": "Syntymäpäivälahjat: ideoita joka ikään ja budjettiin",
+      "description": "Syntymäpäivälahjat ystäville, perheelle ja työkavereille pienistä yllätyksistä isoihin lahjoihin, verkkokaupoista ja sopivuuden mukaan järjestettynä.",
+      "intro": "Syntymäpäivälahjan tarvitsee tehdä vain yksi asia: näyttää, että ajattelit juuri tätä ihmistä. Aloita näistä ideoista ja valitse sitten yllä olevasta hausta ikä ja persoonallisuus, niin ehdotuksista tulee henkilökohtaisempia ja lista järjestyy uudelleen."
+    },
+    "christmas": {
+      "slug": "joululahjat",
+      "h1": "Joululahjat",
+      "title": "Joululahjat: ideoita koko perheelle",
+      "description": "Joululahjat puolisolle, vanhemmille, lapsille ja työkavereille joka budjettiin, verkkokaupoista ja järjestettynä sen mukaan, miten hyvin ne sopivat.",
+      "intro": "Joululahjojen hankkiminen helpottuu, kun käyt listan läpi yksi ihminen kerrallaan. Näistä ideoista löytyy jotain koko perheelle. Lisää yllä olevaan hakuun, kenelle lahja on ja paljonko haluat käyttää, niin lista järjestyy uudelleen."
+    },
+    "valentines": {
+      "slug": "ystavanpaivalahjat",
+      "h1": "Ystävänpäivälahjat",
+      "title": "Ystävänpäivälahjat: ideoita rakkaalle ja ystävälle",
+      "description": "Ystävänpäivälahjat hänelle, jota rakastat, ja hyvälle ystävälle: pieniä eleitä ja isompia yllätyksiä tuoreille pareille ja pitkiin suhteisiin.",
+      "intro": "Ystävänpäivä ei kaipaa suurta elettä vaan henkilökohtaisen. Tässä on ideoita niin tuoreille pareille kuin pitkiin suhteisiin, ja moni niistä sopii yhtä hyvin tärkeälle ystävälle. Mukana on pieniä muistamisia ja lahjoja, joista voitte nauttia yhdessä."
+    },
+    "anniversary": {
+      "slug": "haapaivalahjat",
+      "h1": "Hääpäivälahjat",
+      "title": "Hääpäivälahjat: ideoita pareille ja pyöreisiin vuosiin",
+      "description": "Hääpäivälahjat omalle puolisolle tai tutulle pariskunnalle: muistoja, yhdessä koettavaa ja lahjoja suuriin merkkivuosiin, sopivuuden mukaan järjestettynä.",
+      "intro": "Hääpäivälahja juhlistaa yhdessä kuljettua aikaa, joten muistot ja yhdessä koettavat asiat sopivat siihen paremmin kuin pelkkä käyttötavara. Nämä ideat toimivat omalle puolisolle ja pariskunnalle, joka juhlii merkkivuotta tai seurustelun vuosipäivää."
+    },
+    "wedding": {
+      "slug": "haalahjat",
+      "h1": "Häälahjat",
+      "title": "Häälahjat: ideoita, jotka hääpari säilyttää",
+      "description": "Häälahjat silloin, kun lahjalistaa ei ole: tavaroita yhteiseen kotiin, muistoja ja kahdelle tarkoitettuja lahjoja verkkokaupoista, sopivuuden mukaan.",
+      "intro": "Jos hääparilla ei ole lahjalistaa, valitse jotain siihen elämään, jota he rakentavat yhdessä. Näissä ideoissa keskitytään yhteiseen kotiin, kestäviin muistoihin ja kahdelle tehtyihin lahjoihin. Yllä olevalla haulla voit rajata ehdotuksia omaan budjettiisi sopiviksi."
+    },
+    "housewarming": {
+      "slug": "tupaantuliaislahjat",
+      "h1": "Tupaantuliaislahjat",
+      "title": "Tupaantuliaislahjat: ideoita uuteen kotiin",
+      "description": "Tupaantuliaislahjat ensimmäiseen asuntoon tai uuteen taloon: keittiön apureita, sisustusta, kasveja ja käytännön tavaroita, joita uudesta kodista puuttuu.",
+      "intro": "Uudesta kodista puuttuu aina jotain, ja hyvä tuparilahja paikkaa yhden näistä aukoista. Ajattele keittiön apureita, sisustusta, kasveja ja niitä käytännön tavaroita, joita kukaan ei muista ostaa ennen muuttoa. Näistä ideoista löydät viemistä tupareihin."
+    },
+    "graduation": {
+      "slug": "valmistujaislahjat",
+      "h1": "Valmistujaislahjat",
+      "title": "Valmistujaislahjat: ideoita ylioppilaalle ja valmistuvalle",
+      "description": "Valmistujaislahjat ylioppilaalle, ammattiin valmistuvalle ja korkeakoulusta valmistuvalle: tavaroita ensimmäiseen työhön ja omaan kotiin sekä muistoja.",
+      "intro": "Valmistujaislahja toimii parhaiten, kun se katsoo eteenpäin: ensimmäiseen työpaikkaan, omaan asuntoon tai pitkään suunniteltuun matkaan. Näissä ideoissa yhdistyvät hyödylliset alkuun pääsemisen tavarat ja muistot, jotka kertovat saavutuksesta vielä vuosien päästä."
+    },
+    "retirement": {
+      "slug": "elakkeelle-jaavalle",
+      "h1": "Lahja eläkkeelle jäävälle",
+      "title": "Lahja eläkkeelle jäävälle: ideoita vapaaseen aikaan",
+      "description": "Lahja eläkkeelle jäävälle työkaverille tai läheiselle: harrastuksia, matkailua, puutarhaa ja rentoutumista sekä ideoita, jotka sopivat yhteislahjaksi.",
+      "intro": "Eläkkeellä on vihdoin aikaa kaikelle, mikä on saanut odottaa. Hyvä lahja ruokkii näitä suunnitelmia, liittyivät ne sitten puutarhaan, mökkiin, matkusteluun tai harrastukseen. Moni näistä ideoista sopii myös työporukan yhteiseksi lahjaksi."
+    },
+    "new-baby": {
+      "slug": "vauvalahjat",
+      "h1": "Vauvalahjat",
+      "title": "Vauvalahjat: ideoita vauvalle ja vanhemmille",
+      "description": "Vauvalahjat vastasyntyneelle ja tuoreille vanhemmille: käytännön apureita, pehmoleluja ja muistoja vauvakutsuille, rotinoihin tai ensimmäiselle vierailulle.",
+      "intro": "Tuoreet vanhemmat tarvitsevat käytännön apua ja pientä hemmottelua enemmän kuin kymmenettä potkupukua. Näissä ideoissa vauvakutsuille ja rotinoihin on sekä ensimmäisten kuukausien hyötytavaraa että pehmoleluja ja muistoja, jotka säilyvät pitkään. Yllä olevalla haulla voit rajata ne omaan budjettiisi."
+    },
+    "thank-you": {
+      "slug": "kiitoslahjat",
+      "h1": "Kiitoslahjat",
+      "title": "Kiitoslahjat: pieniä ideoita, jotka kertovat paljon",
+      "description": "Kiitoslahjat opettajalle, naapurille, työkaverille ja illan isännille: pieniä, ajatuksella valittuja lahjoja verkkokaupoista, sopivuuden mukaan.",
+      "intro": "Kiitoslahjan kuuluu tuntua kevyeltä: niin pieneltä, ettei se nolostuta ketään, ja niin harkitulta, että se huomataan. Tässä on ideoita opettajalle kevätjuhlan alla, naapurille, työkaverille ja ystäville, jotka kutsuivat kylään. Useimmat niistä sopivat myös pieneen budjettiin."
+    },
+    "get-well": {
+      "slug": "toipilaalle",
+      "h1": "Lahja toipilaalle",
+      "title": "Lahja toipilaalle: ideoita, jotka tuovat lohtua",
+      "description": "Lahja toipilaalle tai sairastavalle läheiselle: mukavuutta, ajanvietettä ja pieniä herkkuja verkkokaupoista, sopivuuden mukaan järjestettynä.",
+      "intro": "Kun läheinen sairastaa tai toipuu, mukavuus ja ajanviete ovat arvokkaampia kuin mikään hieno. Näissä ideoissa on lämpimiä ja pehmeitä asioita, luettavaa ja tekemistä sekä pieniä herkkuja, jotka piristävät sohvalla tai sairaalassa vietettyä päivää."
+    },
+    "birthday-for-her": {
+      "slug": "syntymapaivalahja-naiselle",
+      "h1": "Syntymäpäivälahja naiselle",
+      "title": "Syntymäpäivälahja naiselle: ideoita maun mukaan",
+      "description": "Syntymäpäivälahja naiselle: tyttöystävälle, vaimolle, äidille, siskolle tai parhaalle ystävälle, joka makuun ja budjettiin, sopivuuden mukaan.",
+      "intro": "Oli lahja sitten puolisolle, siskolle tai parhaalle ystävälle, syntymäpäivälahjan kuuluu sopia hänen makuunsa eikä kliseeseen. Selaa näitä ideoita ja lisää hänen kiinnostuksen kohteensa yllä olevaan hakuun, niin sopivimmat nousevat listan kärkeen."
+    },
+    "birthday-for-him": {
+      "slug": "syntymapaivalahja-miehelle",
+      "h1": "Syntymäpäivälahja miehelle",
+      "title": "Syntymäpäivälahja miehelle: ideoita harrastuksen mukaan",
+      "description": "Syntymäpäivälahja miehelle: poikaystävälle, aviomiehelle, isälle, veljelle tai kaverille, joka harrastukseen ja budjettiin, sopivuuden mukaan.",
+      "intro": "Unohda yleislahjat ja valitse syntymäpäivälahja miehelle hänen harrastuksensa mukaan: sen, josta hän puhuu kysymättäkin. Ideat sopivat puolisolle, isälle, veljelle ja kaverille, ja yllä oleva haku rajaa ne kiinnostuksen kohteiden mukaan."
+    },
+    "birthday-for-kids": {
+      "slug": "syntymapaivalahja-lapselle",
+      "h1": "Syntymäpäivälahja lapselle",
+      "title": "Syntymäpäivälahja lapselle: ideoita, joilla leikitään",
+      "description": "Syntymäpäivälahja lapselle: leluja, pelejä, askartelusettejä ja ulkoleikkejä omalle lapselle tai viemiseksi seuraaville kaverisynttäreille.",
+      "intro": "Taas uusi synttärikutsu jääkaapin ovessa? Nämä lahjaideat lapselle leluista ja peleistä askartelusetteihin sopivat sekä omalle lapselle että sille luokkakaverille, jota hädin tuskin tunnet. Lisää ikä yllä olevaan hakuun, niin ehdotukset tarkentuvat."
+    },
+    "birthday-for-teens": {
+      "slug": "syntymapaivalahja-teinille",
+      "h1": "Syntymäpäivälahja teinille",
+      "title": "Syntymäpäivälahja teinille: ideoita, joista nuori pitää",
+      "description": "Syntymäpäivälahja teinille: pelaamista, musiikkia, tekniikkaa, muotia ja oman huoneen sisustusta verkkokaupoista, sopivuuden mukaan järjestettynä.",
+      "intro": "Teinin syntymäpäivä on tilaisuus näyttää, että tiedät, mistä hän on juuri nyt innostunut. Näissä ideoissa on pelaamista, musiikkia, tekniikkaa ja muotia, ja ne sopivat yhtä hyvin 18-vuotispäivään kuin mihin tahansa sitä edeltävään vuoteen."
+    },
+    "christmas-for-her": {
+      "slug": "joululahja-naiselle",
+      "h1": "Joululahja naiselle",
+      "title": "Joululahja naiselle: ideoita, joista hän ilahtuu",
+      "description": "Joululahja naiselle: vaimolle, tyttöystävälle, äidille tai siskolle, lämpimistä ja pehmeistä lahjoista pieneen ylellisyyteen, sopivuuden mukaan.",
+      "intro": "Etsitkö hänelle jotain kuusen alle? Nämä jouluideat vaimolle, tyttöystävälle, äidille ja siskolle ulottuvat talven lämpimistä ja pehmeistä lahjoista pieneen ylellisyyteen, jota hän ei ostaisi itselleen. Tarkenna listaa yllä olevalla haulla."
+    },
+    "christmas-for-him": {
+      "slug": "joululahja-miehelle",
+      "h1": "Joululahja miehelle",
+      "title": "Joululahja miehelle: ideoita, joille on käyttöä",
+      "description": "Joululahja miehelle: aviomiehelle, poikaystävälle, isälle tai veljelle, käytännöllisestä hemmotteluun, järjestettynä sen mukaan, miten hyvin ne sopivat.",
+      "intro": "Joululahjan miehelle ei tarvitse olla taas villasukat. Nämä ideat aviomiehelle, poikaystävälle, isälle ja veljelle ulottuvat käytännöllisestä hemmotteluun, ja useimmat niistä mahtuvat kuusen alle. Valitse hänen kiinnostuksen kohteensa yllä olevasta hausta."
+    },
+    "christmas-for-kids": {
+      "slug": "joululahja-lapselle",
+      "h1": "Joululahja lapselle",
+      "title": "Joululahja lapselle: leluja ja pelejä pukinkonttiin",
+      "description": "Joululahja lapselle: leluja, pelejä, askartelusettejä ja kirjoja, joiden parissa leikitään ja viihdytään vielä pitkään joulunpyhien jälkeenkin.",
+      "intro": "Lapselle jouluaatto ja joulupukin vierailu on vuoden kohokohta. Nämä lelut, pelit ja askartelusetit on valittu niin, että niiden parissa viihdytään vielä pitkään pyhien jälkeen, luki toivelistassa sitten mitä tahansa. Lisää lapsen ikä yllä olevaan hakuun."
+    },
+    "christmas-for-teens": {
+      "slug": "joululahja-teinille",
+      "h1": "Joululahja teinille",
+      "title": "Joululahja teinille: ideoita, joista nuori pitää",
+      "description": "Joululahja teinille: pelaamista, musiikkia, tekniikkaa, muotia ja oman huoneen sisustusta verkkokaupoista, sopivuuden mukaan järjestettynä.",
+      "intro": "Teinit ovat joululahjalistan vaikeimmat nimet. Näissä ideoissa pysytään siinä, mikä yleensä toimii: pelaaminen, musiikki, tekniikka, muoti ja tavarat omaan huoneeseen. Yllä olevalla haulla voit rajata ehdotuksia iän ja budjetin mukaan."
+    },
+    "tech": {
+      "slug": "tekniikan-ystavalle",
+      "h1": "Lahja tekniikan ystävälle",
+      "title": "Lahja tekniikan ystävälle: laitteita ja fiksuja ideoita",
+      "description": "Lahja tekniikan ystävälle: pienlaitteita, audiota, älykotia ja lisävarusteita ihmiselle, joka kokeilee mielellään uusinta uutta, sopivuuden mukaan.",
+      "intro": "Tekniikan ystävä ostaa isot laitteet yleensä itse, joten paras lahja on jokin nokkela lisä. Näissä ideoissa on pienlaitteita, audiota, älykodin apureita ja lisävarusteita, jotka tekevät hänen nykyisistä laitteistaan vielä parempia."
+    },
+    "gamer": {
+      "slug": "pelaajalle",
+      "h1": "Lahja pelaajalle",
+      "title": "Lahja pelaajalle: varusteita, mukavuutta ja pelejä",
+      "description": "Lahja pelaajalle: lisävarusteita, tavaroita pelipisteelle, lautapelejä ja fanituotteita ilman riskiä, että ostat pelin, joka hänellä jo on.",
+      "intro": "Pelin ostaminen pelaajalle on riski, koska se luultavasti löytyy häneltä jo. Varmempia valintoja ovat lisävarusteet, mukavuus pitkiin pelisessioihin, lautapelit ja tavarat pelipisteelle. Näistä ideoista näet, mistä kannattaa lähteä liikkeelle. Yllä olevalla haulla voit rajata ne budjetin mukaan."
+    },
+    "foodie": {
+      "slug": "ruoan-ystavalle",
+      "h1": "Lahja ruoan ystävälle",
+      "title": "Lahja ruoan ystävälle: ideoita kokille ja herkuttelijalle",
+      "description": "Lahja ruoan ystävälle ja kotikokille: keittiövälineitä, herkkuja, maistelusettejä ja kattaukseen sopivia tavaroita verkkokaupoista, sopivuuden mukaan.",
+      "intro": "Ruoan ystävälle on ilo ostaa lahjaa, koska aina löytyy jotain uutta maisteltavaa tai kokeiltavaa. Näissä ideoissa on keittiövälineitä, herkkuja, maistelusettejä ja tavaroita kauniiseen kattaukseen, sekä innokkaalle kotikokille että herkuttelijalle. Tarkenna listaa yllä olevalla haulla."
+    },
+    "coffee_tea": {
+      "slug": "kahvin-ja-teen-ystavalle",
+      "h1": "Lahja kahvin ja teen ystävälle",
+      "title": "Lahja kahvin ja teen ystävälle: ideoita kupin ääreen",
+      "description": "Lahja kahvin ja teen ystävälle: valmistusvälineitä, kuppeja, maistelusettejä ja tarvikkeita niin aloittelijalle kuin harrastajalle, sopivuuden mukaan.",
+      "intro": "Kahvin ja teen ystävälle päivän kupillinen on pieni rituaali, ja hyvä lahja tekee siitä entistä paremman. Tässä on valmistusvälineitä, kuppeja, maistelusettejä ja tarvikkeita sekä aloittelijalle että pitkälle ehtineelle harrastajalle. Yllä olevalla haulla voit rajata ne budjetin mukaan."
+    },
+    "outdoor": {
+      "slug": "retkeilijalle",
+      "h1": "Lahja retkeilijälle",
+      "title": "Lahja retkeilijälle: ideoita vaellukselle ja leiriin",
+      "description": "Lahja retkeilijälle ja ulkoilijalle: varusteita vaellukselle, telttaretkelle ja luontopäiviin, pienistä käytännön apureista isompiin varusteisiin.",
+      "intro": "Retkeilijä arvostaa varusteita, jotka ovat kevyitä, kestäviä ja hyödyllisiä, ja hän huomaa eron. Nämä ideat vaeltajalle, telttailijalle ja kaikille, jotka viihtyvät mieluummin luonnossa, ulottuvat pienistä apureista isompiin varusteisiin. Tarkenna listaa yllä olevalla haulla budjetin mukaan."
+    },
+    "fitness": {
+      "slug": "kuntoilijalle",
+      "h1": "Lahja kuntoilijalle",
+      "title": "Lahja kuntoilijalle: ideoita treeniin ja palautumiseen",
+      "description": "Lahja kuntoilijalle: välineitä kotitreeniin, varusteita kuntosalille ja tuotteita palautumiseen, järjestettynä sen mukaan, miten hyvin ne sopivat.",
+      "intro": "Säännöllisesti treenaava ilahtuu kaikesta, mikä helpottaa seuraavaa treeniä tai tekee palautumisesta mukavampaa. Selaa välineitä kotitreeniin, varusteita salille ja tuotteita treenin jälkeiseen päivään, ja tarkenna ehdotuksia yllä olevalla haulla oman budjettisi mukaan."
+    },
+    "bookworm": {
+      "slug": "kirjojen-ystavalle",
+      "h1": "Lahja kirjojen ystävälle",
+      "title": "Lahja kirjojen ystävälle: muutakin kuin uusi kirja",
+      "description": "Lahja kirjojen ystävälle: lukemisen tarvikkeita, mukavuutta lukunurkkaukseen ja kirjoja verkkokaupoista, sopivuuden mukaan järjestettynä.",
+      "intro": "Sinun ei tarvitse arvata, mitä kirjaa lukutoukka ei ole vielä lukenut. Lukuvalot, kirjatuet, lukunurkan lämpimät ja pehmeät tavarat sekä kirjallisuusaiheiset pikkulahjat ovat nekin hyviä lahjoja, tietysti itse kirjojen rinnalla. Tarkenna listaa yllä olevalla haulla."
+    },
+    "artist": {
+      "slug": "luovalle-ihmiselle",
+      "h1": "Lahja luovalle ihmiselle",
+      "title": "Lahja luovalle ihmiselle: taide- ja askarteluideoita",
+      "description": "Lahja luovalle ihmiselle: tarvikkeita ja settejä piirtämiseen, maalaamiseen ja askarteluun aloittelijalle ja sille, jolla on jo oma työnurkka.",
+      "intro": "Luovalla ihmisellä ei voi olla liikaa tarvikkeita. Nämä ideat piirtämiseen, maalaamiseen ja askarteluun sopivat sekä aloittelijalle, joka kokeilee jotain uutta, että harrastajalle, jonka työnurkassa on jo hyvä valikoima välineitä. Tarkenna listaa yllä olevalla haulla."
+    },
+    "music": {
+      "slug": "musiikin-ystavalle",
+      "h1": "Lahja musiikin ystävälle",
+      "title": "Lahja musiikin ystävälle: ideoita kuunteluun ja soittoon",
+      "description": "Lahja musiikin ystävälle: audiolaitteita, tarvikkeita soittimille ja fanituotteita verkkokaupoista, järjestettynä sen mukaan, miten hyvin ne sopivat.",
+      "intro": "Kuunteli hän musiikkia, soitti itse tai teki molempia, musiikin ystävä arvostaa lahjaa, joka vie lähemmäs hyvää soundia. Tässä on ideoita audiolaitteiden, soittimien ja niiden tarvikkeiden sekä fanituotteiden ympäriltä. Yllä olevalla haulla voit rajata ne budjetin mukaan."
+    },
+    "traveler": {
+      "slug": "matkailijalle",
+      "h1": "Lahja matkailijalle",
+      "title": "Lahja matkailijalle: ideoita seuraavalle reissulle",
+      "description": "Lahja matkailijalle: matkalaukkuja, pakkaamisen apureita, mukavuutta matkalle ja tapoja tallentaa muistot, verkkokaupoista ja sopivuuden mukaan.",
+      "intro": "Matkailija haluaa tavaroita, jotka ovat kevyitä, mahtuvat pieneen tilaan ja helpottavat matkantekoa. Näissä ideoissa on laukkuja ja pakkaamisen apureita, mukavuutta pitkille matkoille ja tapoja tallentaa muistot reissun jälkeen. Yllä olevalla haulla voit rajata ne budjetin mukaan."
+    },
+    "homebody": {
+      "slug": "kotoilijalle",
+      "h1": "Lahja kotoilijalle",
+      "title": "Lahja kotoilijalle: tunnelmallisia ideoita koti-iltoihin",
+      "description": "Lahja kotoilijalle: vilttejä, kynttilöitä, sisustusta ja kaikkea, mikä tekee sohvalla vietetystä illasta vielä paremman, sopivuuden mukaan.",
+      "intro": "Ihmiselle, jonka lempipaikka on oma sohva, lahjan kuuluu tehdä kodista vielä viihtyisämpi. Ajattele vilttejä, kynttilöitä, villasukkia, sisustusta ja pieniä mukavuuksia rauhalliseen koti-iltaan. Näistä ideoista löytyy jotain jokaiselle kotoilijalle. Tarkenna listaa yllä olevalla haulla."
+    },
+    "fashion": {
+      "slug": "muodin-ystavalle",
+      "h1": "Lahja muodin ystävälle",
+      "title": "Lahja muodin ystävälle: tyylikkäitä ideoita",
+      "description": "Lahja muodin ystävälle: asusteita, laukkuja, koruja ja tyylikkäitä yksityiskohtia, joiden ostaminen ei ole kiinni oikean koon arvaamisesta.",
+      "intro": "Vaatteiden ostaminen toiselle on hankalaa, joten asusteet ovat varmempi tapa ilahduttaa muodin ystävää. Laukut, huivit, korut ja muut tyylikkäät yksityiskohdat sopivat, vaikka et tietäisi kokoa. Selaa ideoita ja tarkenna niitä yllä olevalla haulla."
+    },
+    "gardener": {
+      "slug": "puutarhaharrastajalle",
+      "h1": "Lahja puutarhaharrastajalle",
+      "title": "Lahja puutarhaharrastajalle: ideoita pihaan ja parvekkeelle",
+      "description": "Lahja puutarhaharrastajalle: työkaluja, ruukkuja, puutarhan koristeita ja apureita parvekkeelle verkkokaupoista, sopivuuden mukaan järjestettynä.",
+      "intro": "Puutarhaharrastaja ilahtuu kaikesta, mikä auttaa kasveja kasvamaan tai tekee pihasta mukavamman paikan istahtaa. Näissä ideoissa on työkaluja, ruukkuja, koristeita ja apureita myös sille, jolla on nurmikon sijaan parveke tai siirtolapuutarhan palsta."
+    },
+    "pet_lover": {
+      "slug": "lemmikin-omistajalle",
+      "h1": "Lahja lemmikin omistajalle",
+      "title": "Lahja lemmikin omistajalle: ideoita koiralle ja kissalle",
+      "description": "Lahja lemmikin omistajalle sekä hänen koiralleen tai kissalleen: leluja, petejä, tarvikkeita ja lahjoja omistajalle itselleen, sopivuuden mukaan.",
+      "intro": "Nopein tie lemmikin omistajan sydämeen kulkee hänen koiransa tai kissansa kautta. Näissä ideoissa on leluja, petejä ja tarvikkeita eläimelle sekä lahjoja sille ihmiselle, joka pitää kiinni hihnan toisesta päästä. Tarkenna listaa yllä olevalla haulla budjetin mukaan."
+    },
+    "wellness": {
+      "slug": "hyvinvointilahjat",
+      "h1": "Hyvinvointilahjat",
+      "title": "Hyvinvointilahjat: ideoita rentoutumiseen kotona",
+      "description": "Hyvinvointilahjat rentouttavaan koti-iltaan: kylpy- ja vartalotuotteita, tuoksuja ja mukavuutta ihmiselle, joka on ansainnut pienen tauon arjesta.",
+      "intro": "Hyvinvointilahja on lupa olla hetki tekemättä mitään. Kylpy- ja vartalotuotteet, saunan jälkeiset hemmotteluhetket, tuoksut ja pehmeät mukavuudet tekevät tavallisesta illasta pienen tauon ihmiselle, joka sitä tarvitsee. Yllä olevalla haulla voit rajata ideat omaan budjettiisi sopiviksi."
+    },
+    "maker": {
+      "slug": "nikkaroijalle",
+      "h1": "Lahja nikkaroijalle",
+      "title": "Lahja nikkaroijalle: työkaluja ja ideoita tee-se-itse-väelle",
+      "description": "Lahja nikkaroijalle ja remontoijalle: työkaluja, verstaan apureita ja rakennussarjoja ihmiselle, joka rakentaa ja korjaa mieluiten itse.",
+      "intro": "Ihmisellä, joka rakentaa ja korjaa mielellään itse, on aina seuraava projekti mielessä. Työkalut, verstaan apurit ja rakennussarjat ovat tervetulleita, varsinkin ne, joita hän ei raaskisi ostaa itselleen. Näistä ideoista löydät lahjan nikkaroijalle."
+    }
+  }
+}

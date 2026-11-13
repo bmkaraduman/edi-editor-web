@@ -162,6 +162,24 @@ düğmesi kategori kutucuklarını açar; seçilen kategori **kesin filtredir**
   ve vetolu ürünler (yedek parça, ofis mobilyası) katalogda yoktur. Genel "mobilya" kuralı
   (raf, "Möbel" kategorisi) kategoriyi etiketler ama ürünü tek başına kataloğa almaz.
 
+### Arama motorları için sayfalar
+
+Ürün sayfaları (`/p/<id>`) mağazaların kendi metinlerini tekrarlar; bu yüzden dizine
+alınmaz (`_headers` ile `X-Robots-Tag: noindex`, site haritasında yoklar). Bulunmasını
+istediğimiz sayfaları `scripts/list_pages.py` üretir:
+
+* `/<ülke>/` (ör. `/de/`, `/gb/`): ülkenin kendi dilinde ana sayfası; `/` ziyaretçinin
+  ülkesini algılayan sayfa olarak kalır (hreflang `x-default`).
+* `/<ülke>/<hediye>/<liste>/` (ör. `/de/geschenke/fuer-papa/`): sabit bir aramanın sonucu.
+  Giriş metni, gerçek veriden bir satır (kaç ürün, kaç mağaza, fiyat aralığı) ve ilk 36 ürün
+  HTML'in içindedir; tarayıcıda sayfa, filtreleri seçili normal hediye aramasıdır.
+* `/<ülke>/<hediye>/<liste>/<fiyat-altı>/`: aynı liste, fiyat tavanıyla.
+
+Bir liste, o ülkede aramaya iyi uyan (eşleşme ≥ %70) en az 12 ürün varsa yazılır. Listeler
+`LISTS` içinde, metinleri `content/lists/<dil>.json` dosyalarındadır (bkz. oradaki
+README). Hepsi `sitemap-pages.xml` içinde hreflang alternatifleriyle listelenir. Stil ve
+betikler artık her sayfaya gömülmez; `dist/assets/app.<hash>.css|js` olarak bir kez yazılır.
+
 ### Blog
 
 `https://giftdetect.com/blog/<dil>/` 20 hediye rehberini 12 dilde listeler (en, de, nl, fr, pl,
@@ -231,7 +249,7 @@ puanı, mağaza kotası, yaklaşan gün şeridi, `/p/{id}` ürün sayfaları `_r
 
 ```bash
 python3 scripts/ingest.py DE && python3 -m app.ml.train   # yeni feed sonrası
-python3 scripts/export_static.py dist                      # dist/: index.html, data.json, items-<CC>.json, _redirects, sitemap.xml (ülke başına sitemap-<cc>.xml dizini)
+python3 scripts/export_static.py dist                      # dist/: index.html, data.json, items-<CC>.json, _redirects, _headers, assets/, ülke ve liste sayfaları, blog, sitemap.xml (sitemap-pages.xml + sitemap-blog.xml)
 npx wrangler@4 pages deploy dist --project-name giftdetect --branch main   # giftfinder/ içinden: functions/ da yüklenir
 ```
 

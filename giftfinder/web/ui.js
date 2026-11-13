@@ -23,11 +23,18 @@ const EXAMPLES = [
   { occasion: "valentines", personality: ["homebody"] },
 ];
 const PAGE = 36;
-/* Blog pages (/blog/<lang>/...) are this page with an article under the results; window.BLOG = {lang, country}. */
+/* Blog pages (/blog/<lang>/...) are this page with an article under the results; window.BLOG = {lang, country}.
+   Landing pages reuse it: a country's home page (/de/: {fixed, home, root}) and a gift list
+   (/de/geschenke/fuer-papa/: {fixed, root, sel}) open in their own country, and a list starts with
+   its search (sel) already run; its products are also in the HTML, for search engines. */
 const BLOG = window.BLOG || null;
 const BLOG_LANGS = ["en", "de", "nl", "fr", "pl", "it", "es", "sv", "fi", "da", "pt", "ro"];
 const BLOG_WORD = { sv: "Blogg", fi: "Blogi" };
 const BASE = BLOG ? location.pathname : "/", TITLE0 = BLOG ? document.title : "giftdetect.com";   // where "back" returns to
+if (/^\/p\//.test(location.pathname)) { const m = document.createElement("meta"); m.name = "robots"; m.content = "noindex"; document.head.appendChild(m); }   // product pages stay out of the index
+let LIST_KEY = null;                                   // a list page's own filters; its heading shows only while they are set
+const selKey = () => JSON.stringify([state.sel.gender, state.sel.age, state.sel.occasion, state.sel.personality, state.sel.budget, state.sel.category]);
+function listHead() { const h = document.getElementById("list-head"); if (h) h.hidden = state.view === "product" || LIST_KEY !== selKey(); }
 const DETAIL_KEYS = ["colour", "condition", "model", "dimensions", "specifications", "delivery_cost", "promotion"];
 const track = (name, params) => { if (window.track) window.track(name, params || {}); };
 const pageView = (path, title) => track("page_view", { page_path: path, page_title: title || document.title, page_location: location.origin + path, country: state.country });
@@ -95,7 +102,8 @@ function choose(facet, id) {
 function applyI18n(opts) {
   document.documentElement.lang = state.lang;
   const nav = $("nav-blog"); if (nav) { nav.textContent = BLOG_WORD[state.lang] || "Blog"; nav.href = `/blog/${BLOG_LANGS.includes(state.lang) ? state.lang : "en"}/`; }
-  $("t-hero").textContent = t("hero"); $("t-sub").textContent = t("sub"); $("go").textContent = t("go"); $("t-sort").textContent = t("sort"); $("more").textContent = t("more");
+  if (!(BLOG && BLOG.home)) { $("t-hero").textContent = t("hero"); $("t-sub").textContent = t("sub"); }
+  $("go").textContent = t("go"); $("t-sort").textContent = t("sort"); $("more").textContent = t("more");
   $("t-disclosure").textContent = t("disclosure"); $("demo").innerHTML = t("demo"); $("back").textContent = t("back"); $("t-similar").textContent = t("similar");
   ["gender", "age", "occasion", "personality"].forEach((f) => { $("l-" + f).textContent = opts.titles[f]; }); $("l-budget").textContent = t("budget");
   $("t-adv").textContent = t("adv"); $("t-adv-title").textContent = t("advTitle"); $("t-adv-sub").textContent = t("advSub"); $("adv-clear").textContent = t("clear");
@@ -118,7 +126,7 @@ async function setCountry(cc, opts = {}) {
   renderSettings();
   const o = await GF.options(state.lang); state.labels = {}; Object.values(o.facets).flat().forEach((l) => { state.labels[l.id] = l.label; }); state.titles = o.titles; state.opts = o;
   applyI18n(o);
-  if (!BLOG) loadUpcoming();
+  if (!BLOG || BLOG.home) loadUpcoming();
   if (state.view === "product" && !opts.keepProduct) { showSearch(); }
   if (state.searched && state.view !== "product") search(true);
 }
@@ -156,15 +164,16 @@ new MutationObserver(() => fitStrip()).observe(document.getElementById("upcoming
 /* ---------------------------------------------------------------- views */
 function showSearch() {
   state.view = state.searched ? "results" : "home";
-  $("product-wrap").hidden = true; $("results-wrap").hidden = !state.searched; $("bar-wrap").hidden = false; $("hero").hidden = false; if ($("blog-wrap")) $("blog-wrap").hidden = false;
+  $("product-wrap").hidden = true; $("results-wrap").hidden = !state.searched; $("bar-wrap").hidden = false; $("hero").hidden = false; if ($("blog-wrap")) $("blog-wrap").hidden = false; listHead();
   document.body.classList.toggle("results-mode", state.searched); document.body.classList.remove("product-mode");
 }
-async function search(reset) {
+async function search(reset, quiet) {       // quiet: a list page filling in its own results (no scroll, no search event)
   state.searched = true; showSearch();
-  if (reset) { state.offset = 0; $("results").innerHTML = ""; }
+  if (reset) state.offset = 0;
   const data = await GF.search(params());
+  if (reset) $("results").innerHTML = "";
   state.total = data.total;
-  if (reset) {
+  if (reset && !quiet) {
     const sel = state.sel;
     track("search", { search_term: [sel.gender, sel.age, sel.occasion, ...sel.personality, sel.budget].filter(Boolean).join(" "), gender: sel.gender || "any", age: sel.age || "any", occasion: sel.occasion || "any", personality: sel.personality.join(",") || "any", category: (sel.category || []).join(",") || "any", budget: sel.budget || "any", country: state.country, results: data.total });
     pageView("/search", t("title"));
@@ -177,7 +186,7 @@ async function search(reset) {
   $("title").textContent = names.length ? `${t("title")} · ${names.join(" · ")}` : t("title");
   $("count").textContent = t("found", { n: data.total });
   $("more").hidden = state.offset >= data.total;
-  if (reset) $("results-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (reset && !quiet) $("results-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 function card(r) {
   const el = document.createElement("article"); el.className = "card";
@@ -201,7 +210,7 @@ async function openProduct(id, push) {
   if (push) history.pushState({ product: id }, "", `/p/${id}`);
   state.view = "product"; state.product = id;
   document.body.classList.add("product-mode"); document.body.classList.remove("results-mode");
-  $("hero").hidden = true; $("bar-wrap").hidden = true; $("results-wrap").hidden = true; $("product-wrap").hidden = false; if ($("blog-wrap")) $("blog-wrap").hidden = true;
+  $("hero").hidden = true; $("bar-wrap").hidden = true; $("results-wrap").hidden = true; $("product-wrap").hidden = false; if ($("blog-wrap")) $("blog-wrap").hidden = true; listHead();
   $("product").innerHTML = `<div class="loading">${t("loading")}</div>`; $("similar").innerHTML = ""; $("t-similar").hidden = true;
   window.scrollTo({ top: 0 });
   const d = await GF.product(id);
@@ -281,9 +290,10 @@ async function init() {
     if (!item) return;
     const cc = item.dataset.country; try { localStorage.setItem(PICKED, cc); } catch (err) {}
     track("country_pick", { country: cc, from: state.country });
-    if (BLOG && COUNTRIES[cc].lang !== BLOG.lang) {       // the same article in the new language, if there is one
-      const alt = document.querySelector(`link[rel="alternate"][hreflang="${COUNTRIES[cc].lang}"]`);
+    if (BLOG && (BLOG.fixed ? cc !== state.country : COUNTRIES[cc].lang !== BLOG.lang)) {       // the same page for the new country or language, if there is one
+      const alt = document.querySelector(`link[rel="alternate"][hreflang="${COUNTRIES[cc].lang}-${cc}"]`) || (BLOG.fixed ? null : document.querySelector(`link[rel="alternate"][hreflang="${COUNTRIES[cc].lang}"]`));
       if (alt) { location.href = new URL(alt.href).pathname; return; }
+      if (BLOG.fixed) { location.href = `/${cc.toLowerCase()}/`; return; }
     }
     if (cc !== state.country) setCountry(cc);
   };
@@ -304,8 +314,8 @@ async function init() {
   $("cats").addEventListener("click", (e) => { const b = e.target.closest(".tile"); if (!b) return; const a = state.sel.category, i = a.indexOf(b.dataset.id); if (i >= 0) a.splice(i, 1); else a.push(b.dataset.id); renderCats(); search(true); });
   $("more").onclick = () => search(false);
   $("sort").onchange = (e) => { state.sort = e.target.value; search(true); };
-  const goHome = (e) => { if (BLOG) return; e.preventDefault(); if (state.view === "product") history.pushState({}, "", "/"); state.searched = false; showSearch(); document.title = "giftdetect.com"; window.scrollTo({ top: 0 }); };
-  $("home").onclick = goHome;
+  const goHome = (e) => { if (BLOG && !BLOG.home) return; e.preventDefault(); if (state.view === "product") history.pushState({}, "", BASE); state.searched = false; showSearch(); document.title = TITLE0; window.scrollTo({ top: 0 }); };
+  $("home").href = (BLOG && BLOG.root) || "/"; $("home").onclick = goHome;
   $("back").onclick = (e) => { e.preventDefault(); if (state.view === "product") history.pushState({}, "", BASE); showSearch(); document.title = TITLE0; if (state.searched) $("results-wrap").scrollIntoView({ block: "start" }); };
   window.addEventListener("popstate", () => { const id = route(); if (id) openProduct(id, false); else { showSearch(); document.title = TITLE0; } });
   const pid = route();
@@ -315,10 +325,12 @@ async function init() {
     else await setCountry(await detect(geoP));
   } else if (BLOG) {
     // the visitor's own country when it speaks the page's language, else the language's main country
-    const cc = await detect(geoP);
+    const cc = BLOG.fixed && COUNTRIES[BLOG.country] ? BLOG.country : await detect(geoP);
     await setCountry(COUNTRIES[cc] && COUNTRIES[cc].lang === BLOG.lang ? cc : COUNTRIES[BLOG.country] ? BLOG.country : cc);
     pageView(location.pathname, document.title);
     document.querySelectorAll("a.blog-cta").forEach((a) => { a.onclick = (e) => { if (!linkSearch(new URL(a.href).search)) return; e.preventDefault(); track("blog_cta", { href: a.getAttribute("href"), page: location.pathname }); search(true); }; });
+    if (BLOG.sel && linkSearch("?" + BLOG.sel)) { LIST_KEY = selKey(); search(true, true); }
+    else if (BLOG.home && linkSearch(location.search)) search(true);
   } else {
     await setCountry(await detect(geoP)); pageView("/", "giftdetect.com");
     if (linkSearch(location.search)) search(true);

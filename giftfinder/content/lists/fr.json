@@ -1,0 +1,339 @@
+{
+  "root": "cadeaux",
+  "under_slug": "moins-de-{n}",
+  "under_h1": "{h1} à moins de {price}",
+  "under_description": "{h1} à moins de {price} : {n} idées repérées dans des boutiques en ligne ({country}), classées selon la personne et l'occasion.",
+  "home": {
+    "title": "Trouver un cadeau : idées cadeaux de boutiques en ligne ({country}) | giftdetect.com",
+    "description": "Indiquez à giftdetect.com à qui vous offrez, l'occasion, la personnalité et votre budget, et recevez des idées cadeaux adaptées, issues de boutiques en ligne ({country}).",
+    "h1": "Trouvez le bon cadeau en quelques secondes",
+    "sub": "Choisissez la personne, l'occasion et sa personnalité. giftdetect.com parcourt les produits de boutiques en ligne ({country}) et classe ceux qui conviennent."
+  },
+  "ui": {
+    "popular": "Idées cadeaux populaires",
+    "who": "Par destinataire",
+    "occasion": "Par occasion",
+    "combo": "Occasion et destinataire",
+    "interest": "Par centre d'intérêt",
+    "budget": "Par budget",
+    "picks": "Notre sélection",
+    "stats": "{n} idées cadeaux dans {shops} boutiques en ligne ({country}), de {min} à {max}. La moitié coûte moins de {median}.",
+    "under_intro": "Toutes les idées de cette page coûtent {price} ou moins.",
+    "guide": "Lire le guide : {title}",
+    "more": "Plus d'idées cadeaux",
+    "home": "Recherche de cadeaux",
+    "countries": "giftdetect.com dans d'autres pays",
+    "blog": "Guides cadeaux sur le blog",
+    "view": "Voir"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "pour-femme",
+      "h1": "Cadeaux pour femme",
+      "title": "Cadeaux pour femme : des idées qui lui serviront vraiment",
+      "description": "Idées de cadeaux pour femme, de la petite attention à la grande surprise : bijoux, beauté, maison, loisirs et plus, classées par pertinence.",
+      "intro": "Un bon cadeau pour elle part de ce qu'elle aime faire, pas du rayon étiqueté « pour femme ». Ces idées vont des bijoux à la beauté, en passant par la maison, les livres et les loisirs ; ajoutez sa personnalité dans la recherche ci-dessus pour affiner la sélection."
+    },
+    "for-him": {
+      "slug": "pour-homme",
+      "h1": "Cadeaux pour homme",
+      "title": "Cadeaux pour homme : autre chose que des chaussettes",
+      "description": "Idées de cadeaux pour homme, même pour celui qui dit n'avoir besoin de rien : high-tech, outils, plein air, gastronomie et plus encore.",
+      "intro": "Les hommes qui « n'ont besoin de rien » sont plus faciles à gâter dès que l'on pense à leur samedi idéal. Ces idées vont du high-tech aux outils, du matériel de plein air aux bonnes choses à déguster ; précisez ses centres d'intérêt dans la recherche ci-dessus pour affiner la liste."
+    },
+    "for-mom": {
+      "slug": "pour-maman",
+      "h1": "Cadeaux pour maman",
+      "title": "Cadeaux pour maman : des idées pour tous les budgets",
+      "description": "Idées de cadeaux pour maman, pour la fête des Mères, son anniversaire ou sans raison : bien-être, maison, jardin, bijoux et attentions personnalisées.",
+      "intro": "Maman ne demande presque jamais rien, et c'est justement pour cela qu'un cadeau bien choisi la touche autant. Voici des idées pour la fête des Mères et le reste de l'année, d'un moment de bien-être à un objet pour le jardin ou la maison dont elle est fière."
+    },
+    "for-dad": {
+      "slug": "pour-papa",
+      "h1": "Cadeaux pour papa",
+      "title": "Cadeaux pour papa : des idées qui ne finiront pas au placard",
+      "description": "Idées de cadeaux pour papa, pour la fête des Pères, son anniversaire ou Noël : barbecue, bricolage, plein air, high-tech et café, classées par pertinence.",
+      "intro": "Les meilleurs cadeaux pour papa accompagnent ce qu'il aime déjà faire, qu'il s'agisse de barbecue, de bricolage ou de longues heures au jardin. Ces idées conviennent pour la fête des Pères, un anniversaire ou Noël."
+    },
+    "for-girlfriend": {
+      "slug": "pour-sa-copine",
+      "h1": "Cadeaux pour sa copine",
+      "title": "Cadeaux pour sa copine : idées romantiques et personnelles",
+      "description": "Idées de cadeaux pour sa copine ou sa femme, pour la Saint-Valentin, un anniversaire de couple ou une surprise : romantiques, personnelles et utiles.",
+      "intro": "Un cadeau pour votre copine doit montrer que vous l'avez écoutée : partez d'une envie qu'elle a évoquée sans jamais se l'offrir. Ces idées romantiques conviennent pour la Saint-Valentin, un anniversaire de couple ou un mardi ordinaire qui mérite mieux."
+    },
+    "for-boyfriend": {
+      "slug": "pour-son-copain",
+      "h1": "Cadeaux pour son copain",
+      "title": "Cadeaux pour son copain : des idées qui lui plairont",
+      "description": "Idées de cadeaux pour son copain ou son mari, pour la Saint-Valentin, un anniversaire de couple ou une surprise : personnelles, pratiques et amusantes.",
+      "intro": "Les cadeaux dont un copain se souvient sont ceux qui collent à ses passions, pas ceux qui font romantique en vitrine. Voici des idées pour la Saint-Valentin, un anniversaire de couple ou une surprise, du souvenir personnalisé à l'objet qu'il utilisera tous les jours."
+    },
+    "for-kids": {
+      "slug": "pour-enfant",
+      "h1": "Cadeaux pour enfant",
+      "title": "Cadeaux pour enfant : jouets et idées qui durent",
+      "description": "Idées de cadeaux pour enfant : jouets, jeux, loisirs créatifs, livres et jeux d'extérieur qui les occupent plus longtemps que le papier cadeau.",
+      "intro": "Les enfants sont des critiques sincères : soit ils jouent avec leur cadeau, soit ils l'oublient. Ces idées misent sur les jouets, les jeux, les loisirs créatifs et les activités d'extérieur qui restent intéressants bien après le premier après-midi."
+    },
+    "for-teens": {
+      "slug": "pour-ado",
+      "h1": "Cadeaux pour ado",
+      "title": "Cadeaux pour ado : des idées qui leur font vraiment envie",
+      "description": "Idées de cadeaux pour ado : jeux vidéo, musique, high-tech, mode, déco de chambre et loisirs créatifs, classées par pertinence.",
+      "intro": "Les ados savent très bien ce qu'ils aiment et changent d'avis tout aussi vite : un cadeau lié à leur passion du moment reste le choix le plus sûr. Parcourez ces idées autour des jeux vidéo, de la musique, du high-tech, de la mode et de leur chambre."
+    },
+    "for-grandparents": {
+      "slug": "pour-grands-parents",
+      "h1": "Cadeaux pour grands-parents",
+      "title": "Cadeaux pour grands-parents : confort, souvenirs, loisirs",
+      "description": "Idées de cadeaux pour grands-parents et proches âgés : confort à la maison, jardin et loisirs, souvenirs et objets pratiques, classées par pertinence.",
+      "intro": "Les grands-parents ont en général tout ce qu'il leur faut. Les cadeaux qui leur plaisent apportent donc du confort, nourrissent un loisir ou réveillent un souvenir. Ces idées vont des objets douillets pour la maison aux accessoires de jardin et aux cadeaux souvenirs."
+    },
+    "birthday": {
+      "slug": "anniversaire",
+      "h1": "Cadeaux d'anniversaire",
+      "title": "Cadeaux d'anniversaire : idées pour tout âge et tout budget",
+      "description": "Idées de cadeaux d'anniversaire pour les amis, la famille et les collègues, de la petite surprise au grand cadeau, classées par pertinence.",
+      "intro": "Un cadeau d'anniversaire n'a qu'une mission : montrer que vous avez pensé à cette personne en particulier. Commencez par ces idées, puis choisissez un âge et une personnalité dans la recherche ci-dessus pour les rendre plus personnelles."
+    },
+    "christmas": {
+      "slug": "noel",
+      "h1": "Cadeaux de Noël",
+      "title": "Cadeaux de Noël : des idées pour toute la famille",
+      "description": "Idées de cadeaux de Noël pour votre moitié, vos parents, les enfants et les collègues, pour tous les budgets, classées par pertinence.",
+      "intro": "Les achats de Noël sont plus simples quand on avance une personne à la fois. Ces idées couvrent toute la famille ; indiquez à qui vous offrez et votre budget dans la recherche ci-dessus, et la liste se réorganise d'elle-même."
+    },
+    "valentines": {
+      "slug": "saint-valentin",
+      "h1": "Cadeaux de Saint-Valentin",
+      "title": "Cadeaux de Saint-Valentin : idées romantiques à deux",
+      "description": "Idées de cadeaux de Saint-Valentin pour elle et pour lui, pour les jeunes couples comme les plus anciens, de la petite attention à la grande surprise.",
+      "intro": "La Saint-Valentin ne réclame pas un geste spectaculaire, mais un geste personnel. Voici des idées romantiques pour les jeunes couples comme pour ceux qui durent, de la petite attention au cadeau à savourer à deux."
+    },
+    "anniversary": {
+      "slug": "anniversaire-de-mariage",
+      "h1": "Cadeaux d'anniversaire de mariage",
+      "title": "Cadeaux d'anniversaire de mariage : idées pour les couples",
+      "description": "Idées de cadeaux d'anniversaire de mariage pour votre moitié ou un couple de proches : souvenirs, moments à partager et cadeaux pour les grandes étapes.",
+      "intro": "Un cadeau d'anniversaire de mariage célèbre le temps passé ensemble : les souvenirs et les plaisirs à partager y trouvent mieux leur place qu'un objet purement pratique. Ces idées conviennent pour votre moitié comme pour un couple qui fête une étape importante."
+    },
+    "wedding": {
+      "slug": "mariage",
+      "h1": "Cadeaux de mariage",
+      "title": "Cadeaux de mariage : des idées que les mariés garderont",
+      "description": "Idées de cadeaux de mariage en dehors de la liste de mariage : objets pour le foyer commun, souvenirs et cadeaux pour deux, classées par pertinence.",
+      "intro": "Si les mariés n'ont pas déposé de liste de mariage, choisissez quelque chose pour la vie qu'ils construisent ensemble. Ces idées privilégient le foyer commun, les souvenirs durables et les cadeaux pensés pour deux."
+    },
+    "housewarming": {
+      "slug": "cremaillere",
+      "h1": "Cadeaux de crémaillère",
+      "title": "Cadeaux de crémaillère : idées pour un nouveau logement",
+      "description": "Idées de cadeaux de crémaillère pour un premier appartement ou une nouvelle maison : ustensiles de cuisine, déco, plantes et objets pratiques.",
+      "intro": "Il manque toujours quelque chose dans un nouveau logement, et un bon cadeau de crémaillère vient combler l'un de ces manques. Pensez aux ustensiles de cuisine, à la déco, aux plantes et à ces objets pratiques que personne ne pense à acheter avant d'emménager."
+    },
+    "graduation": {
+      "slug": "remise-de-diplome",
+      "h1": "Cadeaux de remise de diplôme",
+      "title": "Cadeaux de remise de diplôme : idées pour la suite",
+      "description": "Idées de cadeaux de remise de diplôme, du bac au master : de quoi préparer le premier emploi, le premier appartement, un voyage, ou garder un souvenir.",
+      "intro": "Un cadeau de remise de diplôme fait mouche quand il regarde vers la suite : le premier emploi, le premier appartement ou un voyage prévu de longue date. Ces idées associent des objets utiles pour bien démarrer et des souvenirs qui marquent la réussite."
+    },
+    "retirement": {
+      "slug": "depart-a-la-retraite",
+      "h1": "Cadeaux de départ à la retraite",
+      "title": "Cadeaux de départ à la retraite : idées pour le temps libre",
+      "description": "Idées de cadeaux de départ à la retraite pour un collègue ou un proche : loisirs, voyage, jardin et détente, dont des idées de cadeau commun.",
+      "intro": "La retraite, c'est enfin du temps pour tout ce qui a dû attendre. Les bons cadeaux nourrissent ces projets, qu'il s'agisse de jardin, de voyages ou d'un loisir ; beaucoup de ces idées se prêtent aussi à un cadeau commun offert par l'équipe."
+    },
+    "new-baby": {
+      "slug": "naissance",
+      "h1": "Cadeaux de naissance",
+      "title": "Cadeaux de naissance : idées pour bébé et ses parents",
+      "description": "Idées de cadeaux de naissance pour le nouveau-né et les jeunes parents : objets pratiques, doudous et souvenirs pour une naissance ou une baby shower.",
+      "intro": "Les jeunes parents ont davantage besoin d'aide pratique et d'un peu de réconfort que d'un dixième pyjama. Ces idées pour une naissance ou une baby shower mêlent des objets utiles pour les premiers mois, des doudous et des souvenirs."
+    },
+    "thank-you": {
+      "slug": "remerciement",
+      "h1": "Cadeaux de remerciement",
+      "title": "Cadeaux de remerciement : petites idées qui en disent long",
+      "description": "Idées de cadeaux de remerciement pour la maîtresse, les voisins, les collègues ou vos hôtes : de petites attentions bien choisies, classées par pertinence.",
+      "intro": "Un cadeau de remerciement doit rester léger : assez modeste pour ne gêner personne, assez attentionné pour être remarqué. Voici des idées pour les enseignants, les voisins, les collègues et les hôtes qui vous ont reçus."
+    },
+    "get-well": {
+      "slug": "bon-retablissement",
+      "h1": "Cadeaux de bon rétablissement",
+      "title": "Cadeaux de bon rétablissement : idées réconfortantes",
+      "description": "Idées de cadeaux de bon rétablissement pour une personne malade ou convalescente : du réconfort, de quoi s'occuper et de petites douceurs.",
+      "intro": "Quand quelqu'un est malade ou en convalescence, le réconfort et la distraction comptent plus que tout ce qui brille. Ces idées de bon rétablissement réunissent des objets douillets, de quoi lire ou s'occuper, et de petites douceurs."
+    },
+    "birthday-for-her": {
+      "slug": "anniversaire-femme",
+      "h1": "Cadeaux d'anniversaire pour femme",
+      "title": "Cadeaux d'anniversaire pour femme : selon ses goûts",
+      "description": "Idées de cadeaux d'anniversaire pour femme : pour votre copine, votre épouse, votre mère, votre sœur ou votre meilleure amie, pour tous les budgets.",
+      "intro": "Qu'il soit destiné à votre compagne, à votre sœur ou à votre meilleure amie, son cadeau d'anniversaire doit correspondre à ses goûts plutôt qu'à un cliché. Parcourez ces idées et ajoutez ses centres d'intérêt dans la recherche ci-dessus."
+    },
+    "birthday-for-him": {
+      "slug": "anniversaire-homme",
+      "h1": "Cadeaux d'anniversaire pour homme",
+      "title": "Cadeaux d'anniversaire pour homme : selon ses passions",
+      "description": "Idées de cadeaux d'anniversaire pour homme : pour votre copain, votre mari, votre père, votre frère ou un ami, selon ses passions et votre budget.",
+      "intro": "Pour son anniversaire, oubliez le cadeau passe-partout et visez sa passion, celle dont il parle sans qu'on lui demande rien. Ces idées conviennent à un compagnon, un père, un frère ou un ami, et la recherche ci-dessus les affine par centre d'intérêt."
+    },
+    "birthday-for-kids": {
+      "slug": "anniversaire-enfant",
+      "h1": "Cadeaux d'anniversaire pour enfant",
+      "title": "Cadeaux d'anniversaire pour enfant : des idées pour jouer",
+      "description": "Idées de cadeaux d'anniversaire pour enfant : jouets, jeux, loisirs créatifs et jeux d'extérieur, pour le vôtre ou pour le prochain goûter d'anniversaire.",
+      "intro": "Encore une invitation à un goûter d'anniversaire sur le frigo ? Ces idées de cadeaux pour enfant, des jouets et des jeux aux loisirs créatifs, conviennent aussi bien à votre enfant qu'au camarade de classe que vous connaissez à peine."
+    },
+    "birthday-for-teens": {
+      "slug": "anniversaire-ado",
+      "h1": "Cadeaux d'anniversaire pour ado",
+      "title": "Cadeaux d'anniversaire pour ado : des idées qui plaisent",
+      "description": "Idées de cadeaux d'anniversaire pour ado : jeux vidéo, musique, high-tech, mode et déco de chambre, classées par pertinence.",
+      "intro": "L'anniversaire d'un ado est l'occasion de montrer que vous savez ce qui le passionne en ce moment. Ces idées couvrent les jeux vidéo, la musique, le high-tech et la mode, pour ses 18 ans comme pour toutes les années qui précèdent."
+    },
+    "christmas-for-her": {
+      "slug": "noel-femme",
+      "h1": "Cadeaux de Noël pour femme",
+      "title": "Cadeaux de Noël pour femme : des idées qui lui plairont",
+      "description": "Idées de cadeaux de Noël pour femme : pour votre épouse, votre copine, votre mère ou votre sœur, du cocooning au petit luxe, classées par pertinence.",
+      "intro": "Vous cherchez quoi glisser pour elle sous le sapin ? Ces idées de Noël pour une épouse, une copine, une mère ou une sœur vont des douceurs d'hiver aux petits luxes qu'elle ne s'offrirait pas elle-même."
+    },
+    "christmas-for-him": {
+      "slug": "noel-homme",
+      "h1": "Cadeaux de Noël pour homme",
+      "title": "Cadeaux de Noël pour homme : des idées qui lui serviront",
+      "description": "Idées de cadeaux de Noël pour homme : pour votre mari, votre copain, votre père ou votre frère, du pratique au plaisir pur, classées par pertinence.",
+      "intro": "Un cadeau de Noël pour lui n'est pas forcément une énième paire de chaussettes. Ces idées pour un mari, un copain, un père ou un frère vont du pratique au plaisir pur, et la plupart trouvent leur place sous le sapin."
+    },
+    "christmas-for-kids": {
+      "slug": "noel-enfant",
+      "h1": "Cadeaux de Noël pour enfant",
+      "title": "Cadeaux de Noël pour enfant : jouets et jeux sous le sapin",
+      "description": "Idées de cadeaux de Noël pour enfant : jouets, jeux, loisirs créatifs et livres avec lesquels ils jouent encore bien après les fêtes.",
+      "intro": "Pour les enfants, le matin de Noël est le grand moment de l'année. Ces jouets, ces jeux et ces loisirs créatifs sont choisis pour les occuper bien après les fêtes, quelle que soit leur lettre au père Noël."
+    },
+    "christmas-for-teens": {
+      "slug": "noel-ado",
+      "h1": "Cadeaux de Noël pour ado",
+      "title": "Cadeaux de Noël pour ado : des idées qui leur plaisent",
+      "description": "Idées de cadeaux de Noël pour ado : jeux vidéo, musique, high-tech, mode et déco de chambre, issues de boutiques de votre pays et classées par pertinence.",
+      "intro": "Les ados sont les noms les plus difficiles de la liste de Noël. Ces idées s'en tiennent à ce qui marche le plus souvent : les jeux vidéo, la musique, le high-tech, la mode et de quoi aménager leur chambre."
+    },
+    "tech": {
+      "slug": "high-tech",
+      "h1": "Cadeaux high-tech",
+      "title": "Cadeaux high-tech : gadgets et idées malignes",
+      "description": "Idées de cadeaux high-tech : gadgets, audio, maison connectée et accessoires pour celles et ceux qui aiment tester les nouveautés.",
+      "intro": "Les passionnés de high-tech s'offrent souvent eux-mêmes les gros appareils. Les meilleurs cadeaux sont donc les petits plus bien vus : gadgets, matériel audio, objets pour la maison connectée et accessoires qui améliorent ce qu'ils possèdent déjà."
+    },
+    "gamer": {
+      "slug": "pour-gamer",
+      "h1": "Cadeaux pour gamer",
+      "title": "Cadeaux pour gamer : accessoires, confort et jeux",
+      "description": "Idées de cadeaux pour gamer : accessoires, équipement pour le setup, jeux de société et produits dérivés, sans risquer d'offrir un jeu déjà acheté.",
+      "intro": "Offrir un jeu vidéo à un gamer est risqué : il l'a sans doute déjà. Les accessoires, le confort pour les longues sessions, les jeux de société et l'équipement pour le setup sont des choix plus sûrs, et ces idées montrent par où commencer."
+    },
+    "foodie": {
+      "slug": "pour-gourmands",
+      "h1": "Cadeaux pour gourmands",
+      "title": "Cadeaux pour gourmands : idées pour ceux qui aiment cuisiner",
+      "description": "Idées de cadeaux pour gourmands et cuisiniers amateurs : ustensiles de cuisine, épicerie fine, coffrets de dégustation et arts de la table.",
+      "intro": "Les gourmands sont un plaisir à gâter, car il y a toujours quelque chose de nouveau à goûter ou à essayer. Ces idées réunissent des ustensiles de cuisine, de l'épicerie fine, des coffrets de dégustation et de quoi dresser une belle table."
+    },
+    "coffee_tea": {
+      "slug": "pour-amateurs-de-cafe-et-de-the",
+      "h1": "Cadeaux pour amateurs de café et de thé",
+      "title": "Cadeaux pour amateurs de café et de thé : idées à savourer",
+      "description": "Idées de cadeaux pour amateurs de café et de thé : matériel de préparation, tasses, coffrets de dégustation et accessoires, du débutant au connaisseur.",
+      "intro": "Pour les amateurs de café et de thé, la tasse quotidienne est un petit rituel, et un bon cadeau rend ce rituel encore meilleur. Voici du matériel de préparation, des tasses, des coffrets de dégustation et des accessoires pour les débutants comme pour les connaisseurs."
+    },
+    "outdoor": {
+      "slug": "pour-amateurs-de-plein-air",
+      "h1": "Cadeaux pour amateurs de plein air",
+      "title": "Cadeaux pour amateurs de plein air : randonnée et camping",
+      "description": "Idées de cadeaux pour amateurs de plein air : matériel de randonnée, de camping et de sorties en nature, du petit accessoire malin au gros équipement.",
+      "intro": "Les amateurs de plein air apprécient un matériel léger, solide et utile, et ils sentent la différence. Ces idées pour les randonneurs, les campeurs et tous ceux qui préfèrent être dehors vont du petit accessoire pratique à l'équipement plus conséquent."
+    },
+    "fitness": {
+      "slug": "pour-sportifs",
+      "h1": "Cadeaux pour sportifs",
+      "title": "Cadeaux pour sportifs : entraînement et récupération",
+      "description": "Idées de cadeaux pour sportifs : matériel pour s'entraîner à la maison, accessoires pour la salle de sport et de quoi bien récupérer.",
+      "intro": "Une personne qui s'entraîne régulièrement apprécie tout ce qui facilite la prochaine séance ou adoucit la récupération. Parcourez le matériel pour la maison, les accessoires pour la salle de sport et de quoi prendre soin de soi le lendemain."
+    },
+    "bookworm": {
+      "slug": "pour-amoureux-des-livres",
+      "h1": "Cadeaux pour amoureux des livres",
+      "title": "Cadeaux pour amoureux des livres : plus qu'un livre de plus",
+      "description": "Idées de cadeaux pour amoureux des livres : accessoires de lecture, objets douillets pour le coin lecture et livres, classées par pertinence.",
+      "intro": "Inutile de deviner quel livre un grand lecteur n'a pas encore lu. Les lampes de lecture, les serre-livres, les objets douillets pour le coin lecture et les clins d'œil littéraires font aussi de bons cadeaux, à côté des livres eux-mêmes."
+    },
+    "artist": {
+      "slug": "pour-creatifs",
+      "h1": "Cadeaux pour créatifs",
+      "title": "Cadeaux pour créatifs : idées beaux-arts et loisirs créatifs",
+      "description": "Idées de cadeaux pour créatifs : matériel et coffrets pour dessiner, peindre et bricoler, pour les débutants comme pour ceux qui ont déjà leur atelier.",
+      "intro": "Les créatifs n'ont jamais trop de matériel. Ces idées pour le dessin, la peinture et les loisirs créatifs conviennent aussi bien aux débutants qui veulent essayer une nouvelle technique qu'à ceux dont le coin atelier est déjà bien fourni."
+    },
+    "music": {
+      "slug": "pour-fans-de-musique",
+      "h1": "Cadeaux pour fans de musique",
+      "title": "Cadeaux pour fans de musique : idées pour écouter et jouer",
+      "description": "Idées de cadeaux pour fans de musique : matériel audio, accessoires pour instruments et objets pour les fans, classées par pertinence.",
+      "intro": "Qu'ils écoutent, qu'ils jouent ou qu'ils fassent les deux, les fans de musique aiment les cadeaux qui les rapprochent du son. Voici des idées autour du matériel audio, des instruments et de leurs accessoires, et des objets pour les fans."
+    },
+    "traveler": {
+      "slug": "pour-voyageurs",
+      "h1": "Cadeaux pour voyageurs",
+      "title": "Cadeaux pour voyageurs : des idées pour le prochain départ",
+      "description": "Idées de cadeaux pour voyageurs : bagages, accessoires pour faire sa valise, confort en déplacement et de quoi conserver les souvenirs du voyage.",
+      "intro": "Les voyageurs recherchent des objets légers, compacts et qui simplifient le trajet. Ces idées comprennent des bagages et des accessoires de rangement, du confort pour les longs voyages et de quoi garder les souvenirs au retour."
+    },
+    "homebody": {
+      "slug": "cocooning",
+      "h1": "Cadeaux cocooning",
+      "title": "Cadeaux cocooning : idées douillettes pour les casaniers",
+      "description": "Idées de cadeaux cocooning pour les casaniers : plaids, bougies, déco et tout ce qui rend une soirée sur le canapé encore plus agréable.",
+      "intro": "Pour celles et ceux dont l'endroit préféré est leur propre canapé, un cadeau doit rendre la maison encore plus douillette. Pensez aux plaids, aux bougies, à la déco et aux petits conforts d'une soirée tranquille chez soi."
+    },
+    "fashion": {
+      "slug": "pour-fans-de-mode",
+      "h1": "Cadeaux pour fans de mode",
+      "title": "Cadeaux pour fans de mode : des idées qui ont du style",
+      "description": "Idées de cadeaux pour fans de mode : accessoires, sacs, bijoux et pièces stylées qui ne vous obligent pas à deviner la bonne taille.",
+      "intro": "Acheter des vêtements pour quelqu'un d'autre est délicat : les accessoires sont donc le moyen le plus sûr de faire plaisir à une personne qui aime la mode. Sacs, foulards, bijoux et autres pièces stylées conviennent sans connaître la taille."
+    },
+    "gardener": {
+      "slug": "pour-jardiniers",
+      "h1": "Cadeaux pour jardiniers",
+      "title": "Cadeaux pour jardiniers : idées pour le jardin et le balcon",
+      "description": "Idées de cadeaux pour jardiniers : outils, pots et jardinières, déco de jardin et accessoires pour le balcon, classées par pertinence.",
+      "intro": "Les jardiniers apprécient tout ce qui aide les plantes à pousser ou rend le jardin plus agréable à vivre. Ces idées comprennent des outils, des pots, de la déco et des accessoires pour celles et ceux qui ont un balcon plutôt qu'une pelouse."
+    },
+    "pet_lover": {
+      "slug": "pour-amoureux-des-animaux",
+      "h1": "Cadeaux pour amoureux des animaux",
+      "title": "Cadeaux pour amoureux des animaux : maître et compagnon",
+      "description": "Idées de cadeaux pour amoureux des animaux, leur chien ou leur chat : jouets, couchages, accessoires et cadeaux pour le maître ou la maîtresse.",
+      "intro": "Le chemin le plus court vers le cœur d'un propriétaire d'animal passe par son chien ou son chat. Ces idées comprennent des jouets, des couchages et des accessoires pour l'animal, mais aussi des cadeaux pour la personne qui tient la laisse."
+    },
+    "wellness": {
+      "slug": "bien-etre",
+      "h1": "Cadeaux bien-être",
+      "title": "Cadeaux bien-être : des idées pour se détendre chez soi",
+      "description": "Idées de cadeaux bien-être pour une soirée détente à la maison : soins pour le bain et le corps, senteurs et douceur pour qui mérite une pause.",
+      "intro": "Un cadeau bien-être, c'est la permission de ne rien faire pendant un moment. Soins pour le bain et le corps, senteurs et objets douillets transforment une soirée ordinaire en petite parenthèse pour une personne qui en a besoin."
+    },
+    "maker": {
+      "slug": "pour-bricoleurs",
+      "h1": "Cadeaux pour bricoleurs",
+      "title": "Cadeaux pour bricoleurs : outils et idées pour l'atelier",
+      "description": "Idées de cadeaux pour bricoleurs : outils, accessoires d'atelier et kits pour celles et ceux qui préfèrent fabriquer et réparer eux-mêmes.",
+      "intro": "Celles et ceux qui aiment fabriquer et réparer ont toujours un prochain projet en tête. Les outils, les accessoires d'atelier et les kits sont donc bienvenus, surtout ceux qu'ils n'oseraient pas s'offrir eux-mêmes."
+    }
+  }
+}

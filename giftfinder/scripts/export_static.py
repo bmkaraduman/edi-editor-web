@@ -5,10 +5,12 @@
 Writes dist/index.html (the shared UI with the browser-side provider), dist/data.json
 (the visible catalog of the active countries with everything the ranker needs
 precomputed: facet scores, giftability, the next dated occasion per country; duplicate
-keys and the near-duplicate test are cheap enough to run in the browser) and dist/_redirects so /p/{id} product pages
-resolve to the app. Everything that needs the model or pairwise similarity is done
+keys and the near-duplicate test are cheap enough to run in the browser), dist/_redirects so /p/{id} product pages
+resolve to the app, the country home pages and gift lists (list_pages.py) and the blog (blog_pages.py). Everything that needs the model or pairwise similarity is done
 here, once, so the browser only sorts.
 """
+import hashlib
+import html
 import json
 import os
 import re
@@ -20,6 +22,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from app.config import ACTIVE_COUNTRIES, COUNTRIES, GA_MEASUREMENT_ID, MERCHANT_BY_ID, affiliate_link, format_price  # noqa: E402
 from app.i18n import web_script  # noqa: E402
 import blog_pages  # noqa: E402
+import list_pages  # noqa: E402
 from app.ml.preprocess import normalize  # noqa: E402
 from app.ml.search import GiftSearch  # noqa: E402
 from app.occasions import upcoming  # noqa: E402
@@ -30,42 +33,53 @@ WEB = os.path.join(HERE, "..", "web")
 DESC_CHARS = 400
 
 
-HOME_HEAD = """<title>giftdetect.com</title>
-<meta name="description" content="giftdetect.com: Geschenk-Suchmaschine. Wähle, für wen es ist, den Anlass und die Persönlichkeit und bekomme passende Geschenkideen aus Shops in deinem Land.">
-<link rel="canonical" href="https://giftdetect.com/">"""
+def page_renderer(dest=None):
+    """render(lang, head, blog_html="", blog_cfg=None, slots=None) -> a full page: the gift search, plus
+    (on blog and list pages) content under the results.
 
-
-def page_renderer():
-    """render(lang, head, blog_html="", blog_cfg=None) -> a full page: the gift search, plus
-    (on blog pages) an article or article list under the results."""
+    blog_cfg becomes window.BLOG (web/ui.js): the page's language and country and what kind of
+    page it is. slots fill the static parts of a landing page: {"hero": (h1, sub)},
+    {"before_results": html, "results": cards html, "title": heading of the results}.
+    With dest, the styles and scripts are written once to dest/assets/ and linked (every page
+    shares them from the browser cache); without it they are inlined."""
     read = lambda name: open(os.path.join(WEB, name), encoding="utf-8").read()
     body = read("body.html")
+    css = read("style.css")
+    js = "\n".join([web_script(), read("provider_static.js"), read("ui.js"), read("analytics.js")])
+    if dest:
+        assets = os.path.join(dest, "assets")
+        shutil.rmtree(assets, ignore_errors=True)
+        os.makedirs(assets)
+        tag = hashlib.sha1((css + js).encode("utf-8")).hexdigest()[:10]
+        open(os.path.join(assets, f"app.{tag}.css"), "w", encoding="utf-8").write(css)
+        open(os.path.join(assets, f"app.{tag}.js"), "w", encoding="utf-8").write(js)
+        style, script = f'<link rel="stylesheet" href="/assets/app.{tag}.css">', f'<script src="/assets/app.{tag}.js"></script>'
+    else:
+        style, script = f"<style>\n{css}\n</style>", f"<script>\n{js}\n</script>"
 
-    def render(lang, head, blog_html="", blog_cfg=None):
-        """One page of the site: the gift search, plus (on blog pages) an article or list under the results."""
-        b = body
+    def render(lang, head, blog_html="", blog_cfg=None, slots=None):
+        b, slots = body, slots or {}
+        results = '<main class="results gutter" id="results-wrap" hidden>'
+        if slots.get("results"):
+            b = b.replace(results, slots.get("before_results", "") + '\n<main class="results gutter" id="results-wrap">', 1)
+            b = b.replace('<section class="grid" id="results"></section>', f'<section class="grid" id="results">{slots["results"]}</section>', 1)
+            b = b.replace('<h2 id="title"></h2>', f'<h2 id="title">{html.escape(slots.get("title", ""))}</h2>', 1)
+        if slots.get("hero"):
+            h1, sub = slots["hero"]
+            b = b.replace('<h1 id="t-hero"></h1>', f'<h1 id="t-hero">{html.escape(h1)}</h1>', 1).replace('<p id="t-sub"></p>', f'<p id="t-sub">{html.escape(sub)}</p>', 1)
         if blog_html:
             b = b.replace('<section class="product-page gutter" id="product-wrap" hidden>', blog_html + '\n<section class="product-page gutter" id="product-wrap" hidden>', 1)
-        cfg = f"<script>window.BLOG={json.dumps(blog_cfg)};</script>" if blog_cfg else ""
+        cfg = f"window.BLOG={json.dumps(blog_cfg)};" if blog_cfg else ""
+        mode = ' class="blog-mode"' if blog_cfg and not blog_cfg.get("home") else ""
         return f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 {head}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Manrope:wght@500;600;700&display=swap">
-<style>
-{read('style.css')}
-</style></head><body{' class="blog-mode"' if blog_cfg else ''}>
+{style}</head><body{mode}>
 {b}
-{cfg}<script>{web_script()}</script>
-<script>
-{read('provider_static.js')}
-</script>
-<script>
-{read('ui.js')}
-</script>
-<script>window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};
-{read('analytics.js')}
-</script></body></html>"""
+<script>{cfg}window.GA_ID={json.dumps(GA_MEASUREMENT_ID)};</script>
+{script}</body></html>"""
     return render
 
 
@@ -130,32 +144,19 @@ def main(dest):
     for cc in shown:
         dump(f"items-{cc}.json", [it for it in items if it["c"] == cc])
     dump("where.json", {cc: "".join(it["id"] for it in items if it["c"] == cc) for cc in shown})
-    render = page_renderer()
-    with open(os.path.join(dest, "index.html"), "w", encoding="utf-8") as f:
-        f.write(render("de", HOME_HEAD))
+    render = page_renderer(dest)
     with open(os.path.join(dest, "_redirects"), "w") as f:
         f.write("/p/*  /index.html  200\n")
+    # product pages repeat the shops' texts: usable, but not for the index; assets never change under their name
+    with open(os.path.join(dest, "_headers"), "w") as f:
+        f.write("/p/*\n  X-Robots-Tag: noindex\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
     with open(os.path.join(dest, "robots.txt"), "w") as f:
         f.write("User-agent: *\nAllow: /\nSitemap: https://giftdetect.com/sitemap.xml\n")
-    # sitemap.xml is an index of one sitemap per country (a single file may hold at most 50,000 URLs)
     for name in os.listdir(dest):
         if name.startswith("sitemap-") and name.endswith(".xml"):
             os.remove(os.path.join(dest, name))
-    parts = []
-    for cc in shown:
-        ids = [it["id"] for it in items if it["c"] == cc]
-        if not ids:
-            continue
-        for n in range(0, len(ids), 45000):
-            name = f"sitemap-{cc.lower()}{'-' + str(n // 45000 + 1) if n else ''}.xml"
-            with open(os.path.join(dest, name), "w", encoding="utf-8") as f:
-                f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
-                if not parts:
-                    f.write("<url><loc>https://giftdetect.com/</loc></url>\n")
-                for pid in ids[n:n + 45000]:
-                    f.write(f"<url><loc>https://giftdetect.com/p/{pid}</loc></url>\n")
-                f.write("</urlset>\n")
-            parts.append(name)
+    # the home pages and gift lists (they also write index.html), then the blog; sitemap.xml indexes both
+    parts = [list_pages.build(dest, render, engine, {it["id"]: it["u"] for it in items}, shown, COUNTRIES, format_price)]
     blog_map = blog_pages.build(dest, lambda lang, head, html, cfg: render(lang, head, html, cfg))
     if blog_map:
         parts.append(blog_map)

@@ -1,0 +1,339 @@
+{
+  "root": "presenter",
+  "under_slug": "under-{n}",
+  "under_h1": "{h1} under {price}",
+  "under_description": "{h1} under {price}: {n} tips från butiker i {country}, sorterade efter hur väl de passar personen och tillfället.",
+  "home": {
+    "title": "Presentsök: presenttips från butiker i {country} | giftdetect.com",
+    "description": "Berätta för giftdetect.com vem presenten är till, vilket tillfälle det gäller, hur personen är och vad du vill lägga, så får du passande presenttips från butiker i {country}.",
+    "h1": "Hitta rätt present på några sekunder",
+    "sub": "Välj vem presenten är till, tillfälle och personlighet. giftdetect.com går igenom sortimentet hos butiker i {country} och rangordnar det som passar."
+  },
+  "ui": {
+    "popular": "Populära presenttips",
+    "who": "Efter mottagare",
+    "occasion": "Efter tillfälle",
+    "combo": "Tillfälle och mottagare",
+    "interest": "Efter intresse",
+    "budget": "Efter budget",
+    "picks": "Våra favoriter",
+    "stats": "{n} presenttips från {shops} butiker i {country}, från {min} till {max}. Hälften av dem kostar mindre än {median}.",
+    "under_intro": "Alla tips på den här sidan kostar högst {price}.",
+    "guide": "Läs guiden: {title}",
+    "more": "Fler presenttips",
+    "home": "Presentsök",
+    "countries": "giftdetect.com i andra länder",
+    "blog": "Presentguider i bloggen",
+    "view": "Visa"
+  },
+  "lists": {
+    "for-her": {
+      "slug": "till-henne",
+      "h1": "Presenter till henne",
+      "title": "Presenter till henne: tips som hon faktiskt använder",
+      "description": "Presenter till henne, från små överraskningar till större gåvor: smycken, skönhet, inredning och hobby från butiker i Sverige, sorterade efter passform.",
+      "intro": "En bra present till henne utgår från vad hon tycker om att göra, inte från hyllan märkt ”för kvinnor”. Här hittar du tips inom smycken, skönhet, inredning, böcker och hobby. Lägg till hennes personlighet i sökningen ovan så blir urvalet mer träffsäkert."
+    },
+    "for-him": {
+      "slug": "till-honom",
+      "h1": "Presenter till honom",
+      "title": "Presenter till honom: tips bortom strumpor och slips",
+      "description": "Presenter till honom som säger att han inte behöver något: teknik, verktyg, friluftsliv, mat och dryck från butiker i Sverige, sorterade efter passform.",
+      "intro": "Män som ”inte behöver något” blir lättare att köpa till när du tänker på hur de helst tillbringar en ledig lördag. Tipsen sträcker sig från teknik och verktyg till friluftsprylar och god mat. Välj hans intressen i sökningen ovan för att vässa listan."
+    },
+    "for-mom": {
+      "slug": "till-mamma",
+      "h1": "Presenter till mamma",
+      "title": "Presenter till mamma: omtänksamma tips för varje budget",
+      "description": "Presenter till mamma på mors dag, födelsedagen eller bara för att: avkoppling, hem, trädgård, smycken och personliga gåvor, sorterade efter hur väl de passar.",
+      "intro": "Mamma önskar sig sällan något, och just därför blir en väl vald present så uppskattad. Här finns tips till mors dag och alla andra dagar, från en lugn stund av avkoppling till något för trädgården eller hemmet som hon är stolt över."
+    },
+    "for-dad": {
+      "slug": "till-pappa",
+      "h1": "Presenter till pappa",
+      "title": "Presenter till pappa: tips som inte hamnar i en låda",
+      "description": "Presenter till pappa på fars dag, födelsedagen eller i julklapp: grill, verktyg, friluftsliv, teknik och kaffe från butiker i Sverige, sorterade efter passform.",
+      "intro": "De bästa presenterna till pappa hör ihop med något han redan älskar att göra, oavsett om det är att grilla, laga saker eller försvinna ut i trädgården. Tipsen här fungerar lika bra på fars dag som på födelsedagen eller under granen."
+    },
+    "for-girlfriend": {
+      "slug": "till-flickvan",
+      "h1": "Presenter till flickvän",
+      "title": "Presenter till flickvän: romantiska och personliga tips",
+      "description": "Presenter till flickvän eller fru på alla hjärtans dag, årsdagen eller som överraskning: romantiska, personliga och användbara tips, sorterade efter passform.",
+      "intro": "En present till din flickvän ska visa att du har lyssnat, så börja med något hon har nämnt men aldrig köpt själv. De här romantiska tipsen passar på alla hjärtans dag, på årsdagen eller en helt vanlig tisdag som förtjänar något extra."
+    },
+    "for-boyfriend": {
+      "slug": "till-pojkvan",
+      "h1": "Presenter till pojkvän",
+      "title": "Presenter till pojkvän: tips som han kommer att gilla",
+      "description": "Presenter till pojkvän eller man på alla hjärtans dag, årsdagen eller som överraskning: personliga, praktiska och roliga tips, sorterade efter passform.",
+      "intro": "De presenter en pojkvän minns är de som passar hans intressen, inte de som ser romantiska ut i skyltfönstret. Här finns tips till alla hjärtans dag, årsdagen eller en överraskning, från personliga minnen till saker han använder varje dag."
+    },
+    "for-kids": {
+      "slug": "till-barn",
+      "h1": "Presenter till barn",
+      "title": "Presenter till barn: leksaker som håller längre än en dag",
+      "description": "Presenter till barn: leksaker, spel, pysselset, böcker och utelek som håller dem sysselsatta betydligt längre än presentpappret gör.",
+      "intro": "Barn är ärliga kritiker: antingen leker de med presenten eller så gör de det inte. Tipsen här bygger på leksaker, spel, pysselset och utelek som fortsätter att vara roliga även efter den första eftermiddagen."
+    },
+    "for-teens": {
+      "slug": "till-tonaringar",
+      "h1": "Presenter till tonåringar",
+      "title": "Presenter till tonåringar: tips som de faktiskt vill ha",
+      "description": "Presenter till tonåringar: gaming, musik, teknik, mode, inredning till rummet och kreativa hobbyer från butiker i Sverige, sorterade efter hur väl de passar.",
+      "intro": "Tonåringar vet precis vad de gillar och ändrar sig lika snabbt, så presenter som hör ihop med ett aktuellt intresse är det säkraste valet. Titta bland tips inom gaming, musik, teknik, mode och saker till det egna rummet."
+    },
+    "for-grandparents": {
+      "slug": "till-mor-och-farforaldrar",
+      "h1": "Presenter till mor- och farföräldrar",
+      "title": "Presenter till mor- och farföräldrar: mys och minnen",
+      "description": "Presenter till mor- och farföräldrar och äldre släktingar: bekvämt för hemmet, trädgård och hobby, minnessaker och praktiska hjälpmedel.",
+      "intro": "Mormor, farmor, morfar och farfar har oftast det de behöver, så de presenter som fungerar ger lite extra bekvämlighet, stöttar en hobby eller väcker ett minne. Tipsen går från mysiga saker till hemmet till hjälpredor i trädgården och minnessaker."
+    },
+    "birthday": {
+      "slug": "fodelsedag",
+      "h1": "Födelsedagspresenter",
+      "title": "Födelsedagspresenter: tips för alla åldrar och plånböcker",
+      "description": "Födelsedagspresenter till vänner, familj och kollegor, från små överraskningar till stora gåvor, från butiker i Sverige och sorterade efter passform.",
+      "intro": "En födelsedagspresent behöver bara göra en sak: visa att du har tänkt på just den här personen. Börja med tipsen här och välj sedan ålder och personlighet i sökningen ovan, så blir förslagen personliga."
+    },
+    "christmas": {
+      "slug": "julklappar",
+      "h1": "Julklappar",
+      "title": "Julklappar: tips till hela familjen",
+      "description": "Julklappar till partner, föräldrar, barn och kollegor, för varje budget, från butiker i Sverige och sorterade efter hur väl de passar mottagaren.",
+      "intro": "Julklappsjakten blir enklare om du tar listan en person i taget. Tipsen här täcker hela familjen. Ange vem klappen är till och din budget i sökningen ovan, så sorteras listan om av sig själv."
+    },
+    "valentines": {
+      "slug": "alla-hjartans-dag",
+      "h1": "Presenter till alla hjärtans dag",
+      "title": "Presenter till alla hjärtans dag: romantiska tips",
+      "description": "Presenter till alla hjärtans dag till henne och honom, för nya par och långa förhållanden, från små gester till stora överraskningar, sorterade efter passform.",
+      "intro": "Alla hjärtans dag kräver ingen storslagen gest, den kräver en personlig. Här finns romantiska tips för både nya par och långa förhållanden, från små uppmärksamheter till presenter som ni kan njuta av tillsammans."
+    },
+    "anniversary": {
+      "slug": "brollopsdag",
+      "h1": "Presenter till bröllopsdagen",
+      "title": "Presenter till bröllopsdagen: tips för par och jubileer",
+      "description": "Presenter till bröllopsdagen eller årsdagen, till din partner eller ett par du känner: minnessaker, upplevelser för två och gåvor till de stora jubileerna.",
+      "intro": "En present på bröllopsdagen eller årsdagen firar tiden ni har delat, så minnessaker och sådant ni kan njuta av tillsammans passar bättre än något rent praktiskt. Tipsen fungerar både till din egen partner och till par som firar ett jubileum."
+    },
+    "wedding": {
+      "slug": "brollop",
+      "h1": "Bröllopspresenter",
+      "title": "Bröllopspresenter: tips som brudparet behåller",
+      "description": "Bröllopspresenter bortom önskelistan: saker till det gemensamma hemmet, minnessaker och presenter för två från butiker i Sverige, sorterade efter passform.",
+      "intro": "Om brudparet inte har någon önskelista kan du välja något till det liv de bygger tillsammans. Tipsen här handlar om det gemensamma hemmet, minnessaker som håller länge och presenter som är gjorda för två."
+    },
+    "housewarming": {
+      "slug": "inflyttning",
+      "h1": "Inflyttningspresenter",
+      "title": "Inflyttningspresenter: tips till ett nytt hem",
+      "description": "Inflyttningspresenter till första lägenheten eller det nya huset: hjälpredor i köket, inredning, växter och praktiska saker som alla nya hem saknar.",
+      "intro": "I ett nytt hem saknas alltid något, och en bra inflyttningspresent fyller en av luckorna. Tänk hjälpredor i köket, inredning, växter och de praktiska sakerna som ingen kommer ihåg att köpa före flytten."
+    },
+    "graduation": {
+      "slug": "student-och-examen",
+      "h1": "Studentpresenter och examenspresenter",
+      "title": "Studentpresenter och examenspresenter: tips för nästa steg",
+      "description": "Studentpresenter och examenspresenter till den som tar studenten eller examen: saker till första jobbet, första lägenheten, resan och minnen som varar.",
+      "intro": "Presenter till studenten eller examen fungerar bäst när de pekar framåt, mot första jobbet, första egna lägenheten eller en efterlängtad resa. Tipsen här blandar användbara saker för starten med minnessaker som markerar bedriften."
+    },
+    "retirement": {
+      "slug": "pension",
+      "h1": "Pensionspresenter",
+      "title": "Pensionspresenter: tips för all ledig tid",
+      "description": "Pensionspresenter till kollegor och familj: hobby, resor, trädgård och avkoppling, med flera tips som passar bra som gemensam present från hela gänget.",
+      "intro": "Pensionen betyder äntligen tid för allt som har fått vänta. Bra presenter ger näring åt de planerna, oavsett om det gäller trädgården, resor eller en hobby. Många av tipsen passar också som gemensam present från kollegorna."
+    },
+    "new-baby": {
+      "slug": "till-nyfodd",
+      "h1": "Presenter till nyfödd",
+      "title": "Presenter till nyfödd: tips till bebisen och föräldrarna",
+      "description": "Presenter till nyfödd och till de nyblivna föräldrarna: praktiska hjälpredor, gosedjur och minnessaker till en babyshower eller det första besöket.",
+      "intro": "Nyblivna föräldrar behöver praktisk hjälp och lite omtanke mer än en tionde sparkdräkt. Tipsen här, till en nyfödd eller en babyshower, blandar användbara saker för de första månaderna med gosedjur och minnessaker."
+    },
+    "thank-you": {
+      "slug": "tackpresenter",
+      "h1": "Tackpresenter",
+      "title": "Tackpresenter: små gåvor som säger mycket",
+      "description": "Tackpresenter till lärare, grannar, kollegor och värdpar: små, omtänksamma gåvor från butiker i Sverige, sorterade efter hur väl de passar.",
+      "intro": "En tackpresent ska kännas lättsam: tillräckligt liten för att ingen ska bli generad, tillräckligt omtänksam för att märkas. Här finns tips till lärare, grannar, kollegor och värdpar, till exempel som present när du går bort."
+    },
+    "get-well": {
+      "slug": "krya-pa-dig",
+      "h1": "Krya på dig-presenter",
+      "title": "Krya på dig-presenter: tips som tröstar och piggar upp",
+      "description": "Krya på dig-presenter till någon som är sjuk eller återhämtar sig: mys, förströelse och små godsaker från butiker i Sverige, sorterade efter passform.",
+      "intro": "När någon är sjuk eller återhämtar sig är omtanke och lite förströelse värt mer än något påkostat. Bland tipsen finns mysiga saker, något att läsa eller pyssla med och små godsaker som piggar upp."
+    },
+    "birthday-for-her": {
+      "slug": "fodelsedag-till-henne",
+      "h1": "Födelsedagspresenter till henne",
+      "title": "Födelsedagspresenter till henne: efter smak och budget",
+      "description": "Födelsedagspresenter till henne: till flickvän, fru, mamma, syster eller bästa vän, för varje smak och budget, sorterade efter hur väl de passar.",
+      "intro": "Oavsett om presenten är till din partner, din syster eller din bästa vän ska den passa hennes smak snarare än en kliché. Titta igenom tipsen och lägg till hennes intressen i sökningen ovan."
+    },
+    "birthday-for-him": {
+      "slug": "fodelsedag-till-honom",
+      "h1": "Födelsedagspresenter till honom",
+      "title": "Födelsedagspresenter till honom: efter hobby och budget",
+      "description": "Födelsedagspresenter till honom: till pojkvän, man, pappa, bror eller kompis, för varje hobby och budget, sorterade efter hur väl de passar.",
+      "intro": "Hoppa över det opersonliga på hans födelsedag och satsa på hans hobby, det där han pratar om utan att någon har frågat. Tipsen passar till partner, pappa, bror och vänner, och sökningen ovan sorterar dem efter intresse."
+    },
+    "birthday-for-kids": {
+      "slug": "fodelsedag-till-barn",
+      "h1": "Födelsedagspresenter till barn",
+      "title": "Födelsedagspresenter till barn: tips som blir lekta med",
+      "description": "Födelsedagspresenter till barn: leksaker, spel, pysselset och utelek till ditt eget barn eller till nästa barnkalas som dyker upp i kalendern.",
+      "intro": "Ännu en inbjudan till barnkalas på kylskåpet? De här presenttipsen till barn, från leksaker och spel till pysselset, fungerar lika bra till ditt eget barn som till klasskompisen du knappt känner."
+    },
+    "birthday-for-teens": {
+      "slug": "fodelsedag-till-tonaringar",
+      "h1": "Födelsedagspresenter till tonåringar",
+      "title": "Födelsedagspresenter till tonåringar: tips de gillar",
+      "description": "Födelsedagspresenter till tonåringar: gaming, musik, teknik, mode och inredning till rummet från butiker i Sverige, sorterade efter hur väl de passar.",
+      "intro": "En tonårings födelsedag är ett tillfälle att visa att du vet vad som gäller just nu. Tipsen här täcker gaming, musik, teknik och mode, lika bra till artonårsdagen som till alla födelsedagar dessförinnan."
+    },
+    "christmas-for-her": {
+      "slug": "julklappar-till-henne",
+      "h1": "Julklappar till henne",
+      "title": "Julklappar till henne: tips som hon kommer att älska",
+      "description": "Julklappar till henne: till fru, flickvän, mamma eller syster, från mysigt till lyxigt, från butiker i Sverige och sorterade efter hur väl de passar.",
+      "intro": "Letar du efter något till henne under granen? De här julklappstipsen till fru, flickvän, mamma och syster går från vintermys till den lilla lyxen som hon aldrig skulle köpa till sig själv."
+    },
+    "christmas-for-him": {
+      "slug": "julklappar-till-honom",
+      "h1": "Julklappar till honom",
+      "title": "Julklappar till honom: tips som kommer till användning",
+      "description": "Julklappar till honom: till man, pojkvän, pappa eller bror, från praktiskt till lyxigt, från butiker i Sverige och sorterade efter hur väl de passar.",
+      "intro": "Julklappar till honom behöver inte vara strumpor en gång till. De här tipsen till man, pojkvän, pappa och bror sträcker sig från det praktiska till det lite lyxigare, och de flesta får plats under granen."
+    },
+    "christmas-for-kids": {
+      "slug": "julklappar-till-barn",
+      "h1": "Julklappar till barn",
+      "title": "Julklappar till barn: leksaker och spel under granen",
+      "description": "Julklappar till barn: leksaker, spel, pysselset och böcker som fortfarande används långt efter att jullovet är slut, sorterade efter passform.",
+      "intro": "För barn är julafton årets höjdpunkt, och förväntningarna på klapparna är höga. Leksakerna, spelen och pysselseten här är utvalda för att hålla dem sysselsatta långt efter helgerna, oavsett vad som står på önskelistan."
+    },
+    "christmas-for-teens": {
+      "slug": "julklappar-till-tonaringar",
+      "h1": "Julklappar till tonåringar",
+      "title": "Julklappar till tonåringar: tips som går hem",
+      "description": "Julklappar till tonåringar: gaming, musik, teknik, mode och inredning till rummet från butiker i Sverige, sorterade efter hur väl de passar.",
+      "intro": "Tonåringarna är de svåraste namnen på julklappslistan. Tipsen här håller sig till det som brukar fungera: gaming, musik, teknik, mode och saker till det egna rummet. Ange ålder och intressen i sökningen ovan för att komma närmare."
+    },
+    "tech": {
+      "slug": "till-teknikintresserade",
+      "h1": "Presenter till teknikintresserade",
+      "title": "Presenter till teknikintresserade: prylar och smarta tips",
+      "description": "Presenter till teknikintresserade: prylar, ljud, smarta hem och tillbehör till den som gärna testar det senaste, sorterade efter hur väl de passar.",
+      "intro": "Teknikintresserade köper oftast de stora sakerna själva, så de bästa presenterna är de smarta tillbehören: prylar, ljudutrustning, hjälpredor för det smarta hemmet och sådant som gör det de redan äger lite bättre."
+    },
+    "gamer": {
+      "slug": "till-gamers",
+      "h1": "Presenter till gamers",
+      "title": "Presenter till gamers: tillbehör, komfort och spel",
+      "description": "Presenter till gamers: tillbehör, saker till spelhörnan, sällskapsspel och merch, utan risken att köpa ett spel som redan står i hyllan.",
+      "intro": "Att köpa ett spel till en gamer är riskabelt, för det finns förmodligen redan i samlingen. Tillbehör, komfort för långa spelpass, sällskapsspel och saker till spelhörnan är säkrare, och tipsen här visar var du kan börja."
+    },
+    "foodie": {
+      "slug": "till-matalskare",
+      "h1": "Presenter till matälskare",
+      "title": "Presenter till matälskare: tips till den som älskar mat",
+      "description": "Presenter till matälskare och hemmakockar: köksredskap, delikatesser, provsmakningsset och saker till dukningen från butiker i Sverige.",
+      "intro": "Den som älskar mat är rolig att köpa till, för det finns alltid något nytt att smaka eller prova. Bland tipsen finns köksredskap, delikatesser, provsmakningsset och saker till ett vackert dukat bord."
+    },
+    "coffee_tea": {
+      "slug": "till-kaffe-och-tealskare",
+      "h1": "Presenter till kaffe- och teälskare",
+      "title": "Presenter till kaffe- och teälskare: brygg och njut",
+      "description": "Presenter till kaffe- och teälskare: bryggutrustning, koppar, provsmakningsset och tillbehör för både nybörjare och finsmakare, sorterade efter passform.",
+      "intro": "För kaffe- och teälskare är den dagliga koppen en liten ritual, och en bra present gör ritualen ännu bättre. Här finns bryggutrustning, koppar, provsmakningsset och tillbehör för både nybörjare och finsmakare."
+    },
+    "outdoor": {
+      "slug": "till-friluftsmanniskor",
+      "h1": "Presenter till friluftsmänniskor",
+      "title": "Presenter till friluftsmänniskor: vandring och camping",
+      "description": "Presenter till friluftsmänniskor: utrustning för vandring, camping och dagar i naturen, från små praktiska hjälpredor till större prylar.",
+      "intro": "Friluftsmänniskor uppskattar utrustning som är lätt, tålig och användbar, och de märker skillnaden. Tipsen till vandrare, campare och alla som helst är ute sträcker sig från små hjälpredor till större utrustning."
+    },
+    "fitness": {
+      "slug": "till-traningsintresserade",
+      "h1": "Presenter till träningsintresserade",
+      "title": "Presenter till träningsintresserade: träning och vila",
+      "description": "Presenter till träningsintresserade: redskap för hemmaträning, tillbehör till gymmet och saker för återhämtning, sorterade efter hur väl de passar.",
+      "intro": "Den som tränar regelbundet blir glad för allt som gör nästa pass lättare eller återhämtningen skönare. Titta bland redskap för träning hemma, tillbehör till gymmet och saker som gör gott dagen efter ett hårt pass."
+    },
+    "bookworm": {
+      "slug": "till-bokalskare",
+      "h1": "Presenter till bokälskare",
+      "title": "Presenter till bokälskare: mer än bara en bok till",
+      "description": "Presenter till bokälskare: lästillbehör, mysiga saker till läshörnan och böcker från butiker i Sverige, sorterade efter hur väl de passar.",
+      "intro": "Du behöver inte gissa vilken bok en läsare ännu inte har läst. Läslampor, bokstöd, mysiga saker till läshörnan och litterära småsaker är också fina presenter, vid sidan av själva böckerna."
+    },
+    "artist": {
+      "slug": "till-kreativa",
+      "h1": "Presenter till kreativa",
+      "title": "Presenter till kreativa: tips för konst och pyssel",
+      "description": "Presenter till kreativa personer: material och set för att teckna, måla och pyssla, för nybörjare och för den som redan har en egen ateljéhörna.",
+      "intro": "Kreativa människor kan aldrig få för mycket material. Tipsen för att teckna, måla och pyssla passar lika bra för nybörjare som vill prova något nytt som för den som redan har en välfylld ateljéhörna."
+    },
+    "music": {
+      "slug": "till-musikalskare",
+      "h1": "Presenter till musikälskare",
+      "title": "Presenter till musikälskare: för att lyssna och spela",
+      "description": "Presenter till musikälskare: ljudutrustning, tillbehör till instrument och saker för fans från butiker i Sverige, sorterade efter hur väl de passar.",
+      "intro": "Oavsett om de lyssnar, spelar eller gör både och uppskattar musikälskare presenter som för dem närmare ljudet. Här finns tips kring ljudutrustning, instrument och tillbehör samt saker för den som är ett riktigt fan."
+    },
+    "traveler": {
+      "slug": "till-resenarer",
+      "h1": "Presenter till resenärer",
+      "title": "Presenter till resenärer: tips inför nästa resa",
+      "description": "Presenter till resenärer: resväskor, smarta packhjälpmedel, bekvämlighet på vägen och sätt att bevara minnena, från butiker i Sverige.",
+      "intro": "Den som reser mycket vill ha saker som är lätta, kompakta och gör resan enklare. Bland tipsen finns väskor och packhjälpmedel, bekvämlighet för långa resor och sätt att bevara minnena efteråt."
+    },
+    "homebody": {
+      "slug": "till-hemmamysare",
+      "h1": "Presenter till hemmamysare",
+      "title": "Presenter till hemmamysare: mysiga tips för hemmakvällar",
+      "description": "Presenter till hemmamysare: plädar, ljus, inredning och allt annat som gör en kväll i soffan ännu bättre, sorterade efter hur väl de passar.",
+      "intro": "Till den som har soffan som favoritplats ska en present göra hemmet ännu mysigare. Tänk plädar, ljus, inredning och små saker som förgyller en lugn kväll hemma, gärna med en kopp te inom räckhåll."
+    },
+    "fashion": {
+      "slug": "till-modeintresserade",
+      "h1": "Presenter till modeintresserade",
+      "title": "Presenter till modeintresserade: stilsäkra tips",
+      "description": "Presenter till modeintresserade: accessoarer, väskor, smycken och snygga detaljer där du slipper gissa dig till rätt storlek.",
+      "intro": "Att köpa kläder åt någon annan är knepigt, så accessoarer är det säkrare sättet att glädja en modeintresserad. Väskor, sjalar, smycken och andra snygga detaljer passar utan att du behöver veta storleken."
+    },
+    "gardener": {
+      "slug": "till-tradgardsintresserade",
+      "h1": "Presenter till trädgårdsintresserade",
+      "title": "Presenter till trädgårdsintresserade: trädgård och balkong",
+      "description": "Presenter till trädgårdsintresserade: redskap, krukor, trädgårdsdekoration och hjälpredor till balkongen från butiker i Sverige, sorterade efter passform.",
+      "intro": "Trädgårdsintresserade blir glada för allt som får det att växa eller gör trädgården skönare att sitta i. Bland tipsen finns redskap, krukor, dekoration och hjälpredor till den som har balkong i stället för gräsmatta."
+    },
+    "pet_lover": {
+      "slug": "till-djuralskare",
+      "h1": "Presenter till djurälskare",
+      "title": "Presenter till djurälskare: tips till både husse och husdjur",
+      "description": "Presenter till djurälskare och deras hundar och katter: leksaker, bäddar, tillbehör och gåvor till husse och matte, från butiker i Sverige.",
+      "intro": "Den snabbaste vägen till en djurägares hjärta går genom hunden eller katten. Här finns leksaker, bäddar och tillbehör till djuret, men också presenter till husse eller matte, alltså den som håller i kopplet."
+    },
+    "wellness": {
+      "slug": "spa-och-wellness",
+      "h1": "Spa- och wellnesspresenter",
+      "title": "Spa- och wellnesspresenter: tips för avkoppling hemma",
+      "description": "Spa- och wellnesspresenter för en avkopplande kväll hemma: bad och kroppsvård, dofter och mys till den som verkligen har förtjänat en paus.",
+      "intro": "En spa- eller wellnesspresent är ett tillstånd att inte göra någonting alls en stund. Bad och kroppsvård, dofter och mysiga småsaker förvandlar en vanlig kväll till en liten paus för någon som behöver det."
+    },
+    "maker": {
+      "slug": "till-hemmafixare",
+      "h1": "Presenter till hemmafixare",
+      "title": "Presenter till hemmafixare: verktyg och gör-det-själv",
+      "description": "Presenter till hemmafixare och gör-det-självare: verktyg, hjälpredor till verkstaden och byggsatser till den som hellre bygger och lagar själv.",
+      "intro": "Den som gillar att bygga och laga har alltid ett nästa projekt i tankarna. Verktyg, hjälpredor till verkstaden och byggsatser är välkomna, särskilt sådant som de inte skulle unna sig själva."
+    }
+  }
+}

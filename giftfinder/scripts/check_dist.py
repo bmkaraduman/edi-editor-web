@@ -30,7 +30,7 @@ def main(dest):
         elif os.path.getsize(path) > 25 * 1024 * 1024:
             problems.append(f"items-{cc}.json is over Cloudflare's 25 MB file limit: lower that country's INGEST_LIMITS")
     page = open(os.path.join(dest, "index.html"), encoding="utf-8").read()
-    for needle in ('id="bar"', 'id="adv-toggle"', "window.GF"):
+    for needle in ('id="bar"', 'id="adv-toggle"', "/assets/app."):
         if needle not in page:
             problems.append(f"index.html lacks {needle}")
     if problems:
